@@ -6,21 +6,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojo.SmartgymUsers;
-import cn.smartGym.service.UserService;
+import cn.smartGym.pojo.SmartgymItems;
+import cn.smartGym.service.ItemService;
 import common.utils.SGResult;
 
+/**
+ * 比赛项目管理Controller
+ * @author ikangkang
+ *
+ */
 @Controller
-public class UserController {
+public class ItemController {
 
 	@Autowired
-	private UserService userService;
+	private ItemService itemService;
 	
-	@RequestMapping(value="/user/register", method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/item/add", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public SGResult register(SmartgymUsers user) {
-		SGResult sgResult = userService.register(user);
-		return sgResult;
+	public SGResult itemAdd(SmartgymItems item) {
+		return itemService.addItem(item);
 	}
-	
 }

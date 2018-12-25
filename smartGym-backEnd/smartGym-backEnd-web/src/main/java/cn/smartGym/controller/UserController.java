@@ -15,12 +15,13 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	@RequestMapping(value="/user/register", method={RequestMethod.POST,RequestMethod.GET})
+
+	@RequestMapping(value = "/user/register", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
 	@ResponseBody
 	public SGResult register(SmartgymUsers user) {
 		SGResult sgResult = userService.register(user);
 		return sgResult;
 	}
-	
+
 }

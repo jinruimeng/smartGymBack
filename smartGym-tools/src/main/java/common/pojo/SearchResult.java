@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 public class SearchResult implements Serializable {
-
+	/**
+	 * 第一版：2018.12.25添加
+	 */
+	private static final long serialVersionUID = 8625692871102862725L;
+	
 	private long recordCount;
 	private int totalPages;
 	private List<SearchItem> itemList;

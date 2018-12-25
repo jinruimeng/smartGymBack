@@ -3,6 +3,12 @@ package common.pojo;
 import java.io.Serializable;
 
 public class SearchItem implements Serializable{
+	
+	/**
+	 * 第一版：2018.12.25添加
+	 */
+	private static final long serialVersionUID = -2765581432555627444L;
+	
 	private String id;
 	private String title;
 	private String sell_point;

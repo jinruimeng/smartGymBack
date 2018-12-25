@@ -8,7 +8,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SGResult implements Serializable{
 
-    // 定义jackson对象
+    /**
+	 * 第一版：2018.12.25添加
+	 */
+	private static final long serialVersionUID = 265363993244685574L;
+
+	// 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     // 响应业务状态

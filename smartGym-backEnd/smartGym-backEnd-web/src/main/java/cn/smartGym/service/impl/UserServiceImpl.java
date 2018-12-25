@@ -53,12 +53,12 @@ public class UserServiceImpl implements UserService {
 		if (StringUtils.isBlank(user.getStudentno()) || StringUtils.isBlank(user.getUsername())
 				|| StringUtils.isBlank(user.getPhone()) || StringUtils.isBlank(user.getWxid()))
 			return SGResult.build(401, "用户数据不完整，注册失败");
-		// 1：学号 2：手机号 3：用户名
+		// 1：学号 2：用户名 3：手机号
 		SGResult result = checkData(user.getStudentno(), 1);
 		if (!(boolean) result.getData()) {
-			return SGResult.build(400, "此学号已经注册");
+			return SGResult.build(400, "此学号已经被注册");
 		}
-		result = checkData(user.getPhone(), 2);
+		result = checkData(user.getPhone(), 3);
 		if (!(boolean) result.getData()) {
 			return SGResult.build(400, "此手机号已经被占用");
 		}

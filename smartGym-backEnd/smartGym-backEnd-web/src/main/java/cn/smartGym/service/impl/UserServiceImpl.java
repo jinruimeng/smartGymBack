@@ -23,10 +23,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public SGResult checkData(String param, int type) {
-		//根据不同的type生成不同的查询条件
+		// 根据不同的type生成不同的查询条件
 		SmartgymUsersExample example = new SmartgymUsersExample();
 		Criteria criteria = example.createCriteria();
-		//1：学号 2：用户名 3：手机号
+		// 1：学号 2：用户名 3：手机号
 		if (type == 1) {
 			criteria.andStudentnoEqualTo(param);
 		} else if (type == 2) {
@@ -36,39 +36,37 @@ public class UserServiceImpl implements UserService {
 		} else {
 			return SGResult.build(400, "数据类型错误");
 		}
-		//执行查询
+		// 执行查询
 		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
-		//判断结果中是否包含数据
-		if (list != null && list.size()>0) {
-			//如果有数据返回false
+		// 判断结果中是否包含数据
+		if (list != null && list.size() > 0) {
+			// 如果有数据返回false
 			return SGResult.ok(false);
 		}
-		//如果没有数据返回true
+		// 如果没有数据返回true
 		return SGResult.ok(true);
 	}
-	
-	
-	
+
 	@Override
 	public SGResult register(SmartgymUsers user) {
 		// 数据有效性检验
 		if (StringUtils.isBlank(user.getStudentno()) || StringUtils.isBlank(user.getUsername())
 				|| StringUtils.isBlank(user.getPhone()) || StringUtils.isBlank(user.getWxid()))
-			return SGResult.build(400, "用户数据不完整，注册失败");
-		//1：学号 2：用户名 3：手机号
+			return SGResult.build(401, "用户数据不完整，注册失败");
+		// 1：学号 2：手机号 3：用户名
 		SGResult result = checkData(user.getStudentno(), 1);
 		if (!(boolean) result.getData()) {
 			return SGResult.build(400, "此学号已经注册");
 		}
-//		result = checkData(user.getUsername(), 2);
-//		if (!(boolean)result.getData()) {
-//			return SGResult.build(400, "此用户名已经被占用");
-//		}
-		result = checkData(user.getPhone(), 3);
-		if (!(boolean)result.getData()) {
+		result = checkData(user.getPhone(), 2);
+		if (!(boolean) result.getData()) {
 			return SGResult.build(400, "此手机号已经被占用");
 		}
-		
+//		result = checkData(user.getUsername(), 3);
+//		if (!(boolean) result.getData()) {
+//			return SGResult.build(400, "此用户名已经被占用");
+//		}
+
 		// 补全pojo属性
 		user.setAuthority(0); // 0是普通用户
 		user.setCreated(new Date());

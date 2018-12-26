@@ -84,6 +84,22 @@ public class ApplyServiceImpl implements ApplyService {
 		criteria.andGameEqualTo(applyCtr.getGame());
 		criteria.andCategoryEqualTo(applyCtr.getCategoty());
 		criteria.andItemEqualTo(applyCtr.getItem());
+		// 设置性别
+		if (applyCtr.getGender() == null)
+			applyCtr.setGender("男女混合");
+		switch (applyCtr.getGender()) {
+		case "男女混合":
+			criteria.andGenderEqualTo(2);
+			break;
+		case "男子组":
+			criteria.andGenderEqualTo(0);
+			break;
+		case "女子组":
+			criteria.andGenderEqualTo(1);
+			break;
+		default:
+			criteria.andGenderEqualTo(2);
+		}
 		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
 		if (list == null || list.isEmpty())
 			return null;
@@ -118,15 +134,15 @@ public class ApplyServiceImpl implements ApplyService {
 		applyDao.setItemId(applyCtr.getItemId());
 		// 设置性别
 		if (applyCtr.getGender() == null)
-			applyCtr.setGender("未填写");
+			applyCtr.setGender("男女混合");
 		switch (applyCtr.getGender()) {
-		case "未填写":
+		case "男女混合":
 			applyDao.setGender(2);
 			break;
-		case "男":
+		case "男子组":
 			applyDao.setGender(0);
 			break;
-		case "女":
+		case "女子组":
 			applyDao.setGender(1);
 			break;
 		default:
@@ -145,14 +161,15 @@ public class ApplyServiceImpl implements ApplyService {
 		if (list == null || list.isEmpty())
 			return null;
 		SmartgymItems itemObject = list.get(0);
-		
+
 		// 转换为Dao层的pojo
 		SmartgymApplicationsCtr applyCtr = new SmartgymApplicationsCtr();
 		// 设置项目信息
 		applyCtr.setGame(itemObject.getGame());
 		applyCtr.setCategoty(itemObject.getCategory());
 		applyCtr.setItem(itemObject.getItem());
-		applyCtr.setItemId(applyDao.getItemId());;
+		applyCtr.setItemId(applyDao.getItemId());
+		;
 		// 设置用户Id
 		applyCtr.setStudentno(applyDao.getStudentno());
 		// 设置职位
@@ -178,16 +195,16 @@ public class ApplyServiceImpl implements ApplyService {
 		// 设置性别
 		switch (applyDao.getGender()) {
 		case 0:
-			applyCtr.setGender("男");
+			applyCtr.setGender("男子组");
 			break;
 		case 1:
-			applyCtr.setGender("女");
+			applyCtr.setGender("女子组");
 			break;
 		case 2:
-			applyCtr.setGender("未填写");
+			applyCtr.setGender("男女混合");
 			break;
 		default:
-			applyCtr.setGender("未填写");
+			applyCtr.setGender("男女混合");
 		}
 		return applyCtr;
 	}

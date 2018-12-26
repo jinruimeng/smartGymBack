@@ -1,7 +1,5 @@
 package cn.smartGym.pojoCtr;
 
-import java.util.Date;
-
 public class SmartgymItemsCtr {
 	private String game;
 

@@ -1,7 +1,8 @@
 package cn.smartGym.pojoCtr;
 
+import java.util.Date;
+
 public class SmartgymUsersCtr {
-	private String username;
 
 	private String encryptedData;
 
@@ -12,6 +13,8 @@ public class SmartgymUsersCtr {
 	private String wxid;
 
 	private String studentno;
+	
+	private String username;
 
 	private String gender;
 
@@ -23,13 +26,11 @@ public class SmartgymUsersCtr {
 
 	private Integer status;
 
-	public String getUsername() {
-		return username;
-	}
+	private Integer authority;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    private Date created;
+
+    private Date updated;
 
 	public String getEncryptedData() {
 		return encryptedData;
@@ -69,6 +70,14 @@ public class SmartgymUsersCtr {
 
 	public void setStudentno(String studentno) {
 		this.studentno = studentno;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getGender() {
@@ -111,4 +120,27 @@ public class SmartgymUsersCtr {
 		this.status = status;
 	}
 
+	public Integer getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(Integer authority) {
+		this.authority = authority;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 }

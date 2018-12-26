@@ -5,11 +5,11 @@ import java.util.Date;
 public class SmartgymUsers {
     private Long id;
 
-    private String username;
-
     private String wxid;
 
     private String studentno;
+    
+    private String username;
 
     private Integer gender;
 

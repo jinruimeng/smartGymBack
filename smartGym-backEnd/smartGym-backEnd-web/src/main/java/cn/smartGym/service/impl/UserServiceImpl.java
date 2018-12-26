@@ -85,21 +85,21 @@ public class UserServiceImpl implements UserService {
 		SmartgymUsers userDao = new SmartgymUsers();
 
 		userDao.setPhone(userCtr.getPhone());
-		userDao.setStudentno(userCtr.getPhone());
+		userDao.setStudentno(userCtr.getStudentno());
 		userDao.setWxid(userCtr.getWxid());
 		userDao.setUsername(userCtr.getUsername());
 		switch (userCtr.getCampus()) {
 		case "四平路校区":
-			userDao.setCampus(0);
-			break;
-		case "嘉定校区":
 			userDao.setCampus(1);
 			break;
-		case "沪西校区":
+		case "嘉定校区":
 			userDao.setCampus(2);
 			break;
-		case "沪北校区":
+		case "沪西校区":
 			userDao.setCampus(3);
+			break;
+		case "沪北校区":
+			userDao.setCampus(4);
 			break;
 		default:
 			userDao.setCampus(0);
@@ -244,9 +244,6 @@ public class UserServiceImpl implements UserService {
 		case "女":
 			userDao.setGender(1);
 			break;
-		case "未填写":
-			userDao.setGender(2);
-			break;
 		default:
 			userDao.setGender(2);
 		}
@@ -264,20 +261,20 @@ public class UserServiceImpl implements UserService {
 		userCtr.setUsername(userDao.getUsername());
 		
 		switch (userDao.getCampus()) {
-		case 0:
+		case 1:
 			userCtr.setCampus("四平路校区");
 			break;
-		case 1:
+		case 2:
 			userCtr.setCampus("嘉定校区");
 			break;
-		case 2:
+		case 3:
 			userCtr.setCampus("沪西校区");
 			break;
-		case 3:
+		case 4:
 			userCtr.setCampus("沪北校区");
 			break;
 		default:
-			userCtr.setCampus("四平路校区");
+			userCtr.setCampus("未填写");
 		}
 		switch (userDao.getCollege()) {
 		case 1:
@@ -418,9 +415,6 @@ public class UserServiceImpl implements UserService {
 			break;
 		case 1:
 			userCtr.setGender("女");
-			break;
-		case 2:
-			userCtr.setGender("未填写");
 			break;
 		default:
 			userCtr.setGender("未填写");

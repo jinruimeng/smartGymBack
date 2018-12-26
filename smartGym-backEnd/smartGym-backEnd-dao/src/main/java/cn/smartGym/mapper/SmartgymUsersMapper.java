@@ -1,11 +1,9 @@
 package cn.smartGym.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import cn.smartGym.pojo.SmartgymUsers;
 import cn.smartGym.pojo.SmartgymUsersExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface SmartgymUsersMapper {
     long countByExample(SmartgymUsersExample example);

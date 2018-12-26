@@ -4,7 +4,8 @@
   <resultMap id="BaseResultMap" type="cn.smartGym.pojo.SmartgymApplications">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="job" jdbcType="INTEGER" property="job" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="studentno" jdbcType="VARCHAR" property="studentno" />
     <result column="item_id" jdbcType="BIGINT" property="itemId" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, job, user_id, item_id, status, created, updated
+    id, job, gender, studentno, item_id, status, created, updated
   </sql>
   <select id="selectByExample" parameterType="cn.smartGym.pojo.SmartgymApplicationsExample" resultMap="BaseResultMap">
     select
@@ -102,12 +103,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.smartGym.pojo.SmartgymApplications">
-    insert into smartgym_applications (id, job, user_id, 
-      item_id, status, created, 
-      updated)
-    values (#{id,jdbcType=BIGINT}, #{job,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, 
-      #{itemId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, 
-      #{updated,jdbcType=TIMESTAMP})
+    insert into smartgym_applications (id, job, gender, 
+      studentno, item_id, status, 
+      created, updated)
+    values (#{id,jdbcType=BIGINT}, #{job,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, 
+      #{studentno,jdbcType=VARCHAR}, #{itemId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
+      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.smartGym.pojo.SmartgymApplications">
     insert into smartgym_applications
@@ -118,8 +119,11 @@
       <if test="job != null">
         job,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="studentno != null">
+        studentno,
       </if>
       <if test="itemId != null">
         item_id,
@@ -141,8 +145,11 @@
       <if test="job != null">
         #{job,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="studentno != null">
+        #{studentno,jdbcType=VARCHAR},
       </if>
       <if test="itemId != null">
         #{itemId,jdbcType=BIGINT},
@@ -173,8 +180,11 @@
       <if test="record.job != null">
         job = #{record.job,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=BIGINT},
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentno != null">
+        studentno = #{record.studentno,jdbcType=VARCHAR},
       </if>
       <if test="record.itemId != null">
         item_id = #{record.itemId,jdbcType=BIGINT},
@@ -197,7 +207,8 @@
     update smartgym_applications
     set id = #{record.id,jdbcType=BIGINT},
       job = #{record.job,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=BIGINT},
+      gender = #{record.gender,jdbcType=INTEGER},
+      studentno = #{record.studentno,jdbcType=VARCHAR},
       item_id = #{record.itemId,jdbcType=BIGINT},
       status = #{record.status,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
@@ -212,8 +223,11 @@
       <if test="job != null">
         job = #{job,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="studentno != null">
+        studentno = #{studentno,jdbcType=VARCHAR},
       </if>
       <if test="itemId != null">
         item_id = #{itemId,jdbcType=BIGINT},
@@ -233,7 +247,8 @@
   <update id="updateByPrimaryKey" parameterType="cn.smartGym.pojo.SmartgymApplications">
     update smartgym_applications
     set job = #{job,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=BIGINT},
+      gender = #{gender,jdbcType=INTEGER},
+      studentno = #{studentno,jdbcType=VARCHAR},
       item_id = #{itemId,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},

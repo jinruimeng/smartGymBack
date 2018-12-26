@@ -10,6 +10,11 @@
 	<artifactId>smartGym-tools</artifactId>
 	<!-- 依赖的jar包 -->
 	<dependencies>
+		<!-- 解析微信用户信息 -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+		</dependency>
 		<!-- 时间操作组件 -->
 		<dependency>
 			<groupId>joda-time</groupId>

@@ -5,7 +5,7 @@ public class SmartgymApplicationsCtr {
 
 	private String gender;
 
-	private Long userId;
+	private String studentno;
 
 	private Long itemId;
 
@@ -33,12 +33,13 @@ public class SmartgymApplicationsCtr {
 		this.gender = gender;
 	}
 
-	public Long getUserId() {
-		return userId;
+
+	public String getStudentno() {
+		return studentno;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setStudentno(String studentno) {
+		this.studentno = studentno;
 	}
 
 	public Long getItemId() {

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.mapper.SmartgymItemsMapper;
 import cn.smartGym.pojo.SmartgymApplications;
 import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
 import cn.smartGym.service.ApplyService;
@@ -17,8 +16,8 @@ public class ApplyController {
 
 	@Autowired
 	private ApplyService applyService;
-	@Autowired
-	private SmartgymItemsMapper smartgymItemsMapper;
+/*	@Autowired
+	private SmartgymItemsMapper smartgymItemsMapper;*/
 
 /*	@RequestMapping(value = "/apply/addapply", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")

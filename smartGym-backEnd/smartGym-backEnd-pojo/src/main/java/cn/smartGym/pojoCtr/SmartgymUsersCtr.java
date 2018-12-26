@@ -1,21 +1,27 @@
 package cn.smartGym.pojoCtr;
 
 public class SmartgymUsersCtr {
-    private String username;
+	private String username;
 
-    private String wxid;
+	private String encryptedData;
 
-    private String studentno;
+	private String iv;
 
-    private String gender;
+	private String code;
 
-    private String campus;
+	private String wxid;
 
-    private String college;
+	private String studentno;
 
-    private String phone;
+	private String gender;
 
-    private Integer status;
+	private String campus;
+
+	private String college;
+
+	private String phone;
+
+	private Integer status;
 
 	public String getUsername() {
 		return username;
@@ -23,6 +29,30 @@ public class SmartgymUsersCtr {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getEncryptedData() {
+		return encryptedData;
+	}
+
+	public void setEncryptedData(String encryptedData) {
+		this.encryptedData = encryptedData;
+	}
+
+	public String getIv() {
+		return iv;
+	}
+
+	public void setIv(String iv) {
+		this.iv = iv;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getWxid() {

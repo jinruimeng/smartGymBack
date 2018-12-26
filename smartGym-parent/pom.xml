@@ -8,6 +8,7 @@
 	<packaging>pom</packaging>
 	<!-- 集中定义依赖版本号 -->
 	<properties>
+		<bouncycastle.version>1.46</bouncycastle.version>
 		<junit.version>4.12</junit.version>
 		<spring.version>4.2.4.RELEASE</spring.version>
 		<mybatis.version>3.4.6</mybatis.version>
@@ -39,6 +40,12 @@
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+			<!-- 解析微信用户信息 -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk16</artifactId>
+				<version>${bouncycastle.version}</version>
+			</dependency>
 			<!-- 时间操作组件 -->
 			<dependency>
 				<groupId>joda-time</groupId>

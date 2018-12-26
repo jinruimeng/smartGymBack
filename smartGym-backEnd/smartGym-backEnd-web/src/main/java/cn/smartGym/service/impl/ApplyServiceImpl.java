@@ -37,7 +37,7 @@ public class ApplyServiceImpl implements ApplyService {
 	@Override
 	public SGResult addApply(SmartgymApplications apply) {
 		// 数据有效性检验
-		if (apply.getUserId() == null || apply.getJob() == null || apply.getItemId() == null)
+		if (apply.getStudentno() == null || apply.getJob() == null || apply.getItemId() == null)
 			return SGResult.build(401, "报名信息不完整，报名失败");
 		SGResult result = checkData(apply);
 		if (result.getStatus() != 200) {
@@ -59,12 +59,11 @@ public class ApplyServiceImpl implements ApplyService {
 
 	@Override
 	public SGResult checkData(SmartgymApplications apply) {
-		// 根据不同的type生成不同的查询条件
 		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
 		Criteria criteria = example.createCriteria();
 
 		criteria.andJobEqualTo(apply.getJob());
-		criteria.andUserIdEqualTo(apply.getUserId());
+		criteria.andStudentnoEqualTo(apply.getStudentno());
 		criteria.andItemIdEqualTo(apply.getItemId());
 		// 执行查询
 		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
@@ -85,22 +84,6 @@ public class ApplyServiceImpl implements ApplyService {
 		criteria.andGameEqualTo(applyCtr.getGame());
 		criteria.andCategoryEqualTo(applyCtr.getCategoty());
 		criteria.andItemEqualTo(applyCtr.getItem());
-		if (applyCtr.getGender() == null)
-			applyCtr.setGender("男女不限");
-		switch (applyCtr.getGender()) {
-		case "男女不限":
-			criteria.andGenderEqualTo(0);
-			break;
-		case "男":
-			criteria.andGenderEqualTo(1);
-			break;
-		case "女":
-			criteria.andGenderEqualTo(2);
-			break;
-		case "男女混合":
-			criteria.andGenderEqualTo(3);
-			break;
-		}
 		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
 		if (list == null || list.isEmpty())
 			return null;
@@ -110,7 +93,7 @@ public class ApplyServiceImpl implements ApplyService {
 		// 转换为Dao层的pojo
 		SmartgymApplications applyDao = new SmartgymApplications();
 		// 设置用户Id
-		applyDao.setUserId(applyCtr.getUserId());
+		applyDao.setStudentno(applyCtr.getStudentno());
 		// 设置职位
 		switch (applyCtr.getJob()) {
 		case "队员":
@@ -131,9 +114,24 @@ public class ApplyServiceImpl implements ApplyService {
 		default:
 			applyDao.setJob(0);
 		}
-		// 设置项目Id
+		// 设置项目itemId
 		applyDao.setItemId(applyCtr.getItemId());
-
+		// 设置性别
+		if (applyCtr.getGender() == null)
+			applyCtr.setGender("未填写");
+		switch (applyCtr.getGender()) {
+		case "未填写":
+			applyDao.setGender(2);
+			break;
+		case "男":
+			applyDao.setGender(0);
+			break;
+		case "女":
+			applyDao.setGender(1);
+			break;
+		default:
+			applyDao.setGender(2);
+		}
 		return applyDao;
 	}
 
@@ -156,7 +154,7 @@ public class ApplyServiceImpl implements ApplyService {
 		applyCtr.setItem(itemObject.getItem());
 		applyCtr.setItemId(applyDao.getItemId());;
 		// 设置用户Id
-		applyCtr.setUserId(applyDao.getUserId());
+		applyCtr.setStudentno(applyDao.getStudentno());
 		// 设置职位
 		switch (applyDao.getJob()) {
 		case 0:
@@ -177,7 +175,20 @@ public class ApplyServiceImpl implements ApplyService {
 		default:
 			applyCtr.setJob("队员");
 		}
-
+		// 设置性别
+		switch (applyDao.getGender()) {
+		case 0:
+			applyCtr.setGender("男");
+			break;
+		case 1:
+			applyCtr.setGender("女");
+			break;
+		case 2:
+			applyCtr.setGender("未填写");
+			break;
+		default:
+			applyCtr.setGender("未填写");
+		}
 		return applyCtr;
 	}
 

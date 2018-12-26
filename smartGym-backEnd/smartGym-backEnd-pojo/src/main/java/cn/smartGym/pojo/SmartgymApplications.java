@@ -7,7 +7,9 @@ public class SmartgymApplications {
 
     private Integer job;
 
-    private Long userId;
+    private Integer gender;
+
+    private String studentno;
 
     private Long itemId;
 
@@ -33,12 +35,20 @@ public class SmartgymApplications {
         this.job = job;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Integer getGender() {
+        return gender;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public String getStudentno() {
+        return studentno;
+    }
+
+    public void setStudentno(String studentno) {
+        this.studentno = studentno == null ? null : studentno.trim();
     }
 
     public Long getItemId() {

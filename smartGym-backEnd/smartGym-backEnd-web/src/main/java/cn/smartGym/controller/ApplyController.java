@@ -1,7 +1,5 @@
 package cn.smartGym.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,9 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.mapper.SmartgymItemsMapper;
 import cn.smartGym.pojo.SmartgymApplications;
-import cn.smartGym.pojo.SmartgymItems;
-import cn.smartGym.pojo.SmartgymItemsExample;
-import cn.smartGym.pojo.SmartgymItemsExample.Criteria;
+import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
 import cn.smartGym.service.ApplyService;
 import common.utils.SGResult;
 
@@ -24,7 +20,7 @@ public class ApplyController {
 	@Autowired
 	private SmartgymItemsMapper smartgymItemsMapper;
 
-	@RequestMapping(value = "/apply/addapply", method = { RequestMethod.POST,
+/*	@RequestMapping(value = "/apply/addapply", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
 	@ResponseBody
 	public SGResult register(SmartgymApplications apply, String game, String categoty, String item) {
@@ -44,5 +40,16 @@ public class ApplyController {
 		//插入数据库
 		SGResult sgResult = applyService.addApply(apply);
 		return sgResult;
+	}*/
+	
+	@RequestMapping(value = "/apply/addapply", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
+	@ResponseBody
+	public SGResult register(SmartgymApplicationsCtr applyCtr) {
+		SmartgymApplications applyDao = applyService.applyCtrtoDao(applyCtr);
+		if(applyDao == null)
+			SGResult.build(401, "报名项目有误！");
+		//插入数据库
+		return applyService.addApply(applyDao);
 	}
 }

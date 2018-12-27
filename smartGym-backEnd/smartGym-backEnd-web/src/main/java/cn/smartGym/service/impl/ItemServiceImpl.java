@@ -33,46 +33,6 @@ public class ItemServiceImpl implements ItemService {
 	private GenderGroupService genderGroupService;
 
 	/**
-	 * Controller-Dao层接收bean转换器
-	 * 
-	 * @param itemCtr 接收前端数据的bean
-	 * @return 封装存储到数据库中数据的bean
-	 */
-	public SmartgymItems itemCtrToDao(SmartgymItemsCtr itemCtr) {
-		SmartgymItems item = new SmartgymItems();
-		item.setGame(itemCtr.getGame());
-		item.setCategory(itemCtr.getCategory());
-		item.setItem(itemCtr.getItem());
-		item.setDate(itemCtr.getDate());
-		item.setPlace(itemCtr.getPlace());
-		item.setParticipantnums(itemCtr.getParticipantnums());
-		item.setDescription(itemCtr.getDescription());
-		item.setGender(genderGroupService.genderStrToInt(itemCtr.getGender()));
-		
-		return item;
-	}
-
-	/**
-	 * Dao-Controller层接收bean转换器
-	 * 
-	 * @param item 从数据库中查询出数据封装的bean
-	 * @return 返回给前端的bean
-	 */
-	public SmartgymItemsCtr itemDaoToCtr(SmartgymItems item) {
-		SmartgymItemsCtr itemCtr = new SmartgymItemsCtr();
-		itemCtr.setGame(item.getGame());
-		itemCtr.setCategory(item.getCategory());
-		itemCtr.setItem(item.getItem());
-		itemCtr.setDate(item.getDate());
-		itemCtr.setPlace(item.getPlace());
-		itemCtr.setParticipantnums(item.getParticipantnums());
-		itemCtr.setDescription(item.getDescription());
-		itemCtr.setGender(genderGroupService.genderIntToStr(item.getGender()));
-		
-		return itemCtr;
-	}
-	
-	/**
 	 * 添加比赛项目功能
 	 * 
 	 * @param item 添加的项目
@@ -94,10 +54,10 @@ public class ItemServiceImpl implements ItemService {
 
 	
 	/**
-	 * 显示比赛项目列表功能
+	 * 异步查询加载比赛项目
 	 * 
-	 * @param item 添加的项目
-	 * @return 返回给前端的信息
+	 * @param item 接收的item
+	 * @return 根据item返回信息
 	 */
 	public ArrayList<String> applySelect(SmartgymItemsCtr itemCtr) {
 		ArrayList<String> result = new ArrayList<>();
@@ -150,4 +110,44 @@ public class ItemServiceImpl implements ItemService {
 		}
 	}
 
+	/**
+	 * Controller-Dao层接收bean转换器
+	 * 
+	 * @param itemCtr 接收前端数据的bean
+	 * @return 封装存储到数据库中数据的bean
+	 */
+	public SmartgymItems itemCtrToDao(SmartgymItemsCtr itemCtr) {
+		SmartgymItems item = new SmartgymItems();
+		item.setGame(itemCtr.getGame());
+		item.setCategory(itemCtr.getCategory());
+		item.setItem(itemCtr.getItem());
+		item.setDate(itemCtr.getDate());
+		item.setPlace(itemCtr.getPlace());
+		item.setParticipantnums(itemCtr.getParticipantnums());
+		item.setDescription(itemCtr.getDescription());
+		item.setGender(genderGroupService.genderStrToInt(itemCtr.getGender()));
+		
+		return item;
+	}
+
+	/**
+	 * Dao-Controller层接收bean转换器
+	 * 
+	 * @param item 从数据库中查询出数据封装的bean
+	 * @return 返回给前端的bean
+	 */
+	public SmartgymItemsCtr itemDaoToCtr(SmartgymItems item) {
+		SmartgymItemsCtr itemCtr = new SmartgymItemsCtr();
+		itemCtr.setGame(item.getGame());
+		itemCtr.setCategory(item.getCategory());
+		itemCtr.setItem(item.getItem());
+		itemCtr.setDate(item.getDate());
+		itemCtr.setPlace(item.getPlace());
+		itemCtr.setParticipantnums(item.getParticipantnums());
+		itemCtr.setDescription(item.getDescription());
+		itemCtr.setGender(genderGroupService.genderIntToStr(item.getGender()));
+		
+		return itemCtr;
+	}
+	
 }

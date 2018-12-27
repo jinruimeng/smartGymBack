@@ -7,15 +7,25 @@ public class SmartgymApplicationsCtr {
 
 	private String studentno;
 
-	private Long itemId;
+	private Long itemId;//不用接收
 
-	private Integer status;
+	private Integer status;//不用接收
 
 	private String game;
 
 	private String category;
 
 	private String item;
+
+	private String playname;
+	
+	public String getPlayname() {
+		return playname;
+	}
+
+	public void setPlayname(String playname) {
+		this.playname = playname;
+	}
 
 	public String getJob() {
 		return job;

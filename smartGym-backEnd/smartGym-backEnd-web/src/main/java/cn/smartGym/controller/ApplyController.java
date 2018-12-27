@@ -1,6 +1,7 @@
 package cn.smartGym.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,5 +64,12 @@ public class ApplyController {
 			SGResult.build(401, "无法获取项目！");
 		}
 		return SGResult.build(200, "获取项目信息成功!", result);
+	}
+	
+	@RequestMapping(value = "/apply/getApplycationListByStudentno", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public List<SmartgymApplicationsCtr> getApplycationListByStudentno(String studentno) {
+		return applyService.getApplycationListByStudentno(studentno);
 	}
 }

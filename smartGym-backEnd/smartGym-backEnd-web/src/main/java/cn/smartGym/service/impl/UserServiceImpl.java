@@ -32,32 +32,6 @@ public class UserServiceImpl implements UserService {
 	private GenderService genderService;
 	
 	@Override
-	public SGResult checkData(String param, int type) {
-		// 根据不同的type生成不同的查询条件
-		SmartgymUsersExample example = new SmartgymUsersExample();
-		Criteria criteria = example.createCriteria();
-		// 1：学号 2：用户名 3：手机号
-		if (type == 1) {
-			criteria.andStudentnoEqualTo(param);
-		} else if (type == 2) {
-			criteria.andUsernameEqualTo(param);
-		} else if (type == 3) {
-			criteria.andPhoneEqualTo(param);
-		} else {
-			return SGResult.build(400, "数据类型错误");
-		}
-		// 执行查询
-		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
-		// 判断结果中是否包含数据
-		if (list != null && list.size() > 0) {
-			// 如果有数据返回false
-			return SGResult.ok(false);
-		}
-		// 如果没有数据返回true
-		return SGResult.ok(true);
-	}
-
-	@Override
 	public SGResult register(SmartgymUsers user) {
 		// 数据有效性检验
 		if (StringUtils.isBlank(user.getStudentno()) || StringUtils.isBlank(user.getUsername())
@@ -89,6 +63,32 @@ public class UserServiceImpl implements UserService {
 		return SGResult.build(200, "注册成功");
 	}
 
+	@Override
+	public SGResult checkData(String param, int type) {
+		// 根据不同的type生成不同的查询条件
+		SmartgymUsersExample example = new SmartgymUsersExample();
+		Criteria criteria = example.createCriteria();
+		// 1：学号 2：用户名 3：手机号
+		if (type == 1) {
+			criteria.andStudentnoEqualTo(param);
+		} else if (type == 2) {
+			criteria.andUsernameEqualTo(param);
+		} else if (type == 3) {
+			criteria.andPhoneEqualTo(param);
+		} else {
+			return SGResult.build(400, "数据类型错误");
+		}
+		// 执行查询
+		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
+		// 判断结果中是否包含数据
+		if (list != null && list.size() > 0) {
+			// 如果有数据返回false
+			return SGResult.ok(false);
+		}
+		// 如果没有数据返回true
+		return SGResult.ok(true);
+	}
+	
 	@Override
 	public SmartgymUsers userCtrToDao(SmartgymUsersCtr userCtr) {
 		SmartgymUsers user = new SmartgymUsers();

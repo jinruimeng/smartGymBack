@@ -1,5 +1,7 @@
 package cn.smartGym.service;
 
+import java.util.List;
+
 import cn.smartGym.pojo.SmartgymApplications;
 import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
 import common.utils.SGResult;
@@ -13,4 +15,5 @@ public interface ApplyService {
 	SGResult checkData(SmartgymApplications apply);
 	SmartgymApplications applyCtrtoDao(SmartgymApplicationsCtr apply);
 	SmartgymApplicationsCtr applyDaotoCtr(SmartgymApplications apply);
+	List<SmartgymApplicationsCtr> getApplycationListByStudentno(String studentno);
 }

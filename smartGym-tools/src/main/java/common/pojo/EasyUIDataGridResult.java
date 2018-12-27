@@ -10,17 +10,17 @@ public class EasyUIDataGridResult implements Serializable{
 	 */
 	private static final long serialVersionUID = -253579694464232055L;
 	private long total;
-	private List rows;
+	private List<Object> rows;
 	public long getTotal() {
 		return total;
 	}
 	public void setTotal(long total) {
 		this.total = total;
 	}
-	public List getRows() {
+	public List<Object> getRows() {
 		return rows;
 	}
-	public void setRows(List rows) {
+	public void setRows(List<Object> rows) {
 		this.rows = rows;
 	}
 	

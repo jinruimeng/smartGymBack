@@ -80,8 +80,8 @@ public class SmartgymApplicationsCtr {
 		return category;
 	}
 
-	public void setCategory(String categoty) {
-		this.category = categoty;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getItem() {

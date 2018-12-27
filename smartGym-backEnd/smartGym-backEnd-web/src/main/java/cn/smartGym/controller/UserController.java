@@ -24,7 +24,7 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/user/register", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult register(SmartgymUsersCtr userCtr) {
 

@@ -13,13 +13,13 @@ import common.utils.SGResult;
  *
  */
 public interface ApplyService {
-	SGResult addApply(SmartgymApplications apply);
-
-	SGResult checkData(SmartgymApplications apply);
-
 	SmartgymApplications applyCtrtoDao(SmartgymApplicationsCtr apply);
 
 	SmartgymApplicationsCtr applyDaotoCtr(SmartgymApplications apply);
+
+	SGResult checkData(SmartgymApplications apply);
+
+	SGResult addApply(SmartgymApplications apply);
 
 	List<SmartgymApplicationsCtr> getApplycationListByStudentno(String studentno);
 }

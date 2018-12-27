@@ -23,7 +23,7 @@ public class ItemController {
 	private ItemService itemService;
 
 	@RequestMapping(value = "/item/add", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult itemAdd(SmartgymItemsCtr itemCtr) {
 		return itemService.addItem(itemService.itemCtrToDao(itemCtr));

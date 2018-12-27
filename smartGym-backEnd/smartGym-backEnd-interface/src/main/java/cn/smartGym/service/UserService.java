@@ -11,13 +11,14 @@ import common.utils.SGResult;
  *
  */
 public interface UserService {
-	SGResult checkData(String param, int type);
 
 	SmartgymUsers userCtrToDao(SmartgymUsersCtr userCtr);
 
 	SmartgymUsersCtr userDaoToCtr(SmartgymUsers userDao);
 
 	SGResult decodeUserInfo(SmartgymUsersCtr userCtr);
+
+	SGResult checkData(String param, int type);
 
 	SGResult register(SmartgymUsers user);
 }

@@ -41,35 +41,6 @@ public class UserServiceImpl implements UserService {
 	private GenderService genderService;
 
 	/**
-	 * 检查记录是否已存在
-	 */
-	@Override
-	public SGResult checkData(String param, int type) {
-		// 根据不同的type生成不同的查询条件
-		SmartgymUsersExample example = new SmartgymUsersExample();
-		Criteria criteria = example.createCriteria();
-		// 1：学号 2：用户名 3：手机号
-		if (type == 1) {
-			criteria.andStudentnoEqualTo(param);
-		} else if (type == 2) {
-			criteria.andUsernameEqualTo(param);
-		} else if (type == 3) {
-			criteria.andPhoneEqualTo(param);
-		} else {
-			return SGResult.build(400, "数据类型错误");
-		}
-		// 执行查询
-		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
-		// 判断结果中是否包含数据
-		if (list != null && list.size() > 0) {
-			// 如果有数据返回false
-			return SGResult.ok(false);
-		}
-		// 如果没有数据返回true
-		return SGResult.ok(true);
-	}
-
-	/**
 	 * Controller-Dao层接收bean转换器
 	 * 
 	 * @param userCtr 接收前端数据的bean
@@ -133,9 +104,9 @@ public class UserServiceImpl implements UserService {
 		}
 
 		// 小程序唯一标识 (在微信小程序管理后台获取)
-		String wxspAppid = "xxxxxxxxxxxxxx";
+		String wxspAppid = "wxb0c3c36ab6123dc5";
 		// 小程序的 app secret (在微信小程序管理后台获取)
-		String wxspSecret = "xxxxxxxxxxxxxx";
+		String wxspSecret = "5fae01890e20ad4439657813deaf4114";
 		// 授权（必填）
 		String grant_type = "authorization_code";
 
@@ -179,6 +150,35 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 			return SGResult.build(403, "用户信息解密失败！");
 		}
+	}
+
+	/**
+	 * 检查记录是否已存在
+	 */
+	@Override
+	public SGResult checkData(String param, int type) {
+		// 根据不同的type生成不同的查询条件
+		SmartgymUsersExample example = new SmartgymUsersExample();
+		Criteria criteria = example.createCriteria();
+		// 1：学号 2：用户名 3：手机号
+		if (type == 1) {
+			criteria.andStudentnoEqualTo(param);
+		} else if (type == 2) {
+			criteria.andUsernameEqualTo(param);
+		} else if (type == 3) {
+			criteria.andPhoneEqualTo(param);
+		} else {
+			return SGResult.build(400, "数据类型错误");
+		}
+		// 执行查询
+		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
+		// 判断结果中是否包含数据
+		if (list != null && list.size() > 0) {
+			// 如果有数据返回false
+			return SGResult.ok(false);
+		}
+		// 如果没有数据返回true
+		return SGResult.ok(true);
 	}
 
 	/**

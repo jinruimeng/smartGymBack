@@ -84,8 +84,8 @@ public class UserController {
 //            e.printStackTrace();
 //            return SGResult.build(403, "用户信息解密失败");
 //        }
-		SmartgymUsers userDao = userService.userCtrToDao(userCtr);		
-		SGResult sgResult = userService.register(userDao);
+		SmartgymUsers user = userService.userCtrToDao(userCtr);		
+		SGResult sgResult = userService.register(user);
 		return sgResult;
 	}
 

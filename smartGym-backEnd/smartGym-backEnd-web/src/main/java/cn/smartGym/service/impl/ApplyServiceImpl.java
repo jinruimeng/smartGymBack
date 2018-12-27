@@ -31,51 +31,6 @@ public class ApplyServiceImpl implements ApplyService {
 	@Autowired
 	private SmartgymItemsMapper smartgymItemsMapper;
 
-	/**
-	 * 报名比赛
-	 */
-	@Override
-	public SGResult addApply(SmartgymApplications apply) {
-		// 数据有效性检验
-		if (apply.getStudentno() == null || apply.getJob() == null || apply.getItemId() == null)
-			return SGResult.build(401, "报名信息不完整，报名失败");
-		SGResult result = checkData(apply);
-		if (result.getStatus() != 200) {
-			return result;
-		}
-		// 生成比赛报名id
-		final long applyId = IDUtils.genId();
-		// 补全apply其他属性
-		apply.setId(applyId);
-		apply.setStatus(1);
-		// 1-正常，0-已删除
-		apply.setCreated(new Date());
-		apply.setUpdated(new Date());
-		// 插入数据库
-		smartgymApplicationsMapper.insert(apply);
-		// 返回成功
-		return SGResult.build(200, "报名成功", apply);
-	}
-
-	@Override
-	public SGResult checkData(SmartgymApplications apply) {
-		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
-		Criteria criteria = example.createCriteria();
-
-		criteria.andJobEqualTo(apply.getJob());
-		criteria.andStudentnoEqualTo(apply.getStudentno());
-		criteria.andItemIdEqualTo(apply.getItemId());
-		// 执行查询
-		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
-		// 判断结果中是否包含数据
-		if (list != null && list.size() > 0) {
-			// 如果有数据返回false
-			return SGResult.build(400, "已报名该项目");
-		}
-		// 如果没有数据返回true
-		return SGResult.ok();
-	}
-
 	@Override
 	public SmartgymApplications applyCtrtoDao(SmartgymApplicationsCtr applyCtr) {
 		// 设置报名项目Id
@@ -208,5 +163,53 @@ public class ApplyServiceImpl implements ApplyService {
 		}
 		return applyCtr;
 	}
+	
+	@Override
+	public SGResult checkData(SmartgymApplications apply) {
+		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+		Criteria criteria = example.createCriteria();
+		
+		criteria.andJobEqualTo(apply.getJob());
+		criteria.andStudentnoEqualTo(apply.getStudentno());
+		criteria.andItemIdEqualTo(apply.getItemId());
+		// 执行查询
+		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
+		// 判断结果中是否包含数据
+		if (list != null && list.size() > 0) {
+			// 如果有数据返回false
+			return SGResult.build(400, "已报名该项目");
+		}
+		// 如果没有数据返回true
+		return SGResult.ok();
+	}
+	
+	/**
+	 * 报名比赛
+	 */
+	@Override
+	public SGResult addApply(SmartgymApplications apply) {
+		// 数据有效性检验
+		if (apply.getStudentno() == null || apply.getJob() == null || apply.getItemId() == null)
+			return SGResult.build(401, "报名信息不完整，报名失败");
+		SGResult result = checkData(apply);
+		if (result.getStatus() != 200) {
+			return result;
+		}
+		// 生成比赛报名id
+		final long applyId = IDUtils.genId();
+		// 补全apply其他属性
+		apply.setId(applyId);
+		apply.setStatus(1);
+		// 1-正常，0-已删除
+		apply.setCreated(new Date());
+		apply.setUpdated(new Date());
+		// 插入数据库
+		smartgymApplicationsMapper.insert(apply);
+		// 返回成功
+		return SGResult.build(200, "报名成功", apply);
+	}
+
+
+	
 
 }

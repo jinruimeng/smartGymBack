@@ -1,5 +1,7 @@
 package cn.smartGym.pojoCtr;
 
+import java.util.Date;
+
 public class SmartgymItemsCtr {
 	private String game;
 
@@ -8,6 +10,14 @@ public class SmartgymItemsCtr {
 	private String item;
 
 	private String gender;
+	
+	private Date date;
+
+    private String place;
+
+    private Integer participantnums;
+    
+    private String description;
 
 	public String getGame() {
 		return game;
@@ -41,6 +51,30 @@ public class SmartgymItemsCtr {
 		this.gender = gender;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public Integer getParticipantnums() {
+		return participantnums;
+	}
+
+	public void setParticipantnums(Integer participantnums) {
+		this.participantnums = participantnums;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -49,6 +83,4 @@ public class SmartgymItemsCtr {
 		this.description = description;
 	}
 
-	private String description;
-	
 }

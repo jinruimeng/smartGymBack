@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class SmartgymCompetitorsExample {
+public class SmartgymPlayersExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public SmartgymCompetitorsExample() {
+    public SmartgymPlayersExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -345,63 +345,73 @@ public class SmartgymCompetitorsExample {
             return (Criteria) this;
         }
 
-        public Criteria andGamenoIsNull() {
-            addCriterion("gameno is null");
+        public Criteria andPlayernoIsNull() {
+            addCriterion("playerno is null");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoIsNotNull() {
-            addCriterion("gameno is not null");
+        public Criteria andPlayernoIsNotNull() {
+            addCriterion("playerno is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoEqualTo(Long value) {
-            addCriterion("gameno =", value, "gameno");
+        public Criteria andPlayernoEqualTo(String value) {
+            addCriterion("playerno =", value, "playerno");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoNotEqualTo(Long value) {
-            addCriterion("gameno <>", value, "gameno");
+        public Criteria andPlayernoNotEqualTo(String value) {
+            addCriterion("playerno <>", value, "playerno");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoGreaterThan(Long value) {
-            addCriterion("gameno >", value, "gameno");
+        public Criteria andPlayernoGreaterThan(String value) {
+            addCriterion("playerno >", value, "playerno");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoGreaterThanOrEqualTo(Long value) {
-            addCriterion("gameno >=", value, "gameno");
+        public Criteria andPlayernoGreaterThanOrEqualTo(String value) {
+            addCriterion("playerno >=", value, "playerno");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoLessThan(Long value) {
-            addCriterion("gameno <", value, "gameno");
+        public Criteria andPlayernoLessThan(String value) {
+            addCriterion("playerno <", value, "playerno");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoLessThanOrEqualTo(Long value) {
-            addCriterion("gameno <=", value, "gameno");
+        public Criteria andPlayernoLessThanOrEqualTo(String value) {
+            addCriterion("playerno <=", value, "playerno");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoIn(List<Long> values) {
-            addCriterion("gameno in", values, "gameno");
+        public Criteria andPlayernoLike(String value) {
+            addCriterion("playerno like", value, "playerno");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoNotIn(List<Long> values) {
-            addCriterion("gameno not in", values, "gameno");
+        public Criteria andPlayernoNotLike(String value) {
+            addCriterion("playerno not like", value, "playerno");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoBetween(Long value1, Long value2) {
-            addCriterion("gameno between", value1, value2, "gameno");
+        public Criteria andPlayernoIn(List<String> values) {
+            addCriterion("playerno in", values, "playerno");
             return (Criteria) this;
         }
 
-        public Criteria andGamenoNotBetween(Long value1, Long value2) {
-            addCriterion("gameno not between", value1, value2, "gameno");
+        public Criteria andPlayernoNotIn(List<String> values) {
+            addCriterion("playerno not in", values, "playerno");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayernoBetween(String value1, String value2) {
+            addCriterion("playerno between", value1, value2, "playerno");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayernoNotBetween(String value1, String value2) {
+            addCriterion("playerno not between", value1, value2, "playerno");
             return (Criteria) this;
         }
 

@@ -47,11 +47,11 @@ public class ApplyController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
 	@ResponseBody
 	public SGResult addapply(SmartgymApplicationsCtr applyCtr) {
-		SmartgymApplications applyDao = applyService.applyCtrtoDao(applyCtr);
-		if (applyDao == null)
+		SmartgymApplications apply = applyService.applyCtrtoDao(applyCtr);
+		if (apply == null)
 			SGResult.build(401, "报名项目有误！");
 		// 插入数据库
-		return applyService.addApply(applyDao);
+		return applyService.addApply(apply);
 	}
 
 	@RequestMapping(value = "/apply/applypage", method = { RequestMethod.POST,

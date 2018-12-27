@@ -13,6 +13,12 @@ public class SmartgymItems {
 
     private Integer gender;
 
+    private Date date;
+
+    private String place;
+
+    private Integer participantnums;
+
     private Integer status;
 
     private Date created;
@@ -59,6 +65,30 @@ public class SmartgymItems {
 
     public void setGender(Integer gender) {
         this.gender = gender;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place == null ? null : place.trim();
+    }
+
+    public Integer getParticipantnums() {
+        return participantnums;
+    }
+
+    public void setParticipantnums(Integer participantnums) {
+        this.participantnums = participantnums;
     }
 
     public Integer getStatus() {

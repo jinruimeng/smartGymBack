@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.smartGym.mapper.SmartgymApplicationsMapper" >
-  <resultMap id="BaseResultMap" type="cn.smartGym.pojo.SmartgymApplications" >
+<mapper namespace="cn.smartGym.mapper.SmartgymPlayersMapper" >
+  <resultMap id="BaseResultMap" type="cn.smartGym.pojo.SmartgymPlayers" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="job" property="job" jdbcType="INTEGER" />
-    <result column="gender" property="gender" jdbcType="INTEGER" />
-    <result column="studentno" property="studentno" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="item_id" property="itemId" jdbcType="BIGINT" />
+    <result column="job" property="job" jdbcType="INTEGER" />
+    <result column="playerno" property="playerno" jdbcType="VARCHAR" />
+    <result column="group" property="group" jdbcType="INTEGER" />
+    <result column="path" property="path" jdbcType="INTEGER" />
+    <result column="grades" property="grades" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
@@ -70,15 +74,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, job, gender, studentno, item_id, status, created, updated
+    id, user_id, item_id, job, playerno, group, path, grades, rank, status, created, 
+    updated
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.smartGym.pojo.SmartgymApplicationsExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.smartGym.pojo.SmartgymPlayersExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from smartgym_applications
+    from smartgym_players
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,44 +94,60 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from smartgym_applications
+    from smartgym_players
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from smartgym_applications
+    delete from smartgym_players
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.smartGym.pojo.SmartgymApplicationsExample" >
-    delete from smartgym_applications
+  <delete id="deleteByExample" parameterType="cn.smartGym.pojo.SmartgymPlayersExample" >
+    delete from smartgym_players
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.smartGym.pojo.SmartgymApplications" >
-    insert into smartgym_applications (id, job, gender, 
-      studentno, item_id, status, 
-      created, updated)
-    values (#{id,jdbcType=BIGINT}, #{job,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, 
-      #{studentno,jdbcType=VARCHAR}, #{itemId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="cn.smartGym.pojo.SmartgymPlayers" >
+    insert into smartgym_players (id, user_id, item_id, 
+      job, playerno, group, 
+      path, grades, rank, 
+      status, created, updated
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, 
+      #{job,jdbcType=INTEGER}, #{playerno,jdbcType=VARCHAR}, #{group,jdbcType=INTEGER}, 
+      #{path,jdbcType=INTEGER}, #{grades,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="cn.smartGym.pojo.SmartgymApplications" >
-    insert into smartgym_applications
+  <insert id="insertSelective" parameterType="cn.smartGym.pojo.SmartgymPlayers" >
+    insert into smartgym_players
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="job != null" >
-        job,
-      </if>
-      <if test="gender != null" >
-        gender,
-      </if>
-      <if test="studentno != null" >
-        studentno,
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="itemId != null" >
         item_id,
+      </if>
+      <if test="job != null" >
+        job,
+      </if>
+      <if test="playerno != null" >
+        playerno,
+      </if>
+      <if test="group != null" >
+        group,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="grades != null" >
+        grades,
+      </if>
+      <if test="rank != null" >
+        rank,
       </if>
       <if test="status != null" >
         status,
@@ -142,17 +163,29 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="job != null" >
-        #{job,jdbcType=INTEGER},
-      </if>
-      <if test="gender != null" >
-        #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="studentno != null" >
-        #{studentno,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="itemId != null" >
         #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=INTEGER},
+      </if>
+      <if test="playerno != null" >
+        #{playerno,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null" >
+        #{group,jdbcType=INTEGER},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=INTEGER},
+      </if>
+      <if test="grades != null" >
+        #{grades,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -165,29 +198,41 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.smartGym.pojo.SmartgymApplicationsExample" resultType="java.lang.Integer" >
-    select count(*) from smartgym_applications
+  <select id="countByExample" parameterType="cn.smartGym.pojo.SmartgymPlayersExample" resultType="java.lang.Integer" >
+    select count(*) from smartgym_players
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update smartgym_applications
+    update smartgym_players
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.job != null" >
-        job = #{record.job,jdbcType=INTEGER},
-      </if>
-      <if test="record.gender != null" >
-        gender = #{record.gender,jdbcType=INTEGER},
-      </if>
-      <if test="record.studentno != null" >
-        studentno = #{record.studentno,jdbcType=VARCHAR},
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
       </if>
       <if test="record.itemId != null" >
         item_id = #{record.itemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.job != null" >
+        job = #{record.job,jdbcType=INTEGER},
+      </if>
+      <if test="record.playerno != null" >
+        playerno = #{record.playerno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.group != null" >
+        group = #{record.group,jdbcType=INTEGER},
+      </if>
+      <if test="record.path != null" >
+        path = #{record.path,jdbcType=INTEGER},
+      </if>
+      <if test="record.grades != null" >
+        grades = #{record.grades,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
@@ -204,12 +249,16 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update smartgym_applications
+    update smartgym_players
     set id = #{record.id,jdbcType=BIGINT},
-      job = #{record.job,jdbcType=INTEGER},
-      gender = #{record.gender,jdbcType=INTEGER},
-      studentno = #{record.studentno,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
       item_id = #{record.itemId,jdbcType=BIGINT},
+      job = #{record.job,jdbcType=INTEGER},
+      playerno = #{record.playerno,jdbcType=VARCHAR},
+      group = #{record.group,jdbcType=INTEGER},
+      path = #{record.path,jdbcType=INTEGER},
+      grades = #{record.grades,jdbcType=VARCHAR},
+      rank = #{record.rank,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
       updated = #{record.updated,jdbcType=TIMESTAMP}
@@ -217,20 +266,32 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.smartGym.pojo.SmartgymApplications" >
-    update smartgym_applications
+  <update id="updateByPrimaryKeySelective" parameterType="cn.smartGym.pojo.SmartgymPlayers" >
+    update smartgym_players
     <set >
-      <if test="job != null" >
-        job = #{job,jdbcType=INTEGER},
-      </if>
-      <if test="gender != null" >
-        gender = #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="studentno != null" >
-        studentno = #{studentno,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="itemId != null" >
         item_id = #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="job != null" >
+        job = #{job,jdbcType=INTEGER},
+      </if>
+      <if test="playerno != null" >
+        playerno = #{playerno,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null" >
+        group = #{group,jdbcType=INTEGER},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=INTEGER},
+      </if>
+      <if test="grades != null" >
+        grades = #{grades,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -244,12 +305,16 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.smartGym.pojo.SmartgymApplications" >
-    update smartgym_applications
-    set job = #{job,jdbcType=INTEGER},
-      gender = #{gender,jdbcType=INTEGER},
-      studentno = #{studentno,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="cn.smartGym.pojo.SmartgymPlayers" >
+    update smartgym_players
+    set user_id = #{userId,jdbcType=BIGINT},
       item_id = #{itemId,jdbcType=BIGINT},
+      job = #{job,jdbcType=INTEGER},
+      playerno = #{playerno,jdbcType=VARCHAR},
+      group = #{group,jdbcType=INTEGER},
+      path = #{path,jdbcType=INTEGER},
+      grades = #{grades,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP}

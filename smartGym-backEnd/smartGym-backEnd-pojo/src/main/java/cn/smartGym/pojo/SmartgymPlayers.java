@@ -2,7 +2,7 @@ package cn.smartGym.pojo;
 
 import java.util.Date;
 
-public class SmartgymCompetitors {
+public class SmartgymPlayers {
     private Long id;
 
     private Long userId;
@@ -11,7 +11,7 @@ public class SmartgymCompetitors {
 
     private Integer job;
 
-    private Long gameno;
+    private String playerno;
 
     private Integer group;
 
@@ -59,12 +59,12 @@ public class SmartgymCompetitors {
         this.job = job;
     }
 
-    public Long getGameno() {
-        return gameno;
+    public String getPlayerno() {
+        return playerno;
     }
 
-    public void setGameno(Long gameno) {
-        this.gameno = gameno;
+    public void setPlayerno(String playerno) {
+        this.playerno = playerno == null ? null : playerno.trim();
     }
 
     public Integer getGroup() {

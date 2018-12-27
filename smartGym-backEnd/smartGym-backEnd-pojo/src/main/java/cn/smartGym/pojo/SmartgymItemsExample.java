@@ -435,6 +435,196 @@ public class SmartgymItemsExample {
             return (Criteria) this;
         }
 
+        public Criteria andDateIsNull() {
+            addCriterion("date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateIsNotNull() {
+            addCriterion("date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateEqualTo(Date value) {
+            addCriterion("date =", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateNotEqualTo(Date value) {
+            addCriterion("date <>", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateGreaterThan(Date value) {
+            addCriterion("date >", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("date >=", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateLessThan(Date value) {
+            addCriterion("date <", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateLessThanOrEqualTo(Date value) {
+            addCriterion("date <=", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateIn(List<Date> values) {
+            addCriterion("date in", values, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateNotIn(List<Date> values) {
+            addCriterion("date not in", values, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateBetween(Date value1, Date value2) {
+            addCriterion("date between", value1, value2, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateNotBetween(Date value1, Date value2) {
+            addCriterion("date not between", value1, value2, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceIsNull() {
+            addCriterion("place is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceIsNotNull() {
+            addCriterion("place is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceEqualTo(String value) {
+            addCriterion("place =", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotEqualTo(String value) {
+            addCriterion("place <>", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceGreaterThan(String value) {
+            addCriterion("place >", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceGreaterThanOrEqualTo(String value) {
+            addCriterion("place >=", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceLessThan(String value) {
+            addCriterion("place <", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceLessThanOrEqualTo(String value) {
+            addCriterion("place <=", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceLike(String value) {
+            addCriterion("place like", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotLike(String value) {
+            addCriterion("place not like", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceIn(List<String> values) {
+            addCriterion("place in", values, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotIn(List<String> values) {
+            addCriterion("place not in", values, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceBetween(String value1, String value2) {
+            addCriterion("place between", value1, value2, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotBetween(String value1, String value2) {
+            addCriterion("place not between", value1, value2, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsIsNull() {
+            addCriterion("participantnums is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsIsNotNull() {
+            addCriterion("participantnums is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsEqualTo(Integer value) {
+            addCriterion("participantnums =", value, "participantnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsNotEqualTo(Integer value) {
+            addCriterion("participantnums <>", value, "participantnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsGreaterThan(Integer value) {
+            addCriterion("participantnums >", value, "participantnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("participantnums >=", value, "participantnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsLessThan(Integer value) {
+            addCriterion("participantnums <", value, "participantnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsLessThanOrEqualTo(Integer value) {
+            addCriterion("participantnums <=", value, "participantnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsIn(List<Integer> values) {
+            addCriterion("participantnums in", values, "participantnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsNotIn(List<Integer> values) {
+            addCriterion("participantnums not in", values, "participantnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsBetween(Integer value1, Integer value2) {
+            addCriterion("participantnums between", value1, value2, "participantnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipantnumsNotBetween(Integer value1, Integer value2) {
+            addCriterion("participantnums not between", value1, value2, "participantnums");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;

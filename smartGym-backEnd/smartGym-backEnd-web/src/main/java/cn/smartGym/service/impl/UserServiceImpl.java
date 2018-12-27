@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 		SmartgymUsersCtr userCtr = new SmartgymUsersCtr();
 
 		userCtr.setPhone(user.getPhone());
-		userCtr.setStudentno(user.getPhone());
+		userCtr.setStudentno(user.getStudentno());
 		userCtr.setWxid(user.getWxid());
 		userCtr.setUsername(user.getUsername());
 		userCtr.setCampus(campusService.getCampus(user.getCampus()));
@@ -118,6 +118,7 @@ public class UserServiceImpl implements UserService {
 				+ grant_type;
 		// 发送请求
 		String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
+
 		// 解析相应内容（转换成json对象）
 		JSONObject json = JSONObject.fromObject(sr);
 		// 获取会话密钥（session_key）
@@ -133,6 +134,7 @@ public class UserServiceImpl implements UserService {
 			if (null != result && result.length() > 0) {
 				// 解密成功
 				JSONObject userInfoJSON = JSONObject.fromObject(result);
+				System.out.println(userInfoJSON.toString());
 				/*
 				 * Map userInfo = new HashMap(); userInfo.put("openId",
 				 * userInfoJSON.get("openId")); userInfo.put("nickName",
@@ -143,6 +145,7 @@ public class UserServiceImpl implements UserService {
 				 * userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
 				 * userInfo.put("unionId", userInfoJSON.get("unionId"));
 				 */
+				System.out.println(userInfoJSON.get("unionId"));
 				return SGResult.ok(userInfoJSON.get("unionId"));
 			} else
 				return SGResult.build(403, "用户信息解密失败！");
@@ -213,7 +216,20 @@ public class UserServiceImpl implements UserService {
 		// 把用户数据插入数据库
 		smartgymUsersMapper.insert(user);
 		// 返回添加成功
-		return SGResult.build(200, "注册成功");
+		return SGResult.build(200, "注册成功", userDaoToCtr(user));
+	}
+	
+	
+	/**
+	 * 根据微信id查询是否已注册
+	 */
+	@Override
+	public List<SmartgymUsers> selectByWxid(String wxid) {
+		SmartgymUsersExample example = new SmartgymUsersExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andWxidEqualTo(wxid);
+		List<SmartgymUsers> result = smartgymUsersMapper.selectByExample(example);
+		return result;
 	}
 
 }

@@ -1,5 +1,7 @@
 package cn.smartGym.service;
 
+import java.util.List;
+
 import cn.smartGym.pojo.SmartgymUsers;
 import cn.smartGym.pojoCtr.SmartgymUsersCtr;
 import common.utils.SGResult;
@@ -21,4 +23,6 @@ public interface UserService {
 	SGResult checkData(String param, int type);
 
 	SGResult register(SmartgymUsers user);
+	
+	List<SmartgymUsers> selectByWxid(String id);
 }

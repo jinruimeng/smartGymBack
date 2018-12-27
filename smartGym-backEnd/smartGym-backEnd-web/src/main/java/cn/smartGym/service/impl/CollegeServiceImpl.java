@@ -1,5 +1,6 @@
 package cn.smartGym.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,21 @@ public class CollegeServiceImpl implements CollegeService {
 		if (list == null || list.size() == 0)
 			return null;
 		return list.get(0).getId();
+	}
+
+	/**
+	 * 获取所有的学院名称
+	 */
+	@Override
+	public List<String> getAllcolleges() {
+		SmartgymCollegesExample example = new SmartgymCollegesExample();
+		List<SmartgymColleges> list = smartgymCollegesMapper.selectByExample(example);
+		List<String> result = new ArrayList<>();
+		if (!list.isEmpty()) {
+			for (int n = 0; n < list.size(); n++)
+				result.add(list.get(n).getCollege());
+		}
+		return result;
 	}
 
 }

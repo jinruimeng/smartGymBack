@@ -14,6 +14,7 @@ import cn.smartGym.pojo.SmartgymUsersExample.Criteria;
 import cn.smartGym.pojoCtr.SmartgymUsersCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
+import cn.smartGym.service.GenderService;
 import cn.smartGym.service.UserService;
 import common.utils.IDUtils;
 import common.utils.SGResult;
@@ -27,6 +28,8 @@ public class UserServiceImpl implements UserService {
 	private CampusService campusService;
 	@Autowired
 	private CollegeService collegeService;
+	@Autowired
+	private GenderService genderService;
 	
 	@Override
 	public SGResult checkData(String param, int type) {
@@ -96,16 +99,7 @@ public class UserServiceImpl implements UserService {
 		user.setUsername(userCtr.getUsername());
 		user.setCampus(campusService.getId(userCtr.getCampus()));
 		user.setCollege(collegeService.getId(userCtr.getCollege()));
-		switch (userCtr.getGender()) {
-		case "男":
-			user.setGender(0);
-			break;
-		case "女":
-			user.setGender(1);
-			break;
-		default:
-			user.setGender(2);
-		}
+		user.setGender(genderService.genderStrToInt(userCtr.getGender()));
 
 		return user;
 	}
@@ -120,16 +114,7 @@ public class UserServiceImpl implements UserService {
 		userCtr.setUsername(user.getUsername());
 		userCtr.setCampus(campusService.getCampus(user.getCampus()));
 		userCtr.setCollege(collegeService.getCollege(user.getCollege()));
-		switch (user.getGender()) {
-		case 0:
-			userCtr.setGender("男");
-			break;
-		case 1:
-			userCtr.setGender("女");
-			break;
-		default:
-			userCtr.setGender("未填写");
-		}
+		userCtr.setGender(genderService.genderIntToStr(user.getGender()));
 		
 		return userCtr;
 	}

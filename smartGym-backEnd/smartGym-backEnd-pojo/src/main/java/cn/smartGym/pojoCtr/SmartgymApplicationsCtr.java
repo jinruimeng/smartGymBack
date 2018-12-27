@@ -13,7 +13,7 @@ public class SmartgymApplicationsCtr {
 
 	private String game;
 
-	private String categoty;
+	private String category;
 
 	private String item;
 
@@ -66,12 +66,12 @@ public class SmartgymApplicationsCtr {
 		this.game = game;
 	}
 
-	public String getCategoty() {
-		return categoty;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setCategoty(String categoty) {
-		this.categoty = categoty;
+	public void setCategory(String categoty) {
+		this.category = categoty;
 	}
 
 	public String getItem() {

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import cn.smartGym.mapper.SmartgymCampusesMapper;
 import cn.smartGym.pojo.SmartgymCampuses;
 import cn.smartGym.pojo.SmartgymCampusesExample;
-import cn.smartGym.pojo.SmartgymColleges;
-import cn.smartGym.pojo.SmartgymCollegesExample;
 import cn.smartGym.pojo.SmartgymCampusesExample.Criteria;
 import cn.smartGym.service.CampusService;
 

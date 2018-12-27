@@ -15,6 +15,8 @@ import cn.smartGym.pojo.SmartgymItems;
 import cn.smartGym.pojo.SmartgymItemsExample;
 import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
 import cn.smartGym.service.ApplyService;
+import cn.smartGym.service.GenderGroupService;
+import cn.smartGym.service.JobService;
 import common.utils.IDUtils;
 import common.utils.SGResult;
 
@@ -30,6 +32,12 @@ public class ApplyServiceImpl implements ApplyService {
 
 	@Autowired
 	private SmartgymItemsMapper smartgymItemsMapper;
+	
+	@Autowired
+	private GenderGroupService genderGroupService;
+	
+	@Autowired
+	private JobService jobService;
 
 	@Override
 	public SmartgymApplications applyCtrtoDao(SmartgymApplicationsCtr applyCtr) {
@@ -37,24 +45,11 @@ public class ApplyServiceImpl implements ApplyService {
 		SmartgymItemsExample example = new SmartgymItemsExample();
 		cn.smartGym.pojo.SmartgymItemsExample.Criteria criteria = example.createCriteria();
 		criteria.andGameEqualTo(applyCtr.getGame());
-		criteria.andCategoryEqualTo(applyCtr.getCategoty());
+		criteria.andCategoryEqualTo(applyCtr.getCategory());
 		criteria.andItemEqualTo(applyCtr.getItem());
 		// 设置性别
-		if (applyCtr.getGender() == null)
-			applyCtr.setGender("男女混合");
-		switch (applyCtr.getGender()) {
-		case "男女混合":
-			criteria.andGenderEqualTo(2);
-			break;
-		case "男子组":
-			criteria.andGenderEqualTo(0);
-			break;
-		case "女子组":
-			criteria.andGenderEqualTo(1);
-			break;
-		default:
-			criteria.andGenderEqualTo(2);
-		}
+		criteria.andGenderEqualTo(genderGroupService.genderStrToInt(applyCtr.getGender()));
+		
 		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
 		if (list == null || list.isEmpty())
 			return null;
@@ -66,43 +61,12 @@ public class ApplyServiceImpl implements ApplyService {
 		// 设置用户Id
 		applyDao.setStudentno(applyCtr.getStudentno());
 		// 设置职位
-		switch (applyCtr.getJob()) {
-		case "队员":
-			applyDao.setJob(0);
-			break;
-		case "领队":
-			applyDao.setJob(1);
-			break;
-		case "教练":
-			applyDao.setJob(2);
-			break;
-		case "联系人员":
-			applyDao.setJob(3);
-			break;
-		case "工作人员":
-			applyDao.setJob(4);
-			break;
-		default:
-			applyDao.setJob(0);
-		}
+		applyDao.setJob(jobService.jobStringToInt(applyCtr.getJob()));
 		// 设置项目itemId
 		applyDao.setItemId(applyCtr.getItemId());
 		// 设置性别
-		if (applyCtr.getGender() == null)
-			applyCtr.setGender("男女混合");
-		switch (applyCtr.getGender()) {
-		case "男女混合":
-			applyDao.setGender(2);
-			break;
-		case "男子组":
-			applyDao.setGender(0);
-			break;
-		case "女子组":
-			applyDao.setGender(1);
-			break;
-		default:
-			applyDao.setGender(2);
-		}
+		applyDao.setGender(genderGroupService.genderStrToInt(applyCtr.getGender()));
+		
 		return applyDao;
 	}
 
@@ -121,46 +85,16 @@ public class ApplyServiceImpl implements ApplyService {
 		SmartgymApplicationsCtr applyCtr = new SmartgymApplicationsCtr();
 		// 设置项目信息
 		applyCtr.setGame(itemObject.getGame());
-		applyCtr.setCategoty(itemObject.getCategory());
+		applyCtr.setCategory(itemObject.getCategory());
 		applyCtr.setItem(itemObject.getItem());
 		applyCtr.setItemId(applyDao.getItemId());
-		;
 		// 设置用户Id
 		applyCtr.setStudentno(applyDao.getStudentno());
 		// 设置职位
-		switch (applyDao.getJob()) {
-		case 0:
-			applyCtr.setJob("队员");
-			break;
-		case 1:
-			applyCtr.setJob("领队");
-			break;
-		case 2:
-			applyCtr.setJob("教练");
-			break;
-		case 3:
-			applyCtr.setJob("联系人员");
-			break;
-		case 4:
-			applyCtr.setJob("工作人员");
-			break;
-		default:
-			applyCtr.setJob("队员");
-		}
+		applyCtr.setJob(jobService.jobIntToString(applyDao.getJob()));
 		// 设置性别
-		switch (applyDao.getGender()) {
-		case 0:
-			applyCtr.setGender("男子组");
-			break;
-		case 1:
-			applyCtr.setGender("女子组");
-			break;
-		case 2:
-			applyCtr.setGender("男女混合");
-			break;
-		default:
-			applyCtr.setGender("男女混合");
-		}
+		applyCtr.setGender(genderGroupService.genderIntToStr(applyDao.getGender()));
+		
 		return applyCtr;
 	}
 	
@@ -208,8 +142,4 @@ public class ApplyServiceImpl implements ApplyService {
 		// 返回成功
 		return SGResult.build(200, "报名成功", apply);
 	}
-
-
-	
-
 }

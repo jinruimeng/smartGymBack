@@ -16,5 +16,5 @@ public interface ItemService {
 	SGResult addItem(SmartgymItems item);
 	SmartgymItems itemCtrToDao(SmartgymItemsCtr itemCtr);
 	SmartgymItemsCtr itemDaoToCtr(SmartgymItems item);
-	ArrayList<String> select(SmartgymItemsCtr itemCtr);
+	ArrayList<String> applySelect(SmartgymItemsCtr itemCtr);
 }

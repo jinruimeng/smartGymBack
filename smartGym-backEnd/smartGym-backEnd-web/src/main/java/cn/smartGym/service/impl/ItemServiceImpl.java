@@ -12,6 +12,7 @@ import cn.smartGym.pojo.SmartgymItems;
 import cn.smartGym.pojo.SmartgymItemsExample;
 import cn.smartGym.pojo.SmartgymItemsExample.Criteria;
 import cn.smartGym.pojoCtr.SmartgymItemsCtr;
+import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
 import common.utils.IDUtils;
 import common.utils.SGResult;
@@ -27,6 +28,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private SmartgymItemsMapper smartgymItemsMapper;
+	
+	@Autowired
+	private GenderGroupService genderGroupService;
 
 	/**
 	 * Controller-Dao层接收bean转换器
@@ -43,19 +47,8 @@ public class ItemServiceImpl implements ItemService {
 		item.setPlace(itemCtr.getPlace());
 		item.setParticipantnums(itemCtr.getParticipantnums());
 		item.setDescription(itemCtr.getDescription());
-		switch (itemCtr.getGender()) {
-		case "男子组":
-			item.setGender(0);
-			break;
-		case "女子组":
-			item.setGender(1);
-			break;
-		case "男女混合":
-			item.setGender(2);
-			break;
-		default:
-			item.setGender(2);
-		}
+		item.setGender(genderGroupService.genderStrToInt(itemCtr.getGender()));
+		
 		return item;
 	}
 
@@ -74,19 +67,8 @@ public class ItemServiceImpl implements ItemService {
 		itemCtr.setPlace(item.getPlace());
 		itemCtr.setParticipantnums(item.getParticipantnums());
 		itemCtr.setDescription(item.getDescription());
-		switch (item.getGender()) {
-		case 0:
-			itemCtr.setGender("男子组");
-			break;
-		case 1:
-			itemCtr.setGender("女子组");
-			break;
-		case 2:
-			itemCtr.setGender("男女混合");
-			break;
-		default:
-			itemCtr.setGender("男女混合");
-		}
+		itemCtr.setGender(genderGroupService.genderIntToStr(item.getGender()));
+		
 		return itemCtr;
 	}
 	
@@ -117,7 +99,7 @@ public class ItemServiceImpl implements ItemService {
 	 * @param item 添加的项目
 	 * @return 返回给前端的信息
 	 */
-	public ArrayList<String> select(SmartgymItemsCtr itemCtr) {
+	public ArrayList<String> applySelect(SmartgymItemsCtr itemCtr) {
 		ArrayList<String> result = new ArrayList<>();
 		List<SmartgymItems> list = new ArrayList<>();
 		SmartgymItemsExample example = new SmartgymItemsExample();
@@ -131,23 +113,14 @@ public class ItemServiceImpl implements ItemService {
 			criteria.andItemEqualTo(itemCtr.getItem());
 		} else {
 		}
+		criteria.andDateGreaterThan(new Date());
+		criteria.andStatusEqualTo(1);
+		
 		list = smartgymItemsMapper.selectByExample(example);
 		if (itemCtr.getItem() != null) {
 			String gender;
 			for (int i = 0; i < list.size(); i++) {
-				switch (list.get(i).getGender()) {
-				case 0:
-					gender = "男子组";
-					break;
-				case 1:
-					gender = "女子组";
-					break;
-				case 2:
-					gender = "男女混合";
-					break;
-				default:
-					gender = "男女混合";
-				}
+				gender = genderGroupService.genderIntToStr(list.get(i).getGender());
 				if (!result.contains(gender)) {
 					result.add(gender);
 				}

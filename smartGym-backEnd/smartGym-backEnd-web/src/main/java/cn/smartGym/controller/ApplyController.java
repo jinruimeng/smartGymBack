@@ -58,7 +58,7 @@ public class ApplyController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult applypage(SmartgymItemsCtr itemsCtr) {
-		ArrayList<String> result = itemService.select(itemsCtr);
+		ArrayList<String> result = itemService.applySelect(itemsCtr);
 		if (result == null || result.size() == 0) {
 			SGResult.build(401, "无法获取项目！");
 		}

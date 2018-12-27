@@ -8,13 +8,17 @@ import common.utils.SGResult;
 
 /**
  * 比赛项目服务层
+ * 
  * @author ikangkang
  *
  */
 public interface ItemService {
 
-	SGResult addItem(SmartgymItems item);
 	SmartgymItems itemCtrToDao(SmartgymItemsCtr itemCtr);
+
 	SmartgymItemsCtr itemDaoToCtr(SmartgymItems item);
+
 	ArrayList<String> applySelect(SmartgymItemsCtr itemCtr);
+
+	SGResult addItem(SmartgymItems item);
 }

@@ -16,6 +16,12 @@ import cn.smartGym.service.ApplyService;
 import cn.smartGym.service.ItemService;
 import common.utils.SGResult;
 
+/**
+ * 比赛项目管理Controller
+ * 
+ * @author Ruimeng Jin
+ *
+ */
 @Controller
 public class ApplyController {
 
@@ -24,26 +30,13 @@ public class ApplyController {
 
 	@Autowired
 	private ItemService itemService;
-	/*
-	 * @Autowired private SmartgymItemsMapper smartgymItemsMapper;
-	 */
 
-	/*
-	 * @RequestMapping(value = "/apply/addapply", method = { RequestMethod.POST,
-	 * RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
+	/**
+	 * 项目报名实现
 	 * 
-	 * @ResponseBody public SGResult register(SmartgymApplications apply, String
-	 * game, String categoty, String item) { // 查询报名项目 SmartgymItemsExample example
-	 * = new SmartgymItemsExample(); Criteria criteria = example.createCriteria();
-	 * criteria.andGameEqualTo(game); criteria.andCategoryEqualTo(categoty);
-	 * criteria.andItemEqualTo(item); // 查询项目ID List<SmartgymItems> list =
-	 * smartgymItemsMapper.selectByExample(example); if (list == null ||
-	 * list.isEmpty()) return SGResult.build(401, "报名项目有误"); SmartgymItems
-	 * itemObject = list.get(0); apply.setItemId(itemObject.getId());
-	 * 
-	 * //插入数据库 SGResult sgResult = applyService.addApply(apply); return sgResult; }
+	 * @param applyCtr
+	 * @return
 	 */
-
 	@RequestMapping(value = "/apply/addapply", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
 	@ResponseBody
@@ -55,6 +48,12 @@ public class ApplyController {
 		return applyService.addApply(apply);
 	}
 
+	/**
+	 * 项目报名页面数据回传
+	 * 
+	 * @param itemsCtr
+	 * @return
+	 */
 	@RequestMapping(value = "/apply/applypage", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
@@ -65,7 +64,7 @@ public class ApplyController {
 		}
 		return SGResult.build(200, "获取项目信息成功!", result);
 	}
-	
+
 	@RequestMapping(value = "/apply/getApplycationListByStudentno", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody

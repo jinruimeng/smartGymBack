@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private SmartgymItemsMapper smartgymItemsMapper;
-	
+
 	@Autowired
 	private GenderGroupService genderGroupService;
 
@@ -52,7 +53,6 @@ public class ItemServiceImpl implements ItemService {
 		return SGResult.build(200, "添加比赛项目成功");
 	}
 
-	
 	/**
 	 * 异步查询加载比赛项目
 	 * 
@@ -65,19 +65,19 @@ public class ItemServiceImpl implements ItemService {
 		SmartgymItemsExample example = new SmartgymItemsExample();
 		Criteria criteria = example.createCriteria();
 
-		if (itemCtr.getGame() != null) {
+		if (!StringUtils.isBlank(itemCtr.getGame())) {
 			criteria.andGameEqualTo(itemCtr.getGame());
-		} else if (itemCtr.getCategory() != null) {
+		} else if (!StringUtils.isBlank(itemCtr.getCategory())) {
 			criteria.andCategoryEqualTo(itemCtr.getCategory());
-		} else if (itemCtr.getItem() != null) {
+		} else if (!StringUtils.isBlank(itemCtr.getItem())) {
 			criteria.andItemEqualTo(itemCtr.getItem());
 		} else {
 		}
 		criteria.andDateGreaterThan(new Date());
 		criteria.andStatusEqualTo(1);
-		
+
 		list = smartgymItemsMapper.selectByExample(example);
-		if (itemCtr.getItem() != null) {
+		if (!StringUtils.isBlank(itemCtr.getItem())) {
 			String gender;
 			for (int i = 0; i < list.size(); i++) {
 				gender = genderGroupService.genderIntToStr(list.get(i).getGender());
@@ -86,14 +86,14 @@ public class ItemServiceImpl implements ItemService {
 				}
 			}
 			return result;
-		} else if (itemCtr.getCategory() != null) {
+		} else if (!StringUtils.isBlank(itemCtr.getCategory())) {
 			for (int i = 0; i < list.size(); i++) {
 				if (!result.contains(list.get(i).getItem())) {
 					result.add(list.get(i).getItem());
 				}
 			}
 			return result;
-		} else if (itemCtr.getGame() != null) {
+		} else if (!StringUtils.isBlank(itemCtr.getGame())) {
 			for (int i = 0; i < list.size(); i++) {
 				if (!result.contains(list.get(i).getCategory())) {
 					result.add(list.get(i).getCategory());
@@ -126,7 +126,7 @@ public class ItemServiceImpl implements ItemService {
 		item.setParticipantnums(itemCtr.getParticipantnums());
 		item.setDescription(itemCtr.getDescription());
 		item.setGender(genderGroupService.genderStrToInt(itemCtr.getGender()));
-		
+
 		return item;
 	}
 
@@ -146,8 +146,8 @@ public class ItemServiceImpl implements ItemService {
 		itemCtr.setParticipantnums(item.getParticipantnums());
 		itemCtr.setDescription(item.getDescription());
 		itemCtr.setGender(genderGroupService.genderIntToStr(item.getGender()));
-		
+
 		return itemCtr;
 	}
-	
+
 }

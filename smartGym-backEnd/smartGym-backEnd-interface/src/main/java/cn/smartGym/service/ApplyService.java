@@ -8,12 +8,18 @@ import common.utils.SGResult;
 
 /**
  * 比赛报名服务层
+ * 
+ * @author Ruimeng Jin
  *
  */
 public interface ApplyService {
 	SGResult addApply(SmartgymApplications apply);
+
 	SGResult checkData(SmartgymApplications apply);
+
 	SmartgymApplications applyCtrtoDao(SmartgymApplicationsCtr apply);
+
 	SmartgymApplicationsCtr applyDaotoCtr(SmartgymApplications apply);
+
 	List<SmartgymApplicationsCtr> getApplycationListByStudentno(String studentno);
 }

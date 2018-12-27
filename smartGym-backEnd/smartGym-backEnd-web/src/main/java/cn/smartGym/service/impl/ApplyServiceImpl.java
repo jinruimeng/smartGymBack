@@ -36,7 +36,7 @@ public class ApplyServiceImpl implements ApplyService {
 
 	@Autowired
 	private SmartgymItemsMapper smartgymItemsMapper;
-	
+
 	@Autowired
 	private SmartgymUsersMapper smartgymUsersMapper;
 
@@ -52,8 +52,6 @@ public class ApplyServiceImpl implements ApplyService {
 	@Override
 	public SGResult addApply(SmartgymApplications apply) {
 		// 数据有效性检验
-		// if (apply.getStudentno() == null || apply.getJob() == null ||
-		// apply.getItemId() == null)
 		if (StringUtils.isBlank(apply.getStudentno()) || StringUtils.isBlank(apply.getJob().toString())
 				|| StringUtils.isBlank(apply.getItemId().toString()))
 			return SGResult.build(401, "报名信息不完整，报名失败");
@@ -66,7 +64,7 @@ public class ApplyServiceImpl implements ApplyService {
 		// 补全apply其他属性
 		apply.setId(applyId);
 		apply.setStatus(1);
-		// 1-正常，0-已删除
+		// 0-已删除，1-正常
 		apply.setCreated(new Date());
 		apply.setUpdated(new Date());
 		// 插入数据库
@@ -74,7 +72,7 @@ public class ApplyServiceImpl implements ApplyService {
 		// 返回成功
 		return SGResult.build(200, "报名成功", apply);
 	}
-	
+
 	/**
 	 * 根据学号查询已报名比赛项目列表
 	 */
@@ -90,7 +88,13 @@ public class ApplyServiceImpl implements ApplyService {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * Controller-Dao层接收bean转换器
+	 * 
+	 * @param applyCtr 接收前端数据的bean
+	 * @return 封装存储到数据库中数据的bean
+	 */
 	@Override
 	public SmartgymApplications applyCtrtoDao(SmartgymApplicationsCtr applyCtr) {
 		// 生成报名项目Id
@@ -99,7 +103,7 @@ public class ApplyServiceImpl implements ApplyService {
 		criteria.andGameEqualTo(applyCtr.getGame());
 		criteria.andCategoryEqualTo(applyCtr.getCategory());
 		criteria.andItemEqualTo(applyCtr.getItem());
-		// 设置性别
+		// 设置项目性别查询条件
 		criteria.andGenderEqualTo(genderGroupService.genderStrToInt(applyCtr.getGender()));
 
 		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
@@ -121,6 +125,12 @@ public class ApplyServiceImpl implements ApplyService {
 		return apply;
 	}
 
+	/**
+	 * Dao-Controller层接收bean转换器
+	 * 
+	 * @param apply 从数据库中查询出数据封装的bean
+	 * @return 返回给前端的bean
+	 */
 	@Override
 	public SmartgymApplicationsCtr applyDaotoCtr(SmartgymApplications apply) {
 		// 查询报名项目信息
@@ -146,15 +156,18 @@ public class ApplyServiceImpl implements ApplyService {
 		// 设置性别
 		applyCtr.setGender(genderGroupService.genderIntToStr(apply.getGender()));
 
-		//设置姓名
+		// 设置姓名
 		SmartgymUsersExample userExample = new SmartgymUsersExample();
 		cn.smartGym.pojo.SmartgymUsersExample.Criteria userCriteria = userExample.createCriteria();
 		userCriteria.andStudentnoEqualTo(apply.getStudentno());
 		applyCtr.setPlayname(smartgymUsersMapper.selectByExample(userExample).get(0).getUsername());
-		
+
 		return applyCtr;
 	}
 
+	/**
+	 * 检查是否已报名该项目
+	 */
 	@Override
 	public SGResult checkData(SmartgymApplications apply) {
 		SmartgymApplicationsExample example = new SmartgymApplicationsExample();

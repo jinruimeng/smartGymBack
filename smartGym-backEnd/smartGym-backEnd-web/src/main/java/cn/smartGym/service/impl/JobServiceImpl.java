@@ -4,9 +4,18 @@ import org.springframework.stereotype.Service;
 
 import cn.smartGym.service.JobService;
 
+/**
+ * 职位管理Service
+ * 
+ * @author Ruimeng Jin
+ *
+ */
 @Service
 public class JobServiceImpl implements JobService {
 
+	/**
+	 * 职位 字符串到编号转换
+	 */
 	@Override
 	public Integer jobStringToInt(String job) {
 		switch (job) {
@@ -25,6 +34,9 @@ public class JobServiceImpl implements JobService {
 		}
 	}
 
+	/**
+	 * 职位 编号到字符串转换
+	 */
 	@Override
 	public String jobIntToString(Integer job) {
 		switch (job) {

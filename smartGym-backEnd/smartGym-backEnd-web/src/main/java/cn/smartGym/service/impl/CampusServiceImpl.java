@@ -11,19 +11,24 @@ import cn.smartGym.pojo.SmartgymCampusesExample;
 import cn.smartGym.pojo.SmartgymCampusesExample.Criteria;
 import cn.smartGym.service.CampusService;
 
+/**
+ * 校区管理Service
+ * 
+ * @author Ruimeng Jin
+ *
+ */
 @Service
-public class CampusServiceImpl implements CampusService{
+public class CampusServiceImpl implements CampusService {
 
 	@Autowired
 	private SmartgymCampusesMapper smartgymCampusesMapper;
-	
-	
+
 	/**
 	 * 根据校区id获取校区名
 	 */
 	public String getCampus(Integer id) {
 
-		//根据主键查询
+		// 根据主键查询
 		SmartgymCampuses smartgymCampuses = smartgymCampusesMapper.selectByPrimaryKey(id);
 		return smartgymCampuses.getCampus();
 	}
@@ -36,9 +41,9 @@ public class CampusServiceImpl implements CampusService{
 		Criteria criteria = example.createCriteria();
 		criteria.andCampusEqualTo(campus);
 		List<SmartgymCampuses> list = smartgymCampusesMapper.selectByExample(example);
-		if(list == null || list.size() == 0)
+		if (list == null || list.size() == 0)
 			return null;
 		return list.get(0).getId();
 	}
-	
+
 }

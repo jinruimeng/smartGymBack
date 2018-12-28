@@ -9,13 +9,15 @@ public class SmartgymPlayers {
 
     private Integer college;
 
-    private Long userId;
+    private String studentno;
 
     private Long itemId;
 
     private Integer job;
 
     private String playerno;
+
+    private Integer gender;
 
     private Integer group;
 
@@ -55,12 +57,12 @@ public class SmartgymPlayers {
         this.college = college;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getStudentno() {
+        return studentno;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setStudentno(String studentno) {
+        this.studentno = studentno == null ? null : studentno.trim();
     }
 
     public Long getItemId() {
@@ -85,6 +87,14 @@ public class SmartgymPlayers {
 
     public void setPlayerno(String playerno) {
         this.playerno = playerno == null ? null : playerno.trim();
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     public Integer getGroup() {

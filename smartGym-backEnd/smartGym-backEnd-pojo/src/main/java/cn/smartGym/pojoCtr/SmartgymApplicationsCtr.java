@@ -19,7 +19,7 @@ public class SmartgymApplicationsCtr {
 
 	private String name;
 	
-	private String College;
+	private String college;
 	
 	public String getJob() {
 		return job;
@@ -95,11 +95,11 @@ public class SmartgymApplicationsCtr {
 	}
 
 	public String getCollege() {
-		return College;
+		return college;
 	}
 
 	public void setCollege(String college) {
-		College = college;
+		this.college = college;
 	}
 
 }

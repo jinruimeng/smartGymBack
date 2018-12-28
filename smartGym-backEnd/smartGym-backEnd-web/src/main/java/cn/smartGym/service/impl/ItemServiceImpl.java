@@ -13,6 +13,7 @@ import cn.smartGym.pojo.SmartgymItems;
 import cn.smartGym.pojo.SmartgymItemsExample;
 import cn.smartGym.pojo.SmartgymItemsExample.Criteria;
 import cn.smartGym.pojoCtr.SmartgymItemsCtr;
+import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
 import common.utils.IDUtils;
@@ -51,6 +52,42 @@ public class ItemServiceImpl implements ItemService {
 		smartgymItemsMapper.insert(item);
 		// 返回成功
 		return SGResult.build(200, "添加比赛项目成功");
+	}
+	
+	/**
+	 * 根据Item具体信息获取ItemId
+	 * @param playerCtr
+	 * @return
+	 */
+	public Long getItemIdByItemDetails(String game, String category, String item, Integer gender) {
+		// 根据项目的名称分类小项等生成比赛项目Id
+		SmartgymItemsExample example = new SmartgymItemsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andGameEqualTo(game);
+		criteria.andCategoryEqualTo(category);
+		criteria.andItemEqualTo(item);
+		// 设置项目性别查询条件
+		criteria.andGenderEqualTo(gender);
+
+		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+		if (list == null || list.size() == 0)
+			return null;
+		return list.get(0).getId();
+	}
+	
+	/**
+	 * 根据ItemId获取Item实体
+	 */
+	public SmartgymItems getItemByItemId(Long itemId) {
+		// 根据项目id查询报名项目信息
+		SmartgymItemsExample example = new SmartgymItemsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(itemId);
+		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+		if (list == null || list.isEmpty())
+			return null;
+		SmartgymItems item = list.get(0);
+		return item;
 	}
 
 	/**

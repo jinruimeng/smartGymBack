@@ -21,4 +21,9 @@ public interface ItemService {
 	ArrayList<String> applySelect(SmartgymItemsCtr itemCtr);
 
 	SGResult addItem(SmartgymItems item);
+	
+	Long getItemIdByItemDetails(String game, String category, String item, Integer gender);
+	
+	SmartgymItems getItemByItemId(Long itemId);
+	
 }

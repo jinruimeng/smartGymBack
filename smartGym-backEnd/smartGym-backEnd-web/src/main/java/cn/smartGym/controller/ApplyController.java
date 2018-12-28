@@ -65,6 +65,11 @@ public class ApplyController {
 		return SGResult.build(200, "获取项目信息成功!", result);
 	}
 
+	/**
+	 * 根据学号获取已报名项目信息
+	 * @param studentno
+	 * @return
+	 */
 	@RequestMapping(value = "/apply/getApplycationListByStudentno", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody

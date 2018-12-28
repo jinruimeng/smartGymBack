@@ -19,6 +19,7 @@ import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
 import cn.smartGym.service.ApplyService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderGroupService;
+import cn.smartGym.service.ItemService;
 import cn.smartGym.service.JobService;
 import common.utils.IDUtils;
 import common.utils.SGResult;
@@ -34,9 +35,6 @@ public class ApplyServiceImpl implements ApplyService {
 	private SmartgymApplicationsMapper smartgymApplicationsMapper;
 
 	@Autowired
-	private SmartgymItemsMapper smartgymItemsMapper;
-
-	@Autowired
 	private CollegeService collegeService;
 
 	@Autowired
@@ -45,28 +43,24 @@ public class ApplyServiceImpl implements ApplyService {
 	@Autowired
 	private JobService jobService;
 
+	@Autowired
+	private ItemService itemService;
+
 	/**
 	 * Controller-Dao层接收bean转换器
 	 * 
-	 * @param applyCtr 接收前端数据的bean
+	 * @param applyCtr
+	 *            接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
 	public SmartgymApplications applyCtrtoDao(SmartgymApplicationsCtr applyCtr) {
-		// 生成报名项目Id
-		SmartgymItemsExample example = new SmartgymItemsExample();
-		cn.smartGym.pojo.SmartgymItemsExample.Criteria criteria = example.createCriteria();
-		criteria.andGameEqualTo(applyCtr.getGame());
-		criteria.andCategoryEqualTo(applyCtr.getCategory());
-		criteria.andItemEqualTo(applyCtr.getItem());
-		// 设置项目性别查询条件
-		criteria.andGenderEqualTo(genderGroupService.genderStrToInt(applyCtr.getGender()));
-
-		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
-		if (list == null || list.isEmpty())
+		// 根据具体项目信息生成itemId
+		Long itemId = itemService.getItemIdByItemDetails(applyCtr.getGame(), applyCtr.getCategory(), applyCtr.getItem(),
+				genderGroupService.genderStrToInt(applyCtr.getGender()));
+		if(itemId == null)
 			return null;
-		applyCtr.setItemId(list.get(0).getId());
-
+		applyCtr.setItemId(itemId);
 		// 转换为Dao层的pojo
 		SmartgymApplications apply = new SmartgymApplications();
 		// 设置学号
@@ -86,26 +80,20 @@ public class ApplyServiceImpl implements ApplyService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param apply 从数据库中查询出数据封装的bean
+	 * @param apply
+	 *            从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
 	@Override
 	public SmartgymApplicationsCtr applyDaotoCtr(SmartgymApplications apply) {
-		// 查询报名项目信息
-		SmartgymItemsExample example = new SmartgymItemsExample();
-		cn.smartGym.pojo.SmartgymItemsExample.Criteria criteria = example.createCriteria();
-		criteria.andIdEqualTo(apply.getItemId());
-		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
-		if (list == null || list.isEmpty())
-			return null;
-		SmartgymItems itemObject = list.get(0);
-
+		// 根据itemId获取项目具体信息
+		SmartgymItems item = itemService.getItemByItemId(apply.getItemId());
 		// 转换为Dao层的pojo
 		SmartgymApplicationsCtr applyCtr = new SmartgymApplicationsCtr();
 		// 设置项目信息
-		applyCtr.setGame(itemObject.getGame());
-		applyCtr.setCategory(itemObject.getCategory());
-		applyCtr.setItem(itemObject.getItem());
+		applyCtr.setGame(item.getGame());
+		applyCtr.setCategory(item.getCategory());
+		applyCtr.setItem(item.getItem());
 		applyCtr.setItemId(apply.getItemId());
 		// 设置用户Id
 		applyCtr.setStudentno(apply.getStudentno());
@@ -120,8 +108,8 @@ public class ApplyServiceImpl implements ApplyService {
 		 * cn.smartGym.pojo.SmartgymUsersExample.Criteria userCriteria =
 		 * userExample.createCriteria();
 		 * userCriteria.andStudentnoEqualTo(apply.getStudentno());
-		 * applyCtr.setName(smartgymUsersMapper.selectByExample(userExample).get(0).
-		 * getName());
+		 * applyCtr.setName(smartgymUsersMapper.selectByExample(userExample).get
+		 * (0). getName());
 		 */
 		// 设置学院
 		applyCtr.setCollege(collegeService.getCollege(apply.getCollege()));
@@ -131,6 +119,9 @@ public class ApplyServiceImpl implements ApplyService {
 
 	/**
 	 * 检查是否已报名该项目
+	 * 
+	 * @param 申请信息
+	 * @return 返回信息
 	 */
 	@Override
 	public SGResult checkData(SmartgymApplications apply) {
@@ -153,6 +144,9 @@ public class ApplyServiceImpl implements ApplyService {
 
 	/**
 	 * 报名比赛
+	 * 
+	 * @param 申请信息
+	 * @return 返回给前端的信息 {status, msg, data}
 	 */
 	@Override
 	public SGResult addApply(SmartgymApplications apply) {
@@ -180,6 +174,9 @@ public class ApplyServiceImpl implements ApplyService {
 
 	/**
 	 * 根据学号查询已报名比赛项目列表
+	 * 
+	 * @param 学号
+	 * @return 根据学号查找到的学生已报名比赛项目信息
 	 */
 	public List<SmartgymApplicationsCtr> getApplycationListByStudentno(String studentno) {
 		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
@@ -187,6 +184,8 @@ public class ApplyServiceImpl implements ApplyService {
 		criteria.andStudentnoEqualTo(studentno);
 		criteria.andStatusGreaterThanOrEqualTo(1);
 		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
+		if (list == null || list.size() == 0)
+			return null;
 		List<SmartgymApplicationsCtr> result = new ArrayList<>();
 		for (SmartgymApplications apply : list) {
 			SmartgymApplicationsCtr applyCtr = applyDaotoCtr(apply);

@@ -14,7 +14,7 @@ public class SmartgymUsersCtr {
 
 	private String studentno;
 	
-	private String username;
+	private String name;
 
 	private String gender;
 
@@ -70,14 +70,6 @@ public class SmartgymUsersCtr {
 
 	public void setStudentno(String studentno) {
 		this.studentno = studentno;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getGender() {
@@ -142,5 +134,13 @@ public class SmartgymUsersCtr {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

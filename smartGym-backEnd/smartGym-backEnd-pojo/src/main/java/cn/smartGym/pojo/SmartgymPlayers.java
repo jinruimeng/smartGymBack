@@ -5,6 +5,10 @@ import java.util.Date;
 public class SmartgymPlayers {
     private Long id;
 
+    private String name;
+
+    private Integer college;
+
     private Long userId;
 
     private Long itemId;
@@ -33,6 +37,22 @@ public class SmartgymPlayers {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public Integer getCollege() {
+        return college;
+    }
+
+    public void setCollege(Integer college) {
+        this.college = college;
     }
 
     public Long getUserId() {

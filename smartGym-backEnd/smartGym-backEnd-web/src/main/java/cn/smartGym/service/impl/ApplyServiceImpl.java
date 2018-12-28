@@ -10,15 +10,14 @@ import org.springframework.stereotype.Service;
 
 import cn.smartGym.mapper.SmartgymApplicationsMapper;
 import cn.smartGym.mapper.SmartgymItemsMapper;
-import cn.smartGym.mapper.SmartgymUsersMapper;
 import cn.smartGym.pojo.SmartgymApplications;
 import cn.smartGym.pojo.SmartgymApplicationsExample;
 import cn.smartGym.pojo.SmartgymApplicationsExample.Criteria;
 import cn.smartGym.pojo.SmartgymItems;
 import cn.smartGym.pojo.SmartgymItemsExample;
-import cn.smartGym.pojo.SmartgymUsersExample;
 import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
 import cn.smartGym.service.ApplyService;
+import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.JobService;
 import common.utils.IDUtils;
@@ -38,7 +37,7 @@ public class ApplyServiceImpl implements ApplyService {
 	private SmartgymItemsMapper smartgymItemsMapper;
 
 	@Autowired
-	private SmartgymUsersMapper smartgymUsersMapper;
+	private CollegeService collegeService;
 
 	@Autowired
 	private GenderGroupService genderGroupService;
@@ -76,8 +75,10 @@ public class ApplyServiceImpl implements ApplyService {
 		apply.setGender(genderGroupService.genderStrToInt(applyCtr.getGender()));
 		// 设置职位
 		apply.setJob(jobService.jobStringToInt(applyCtr.getJob()));
-		// 设置项目itemId
+		// 设置项目Id
 		apply.setItemId(applyCtr.getItemId());
+		// 设置学院
+		apply.setCollege(collegeService.getId(applyCtr.getCollege()));
 
 		return apply;
 	}
@@ -112,12 +113,18 @@ public class ApplyServiceImpl implements ApplyService {
 		applyCtr.setJob(jobService.jobIntToString(apply.getJob()));
 		// 设置性别
 		applyCtr.setGender(genderGroupService.genderIntToStr(apply.getGender()));
-
 		// 设置姓名
-		SmartgymUsersExample userExample = new SmartgymUsersExample();
-		cn.smartGym.pojo.SmartgymUsersExample.Criteria userCriteria = userExample.createCriteria();
-		userCriteria.andStudentnoEqualTo(apply.getStudentno());
-		applyCtr.setPlayname(smartgymUsersMapper.selectByExample(userExample).get(0).getUsername());
+		applyCtr.setName(apply.getName());
+		/*
+		 * SmartgymUsersExample userExample = new SmartgymUsersExample();
+		 * cn.smartGym.pojo.SmartgymUsersExample.Criteria userCriteria =
+		 * userExample.createCriteria();
+		 * userCriteria.andStudentnoEqualTo(apply.getStudentno());
+		 * applyCtr.setName(smartgymUsersMapper.selectByExample(userExample).get(0).
+		 * getName());
+		 */
+		// 设置学院
+		applyCtr.setCollege(collegeService.getCollege(apply.getCollege()));
 
 		return applyCtr;
 	}
@@ -162,7 +169,7 @@ public class ApplyServiceImpl implements ApplyService {
 		// 补全apply其他属性
 		apply.setId(applyId);
 		apply.setStatus(1);
-		// 0-已删除，1-正常
+		// 0-已删除（或已通过校级审核）1-正在审核 2-院级审核通过
 		apply.setCreated(new Date());
 		apply.setUpdated(new Date());
 		// 插入数据库
@@ -178,6 +185,7 @@ public class ApplyServiceImpl implements ApplyService {
 		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStudentnoEqualTo(studentno);
+		criteria.andStatusGreaterThanOrEqualTo(1);
 		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
 		List<SmartgymApplicationsCtr> result = new ArrayList<>();
 		for (SmartgymApplications apply : list) {

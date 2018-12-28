@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SmartgymUsersMapper {
-    int countByExample(SmartgymUsersExample example);
+    long countByExample(SmartgymUsersExample example);
 
     int deleteByExample(SmartgymUsersExample example);
 

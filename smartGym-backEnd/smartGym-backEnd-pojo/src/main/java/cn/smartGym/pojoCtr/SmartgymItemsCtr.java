@@ -17,6 +17,8 @@ public class SmartgymItemsCtr {
 
     private Integer participantnums;
     
+    private Integer applynums;
+    
     private String description;
 
 	public String getGame() {
@@ -81,6 +83,14 @@ public class SmartgymItemsCtr {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Integer getApplynums() {
+		return applynums;
+	}
+
+	public void setApplynums(Integer applynums) {
+		this.applynums = applynums;
 	}
 
 }

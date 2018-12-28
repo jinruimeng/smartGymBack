@@ -17,16 +17,10 @@ public class SmartgymApplicationsCtr {
 
 	private String item;
 
-	private String playname;
+	private String name;
 	
-	public String getPlayname() {
-		return playname;
-	}
-
-	public void setPlayname(String playname) {
-		this.playname = playname;
-	}
-
+	private String College;
+	
 	public String getJob() {
 		return job;
 	}
@@ -90,6 +84,22 @@ public class SmartgymApplicationsCtr {
 
 	public void setItem(String item) {
 		this.item = item;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCollege() {
+		return College;
+	}
+
+	public void setCollege(String college) {
+		College = college;
 	}
 
 }

@@ -5,11 +5,15 @@ import java.util.Date;
 public class SmartgymApplications {
     private Long id;
 
-    private String studentno;
-    
-    private Integer gender;
-    
+    private String name;
+
+    private Integer college;
+
     private Integer job;
+
+    private Integer gender;
+
+    private String studentno;
 
     private Long itemId;
 
@@ -25,6 +29,22 @@ public class SmartgymApplications {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public Integer getCollege() {
+        return college;
+    }
+
+    public void setCollege(Integer college) {
+        this.college = college;
     }
 
     public Integer getJob() {

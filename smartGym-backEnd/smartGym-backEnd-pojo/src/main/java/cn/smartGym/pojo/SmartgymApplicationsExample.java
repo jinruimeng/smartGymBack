@@ -165,6 +165,136 @@ public class SmartgymApplicationsExample {
             return (Criteria) this;
         }
 
+        public Criteria andNameIsNull() {
+            addCriterion("name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameIsNotNull() {
+            addCriterion("name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("name =", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("name <>", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("name >", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("name >=", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameLessThan(String value) {
+            addCriterion("name <", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("name <=", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameLike(String value) {
+            addCriterion("name like", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameNotLike(String value) {
+            addCriterion("name not like", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("name in", values, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("name not in", values, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("name between", value1, value2, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("name not between", value1, value2, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeIsNull() {
+            addCriterion("college is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeIsNotNull() {
+            addCriterion("college is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeEqualTo(Integer value) {
+            addCriterion("college =", value, "college");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeNotEqualTo(Integer value) {
+            addCriterion("college <>", value, "college");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeGreaterThan(Integer value) {
+            addCriterion("college >", value, "college");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("college >=", value, "college");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeLessThan(Integer value) {
+            addCriterion("college <", value, "college");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeLessThanOrEqualTo(Integer value) {
+            addCriterion("college <=", value, "college");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeIn(List<Integer> values) {
+            addCriterion("college in", values, "college");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeNotIn(List<Integer> values) {
+            addCriterion("college not in", values, "college");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeBetween(Integer value1, Integer value2) {
+            addCriterion("college between", value1, value2, "college");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegeNotBetween(Integer value1, Integer value2) {
+            addCriterion("college not between", value1, value2, "college");
+            return (Criteria) this;
+        }
+
         public Criteria andJobIsNull() {
             addCriterion("job is null");
             return (Criteria) this;

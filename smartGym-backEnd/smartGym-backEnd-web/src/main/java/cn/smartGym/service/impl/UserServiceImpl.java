@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 		user.setPhone(userCtr.getPhone());
 		user.setStudentno(userCtr.getStudentno());
 		user.setWxid(userCtr.getWxid());
-		user.setUsername(userCtr.getUsername());
+		user.setName(userCtr.getName());
 		user.setCampus(campusService.getId(userCtr.getCampus()));
 		user.setCollege(collegeService.getId(userCtr.getCollege()));
 		user.setGender(genderService.genderStrToInt(userCtr.getGender()));
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
 		userCtr.setPhone(user.getPhone());
 		userCtr.setStudentno(user.getStudentno());
 		userCtr.setWxid(user.getWxid());
-		userCtr.setUsername(user.getUsername());
+		userCtr.setName(user.getName());
 		userCtr.setCampus(campusService.getCampus(user.getCampus()));
 		userCtr.setCollege(collegeService.getCollege(user.getCollege()));
 		userCtr.setGender(genderService.genderIntToStr(user.getGender()));
@@ -167,7 +167,7 @@ public class UserServiceImpl implements UserService {
 		if (type == 1) {
 			criteria.andStudentnoEqualTo(param);
 		} else if (type == 2) {
-			criteria.andUsernameEqualTo(param);
+			criteria.andNameEqualTo(param);
 		} else if (type == 3) {
 			criteria.andPhoneEqualTo(param);
 		} else {
@@ -190,7 +190,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public SGResult register(SmartgymUsers user) {
 		// 数据有效性检验
-		if (StringUtils.isBlank(user.getStudentno()) || StringUtils.isBlank(user.getUsername())
+		if (StringUtils.isBlank(user.getStudentno()) || StringUtils.isBlank(user.getName())
 				|| StringUtils.isBlank(user.getPhone()) || StringUtils.isBlank(user.getWxid()))
 			return SGResult.build(401, "用户数据不完整，注册失败");
 		// 1：学号 2：用户名 3：手机号

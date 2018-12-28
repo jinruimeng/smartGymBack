@@ -58,7 +58,7 @@ public class UserController {
 		List<SmartgymUsers> result = userService.selectByWxid(wxid);
 
 		if (!result.isEmpty())
-			return SGResult.build(400, "该用户已注册！", userService.userDaoToCtr(result.get(0)));
+			return SGResult.build(200, "该用户已注册！", userService.userDaoToCtr(result.get(0)));
 		else
 			return SGResult.build(200, "该用户未注册！", wxid);
 	}
@@ -73,13 +73,6 @@ public class UserController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult register(SmartgymUsersCtr userCtr) {
-/*		// 解密用户敏感数据
-		SGResult sgResult = userService.decodeUserInfo(userCtr);
-		if (sgResult.getStatus() != 200)
-			return sgResult;
-		else
-			userCtr.setWxid((String) sgResult.getData());*/
-
 		SmartgymUsers user = userService.userCtrToDao(userCtr);
 		return userService.register(user);
 	}
@@ -92,12 +85,12 @@ public class UserController {
 	@RequestMapping(value = "/user/getAllCollegesAndCampus", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public Map<String, List<String>> getAllCollegesAndCampus() {
+	public SGResult getAllCollegesAndCampus() {
 		List<String> colleges = collegeService.getAllcolleges();
 		List<String> campuses = campusService.getAllCampuses();
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		result.put("colleges", colleges);
 		result.put("campuses", campuses);
-		return result;
+		return SGResult.build(200, "获取校区和学院信息成功！", result);
 	}
 }

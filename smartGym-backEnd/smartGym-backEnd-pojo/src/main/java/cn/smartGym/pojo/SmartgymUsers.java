@@ -7,9 +7,9 @@ public class SmartgymUsers {
 
     private String name;
 
-    private String wxid;
+    private String wxId;
 
-    private String studentno;
+    private String studentNo;
 
     private Integer gender;
 
@@ -43,20 +43,20 @@ public class SmartgymUsers {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getWxid() {
-        return wxid;
+    public String getWxId() {
+        return wxId;
     }
 
-    public void setWxid(String wxid) {
-        this.wxid = wxid == null ? null : wxid.trim();
+    public void setWxId(String wxId) {
+        this.wxId = wxId == null ? null : wxId.trim();
     }
 
-    public String getStudentno() {
-        return studentno;
+    public String getStudentNo() {
+        return studentNo;
     }
 
-    public void setStudentno(String studentno) {
-        this.studentno = studentno == null ? null : studentno.trim();
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo == null ? null : studentNo.trim();
     }
 
     public Integer getGender() {

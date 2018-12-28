@@ -7,7 +7,7 @@
     <result column="college" jdbcType="INTEGER" property="college" />
     <result column="job" jdbcType="INTEGER" property="job" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
-    <result column="studentno" jdbcType="VARCHAR" property="studentno" />
+    <result column="student_no" jdbcType="VARCHAR" property="studentNo" />
     <result column="item_id" jdbcType="BIGINT" property="itemId" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, college, job, gender, studentno, item_id, status, created, updated
+    id, name, college, job, gender, student_no, item_id, status, created, updated
   </sql>
   <select id="selectByExample" parameterType="cn.smartGym.pojo.SmartgymApplicationsExample" resultMap="BaseResultMap">
     select
@@ -106,11 +106,11 @@
   </delete>
   <insert id="insert" parameterType="cn.smartGym.pojo.SmartgymApplications">
     insert into smartgym_applications (id, name, college, 
-      job, gender, studentno, 
+      job, gender, student_no, 
       item_id, status, created, 
       updated)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{college,jdbcType=INTEGER}, 
-      #{job,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, #{studentno,jdbcType=VARCHAR}, 
+      #{job,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, #{studentNo,jdbcType=VARCHAR}, 
       #{itemId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, 
       #{updated,jdbcType=TIMESTAMP})
   </insert>
@@ -132,8 +132,8 @@
       <if test="gender != null">
         gender,
       </if>
-      <if test="studentno != null">
-        studentno,
+      <if test="studentNo != null">
+        student_no,
       </if>
       <if test="itemId != null">
         item_id,
@@ -164,8 +164,8 @@
       <if test="gender != null">
         #{gender,jdbcType=INTEGER},
       </if>
-      <if test="studentno != null">
-        #{studentno,jdbcType=VARCHAR},
+      <if test="studentNo != null">
+        #{studentNo,jdbcType=VARCHAR},
       </if>
       <if test="itemId != null">
         #{itemId,jdbcType=BIGINT},
@@ -205,8 +205,8 @@
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=INTEGER},
       </if>
-      <if test="record.studentno != null">
-        studentno = #{record.studentno,jdbcType=VARCHAR},
+      <if test="record.studentNo != null">
+        student_no = #{record.studentNo,jdbcType=VARCHAR},
       </if>
       <if test="record.itemId != null">
         item_id = #{record.itemId,jdbcType=BIGINT},
@@ -232,7 +232,7 @@
       college = #{record.college,jdbcType=INTEGER},
       job = #{record.job,jdbcType=INTEGER},
       gender = #{record.gender,jdbcType=INTEGER},
-      studentno = #{record.studentno,jdbcType=VARCHAR},
+      student_no = #{record.studentNo,jdbcType=VARCHAR},
       item_id = #{record.itemId,jdbcType=BIGINT},
       status = #{record.status,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
@@ -256,8 +256,8 @@
       <if test="gender != null">
         gender = #{gender,jdbcType=INTEGER},
       </if>
-      <if test="studentno != null">
-        studentno = #{studentno,jdbcType=VARCHAR},
+      <if test="studentNo != null">
+        student_no = #{studentNo,jdbcType=VARCHAR},
       </if>
       <if test="itemId != null">
         item_id = #{itemId,jdbcType=BIGINT},
@@ -280,7 +280,7 @@
       college = #{college,jdbcType=INTEGER},
       job = #{job,jdbcType=INTEGER},
       gender = #{gender,jdbcType=INTEGER},
-      studentno = #{studentno,jdbcType=VARCHAR},
+      student_no = #{studentNo,jdbcType=VARCHAR},
       item_id = #{itemId,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},

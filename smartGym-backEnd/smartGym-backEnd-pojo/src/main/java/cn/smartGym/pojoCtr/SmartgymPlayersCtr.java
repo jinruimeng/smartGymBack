@@ -1,12 +1,19 @@
 package cn.smartGym.pojoCtr;
 
-public class SmartgymPlayersCtr {
+import java.io.Serializable;
+
+public class SmartgymPlayersCtr implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1254682028835756571L;
+
 	private String name;
 
 	private String college;
 
-	private String studentno;
-	
+	private String studentNo;
+
 	private Long itemId;
 
 	private String game;
@@ -17,17 +24,17 @@ public class SmartgymPlayersCtr {
 
 	private String job;
 
-	private String playerno;
+	private String playerNo;
 
 	private String gender;
 
-	private Integer group;
+	private Integer groupNo;
 
-	private Integer path;
+	private Integer pathNo;
 
 	private String grades;
 
-	private Integer rank;
+	private Integer rankNo;
 
 	public String getName() {
 		return name;
@@ -43,14 +50,6 @@ public class SmartgymPlayersCtr {
 
 	public void setCollege(String college) {
 		this.college = college;
-	}
-
-	public String getStudentno() {
-		return studentno;
-	}
-
-	public void setStudentno(String studentno) {
-		this.studentno = studentno;
 	}
 
 	public Long getItemId() {
@@ -93,14 +92,6 @@ public class SmartgymPlayersCtr {
 		this.job = job;
 	}
 
-	public String getPlayerno() {
-		return playerno;
-	}
-
-	public void setPlayerno(String playerno) {
-		this.playerno = playerno;
-	}
-
 	public String getGender() {
 		return gender;
 	}
@@ -109,20 +100,20 @@ public class SmartgymPlayersCtr {
 		this.gender = gender;
 	}
 
-	public Integer getGroup() {
-		return group;
+	public Integer getGroupNo() {
+		return groupNo;
 	}
 
-	public void setGroup(Integer group) {
-		this.group = group;
+	public void setGroupNo(Integer groupNo) {
+		this.groupNo = groupNo;
 	}
 
-	public Integer getPath() {
-		return path;
+	public Integer getPathNo() {
+		return pathNo;
 	}
 
-	public void setPath(Integer path) {
-		this.path = path;
+	public void setPathNo(Integer pathNo) {
+		this.pathNo = pathNo;
 	}
 
 	public String getGrades() {
@@ -133,12 +124,28 @@ public class SmartgymPlayersCtr {
 		this.grades = grades;
 	}
 
-	public Integer getRank() {
-		return rank;
+	public String getStudentNo() {
+		return studentNo;
 	}
 
-	public void setRank(Integer rank) {
-		this.rank = rank;
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
+	}
+
+	public String getPlayerNo() {
+		return playerNo;
+	}
+
+	public void setPlayerNo(String playerNo) {
+		this.playerNo = playerNo;
+	}
+
+	public Integer getRankNo() {
+		return rankNo;
+	}
+
+	public void setRankNo(Integer rankNo) {
+		this.rankNo = rankNo;
 	}
 
 }

@@ -42,10 +42,14 @@ public class ApplyController {
 	@ResponseBody
 	public SGResult addapply(SmartgymApplicationsCtr applyCtr) {
 		SmartgymApplications apply = applyService.applyCtrtoDao(applyCtr);
-		if (apply == null)
-			SGResult.build(401, "报名项目有误！");
 		// 插入数据库
-		return applyService.addApply(apply);
+		try {
+			return applyService.addApply(apply);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "报名失败！", e);
+		}
+
 	}
 
 	/**
@@ -60,20 +64,28 @@ public class ApplyController {
 	public SGResult applypage(SmartgymItemsCtr itemsCtr) {
 		ArrayList<String> result = itemService.applySelect(itemsCtr);
 		if (result == null || result.size() == 0) {
-			SGResult.build(401, "无法获取项目！");
+			SGResult.build(404, "获取项目信息失败！");
 		}
 		return SGResult.build(200, "获取项目信息成功!", result);
 	}
 
 	/**
 	 * 根据学号获取已报名项目信息
+	 * 
 	 * @param studentno
 	 * @return
 	 */
 	@RequestMapping(value = "/apply/getApplycationListByStudentno", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public List<SmartgymApplicationsCtr> getApplycationListByStudentno(String studentno) {
-		return applyService.getApplycationListByStudentno(studentno);
+	public SGResult getApplycationListByStudentno(String studentNo) {
+		try {
+			List<SmartgymApplicationsCtr> result = applyService.getApplycationListByStudentNo(studentNo);
+			return SGResult.build(200, "查询成功！", result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "查询失败！", e);
+		}
+
 	}
 }

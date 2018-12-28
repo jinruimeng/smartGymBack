@@ -13,7 +13,6 @@ import cn.smartGym.pojo.SmartgymItems;
 import cn.smartGym.pojo.SmartgymItemsExample;
 import cn.smartGym.pojo.SmartgymItemsExample.Criteria;
 import cn.smartGym.pojoCtr.SmartgymItemsCtr;
-import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
 import common.utils.IDUtils;
@@ -45,7 +44,7 @@ public class ItemServiceImpl implements ItemService {
 		final long itemId = IDUtils.genId();
 		// 补全item其他属性
 		item.setId(itemId);
-		item.setStatus(1); // 0-删除 1-正常
+		item.setStatus(1); // 0-已取消 1-正在报名 2-已结束
 		item.setCreated(new Date());
 		item.setUpdated(new Date());
 		// 插入数据库
@@ -53,9 +52,10 @@ public class ItemServiceImpl implements ItemService {
 		// 返回成功
 		return SGResult.build(200, "添加比赛项目成功");
 	}
-	
+
 	/**
 	 * 根据Item具体信息获取ItemId
+	 * 
 	 * @param playerCtr
 	 * @return
 	 */
@@ -74,7 +74,7 @@ public class ItemServiceImpl implements ItemService {
 			return null;
 		return list.get(0).getId();
 	}
-	
+
 	/**
 	 * 根据ItemId获取Item实体
 	 */
@@ -116,34 +116,41 @@ public class ItemServiceImpl implements ItemService {
 		list = smartgymItemsMapper.selectByExample(example);
 		if (!StringUtils.isBlank(itemCtr.getItem())) {
 			String gender;
-			for (int i = 0; i < list.size(); i++) {
-				gender = genderGroupService.genderIntToStr(list.get(i).getGender());
+			for (SmartgymItems smartgymItems : list) {
+				gender = genderGroupService.genderIntToStr(smartgymItems.getGender());
 				if (!result.contains(gender)) {
 					result.add(gender);
 				}
 			}
 			return result;
 		} else if (!StringUtils.isBlank(itemCtr.getCategory())) {
-			for (int i = 0; i < list.size(); i++) {
-				if (!result.contains(list.get(i).getItem())) {
-					result.add(list.get(i).getItem());
+			String item;
+			for (SmartgymItems smartgymItems : list) {
+				item = smartgymItems.getItem();
+				if (!result.contains(item)) {
+					result.add(item);
 				}
 			}
 			return result;
 		} else if (!StringUtils.isBlank(itemCtr.getGame())) {
-			for (int i = 0; i < list.size(); i++) {
-				if (!result.contains(list.get(i).getCategory())) {
-					result.add(list.get(i).getCategory());
+			String category;
+			for (SmartgymItems smartgymItems : list) {
+				category = smartgymItems.getCategory();
+				if (!result.contains(category)) {
+					result.add(category);
 				}
 			}
 			return result;
 		} else {
-			for (int i = 0; i < list.size(); i++) {
-				if (!result.contains(list.get(i).getGame())) {
-					result.add(list.get(i).getGame());
+			String game;
+			for (SmartgymItems smartgymItems : list) {
+				game = smartgymItems.getGame();
+				if (!result.contains(game)) {
+					result.add(game);
 				}
 			}
 			return result;
+
 		}
 	}
 
@@ -160,7 +167,7 @@ public class ItemServiceImpl implements ItemService {
 		item.setItem(itemCtr.getItem());
 		item.setDate(itemCtr.getDate());
 		item.setPlace(itemCtr.getPlace());
-		item.setParticipantnums(itemCtr.getParticipantnums());
+		item.setParticipantNum(itemCtr.getParticipantNum());
 		item.setDescription(itemCtr.getDescription());
 		item.setGender(genderGroupService.genderStrToInt(itemCtr.getGender()));
 
@@ -180,7 +187,7 @@ public class ItemServiceImpl implements ItemService {
 		itemCtr.setItem(item.getItem());
 		itemCtr.setDate(item.getDate());
 		itemCtr.setPlace(item.getPlace());
-		itemCtr.setParticipantnums(item.getParticipantnums());
+		itemCtr.setParticipantNum(item.getParticipantNum());
 		itemCtr.setDescription(item.getDescription());
 		itemCtr.setGender(genderGroupService.genderIntToStr(item.getGender()));
 

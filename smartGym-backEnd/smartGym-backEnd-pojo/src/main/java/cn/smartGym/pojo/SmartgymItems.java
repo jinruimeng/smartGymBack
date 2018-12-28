@@ -17,7 +17,7 @@ public class SmartgymItems {
 
     private String place;
 
-    private Integer participantnums;
+    private Integer participantNum;
 
     private Integer status;
 
@@ -83,12 +83,12 @@ public class SmartgymItems {
         this.place = place == null ? null : place.trim();
     }
 
-    public Integer getParticipantnums() {
-        return participantnums;
+    public Integer getParticipantNum() {
+        return participantNum;
     }
 
-    public void setParticipantnums(Integer participantnums) {
-        this.participantnums = participantnums;
+    public void setParticipantNum(Integer participantNum) {
+        this.participantNum = participantNum;
     }
 
     public Integer getStatus() {

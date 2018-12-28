@@ -565,63 +565,63 @@ public class SmartgymItemsExample {
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsIsNull() {
-            addCriterion("participantnums is null");
+        public Criteria andParticipantNumIsNull() {
+            addCriterion("participant_num is null");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsIsNotNull() {
-            addCriterion("participantnums is not null");
+        public Criteria andParticipantNumIsNotNull() {
+            addCriterion("participant_num is not null");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsEqualTo(Integer value) {
-            addCriterion("participantnums =", value, "participantnums");
+        public Criteria andParticipantNumEqualTo(Integer value) {
+            addCriterion("participant_num =", value, "participantNum");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsNotEqualTo(Integer value) {
-            addCriterion("participantnums <>", value, "participantnums");
+        public Criteria andParticipantNumNotEqualTo(Integer value) {
+            addCriterion("participant_num <>", value, "participantNum");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsGreaterThan(Integer value) {
-            addCriterion("participantnums >", value, "participantnums");
+        public Criteria andParticipantNumGreaterThan(Integer value) {
+            addCriterion("participant_num >", value, "participantNum");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsGreaterThanOrEqualTo(Integer value) {
-            addCriterion("participantnums >=", value, "participantnums");
+        public Criteria andParticipantNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("participant_num >=", value, "participantNum");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsLessThan(Integer value) {
-            addCriterion("participantnums <", value, "participantnums");
+        public Criteria andParticipantNumLessThan(Integer value) {
+            addCriterion("participant_num <", value, "participantNum");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsLessThanOrEqualTo(Integer value) {
-            addCriterion("participantnums <=", value, "participantnums");
+        public Criteria andParticipantNumLessThanOrEqualTo(Integer value) {
+            addCriterion("participant_num <=", value, "participantNum");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsIn(List<Integer> values) {
-            addCriterion("participantnums in", values, "participantnums");
+        public Criteria andParticipantNumIn(List<Integer> values) {
+            addCriterion("participant_num in", values, "participantNum");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsNotIn(List<Integer> values) {
-            addCriterion("participantnums not in", values, "participantnums");
+        public Criteria andParticipantNumNotIn(List<Integer> values) {
+            addCriterion("participant_num not in", values, "participantNum");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsBetween(Integer value1, Integer value2) {
-            addCriterion("participantnums between", value1, value2, "participantnums");
+        public Criteria andParticipantNumBetween(Integer value1, Integer value2) {
+            addCriterion("participant_num between", value1, value2, "participantNum");
             return (Criteria) this;
         }
 
-        public Criteria andParticipantnumsNotBetween(Integer value1, Integer value2) {
-            addCriterion("participantnums not between", value1, value2, "participantnums");
+        public Criteria andParticipantNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("participant_num not between", value1, value2, "participantNum");
             return (Criteria) this;
         }
 

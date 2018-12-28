@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="cn.smartGym.pojo.SmartgymUsers">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="wxid" jdbcType="VARCHAR" property="wxid" />
-    <result column="studentno" jdbcType="VARCHAR" property="studentno" />
+    <result column="wx_id" jdbcType="VARCHAR" property="wxId" />
+    <result column="student_no" jdbcType="VARCHAR" property="studentNo" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="campus" jdbcType="INTEGER" property="campus" />
     <result column="college" jdbcType="INTEGER" property="college" />
@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, wxid, studentno, gender, campus, college, phone, status, authority, created, 
+    id, name, wx_id, student_no, gender, campus, college, phone, status, authority, created, 
     updated
   </sql>
   <select id="selectByExample" parameterType="cn.smartGym.pojo.SmartgymUsersExample" resultMap="BaseResultMap">
@@ -108,13 +108,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.smartGym.pojo.SmartgymUsers">
-    insert into smartgym_users (id, name, wxid, 
-      studentno, gender, campus, 
+    insert into smartgym_users (id, name, wx_id, 
+      student_no, gender, campus, 
       college, phone, status, 
       authority, created, updated
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{wxid,jdbcType=VARCHAR}, 
-      #{studentno,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{campus,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, 
+      #{studentNo,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{campus,jdbcType=INTEGER}, 
       #{college,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{authority,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}
       )
@@ -128,11 +128,11 @@
       <if test="name != null">
         name,
       </if>
-      <if test="wxid != null">
-        wxid,
+      <if test="wxId != null">
+        wx_id,
       </if>
-      <if test="studentno != null">
-        studentno,
+      <if test="studentNo != null">
+        student_no,
       </if>
       <if test="gender != null">
         gender,
@@ -166,11 +166,11 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="wxid != null">
-        #{wxid,jdbcType=VARCHAR},
+      <if test="wxId != null">
+        #{wxId,jdbcType=VARCHAR},
       </if>
-      <if test="studentno != null">
-        #{studentno,jdbcType=VARCHAR},
+      <if test="studentNo != null">
+        #{studentNo,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         #{gender,jdbcType=INTEGER},
@@ -213,11 +213,11 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.wxid != null">
-        wxid = #{record.wxid,jdbcType=VARCHAR},
+      <if test="record.wxId != null">
+        wx_id = #{record.wxId,jdbcType=VARCHAR},
       </if>
-      <if test="record.studentno != null">
-        studentno = #{record.studentno,jdbcType=VARCHAR},
+      <if test="record.studentNo != null">
+        student_no = #{record.studentNo,jdbcType=VARCHAR},
       </if>
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=INTEGER},
@@ -252,8 +252,8 @@
     update smartgym_users
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      wxid = #{record.wxid,jdbcType=VARCHAR},
-      studentno = #{record.studentno,jdbcType=VARCHAR},
+      wx_id = #{record.wxId,jdbcType=VARCHAR},
+      student_no = #{record.studentNo,jdbcType=VARCHAR},
       gender = #{record.gender,jdbcType=INTEGER},
       campus = #{record.campus,jdbcType=INTEGER},
       college = #{record.college,jdbcType=INTEGER},
@@ -272,11 +272,11 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="wxid != null">
-        wxid = #{wxid,jdbcType=VARCHAR},
+      <if test="wxId != null">
+        wx_id = #{wxId,jdbcType=VARCHAR},
       </if>
-      <if test="studentno != null">
-        studentno = #{studentno,jdbcType=VARCHAR},
+      <if test="studentNo != null">
+        student_no = #{studentNo,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         gender = #{gender,jdbcType=INTEGER},
@@ -308,8 +308,8 @@
   <update id="updateByPrimaryKey" parameterType="cn.smartGym.pojo.SmartgymUsers">
     update smartgym_users
     set name = #{name,jdbcType=VARCHAR},
-      wxid = #{wxid,jdbcType=VARCHAR},
-      studentno = #{studentno,jdbcType=VARCHAR},
+      wx_id = #{wxId,jdbcType=VARCHAR},
+      student_no = #{studentNo,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=INTEGER},
       campus = #{campus,jdbcType=INTEGER},
       college = #{college,jdbcType=INTEGER},

@@ -1,8 +1,14 @@
 package cn.smartGym.pojoCtr;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SmartgymItemsCtr {
+public class SmartgymItemsCtr implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6605952592376124670L;
+
 	private String game;
 
 	private String category;
@@ -10,16 +16,16 @@ public class SmartgymItemsCtr {
 	private String item;
 
 	private String gender;
-	
+
 	private Date date;
 
-    private String place;
+	private String place;
 
-    private Integer participantnums;
-    
-    private Integer applynums;
-    
-    private String description;
+	private Integer participantNum;
+
+	private Integer applyNum;
+
+	private String description;
 
 	public String getGame() {
 		return game;
@@ -69,14 +75,6 @@ public class SmartgymItemsCtr {
 		this.place = place;
 	}
 
-	public Integer getParticipantnums() {
-		return participantnums;
-	}
-
-	public void setParticipantnums(Integer participantnums) {
-		this.participantnums = participantnums;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -85,12 +83,20 @@ public class SmartgymItemsCtr {
 		this.description = description;
 	}
 
-	public Integer getApplynums() {
-		return applynums;
+	public Integer getParticipantNum() {
+		return participantNum;
 	}
 
-	public void setApplynums(Integer applynums) {
-		this.applynums = applynums;
+	public void setParticipantNum(Integer participantNum) {
+		this.participantNum = participantNum;
+	}
+
+	public Integer getApplyNum() {
+		return applyNum;
+	}
+
+	public void setApplyNum(Integer applyNum) {
+		this.applyNum = applyNum;
 	}
 
 }

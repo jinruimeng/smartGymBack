@@ -9,7 +9,7 @@
     <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="date" jdbcType="TIMESTAMP" property="date" />
     <result column="place" jdbcType="VARCHAR" property="place" />
-    <result column="participantnums" jdbcType="INTEGER" property="participantnums" />
+    <result column="participant_num" jdbcType="INTEGER" property="participantNum" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, game, category, item, gender, date, place, participantnums, status, created, 
+    id, game, category, item, gender, date, place, participant_num, status, created, 
     updated, description
   </sql>
   <select id="selectByExample" parameterType="cn.smartGym.pojo.SmartgymItemsExample" resultMap="BaseResultMap">
@@ -110,12 +110,12 @@
   <insert id="insert" parameterType="cn.smartGym.pojo.SmartgymItems">
     insert into smartgym_items (id, game, category, 
       item, gender, date, 
-      place, participantnums, status, 
+      place, participant_num, status, 
       created, updated, description
       )
     values (#{id,jdbcType=BIGINT}, #{game,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
       #{item,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, 
-      #{place,jdbcType=VARCHAR}, #{participantnums,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{place,jdbcType=VARCHAR}, #{participantNum,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
@@ -143,8 +143,8 @@
       <if test="place != null">
         place,
       </if>
-      <if test="participantnums != null">
-        participantnums,
+      <if test="participantNum != null">
+        participant_num,
       </if>
       <if test="status != null">
         status,
@@ -181,8 +181,8 @@
       <if test="place != null">
         #{place,jdbcType=VARCHAR},
       </if>
-      <if test="participantnums != null">
-        #{participantnums,jdbcType=INTEGER},
+      <if test="participantNum != null">
+        #{participantNum,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -228,8 +228,8 @@
       <if test="record.place != null">
         place = #{record.place,jdbcType=VARCHAR},
       </if>
-      <if test="record.participantnums != null">
-        participantnums = #{record.participantnums,jdbcType=INTEGER},
+      <if test="record.participantNum != null">
+        participant_num = #{record.participantNum,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
@@ -257,7 +257,7 @@
       gender = #{record.gender,jdbcType=INTEGER},
       date = #{record.date,jdbcType=TIMESTAMP},
       place = #{record.place,jdbcType=VARCHAR},
-      participantnums = #{record.participantnums,jdbcType=INTEGER},
+      participant_num = #{record.participantNum,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
       updated = #{record.updated,jdbcType=TIMESTAMP},
@@ -287,8 +287,8 @@
       <if test="place != null">
         place = #{place,jdbcType=VARCHAR},
       </if>
-      <if test="participantnums != null">
-        participantnums = #{participantnums,jdbcType=INTEGER},
+      <if test="participantNum != null">
+        participant_num = #{participantNum,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -313,7 +313,7 @@
       gender = #{gender,jdbcType=INTEGER},
       date = #{date,jdbcType=TIMESTAMP},
       place = #{place,jdbcType=VARCHAR},
-      participantnums = #{participantnums,jdbcType=INTEGER},
+      participant_num = #{participantNum,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP},

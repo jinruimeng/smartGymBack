@@ -1,8 +1,13 @@
 package cn.smartGym.pojoCtr;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SmartgymUsersCtr {
+public class SmartgymUsersCtr implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2741694336785053911L;
 
 	private String encryptedData;
 
@@ -10,9 +15,9 @@ public class SmartgymUsersCtr {
 
 	private String code;
 
-	private String wxid;
+	private String wxId;
 
-	private String studentno;
+	private String studentNo;
 	
 	private String name;
 
@@ -54,22 +59,6 @@ public class SmartgymUsersCtr {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public String getWxid() {
-		return wxid;
-	}
-
-	public void setWxid(String wxid) {
-		this.wxid = wxid;
-	}
-
-	public String getStudentno() {
-		return studentno;
-	}
-
-	public void setStudentno(String studentno) {
-		this.studentno = studentno;
 	}
 
 	public String getGender() {
@@ -142,5 +131,21 @@ public class SmartgymUsersCtr {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getWxId() {
+		return wxId;
+	}
+
+	public void setWxId(String wxId) {
+		this.wxId = wxId;
+	}
+
+	public String getStudentNo() {
+		return studentNo;
+	}
+
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
 	}
 }

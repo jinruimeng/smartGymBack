@@ -6,10 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.smartGym.mapper.SmartgymItemsMapper;
 import cn.smartGym.mapper.SmartgymPlayersMapper;
 import cn.smartGym.pojo.SmartgymItems;
-import cn.smartGym.pojo.SmartgymItemsExample;
 import cn.smartGym.pojo.SmartgymPlayers;
 import cn.smartGym.pojo.SmartgymPlayersExample;
 import cn.smartGym.pojo.SmartgymPlayersExample.Criteria;
@@ -20,6 +18,12 @@ import cn.smartGym.service.ItemService;
 import cn.smartGym.service.JobService;
 import cn.smartGym.service.PlayerService;
 
+/**
+ * 参赛人员管理Service
+ * 
+ * @author Ruimeng Jin
+ *
+ */
 @Service
 public class playerServiceImpl implements PlayerService {
 
@@ -44,10 +48,10 @@ public class playerServiceImpl implements PlayerService {
 	 * @param studentno
 	 * @return
 	 */
-	public List<SmartgymPlayersCtr> getPlayerListByStudentno(String studentno) {
+	public List<SmartgymPlayersCtr> getPlayerListByStudentNo(String studentNo) {
 		SmartgymPlayersExample example = new SmartgymPlayersExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStudentnoEqualTo(studentno);
+		criteria.andStudentNoEqualTo(studentNo);
 		criteria.andStatusGreaterThanOrEqualTo(1);
 		List<SmartgymPlayers> list = smartgymPlayersMapper.selectByExample(example);
 		if (list == null || list.size() == 0)
@@ -63,16 +67,15 @@ public class playerServiceImpl implements PlayerService {
 	/**
 	 * playerController-Dao层接收bean转换器
 	 * 
-	 * @param playerCtr
-	 *            接收前端数据的bean
+	 * @param playerCtr 接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
 	public SmartgymPlayers playerCtrtoDao(SmartgymPlayersCtr playerCtr) {
 		// 根据项目的具体信息生成itemId
-		Long itemId = itemService.getItemIdByItemDetails(playerCtr.getGame(), playerCtr.getCategory(), playerCtr.getItem(),
-				genderGroupService.genderStrToInt(playerCtr.getGender()));
-		
+		Long itemId = itemService.getItemIdByItemDetails(playerCtr.getGame(), playerCtr.getCategory(),
+				playerCtr.getItem(), genderGroupService.genderStrToInt(playerCtr.getGender()));
+
 		playerCtr.setItemId(itemId);
 
 		// 转换为Dao层的pojo
@@ -82,7 +85,7 @@ public class playerServiceImpl implements PlayerService {
 		// 设置学院
 		player.setCollege(collegeService.getId(playerCtr.getCollege()));
 		// 设置学号
-		player.setStudentno(playerCtr.getStudentno());
+		player.setStudentNo(playerCtr.getStudentNo());
 		// 设置项目id
 		player.setItemId(playerCtr.getItemId());
 		// 设置性别
@@ -90,15 +93,15 @@ public class playerServiceImpl implements PlayerService {
 		// 设置职位
 		player.setJob(jobService.jobStringToInt(playerCtr.getJob()));
 		// 设置参赛号
-		player.setPlayerno(playerCtr.getPlayerno());
+		player.setPlayerNo(playerCtr.getPlayerNo());
 		// 设置组别
-		player.setGroup(playerCtr.getGroup());
+		player.setGroupNo(playerCtr.getGroupNo());
 		// 设置赛道
-		player.setPath(playerCtr.getPath());
+		player.setPathNo(playerCtr.getPathNo());
 		// 设置成绩
 		player.setGrades(playerCtr.getGrades());
 		// 设置排名
-		player.setRank(playerCtr.getRank());
+		player.setRankNo(playerCtr.getRankNo());
 
 		return player;
 	}
@@ -106,8 +109,7 @@ public class playerServiceImpl implements PlayerService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param player
-	 *            从数据库中查询出数据封装的bean
+	 * @param player 从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
 	@Override
@@ -128,21 +130,21 @@ public class playerServiceImpl implements PlayerService {
 		// 设置学院
 		playerCtr.setCollege(collegeService.getCollege(player.getCollege()));
 		// 设置学号
-		playerCtr.setStudentno(player.getStudentno());
+		playerCtr.setStudentNo(player.getStudentNo());
 		// 设置职位
 		playerCtr.setJob(jobService.jobIntToString(player.getJob()));
 		// 设置参赛号
-		playerCtr.setPlayerno(player.getPlayerno());
+		playerCtr.setPlayerNo(player.getPlayerNo());
 		// 设置性别
 		playerCtr.setGender(genderGroupService.genderIntToStr(player.getGender()));
 		// 设置组别
-		playerCtr.setGroup(player.getGroup());
+		playerCtr.setGroupNo(player.getGroupNo());
 		// 设置赛道
-		playerCtr.setPath(player.getPath());
+		playerCtr.setPathNo(player.getPathNo());
 		// 设置成绩
 		playerCtr.setGrades(player.getGrades());
 		// 设置排名
-		playerCtr.setRank(player.getRank());
+		playerCtr.setRankNo(player.getRankNo());
 
 		return playerCtr;
 	}

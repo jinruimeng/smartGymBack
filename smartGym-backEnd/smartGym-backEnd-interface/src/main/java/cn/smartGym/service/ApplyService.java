@@ -21,5 +21,5 @@ public interface ApplyService {
 
 	SGResult addApply(SmartgymApplications apply);
 
-	List<SmartgymApplicationsCtr> getApplycationListByStudentno(String studentno);
+	List<SmartgymApplicationsCtr> getApplycationListByStudentNo(String studentno);
 }

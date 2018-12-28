@@ -9,23 +9,23 @@ public class SmartgymPlayers {
 
     private Integer college;
 
-    private String studentno;
+    private String studentNo;
 
     private Long itemId;
 
     private Integer job;
 
-    private String playerno;
+    private String playerNo;
 
     private Integer gender;
 
-    private Integer group;
+    private Integer groupNo;
 
-    private Integer path;
+    private Integer pathNo;
 
     private String grades;
 
-    private Integer rank;
+    private Integer rankNo;
 
     private Integer status;
 
@@ -57,12 +57,12 @@ public class SmartgymPlayers {
         this.college = college;
     }
 
-    public String getStudentno() {
-        return studentno;
+    public String getStudentNo() {
+        return studentNo;
     }
 
-    public void setStudentno(String studentno) {
-        this.studentno = studentno == null ? null : studentno.trim();
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo == null ? null : studentNo.trim();
     }
 
     public Long getItemId() {
@@ -81,12 +81,12 @@ public class SmartgymPlayers {
         this.job = job;
     }
 
-    public String getPlayerno() {
-        return playerno;
+    public String getPlayerNo() {
+        return playerNo;
     }
 
-    public void setPlayerno(String playerno) {
-        this.playerno = playerno == null ? null : playerno.trim();
+    public void setPlayerNo(String playerNo) {
+        this.playerNo = playerNo == null ? null : playerNo.trim();
     }
 
     public Integer getGender() {
@@ -97,20 +97,20 @@ public class SmartgymPlayers {
         this.gender = gender;
     }
 
-    public Integer getGroup() {
-        return group;
+    public Integer getGroupNo() {
+        return groupNo;
     }
 
-    public void setGroup(Integer group) {
-        this.group = group;
+    public void setGroupNo(Integer groupNo) {
+        this.groupNo = groupNo;
     }
 
-    public Integer getPath() {
-        return path;
+    public Integer getPathNo() {
+        return pathNo;
     }
 
-    public void setPath(Integer path) {
-        this.path = path;
+    public void setPathNo(Integer pathNo) {
+        this.pathNo = pathNo;
     }
 
     public String getGrades() {
@@ -121,12 +121,12 @@ public class SmartgymPlayers {
         this.grades = grades == null ? null : grades.trim();
     }
 
-    public Integer getRank() {
-        return rank;
+    public Integer getRankNo() {
+        return rankNo;
     }
 
-    public void setRank(Integer rank) {
-        this.rank = rank;
+    public void setRankNo(Integer rankNo) {
+        this.rankNo = rankNo;
     }
 
     public Integer getStatus() {

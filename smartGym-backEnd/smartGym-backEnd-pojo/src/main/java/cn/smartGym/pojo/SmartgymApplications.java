@@ -13,7 +13,7 @@ public class SmartgymApplications {
 
     private Integer gender;
 
-    private String studentno;
+    private String studentNo;
 
     private Long itemId;
 
@@ -63,12 +63,12 @@ public class SmartgymApplications {
         this.gender = gender;
     }
 
-    public String getStudentno() {
-        return studentno;
+    public String getStudentNo() {
+        return studentNo;
     }
 
-    public void setStudentno(String studentno) {
-        this.studentno = studentno == null ? null : studentno.trim();
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo == null ? null : studentNo.trim();
     }
 
     public Long getItemId() {

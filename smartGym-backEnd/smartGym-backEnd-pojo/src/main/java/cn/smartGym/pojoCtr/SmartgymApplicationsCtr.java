@@ -1,11 +1,18 @@
 package cn.smartGym.pojoCtr;
 
-public class SmartgymApplicationsCtr {
+import java.io.Serializable;
+
+public class SmartgymApplicationsCtr implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 896372022414526179L;
+
 	private String job;
 
 	private String gender;
 
-	private String studentno;
+	private String studentNo;
 
 	private Long itemId;//不用接收
 
@@ -35,15 +42,6 @@ public class SmartgymApplicationsCtr {
 
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-
-
-	public String getStudentno() {
-		return studentno;
-	}
-
-	public void setStudentno(String studentno) {
-		this.studentno = studentno;
 	}
 
 	public Long getItemId() {
@@ -100,6 +98,14 @@ public class SmartgymApplicationsCtr {
 
 	public void setCollege(String college) {
 		this.college = college;
+	}
+
+	public String getStudentNo() {
+		return studentNo;
+	}
+
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
 	}
 
 }

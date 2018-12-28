@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
 		SmartgymUsers user = new SmartgymUsers();
 
 		user.setPhone(userCtr.getPhone());
-		user.setStudentno(userCtr.getStudentno());
-		user.setWxid(userCtr.getWxid());
+		user.setStudentNo(userCtr.getStudentNo());
+		user.setWxId(userCtr.getWxId());
 		user.setName(userCtr.getName());
 		user.setCampus(campusService.getId(userCtr.getCampus()));
 		user.setCollege(collegeService.getId(userCtr.getCollege()));
@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService {
 		SmartgymUsersCtr userCtr = new SmartgymUsersCtr();
 
 		userCtr.setPhone(user.getPhone());
-		userCtr.setStudentno(user.getStudentno());
-		userCtr.setWxid(user.getWxid());
+		userCtr.setStudentNo(user.getStudentNo());
+		userCtr.setWxId(user.getWxId());
 		userCtr.setName(user.getName());
 		userCtr.setCampus(campusService.getCampus(user.getCampus()));
 		userCtr.setCollege(collegeService.getCollege(user.getCollege()));
@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
 		Criteria criteria = example.createCriteria();
 		// 1：学号 2：用户名 3：手机号
 		if (type == 1) {
-			criteria.andStudentnoEqualTo(param);
+			criteria.andStudentNoEqualTo(param);
 		} else if (type == 2) {
 			criteria.andNameEqualTo(param);
 		} else if (type == 3) {
@@ -190,11 +190,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public SGResult register(SmartgymUsers user) {
 		// 数据有效性检验
-		if (StringUtils.isBlank(user.getStudentno()) || StringUtils.isBlank(user.getName())
-				|| StringUtils.isBlank(user.getPhone()) || StringUtils.isBlank(user.getWxid()))
+		if (StringUtils.isBlank(user.getStudentNo()) || StringUtils.isBlank(user.getName())
+				|| StringUtils.isBlank(user.getPhone()) || StringUtils.isBlank(user.getWxId()))
 			return SGResult.build(401, "用户数据不完整，注册失败");
 		// 1：学号 2：用户名 3：手机号
-		SGResult result = checkData(user.getStudentno(), 1);
+		SGResult result = checkData(user.getStudentNo(), 1);
 		if (!(boolean) result.getData()) {
 			return SGResult.build(400, "此学号已经被注册");
 		}
@@ -227,7 +227,7 @@ public class UserServiceImpl implements UserService {
 	public List<SmartgymUsers> selectByWxid(String wxid) {
 		SmartgymUsersExample example = new SmartgymUsersExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andWxidEqualTo(wxid);
+		criteria.andWxIdEqualTo(wxid);
 		List<SmartgymUsers> result = smartgymUsersMapper.selectByExample(example);
 		return result;
 	}

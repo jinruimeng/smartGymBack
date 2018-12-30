@@ -22,10 +22,10 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
-	@RequestMapping(value = "/item/add", method = { RequestMethod.POST,
+	@RequestMapping(value = "/item/addItem", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult itemAdd(SmartgymItemsCtr itemCtr) {
+	public SGResult addItem(SmartgymItemsCtr itemCtr) {
 		try {
 			return itemService.addItem(itemCtr);
 		} catch (Exception e) {

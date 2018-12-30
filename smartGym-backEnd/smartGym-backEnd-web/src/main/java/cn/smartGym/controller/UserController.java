@@ -41,7 +41,7 @@ public class UserController {
 	 * @param userCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/user/signin", method = { RequestMethod.POST,
+	@RequestMapping(value = "/user/signIn", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult signIn(SmartgymUsersCtr userCtr) {
@@ -64,7 +64,7 @@ public class UserController {
 	}
 
 	/**
-	 * 用户注册实现
+	 * 用户注册
 	 * 
 	 * @param userCtr
 	 * @return

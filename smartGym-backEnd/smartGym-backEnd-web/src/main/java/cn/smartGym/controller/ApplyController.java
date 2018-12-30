@@ -35,10 +35,10 @@ public class ApplyController {
 	 * @param applyCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/apply/addapply", method = { RequestMethod.POST,
+	@RequestMapping(value = "/apply/addApply", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
 	@ResponseBody
-	public SGResult addapply(SmartgymApplicationsCtr applyCtr) {
+	public SGResult addApply(SmartgymApplicationsCtr applyCtr) {
 		// 插入数据库
 		try {
 			return applyService.addApply(applyCtr);
@@ -50,15 +50,15 @@ public class ApplyController {
 	}
 
 	/**
-	 * 项目报名页面数据回传
+	 * 项目报名页面数据查询
 	 * 
 	 * @param itemsCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/apply/applypage", method = { RequestMethod.POST,
+	@RequestMapping(value = "/apply/applyPage", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult applypage(SmartgymItemsCtr itemsCtr) {
+	public SGResult applyPage(SmartgymItemsCtr itemsCtr) {
 		List<String> result = itemService.applySelect(itemsCtr);
 		if (result == null || result.size() == 0) {
 			SGResult.build(404, "获取项目信息失败！");

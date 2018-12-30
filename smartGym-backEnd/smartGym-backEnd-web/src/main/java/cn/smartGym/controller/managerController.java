@@ -56,7 +56,7 @@ public class managerController {
 	}*/
 	
 	/**
-	 * 根据项目显示报名人数
+	 * 根据项目查询报名人数
 	 * 
 	 * @param game
 	 * @return
@@ -76,7 +76,7 @@ public class managerController {
 	}
 
 	/**
-	 * 根据学院显示报名人数
+	 * 根据学院查询报名人数
 	 * 
 	 * @param game
 	 * @return

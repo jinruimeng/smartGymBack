@@ -76,7 +76,7 @@ public class UserController {
 		try {
 			return userService.register(userCtr);
 		} catch (Exception e) {
-			return SGResult.build(404, "注册失败", e);
+			return SGResult.build(404, "注册失败!", e);
 		}
 		
 	}

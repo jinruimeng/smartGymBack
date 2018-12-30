@@ -212,7 +212,7 @@ public class ApplyServiceImpl implements ApplyService {
 	}
 
 	/**
-	 * 查询各项目报名情况
+	 * 查询报名情况 groupByItem
 	 */
 	@Override
 	public Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItem(List<SmartgymItemsCtr> itemsCtr) {
@@ -268,10 +268,10 @@ public class ApplyServiceImpl implements ApplyService {
 			Map<Map<String, String>, String> itemTotal = new HashMap<>();
 			itemTotal.put(itemInfo, "total");
 			result.put(itemTotal, itemTotalNum);
-			
+
 			Map<Map<String, String>, String> itemNeed = new HashMap<>();
-			itemNeed.put(itemInfo,"need");
-			result.put(itemNeed, (long)itemCtr.getParticipantNum());
+			itemNeed.put(itemInfo, "need");
+			result.put(itemNeed, (long) itemCtr.getParticipantNum());
 
 			allTotal = allTotal + itemTotalNum;
 		}
@@ -280,7 +280,7 @@ public class ApplyServiceImpl implements ApplyService {
 	}
 
 	/**
-	 * 查询各学院报名List中项目的情况
+	 * 查询报名情况 groupByCollege
 	 */
 	@Override
 	public Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollege(List<SmartgymItemsCtr> itemsCtr) {

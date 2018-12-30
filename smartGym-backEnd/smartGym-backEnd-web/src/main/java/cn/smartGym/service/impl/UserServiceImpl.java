@@ -163,6 +163,7 @@ public class UserServiceImpl implements UserService {
 		// 根据不同的type生成不同的查询条件
 		SmartgymUsersExample example = new SmartgymUsersExample();
 		Criteria criteria = example.createCriteria();
+		
 		// 1：学号 2：用户名 3：手机号
 		if (type == 1) {
 			criteria.andStudentNoEqualTo(param);
@@ -171,8 +172,9 @@ public class UserServiceImpl implements UserService {
 		} else if (type == 3) {
 			criteria.andPhoneEqualTo(param);
 		} else {
-			return SGResult.build(400, "数据类型错误");
+			return SGResult.build(404, "数据类型错误!");
 		}
+		
 		// 执行查询
 		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
 		// 判断结果中是否包含数据
@@ -180,6 +182,7 @@ public class UserServiceImpl implements UserService {
 			// 如果有数据返回false
 			return SGResult.ok(false);
 		}
+		
 		// 如果没有数据返回true
 		return SGResult.ok(true);
 	}
@@ -190,21 +193,30 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public SGResult register(SmartgymUsersCtr userCtr) {
 		SmartgymUsers user = userCtrToDao(userCtr);
-		
+
 		// 数据有效性检验
 		if (StringUtils.isBlank(user.getStudentNo()) || StringUtils.isBlank(user.getName())
 				|| StringUtils.isBlank(user.getPhone()) || StringUtils.isBlank(user.getWxId()))
-			return SGResult.build(401, "用户数据不完整，注册失败");
+			return SGResult.build(200, "用户数据不完整，注册失败");
+		
 		// 1：学号 2：用户名 3：手机号
 		SGResult result = checkData(user.getStudentNo(), 1);
+		if (result.getStatus() != 200)
+			return result;
 		if (!(boolean) result.getData()) {
-			return SGResult.build(400, "此学号已经被注册");
+			return SGResult.build(200, "此学号已经被注册!");
 		}
+		
 		result = checkData(user.getPhone(), 3);
+		if (result.getStatus() != 200)
+			return result;
 		if (!(boolean) result.getData()) {
-			return SGResult.build(400, "此手机号已经被占用");
+			return SGResult.build(200, "此手机号已经被占用!");
 		}
+		
 //		result = checkData(user.getUsername(), 2);
+//		if (result.getStatus() != 200)
+//			return result;
 //		if (!(boolean) result.getData()) {
 //			return SGResult.build(400, "此用户名已经被占用");
 //		}
@@ -215,13 +227,14 @@ public class UserServiceImpl implements UserService {
 		user.setUpdated(new Date());
 		user.setStatus(1); // 0是删除，1是正常
 		user.setId(IDUtils.genId());
+		
 		// 把用户数据插入数据库
 		smartgymUsersMapper.insert(user);
+		
 		// 返回添加成功
 		return SGResult.build(200, "注册成功", userDaoToCtr(user));
 	}
-	
-	
+
 	/**
 	 * 根据微信id查询是否已注册
 	 */

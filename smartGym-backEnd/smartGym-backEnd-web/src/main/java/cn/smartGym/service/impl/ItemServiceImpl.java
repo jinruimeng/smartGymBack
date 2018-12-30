@@ -40,6 +40,10 @@ public class ItemServiceImpl implements ItemService {
 	 * @return 返回给前端的信息
 	 */
 	public SGResult addItem(SmartgymItemsCtr itemCtr) {
+		List<SmartgymItems> list = checkItem(itemCtr);
+		if (!list.isEmpty())
+			return SGResult.build(200, "该项目已存在，请先删除！");
+
 		SmartgymItems item = itemCtrToDao(itemCtr);
 		// 生成比赛项目id
 		final long itemId = IDUtils.genId();
@@ -52,7 +56,7 @@ public class ItemServiceImpl implements ItemService {
 		// 插入数据库
 		smartgymItemsMapper.insert(item);
 		// 返回成功
-		return SGResult.build(200, "添加比赛项目成功");
+		return SGResult.build(200, "添加项目成功!");
 	}
 
 	/**
@@ -222,4 +226,39 @@ public class ItemServiceImpl implements ItemService {
 		return result;
 	}
 
+	/**
+	 * 检查项目是否已存在
+	 */
+	@Override
+	public List<SmartgymItems> checkItem(SmartgymItemsCtr itemCtr) {
+		SmartgymItemsExample example = new SmartgymItemsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andGameEqualTo(itemCtr.getGame());
+		criteria.andCategoryEqualTo(itemCtr.getCategory());
+		criteria.andCategoryEqualTo(itemCtr.getItem());
+		criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
+		criteria.andStatusGreaterThanOrEqualTo(1);
+
+		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+
+		return list;
+	}
+
+	/**
+	 * 删除项目
+	 */
+	@Override
+	public SGResult deleteItem(SmartgymItemsCtr itemCtr) {
+		List<SmartgymItems> list = checkItem(itemCtr);
+
+		if (list.size() == 0)
+			return SGResult.build(200, "没有该项目！");
+		else {
+			SmartgymItems item = list.get(0);
+			item.setStatus(0);
+			smartgymItemsMapper.updateByPrimaryKeySelective(item);
+			return SGResult.build(200, "删除成功！");
+		}
+	}
+	
 }

@@ -18,13 +18,17 @@ public interface ItemService {
 
 	SmartgymItemsCtr itemDaoToCtr(SmartgymItems item);
 
+	List<SmartgymItems> checkItem(SmartgymItemsCtr itemCtr);
+
 	List<String> applySelect(SmartgymItemsCtr itemCtr);
 
 	SGResult addItem(SmartgymItemsCtr itemCtr);
 	
+	SGResult deleteItem(SmartgymItemsCtr itemCtr);
+
 	Long getItemIdByItemDetails(String game, String category, String item, Integer gender);
-	
+
 	SmartgymItemsCtr getItemByItemId(Long itemId);
-	
+
 	List<SmartgymItemsCtr> getItemsByGame(String game);
 }

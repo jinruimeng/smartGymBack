@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.smartGym.mapper.SmartgymPlayersMapper;
-import cn.smartGym.pojo.SmartgymItems;
 import cn.smartGym.pojo.SmartgymPlayers;
 import cn.smartGym.pojo.SmartgymPlayersExample;
 import cn.smartGym.pojo.SmartgymPlayersExample.Criteria;
+import cn.smartGym.pojoCtr.SmartgymItemsCtr;
 import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderGroupService;
@@ -115,15 +115,15 @@ public class playerServiceImpl implements PlayerService {
 	@Override
 	public SmartgymPlayersCtr playerDaotoCtr(SmartgymPlayers player) {
 		// 根据项目id查询项目具体信息
-		SmartgymItems item = itemService.getItemByItemId(player.getItemId());
-		if (item == null)
+		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(player.getItemId());
+		if (itemCtr == null)
 			return null;
 		// 转换为Ctr层的pojo
 		SmartgymPlayersCtr playerCtr = new SmartgymPlayersCtr();
 		// 设置项目信息
-		playerCtr.setGame(item.getGame());
-		playerCtr.setCategory(item.getCategory());
-		playerCtr.setItem(item.getItem());
+		playerCtr.setGame(itemCtr.getGame());
+		playerCtr.setCategory(itemCtr.getCategory());
+		playerCtr.setItem(itemCtr.getItem());
 		playerCtr.setItemId(player.getItemId());
 		// 设置姓名
 		playerCtr.setName(player.getName());

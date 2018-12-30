@@ -26,6 +26,12 @@ public class ItemController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult itemAdd(SmartgymItemsCtr itemCtr) {
-		return itemService.addItem(itemService.itemCtrToDao(itemCtr));
+		try {
+			return itemService.addItem(itemCtr);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "添加比赛失败！", e);
+		}
+
 	}
 }

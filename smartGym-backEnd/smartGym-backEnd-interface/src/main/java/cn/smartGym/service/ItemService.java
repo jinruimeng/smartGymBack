@@ -1,6 +1,6 @@
 package cn.smartGym.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import cn.smartGym.pojo.SmartgymItems;
 import cn.smartGym.pojoCtr.SmartgymItemsCtr;
@@ -18,12 +18,13 @@ public interface ItemService {
 
 	SmartgymItemsCtr itemDaoToCtr(SmartgymItems item);
 
-	ArrayList<String> applySelect(SmartgymItemsCtr itemCtr);
+	List<String> applySelect(SmartgymItemsCtr itemCtr);
 
-	SGResult addItem(SmartgymItems item);
+	SGResult addItem(SmartgymItemsCtr itemCtr);
 	
 	Long getItemIdByItemDetails(String game, String category, String item, Integer gender);
 	
-	SmartgymItems getItemByItemId(Long itemId);
+	SmartgymItemsCtr getItemByItemId(Long itemId);
 	
+	List<SmartgymItemsCtr> getItemsByGame(String game);
 }

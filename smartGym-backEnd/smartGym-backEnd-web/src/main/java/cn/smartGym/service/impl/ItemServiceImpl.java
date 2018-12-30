@@ -39,11 +39,13 @@ public class ItemServiceImpl implements ItemService {
 	 * @param item 添加的项目
 	 * @return 返回给前端的信息
 	 */
-	public SGResult addItem(SmartgymItems item) {
+	public SGResult addItem(SmartgymItemsCtr itemCtr) {
+		SmartgymItems item = itemCtrToDao(itemCtr);
 		// 生成比赛项目id
 		final long itemId = IDUtils.genId();
 		// 补全item其他属性
-		item.setId(itemId);
+		if (item.getStatus() == null)
+			item.setId(itemId);
 		item.setStatus(1); // 0-已取消 1-正在报名 2-已结束
 		item.setCreated(new Date());
 		item.setUpdated(new Date());
@@ -78,7 +80,7 @@ public class ItemServiceImpl implements ItemService {
 	/**
 	 * 根据ItemId获取Item实体
 	 */
-	public SmartgymItems getItemByItemId(Long itemId) {
+	public SmartgymItemsCtr getItemByItemId(Long itemId) {
 		// 根据项目id查询报名项目信息
 		SmartgymItemsExample example = new SmartgymItemsExample();
 		Criteria criteria = example.createCriteria();
@@ -87,7 +89,7 @@ public class ItemServiceImpl implements ItemService {
 		if (list == null || list.isEmpty())
 			return null;
 		SmartgymItems item = list.get(0);
-		return item;
+		return itemDaoToCtr(item);
 	}
 
 	/**
@@ -96,7 +98,7 @@ public class ItemServiceImpl implements ItemService {
 	 * @param item 接收的item
 	 * @return 根据item返回信息
 	 */
-	public ArrayList<String> applySelect(SmartgymItemsCtr itemCtr) {
+	public List<String> applySelect(SmartgymItemsCtr itemCtr) {
 		ArrayList<String> result = new ArrayList<>();
 		List<SmartgymItems> list = new ArrayList<>();
 		SmartgymItemsExample example = new SmartgymItemsExample();
@@ -170,6 +172,10 @@ public class ItemServiceImpl implements ItemService {
 		item.setParticipantNum(itemCtr.getParticipantNum());
 		item.setDescription(itemCtr.getDescription());
 		item.setGender(genderGroupService.genderStrToInt(itemCtr.getGender()));
+		if (itemCtr.getId() != null)
+			item.setId(itemCtr.getId());
+		if (itemCtr.getStatus() != null)
+			item.setStatus(itemCtr.getStatus());
 
 		return item;
 	}
@@ -190,8 +196,30 @@ public class ItemServiceImpl implements ItemService {
 		itemCtr.setParticipantNum(item.getParticipantNum());
 		itemCtr.setDescription(item.getDescription());
 		itemCtr.setGender(genderGroupService.genderIntToStr(item.getGender()));
+		if (item.getId() != null)
+			itemCtr.setId(item.getId());
+		if (item.getStatus() != null)
+			itemCtr.setStatus(item.getStatus());
 
 		return itemCtr;
+	}
+
+	/**
+	 * 获取Game下的所有Items
+	 */
+	@Override
+	public List<SmartgymItemsCtr> getItemsByGame(String game) {
+		SmartgymItemsExample example = new SmartgymItemsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andGameEqualTo(game);
+		criteria.andStatusGreaterThanOrEqualTo(1);
+		example.setOrderByClause("category");
+		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+		List<SmartgymItemsCtr> result = new ArrayList<>();
+		for (SmartgymItems smartgymItems : list) {
+			result.add(itemDaoToCtr(smartgymItems));
+		}
+		return result;
 	}
 
 }

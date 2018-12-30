@@ -46,21 +46,21 @@ public class UserController {
 	@ResponseBody
 	public SGResult signIn(SmartgymUsersCtr userCtr) {
 		// 解密用户敏感数据
-		String wxid;
+		String wxId;
 
 		SGResult sgResult = userService.decodeUserInfo(userCtr);
 		if (sgResult.getStatus() != 200)
 			return sgResult;
 		else
-			wxid = (String) sgResult.getData();
+			wxId = (String) sgResult.getData();
 
-		// 根据解析到的wxid查询用户是否注册
-		List<SmartgymUsers> result = userService.selectByWxid(wxid);
+		// 根据解析到的wxId查询用户是否注册
+		List<SmartgymUsers> result = userService.selectByWxid(wxId);
 
 		if (!result.isEmpty())
 			return SGResult.build(200, "该用户已注册！", userService.userDaoToCtr(result.get(0)));
 		else
-			return SGResult.build(200, "该用户未注册！", wxid);
+			return SGResult.build(200, "该用户未注册！", wxId);
 	}
 
 	/**
@@ -73,8 +73,12 @@ public class UserController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult register(SmartgymUsersCtr userCtr) {
-		SmartgymUsers user = userService.userCtrToDao(userCtr);
-		return userService.register(user);
+		try {
+			return userService.register(userCtr);
+		} catch (Exception e) {
+			return SGResult.build(404, "注册失败", e);
+		}
+		
 	}
 
 	/**
@@ -86,7 +90,7 @@ public class UserController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getAllCollegesAndCampus() {
-		List<String> colleges = collegeService.getAllcolleges();
+		List<String> colleges = collegeService.getAllColleges();
 		List<String> campuses = campusService.getAllCampuses();
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		result.put("colleges", colleges);

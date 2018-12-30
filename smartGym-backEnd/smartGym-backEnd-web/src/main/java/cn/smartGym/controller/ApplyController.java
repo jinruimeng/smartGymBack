@@ -1,6 +1,5 @@
 package cn.smartGym.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojo.SmartgymApplications;
 import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
 import cn.smartGym.pojoCtr.SmartgymItemsCtr;
 import cn.smartGym.service.ApplyService;
@@ -41,10 +39,9 @@ public class ApplyController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
 	@ResponseBody
 	public SGResult addapply(SmartgymApplicationsCtr applyCtr) {
-		SmartgymApplications apply = applyService.applyCtrtoDao(applyCtr);
 		// 插入数据库
 		try {
-			return applyService.addApply(apply);
+			return applyService.addApply(applyCtr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "报名失败！", e);
@@ -62,7 +59,7 @@ public class ApplyController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult applypage(SmartgymItemsCtr itemsCtr) {
-		ArrayList<String> result = itemService.applySelect(itemsCtr);
+		List<String> result = itemService.applySelect(itemsCtr);
 		if (result == null || result.size() == 0) {
 			SGResult.build(404, "获取项目信息失败！");
 		}
@@ -75,10 +72,10 @@ public class ApplyController {
 	 * @param studentno
 	 * @return
 	 */
-	@RequestMapping(value = "/apply/getApplycationListByStudentno", method = { RequestMethod.POST,
+	@RequestMapping(value = "/apply/getApplycationListByStudentNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getApplycationListByStudentno(String studentNo) {
+	public SGResult getApplycationListByStudentNo(String studentNo) {
 		try {
 			List<SmartgymApplicationsCtr> result = applyService.getApplycationListByStudentNo(studentNo);
 			return SGResult.build(200, "查询成功！", result);

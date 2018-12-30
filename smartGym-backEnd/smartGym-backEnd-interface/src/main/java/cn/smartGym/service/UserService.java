@@ -22,7 +22,7 @@ public interface UserService {
 
 	SGResult checkData(String param, int type);
 
-	SGResult register(SmartgymUsers user);
+	SGResult register(SmartgymUsersCtr userCtr);
 	
 	List<SmartgymUsers> selectByWxid(String id);
 }

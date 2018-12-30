@@ -188,7 +188,9 @@ public class UserServiceImpl implements UserService {
 	 * 用户注册
 	 */
 	@Override
-	public SGResult register(SmartgymUsers user) {
+	public SGResult register(SmartgymUsersCtr userCtr) {
+		SmartgymUsers user = userCtrToDao(userCtr);
+		
 		// 数据有效性检验
 		if (StringUtils.isBlank(user.getStudentNo()) || StringUtils.isBlank(user.getName())
 				|| StringUtils.isBlank(user.getPhone()) || StringUtils.isBlank(user.getWxId()))

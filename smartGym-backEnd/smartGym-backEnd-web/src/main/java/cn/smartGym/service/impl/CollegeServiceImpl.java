@@ -2,7 +2,9 @@ package cn.smartGym.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +54,7 @@ public class CollegeServiceImpl implements CollegeService {
 	 * 获取所有的学院名称
 	 */
 	@Override
-	public List<String> getAllcolleges() {
+	public List<String> getAllColleges() {
 		SmartgymCollegesExample example = new SmartgymCollegesExample();
 		List<SmartgymColleges> list = smartgymCollegesMapper.selectByExample(example);
 		List<String> result = new ArrayList<>();
@@ -63,4 +65,18 @@ public class CollegeServiceImpl implements CollegeService {
 		return result;
 	}
 
+	/**
+	 * 获取所有的学院id及名称
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<Integer, String> getAllCollegesIdAndName() {
+		SmartgymCollegesExample example = new SmartgymCollegesExample();
+		List<SmartgymColleges> colleges = smartgymCollegesMapper.selectByExample(example);
+		Map<Integer, String> result = new HashedMap();
+		for (SmartgymColleges college : colleges) {
+			result.put(college.getId(), college.getCollege());
+		}
+		return result;
+	}
 }

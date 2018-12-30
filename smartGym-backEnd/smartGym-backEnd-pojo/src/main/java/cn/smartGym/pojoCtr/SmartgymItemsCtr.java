@@ -9,6 +9,8 @@ public class SmartgymItemsCtr implements Serializable {
 	 */
 	private static final long serialVersionUID = 6605952592376124670L;
 
+	private Long id;
+
 	private String game;
 
 	private String category;
@@ -23,9 +25,9 @@ public class SmartgymItemsCtr implements Serializable {
 
 	private Integer participantNum;
 
-	private Integer applyNum;
-
 	private String description;
+	
+	private Integer status;
 
 	public String getGame() {
 		return game;
@@ -91,12 +93,20 @@ public class SmartgymItemsCtr implements Serializable {
 		this.participantNum = participantNum;
 	}
 
-	public Integer getApplyNum() {
-		return applyNum;
+	public Long getId() {
+		return id;
 	}
 
-	public void setApplyNum(Integer applyNum) {
-		this.applyNum = applyNum;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

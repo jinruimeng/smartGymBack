@@ -8,6 +8,8 @@ import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
 public interface PlayerService {
 
 	List<SmartgymPlayersCtr> getPlayerListByStudentNo(String studentno);
+
 	SmartgymPlayers playerCtrtoDao(SmartgymPlayersCtr playerCtr);
+
 	SmartgymPlayersCtr playerDaotoCtr(SmartgymPlayers player);
 }

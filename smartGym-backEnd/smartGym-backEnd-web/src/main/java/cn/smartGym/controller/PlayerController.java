@@ -30,10 +30,10 @@ public class PlayerController {
 	 * @param studentno
 	 * @return
 	 */
-	@RequestMapping(value = "/player/getPlayerListByStudentno", method = { RequestMethod.POST,
+	@RequestMapping(value = "/player/getPlayerListByStudentNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getPlayerListByStudentno(String studentNo) {
+	public SGResult getPlayerListByStudentNo(String studentNo) {
 		try {
 			List<SmartgymPlayersCtr> result = playerService.getPlayerListByStudentNo(studentNo);
 			if (result == null || result.size() == 0)

@@ -78,7 +78,25 @@ public class UserController {
 		} catch (Exception e) {
 			return SGResult.build(404, "注册失败!", e);
 		}
-		
+
+	}
+
+	/**
+	 * 删除账号
+	 * 
+	 * @param userCtr
+	 * @return
+	 */
+	@RequestMapping(value = "/user/deleteUser", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult deleteUser(String wxId) {
+		try {
+			return userService.deleteUser(wxId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "删除账号失败！", e);
+		}
 	}
 
 	/**
@@ -97,4 +115,23 @@ public class UserController {
 		result.put("campuses", campuses);
 		return SGResult.build(200, "获取校区和学院信息成功！", result);
 	}
+
+	/***
+	 * 用户修改资料实现
+	 * 
+	 * @param userCtr
+	 * @return
+	 */
+	@RequestMapping(value = "/user/updateUser", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult updateUser(SmartgymUsersCtr userCtr) {
+		try {
+			return userService.update(userCtr);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "修改资料失败！", e);
+		}
+	}
+
 }

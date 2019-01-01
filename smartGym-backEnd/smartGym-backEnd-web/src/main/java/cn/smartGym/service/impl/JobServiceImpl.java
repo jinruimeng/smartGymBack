@@ -1,5 +1,6 @@
 package cn.smartGym.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import cn.smartGym.service.JobService;
@@ -18,6 +19,9 @@ public class JobServiceImpl implements JobService {
 	 */
 	@Override
 	public Integer jobStringToInt(String job) {
+		if (StringUtils.isBlank(job))
+			return null;
+
 		switch (job) {
 		case "队员":
 			return 0;
@@ -39,6 +43,9 @@ public class JobServiceImpl implements JobService {
 	 */
 	@Override
 	public String jobIntToString(Integer job) {
+		if (job == null)
+			return null;
+
 		switch (job) {
 		case 0:
 			return "队员";

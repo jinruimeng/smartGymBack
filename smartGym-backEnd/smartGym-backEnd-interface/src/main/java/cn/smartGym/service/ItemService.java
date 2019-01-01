@@ -22,9 +22,15 @@ public interface ItemService {
 
 	List<String> applySelect(SmartgymItemsCtr itemCtr);
 
+	List<Long> selectItemByStatus(Integer... statuses);
+
 	SGResult addItem(SmartgymItemsCtr itemCtr);
-	
+
 	SGResult deleteItem(SmartgymItemsCtr itemCtr);
+	
+	SGResult hardDeleteItem();
+
+	SGResult maintenanceItem();
 
 	Long getItemIdByItemDetails(String game, String category, String item, Integer gender);
 

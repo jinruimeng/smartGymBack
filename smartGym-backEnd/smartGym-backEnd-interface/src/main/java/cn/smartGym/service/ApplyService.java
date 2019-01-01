@@ -22,6 +22,10 @@ public interface ApplyService {
 	SGResult checkData(SmartgymApplications apply);
 
 	SGResult addApply(SmartgymApplicationsCtr applyCtr);
+	
+	SGResult hardDeleteApply();
+	
+	SGResult maintenanceApply(List<Long> itemsId);
 
 	List<SmartgymApplicationsCtr> getApplycationListByStudentNo(String studentno);
 	

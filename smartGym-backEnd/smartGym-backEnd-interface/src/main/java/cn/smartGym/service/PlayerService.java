@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.smartGym.pojo.SmartgymPlayers;
 import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
+import common.utils.SGResult;
 
 public interface PlayerService {
 
@@ -12,4 +13,6 @@ public interface PlayerService {
 	SmartgymPlayers playerCtrtoDao(SmartgymPlayersCtr playerCtr);
 
 	SmartgymPlayersCtr playerDaotoCtr(SmartgymPlayers player);
+	
+	SGResult hardDeletePlayer();
 }

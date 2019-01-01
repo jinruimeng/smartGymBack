@@ -1,5 +1,6 @@
 package cn.smartGym.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import cn.smartGym.service.GenderService;
@@ -20,6 +21,9 @@ public class GenderServiceImpl implements GenderService {
 	 */
 	@Override
 	public Integer genderStrToInt(String gender) {
+		if (StringUtils.isBlank(gender))
+			return null;
+
 		switch (gender) {
 		case "男":
 			return 0;
@@ -37,6 +41,9 @@ public class GenderServiceImpl implements GenderService {
 	 */
 	@Override
 	public String genderIntToStr(Integer gender) {
+		if (gender == null)
+			return null;
+
 		switch (gender) {
 		case 0:
 			return "男";

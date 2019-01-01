@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,8 @@ public class CollegeServiceImpl implements CollegeService {
 	 */
 	@Override
 	public String getCollege(Integer id) {
+		if (id == null)
+			return null;
 		// 根据主键查询
 		SmartgymColleges smartgymColleges = smartgymCollegesMapper.selectByPrimaryKey(id);
 		return smartgymColleges.getCollege();
@@ -41,6 +44,8 @@ public class CollegeServiceImpl implements CollegeService {
 	 */
 	@Override
 	public Integer getId(String college) {
+		if(StringUtils.isBlank(college))
+			return null;
 		SmartgymCollegesExample example = new SmartgymCollegesExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andCollegeEqualTo(college);

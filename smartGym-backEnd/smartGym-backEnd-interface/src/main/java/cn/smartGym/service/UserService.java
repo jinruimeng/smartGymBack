@@ -24,5 +24,11 @@ public interface UserService {
 
 	SGResult register(SmartgymUsersCtr userCtr);
 	
+	SGResult deleteUser(String wxId);
+	
+	SGResult hardDeleteUser();
+	
 	List<SmartgymUsers> selectByWxid(String id);
+	
+	SGResult update(SmartgymUsersCtr userCtr);
 }

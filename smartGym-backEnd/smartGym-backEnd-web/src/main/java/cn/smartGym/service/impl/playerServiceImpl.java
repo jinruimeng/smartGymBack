@@ -17,6 +17,7 @@ import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
 import cn.smartGym.service.JobService;
 import cn.smartGym.service.PlayerService;
+import common.utils.SGResult;
 
 /**
  * 参赛人员管理Service
@@ -147,5 +148,22 @@ public class playerServiceImpl implements PlayerService {
 		playerCtr.setRankNo(player.getRankNo());
 
 		return playerCtr;
+	}
+
+	/**
+	 * 硬删除状态为（0）的选手信息
+	 */
+	@Override
+	public SGResult hardDeletePlayer() {
+		SmartgymPlayersExample example = new SmartgymPlayersExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(0);
+		List<SmartgymPlayers> list = smartgymPlayersMapper.selectByExample(example);
+		
+		for (SmartgymPlayers player : list) {
+			smartgymPlayersMapper.deleteByPrimaryKey(player.getId());
+		}
+		
+		return SGResult.build(200, "硬删除项目表成功！");
 	}
 }

@@ -260,5 +260,67 @@ public class ItemServiceImpl implements ItemService {
 			return SGResult.build(200, "删除成功！");
 		}
 	}
-	
+
+	/**
+	 * 维护项目表（将已结束的项目的状态设置为“已结束状态”）
+	 */
+	@Override
+	public SGResult maintenanceItem() {
+		Date date = new Date();
+
+		System.out.println(date);
+
+		SmartgymItemsExample example = new SmartgymItemsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(1);
+		criteria.andDateLessThan(date);
+		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+
+		for (SmartgymItems item : list) {
+			item.setStatus(2);
+			// 0-已取消，1-正在报名，2-已结束
+			item.setUpdated(date);
+			smartgymItemsMapper.updateByPrimaryKeySelective(item);
+		}
+
+		return SGResult.build(200, "维护项目表成功！", list);
+	}
+
+	/**
+	 * 根据状态获取比赛的id
+	 */
+	@Override
+	public List<Long> selectItemByStatus(Integer... statuses) {
+		SmartgymItemsExample example = new SmartgymItemsExample();
+		for (Integer status : statuses) {
+			Criteria criteria = example.or();
+			criteria.andStatusEqualTo(status);
+		}
+		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+
+		List<Long> itemsId = new ArrayList<>();
+		for (SmartgymItems item : list) {
+			itemsId.add(item.getId());
+		}
+
+		return itemsId;
+	}
+
+	/**
+	 * 硬删除状态为（0）的项目表
+	 */
+	@Override
+	public SGResult hardDeleteItem() {
+		SmartgymItemsExample example = new SmartgymItemsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(0);
+		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+
+		for (SmartgymItems item : list) {
+			smartgymItemsMapper.deleteByPrimaryKey(item.getId());
+		}
+
+		return SGResult.build(200, "硬删除项目表成功！");
+	}
+
 }

@@ -345,4 +345,45 @@ public class ApplyServiceImpl implements ApplyService {
 		return result;
 	}
 
+	/**
+	 * 维护报名表（将已结束或已删除项目报名数据的状态设置为“已删除”）
+	 */
+	@Override
+	public SGResult maintenanceApply(List<Long> itemsId) {
+		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+
+		for (Long itemId : itemsId) {
+			Criteria criteria = example.or();
+			criteria.andItemIdEqualTo(itemId);
+			criteria.andStatusEqualTo(1);
+		}
+
+		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
+
+		for (SmartgymApplications application : list) {
+			application.setStatus(0);
+			// 0-已删除（或已通过校级审核），1-正在审核，2-院级审核已通过，3-校级审核已通过
+			application.setUpdated(new Date());
+			smartgymApplicationsMapper.updateByPrimaryKeySelective(application);
+		}
+		return SGResult.build(200, "维护报名表成功！", list);
+	}
+
+	/**
+	 * 硬删除状态为（0）的报名表
+	 */
+	@Override
+	public SGResult hardDeleteApply() {
+		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(0);
+		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
+
+		for (SmartgymApplications application : list) {
+			smartgymApplicationsMapper.deleteByPrimaryKey(application.getId());
+		}
+
+		return SGResult.build(200, "硬删除报名表成功！");
+	}
+
 }

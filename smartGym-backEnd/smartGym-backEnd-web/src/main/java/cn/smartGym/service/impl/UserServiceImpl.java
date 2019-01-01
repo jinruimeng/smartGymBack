@@ -163,18 +163,19 @@ public class UserServiceImpl implements UserService {
 		// 根据不同的type生成不同的查询条件
 		SmartgymUsersExample example = new SmartgymUsersExample();
 		Criteria criteria = example.createCriteria();
-		
-		// 1：学号 2：用户名 3：手机号
+		criteria.andStatusEqualTo(1);
+
+		// 1：学号 2：微信号 3：手机号
 		if (type == 1) {
 			criteria.andStudentNoEqualTo(param);
 		} else if (type == 2) {
-			criteria.andNameEqualTo(param);
+			criteria.andWxIdEqualTo(param);
 		} else if (type == 3) {
 			criteria.andPhoneEqualTo(param);
 		} else {
 			return SGResult.build(404, "数据类型错误!");
 		}
-		
+
 		// 执行查询
 		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
 		// 判断结果中是否包含数据
@@ -182,7 +183,7 @@ public class UserServiceImpl implements UserService {
 			// 如果有数据返回false
 			return SGResult.ok(false);
 		}
-		
+
 		// 如果没有数据返回true
 		return SGResult.ok(true);
 	}
@@ -198,13 +199,20 @@ public class UserServiceImpl implements UserService {
 		if (StringUtils.isBlank(user.getStudentNo()) || StringUtils.isBlank(user.getName())
 				|| StringUtils.isBlank(user.getPhone()) || StringUtils.isBlank(user.getWxId()))
 			return SGResult.build(200, "用户数据不完整，注册失败");
-		
-		// 1：学号 2：用户名 3：手机号
+
+		// 1：学号 2：微信号 3：手机号
 		SGResult result = checkData(user.getStudentNo(), 1);
 		if (result.getStatus() != 200)
 			return result;
 		if (!(boolean) result.getData()) {
 			return SGResult.build(200, "此学号已经被注册!");
+		}
+
+		result = checkData(user.getWxId(), 2);
+		if (result.getStatus() != 200)
+			return result;
+		if (!(boolean) result.getData()) {
+			return SGResult.build(400, "此微信已注册账号！");
 		}
 		
 		result = checkData(user.getPhone(), 3);
@@ -213,13 +221,6 @@ public class UserServiceImpl implements UserService {
 		if (!(boolean) result.getData()) {
 			return SGResult.build(200, "此手机号已经被占用!");
 		}
-		
-//		result = checkData(user.getUsername(), 2);
-//		if (result.getStatus() != 200)
-//			return result;
-//		if (!(boolean) result.getData()) {
-//			return SGResult.build(400, "此用户名已经被占用");
-//		}
 
 		// 补全pojo属性
 		user.setAuthority(0); // 0是普通用户
@@ -227,24 +228,106 @@ public class UserServiceImpl implements UserService {
 		user.setUpdated(new Date());
 		user.setStatus(1); // 0是删除，1是正常
 		user.setId(IDUtils.genId());
-		
+
 		// 把用户数据插入数据库
 		smartgymUsersMapper.insert(user);
-		
+
 		// 返回添加成功
-		return SGResult.build(200, "注册成功", userDaoToCtr(user));
+		return SGResult.build(200, "注册成功！", userDaoToCtr(user));
 	}
 
 	/**
-	 * 根据微信id查询是否已注册
+	 * 根据微信id查询用户
 	 */
 	@Override
 	public List<SmartgymUsers> selectByWxid(String wxid) {
 		SmartgymUsersExample example = new SmartgymUsersExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andWxIdEqualTo(wxid);
+		criteria.andStatusEqualTo(1);
 		List<SmartgymUsers> result = smartgymUsersMapper.selectByExample(example);
 		return result;
+	}
+
+	/**
+	 * 用户修改资料
+	 */
+	@Override
+	public SGResult update(SmartgymUsersCtr userCtr) {
+		// 检查数据合法性
+		if (userCtr.getStudentNo() == null)
+			return SGResult.build(200, "学号不能为空，请重新登录！");
+		if (userCtr.getWxId() == null)
+			return SGResult.build(200, "微信号不能为空，请重新登录！");
+
+		// 检查学号和微信是否对应
+		SmartgymUsersExample example = new SmartgymUsersExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStudentNoEqualTo(userCtr.getStudentNo());
+		criteria.andWxIdEqualTo(userCtr.getWxId());
+		criteria.andStatusEqualTo(1);
+		List<SmartgymUsers> selectByExample = smartgymUsersMapper.selectByExample(example);
+		if (selectByExample.isEmpty())
+			return SGResult.build(200, "不能修改学号！");
+
+		SmartgymUsers userOld = selectByExample.get(0);
+		SmartgymUsers user = userCtrToDao(userCtr);
+
+		// 如果手机号已修改，检查该手机号是否已经被注册
+		if (!user.getPhone().equals(userOld.getPhone())) {
+			if (!(boolean) checkData(user.getPhone(), 3).getData())
+				return SGResult.build(200, "该手机号已经被注册！");
+		}
+		
+		user.setId(userOld.getId());
+		user.setUpdated(new Date());
+		
+		smartgymUsersMapper.updateByPrimaryKeySelective(user);
+		return SGResult.build(200, "修改资料成功！", user);
+	}
+
+	/**
+	 * 硬删除状态为（0）的用户信息
+	 */
+	@Override
+	public SGResult hardDeleteUser() {
+		SmartgymUsersExample example = new SmartgymUsersExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(0);
+		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
+		
+		for (SmartgymUsers user : list) {
+			smartgymUsersMapper.deleteByPrimaryKey(user.getId());
+		}
+		
+		return SGResult.build(200, "硬删除用户信息成功！");
+	}
+
+	/**
+	 * 删除用户
+	 */
+	@Override
+	public SGResult deleteUser(String wxId) {
+		if(StringUtils.isBlank(wxId))
+			return SGResult.build(200, "微信号不能为空!");
+		
+		SmartgymUsersExample example = new SmartgymUsersExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(1);
+		criteria.andWxIdEqualTo(wxId);
+		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
+		
+		if(list.isEmpty())
+			return SGResult.build(200, "没有该微信号对应的账号信息!", wxId);
+		else {
+			for (SmartgymUsers user : list) {
+				user.setStatus(0);
+				//0-已删除 1-正常
+				user.setUpdated(new Date());
+				smartgymUsersMapper.updateByPrimaryKeySelective(user);
+			}
+			return SGResult.build(200, "删除账号成功！", list);
+		}
 	}
 
 }

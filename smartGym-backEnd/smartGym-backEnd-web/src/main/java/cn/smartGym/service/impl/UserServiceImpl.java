@@ -330,4 +330,16 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * 根据学号查询所在学院
+	 */
+	@Override
+	public Integer getCollegeByStudentNo(String studentNo) {
+		SmartgymUsersExample example = new SmartgymUsersExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStudentNoEqualTo(studentNo);
+		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
+		return list.get(0).getCollege();
+	}
+
 }

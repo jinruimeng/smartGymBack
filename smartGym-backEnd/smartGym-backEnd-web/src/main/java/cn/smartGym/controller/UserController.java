@@ -87,7 +87,7 @@ public class UserController {
 	 * @param userCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/user/deleteUser", method = { RequestMethod.POST,
+	@RequestMapping(value = "/user/delete", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult deleteUser(String wxId) {
@@ -122,7 +122,7 @@ public class UserController {
 	 * @param userCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/user/updateUser", method = { RequestMethod.POST,
+	@RequestMapping(value = "/user/update", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult updateUser(SmartgymUsersCtr userCtr) {

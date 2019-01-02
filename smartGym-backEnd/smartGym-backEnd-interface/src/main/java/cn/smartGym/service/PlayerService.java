@@ -20,4 +20,7 @@ public interface PlayerService {
 	SGResult hardDeletePlayer();
 	
 	SGResult reviewByUniversityManager(List<SmartgymApplications> applications);
+	
+	SGResult genPlayerNo(String game);
+	
 }

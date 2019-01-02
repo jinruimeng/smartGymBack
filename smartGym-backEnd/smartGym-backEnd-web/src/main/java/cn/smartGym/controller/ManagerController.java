@@ -24,7 +24,7 @@ import common.utils.SGResult;
  *
  */
 @Controller
-public class managerController {
+public class ManagerController {
 
 	@Autowired
 	private ItemService itemService;
@@ -216,6 +216,23 @@ public class managerController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "院级管理员审核失败！", e);
+		}
+	}
+	
+	/**
+	 * 生成参赛号
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/manager/genPlayerNo", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult genPlayerNo(String game) {
+		try {
+			return playerService.genPlayerNo(game);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "生成参赛号失败！", e);
 		}
 	}
 

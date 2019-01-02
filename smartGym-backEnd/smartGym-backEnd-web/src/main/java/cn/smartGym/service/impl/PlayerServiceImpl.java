@@ -28,7 +28,7 @@ import common.utils.SGResult;
  *
  */
 @Service
-public class playerServiceImpl implements PlayerService {
+public class PlayerServiceImpl implements PlayerService {
 
 	@Autowired
 	private SmartgymPlayersMapper smartgymPlayersMapper;
@@ -70,7 +70,8 @@ public class playerServiceImpl implements PlayerService {
 	/**
 	 * playerController-Dao层接收bean转换器
 	 * 
-	 * @param playerCtr 接收前端数据的bean
+	 * @param playerCtr
+	 *            接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
@@ -117,7 +118,8 @@ public class playerServiceImpl implements PlayerService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param player 从数据库中查询出数据封装的bean
+	 * @param player
+	 *            从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
 	@Override
@@ -199,7 +201,7 @@ public class playerServiceImpl implements PlayerService {
 	public SGResult reviewByUniversityManager(List<SmartgymApplications> applications) {
 		if (applications == null || applications.isEmpty())
 			return SGResult.build(200, "请先选择要审核的报名记录！");
-		
+
 		for (SmartgymApplications apply : applications) {
 			if (apply.getStatus() != 3)
 				return SGResult.build(404, "校级管理员审核未通过！");
@@ -209,6 +211,52 @@ public class playerServiceImpl implements PlayerService {
 			smartgymPlayersMapper.insertSelective(player);
 		}
 		return SGResult.build(200, "院级管理员审核完成！");
+	}
+
+	/**
+	 * 根据比赛名称设置参赛人员参赛号
+	 * 
+	 * @param game
+	 *            最高一级的比赛名称
+	 */
+	@Override
+	public SGResult genPlayerNo(String game) {
+		// 根据比赛名称获取所有比赛小项items的id，即itemId
+		List<SmartgymItemsCtr> itemCtrs = itemService.getItemsByGame(game);
+		List<Long> itemIds = new ArrayList<>();
+		for (SmartgymItemsCtr itemCtr : itemCtrs) {
+			itemIds.add(itemCtr.getId());
+		}
+		// 根据item_id查出参赛表中的参赛人员的学号，保持唯一
+		SmartgymPlayersExample example = new SmartgymPlayersExample();
+		example.setOrderByClause("student_no");
+		for (Long itemId : itemIds) {
+			Criteria criteria = example.or();
+			criteria.andItemIdEqualTo(itemId);
+			criteria.andStatusGreaterThanOrEqualTo(1);
+		}
+		List<SmartgymPlayers> players = smartgymPlayersMapper.selectByExample(example);
+
+		String preSid = "0000000";
+		String prePid = "000000";
+		Integer preCollege = 0;
+		int index = 0;
+		for (SmartgymPlayers player : players) {
+			if (!player.getStudentNo().equals(preSid)) {
+				if (player.getCollege() == preCollege)
+					index++;
+				else
+					index = 1;
+				preSid = player.getStudentNo();
+				prePid = String.format("%02d", player.getCollege()) + String.format("%04d", index);
+				preCollege = player.getCollege();
+			}
+
+			player.setPlayerNo(prePid);
+			smartgymPlayersMapper.updateByPrimaryKeySelective(player);
+		}
+
+		return SGResult.build(200, "成功生成参赛号!");
 	}
 
 }

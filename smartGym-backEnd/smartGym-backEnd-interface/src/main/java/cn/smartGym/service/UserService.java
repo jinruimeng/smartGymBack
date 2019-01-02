@@ -31,4 +31,6 @@ public interface UserService {
 	List<SmartgymUsers> selectByWxid(String id);
 	
 	SGResult update(SmartgymUsersCtr userCtr);
+	
+	Integer getCollegeByStudentNo(String studentNo);
 }

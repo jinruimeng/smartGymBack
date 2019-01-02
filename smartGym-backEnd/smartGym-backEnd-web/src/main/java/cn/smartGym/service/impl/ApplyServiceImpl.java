@@ -54,13 +54,23 @@ public class ApplyServiceImpl implements ApplyService {
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
-	public SmartgymApplications applyCtrtoDao(SmartgymApplicationsCtr applyCtr) {
-		// 根据具体项目信息生成itemId
-		Long itemId = itemService.getItemIdByItemDetails(applyCtr.getGame(), applyCtr.getCategory(), applyCtr.getItem(),
-				genderGroupService.genderStrToInt(applyCtr.getGender()));
-		if (itemId == null)
+	public SmartgymApplications applyCtrToDao(SmartgymApplicationsCtr applyCtr) {
+		SmartgymItemsCtr itemsCtr = new SmartgymItemsCtr();
+		itemsCtr.setGame(applyCtr.getGame());
+		itemsCtr.setCategory(applyCtr.getCategory());
+		itemsCtr.setItem(applyCtr.getItem());
+		itemsCtr.setGender(applyCtr.getGender());
+		// 0-已删除 1-正在报名 2-已结束
+		itemsCtr.setStatus(1);
+
+		// 根据具体项目信息查找itemId
+		List<Long> list = itemService.getItemIdByItemDetails(itemsCtr);
+
+		if (list == null || list.isEmpty())
 			return null;
-		applyCtr.setItemId(itemId);
+
+		applyCtr.setItemId(list.get(0));
+
 		// 转换为Dao层的pojo
 		SmartgymApplications apply = new SmartgymApplications();
 		// 设置姓名
@@ -88,7 +98,7 @@ public class ApplyServiceImpl implements ApplyService {
 	 * @return 返回给前端的bean
 	 */
 	@Override
-	public SmartgymApplicationsCtr applyDaotoCtr(SmartgymApplications apply) {
+	public SmartgymApplicationsCtr applyDaoToCtr(SmartgymApplications apply) {
 		// 根据itemId获取项目具体信息
 		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(apply.getItemId());
 		// 转换为Dao层的pojo
@@ -153,7 +163,7 @@ public class ApplyServiceImpl implements ApplyService {
 	 */
 	@Override
 	public SGResult addApply(SmartgymApplicationsCtr applyCtr) {
-		SmartgymApplications apply = applyCtrtoDao(applyCtr);
+		SmartgymApplications apply = applyCtrToDao(applyCtr);
 
 		// 数据有效性检验
 		if (StringUtils.isBlank(apply.getStudentNo()) || StringUtils.isBlank(apply.getJob().toString())
@@ -187,13 +197,13 @@ public class ApplyServiceImpl implements ApplyService {
 		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStudentNoEqualTo(studentno);
-		criteria.andStatusGreaterThanOrEqualTo(1);
+		criteria.andStatusNotEqualTo(0);
 		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
 		if (list == null || list.size() == 0)
 			return null;
 		List<SmartgymApplicationsCtr> result = new ArrayList<>();
 		for (SmartgymApplications apply : list) {
-			SmartgymApplicationsCtr applyCtr = applyDaotoCtr(apply);
+			SmartgymApplicationsCtr applyCtr = applyDaoToCtr(apply);
 			result.add(applyCtr);
 		}
 		return result;
@@ -384,6 +394,75 @@ public class ApplyServiceImpl implements ApplyService {
 		}
 
 		return SGResult.build(200, "硬删除报名表成功！");
+	}
+
+	/***
+	 * 院级管理员审核
+	 */
+	@Override
+	public SGResult reviewByCollegeManager(Long ids[]) {
+		if (ids == null || ids.length == 0)
+			return SGResult.build(200, "请先选择要审核的报名记录！");
+
+		SmartgymApplications applicationTemplate = new SmartgymApplications();
+		applicationTemplate.setStatus(2);
+		applicationTemplate.setUpdated(new Date());
+
+		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+
+		for (Long id : ids) {
+			Criteria criteria = example.or();
+			criteria.andStatusEqualTo(1);
+			criteria.andIdEqualTo(id);
+		}
+
+		smartgymApplicationsMapper.updateByExampleSelective(applicationTemplate, example);
+
+		return SGResult.build(200, "院级管理员审核完成！");
+	}
+
+	/***
+	 * 校级管理员审核
+	 */
+	@Override
+	public List<SmartgymApplications> reviewByUniversityManager(Long ids[]) {
+		if (ids == null || ids.length == 0)
+			return null;
+
+		SmartgymApplications applicationTemplate = new SmartgymApplications();
+		applicationTemplate.setStatus(3);
+		applicationTemplate.setUpdated(new Date());
+
+		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+		for (Long id : ids) {
+			Criteria criteria = example.or();
+			criteria.andStatusEqualTo(2);
+			criteria.andIdEqualTo(id);
+		}
+		smartgymApplicationsMapper.updateByExampleSelective(applicationTemplate, example);
+
+		SmartgymApplicationsExample exampleOut = new SmartgymApplicationsExample();
+		for (Long id : ids) {
+			Criteria criteria = exampleOut.or();
+			criteria.andIdEqualTo(id);
+		}
+		return smartgymApplicationsMapper.selectByExample(exampleOut);
+	}
+
+	/**
+	 * 根据项目id获取报名记录和状态
+	 */
+	@Override
+	public List<SmartgymApplications> getApplycationListByItemsId(List<Long> itemsId, Integer status) {
+		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+		for (Long itemId : itemsId) {
+			Criteria criteria = example.or();
+			criteria.andStatusNotEqualTo(0);
+			if (status != null)
+				criteria.andStatusEqualTo(status);
+			criteria.andItemIdEqualTo(itemId);
+		}
+		return smartgymApplicationsMapper.selectByExample(example);
 	}
 
 }

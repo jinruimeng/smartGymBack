@@ -32,9 +32,10 @@ public interface ItemService {
 
 	SGResult maintenanceItem();
 
-	Long getItemIdByItemDetails(String game, String category, String item, Integer gender);
+	List<Long> getItemIdByItemDetails(SmartgymItemsCtr itemCtr);
 
 	SmartgymItemsCtr getItemByItemId(Long itemId);
 
 	List<SmartgymItemsCtr> getItemsByGame(String game);
+	
 }

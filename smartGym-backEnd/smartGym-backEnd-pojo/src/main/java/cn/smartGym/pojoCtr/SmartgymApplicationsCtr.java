@@ -7,6 +7,7 @@ public class SmartgymApplicationsCtr implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 896372022414526179L;
+	private Long id;
 
 	private String job;
 
@@ -106,6 +107,14 @@ public class SmartgymApplicationsCtr implements Serializable{
 
 	public void setStudentNo(String studentNo) {
 		this.studentNo = studentNo;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

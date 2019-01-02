@@ -2,6 +2,7 @@ package cn.smartGym.service;
 
 import java.util.List;
 
+import cn.smartGym.pojo.SmartgymApplications;
 import cn.smartGym.pojo.SmartgymPlayers;
 import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
 import common.utils.SGResult;
@@ -10,9 +11,13 @@ public interface PlayerService {
 
 	List<SmartgymPlayersCtr> getPlayerListByStudentNo(String studentno);
 
-	SmartgymPlayers playerCtrtoDao(SmartgymPlayersCtr playerCtr);
+	SmartgymPlayers playerCtrToDao(SmartgymPlayersCtr playerCtr);
 
-	SmartgymPlayersCtr playerDaotoCtr(SmartgymPlayers player);
+	SmartgymPlayersCtr playerDaoToCtr(SmartgymPlayers player);
+	
+	SmartgymPlayers applicationDaoToplayerDao(SmartgymApplications apply);
 	
 	SGResult hardDeletePlayer();
+	
+	SGResult reviewByUniversityManager(List<SmartgymApplications> applications);
 }

@@ -15,23 +15,29 @@ import common.utils.SGResult;
  *
  */
 public interface ApplyService {
-	SmartgymApplications applyCtrtoDao(SmartgymApplicationsCtr apply);
+	SmartgymApplications applyCtrToDao(SmartgymApplicationsCtr apply);
 
-	SmartgymApplicationsCtr applyDaotoCtr(SmartgymApplications apply);
+	SmartgymApplicationsCtr applyDaoToCtr(SmartgymApplications apply);
 
 	SGResult checkData(SmartgymApplications apply);
 
 	SGResult addApply(SmartgymApplicationsCtr applyCtr);
-	
+
 	SGResult hardDeleteApply();
-	
+
 	SGResult maintenanceApply(List<Long> itemsId);
 
 	List<SmartgymApplicationsCtr> getApplycationListByStudentNo(String studentno);
-	
+
+	List<SmartgymApplications> getApplycationListByItemsId(List<Long> itemsId, Integer status);
+
 	Long countByitem(Long itemId);
-	
-	Map<Map<Map<String, String>,String>, Long> getApplyNumGroupByItem(List<SmartgymItemsCtr> itemsCtr);
+
+	Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItem(List<SmartgymItemsCtr> itemsCtr);
 
 	Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollege(List<SmartgymItemsCtr> itemsCtr);
+
+	SGResult reviewByCollegeManager(Long ids[]);
+
+	List<SmartgymApplications> reviewByUniversityManager(Long ids[]);
 }

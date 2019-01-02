@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.smartGym.pojo.SmartgymApplications;
 import cn.smartGym.pojoCtr.SmartgymItemsCtr;
 import cn.smartGym.service.ApplyService;
 import cn.smartGym.service.ItemService;
@@ -30,13 +31,13 @@ public class managerController {
 
 	@Autowired
 	private ApplyService applyService;
-	
+
 	@Autowired
 	private PlayerService playerService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	/**
 	 * 根据项目查询报名人数
 	 * 
@@ -115,10 +116,11 @@ public class managerController {
 			applyService.maintenanceApply(itemService.selectItemByStatus(0, 2));
 			return SGResult.build(200, "维护成功！");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return SGResult.build(404, "维护失败！", e);
 		}
 	}
-	
+
 	/**
 	 * 硬删除
 	 * 
@@ -135,7 +137,85 @@ public class managerController {
 			userService.hardDeleteUser();
 			return SGResult.build(200, "硬删除成功！");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return SGResult.build(404, "硬删除失败！", e);
+		}
+	}
+
+	/**
+	 * 院级管理员待审核名单显示
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/manager/viewByCollegeManager", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult viewByCollegeManager(SmartgymItemsCtr itemCtr) {
+		try {
+			itemCtr.setStatus(1);
+			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
+			List<SmartgymApplications> applycations = applyService.getApplycationListByItemsId(itemsId, 1);
+			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
+			return SGResult.build(200, "查询院级管理员待审核名单成功！", applycations);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "查询院级管理员待审核名单失败！", e);
+		}
+	}
+
+	/**
+	 * 院级管理员审核
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/manager/reviewByCollegeManager", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult reviewByCollegeManager(Long ids[]) {
+		try {
+			return applyService.reviewByCollegeManager(ids);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "院级管理员审核失败！", e);
+		}
+	}
+
+	/**
+	 * 校级管理员待审核名单显示
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/manager/viewByUniversityManager", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult viewByUniversityManager(SmartgymItemsCtr itemCtr) {
+		try {
+			itemCtr.setStatus(1);
+			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
+			List<SmartgymApplications> applycations = applyService.getApplycationListByItemsId(itemsId, 2);
+			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
+			return SGResult.build(200, "查询校级管理员待审核名单成功！", applycations);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "查询校级管理员待审核名单失败！", e);
+		}
+	}
+	
+	/**
+	 * 校级管理员审核
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/manager/reviewByUniversityManager", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult reviewByUniversityManager(Long[] ids) {
+		try {
+			List<SmartgymApplications> applications = applyService.reviewByUniversityManager(ids);
+			return playerService.reviewByUniversityManager(applications);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "院级管理员审核失败！", e);
 		}
 	}
 

@@ -1,12 +1,14 @@
 package cn.smartGym.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.smartGym.mapper.SmartgymPlayersMapper;
+import cn.smartGym.pojo.SmartgymApplications;
 import cn.smartGym.pojo.SmartgymPlayers;
 import cn.smartGym.pojo.SmartgymPlayersExample;
 import cn.smartGym.pojo.SmartgymPlayersExample.Criteria;
@@ -59,7 +61,7 @@ public class playerServiceImpl implements PlayerService {
 			return null;
 		List<SmartgymPlayersCtr> result = new ArrayList<>();
 		for (SmartgymPlayers player : list) {
-			SmartgymPlayersCtr playerCtr = playerDaotoCtr(player);
+			SmartgymPlayersCtr playerCtr = playerDaoToCtr(player);
 			result.add(playerCtr);
 		}
 		return result;
@@ -72,12 +74,17 @@ public class playerServiceImpl implements PlayerService {
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
-	public SmartgymPlayers playerCtrtoDao(SmartgymPlayersCtr playerCtr) {
-		// 根据项目的具体信息生成itemId
-		Long itemId = itemService.getItemIdByItemDetails(playerCtr.getGame(), playerCtr.getCategory(),
-				playerCtr.getItem(), genderGroupService.genderStrToInt(playerCtr.getGender()));
+	public SmartgymPlayers playerCtrToDao(SmartgymPlayersCtr playerCtr) {
+		SmartgymItemsCtr itemsCtr = new SmartgymItemsCtr();
+		itemsCtr.setGame(playerCtr.getGame());
+		itemsCtr.setCategory(playerCtr.getCategory());
+		itemsCtr.setItem(playerCtr.getItem());
+		itemsCtr.setGender(playerCtr.getGender());
 
-		playerCtr.setItemId(itemId);
+		// 根据项目的具体信息生成itemId
+		List<Long> itemsId = itemService.getItemIdByItemDetails(itemsCtr);
+
+		playerCtr.setItemId(itemsId.get(0));
 
 		// 转换为Dao层的pojo
 		SmartgymPlayers player = new SmartgymPlayers();
@@ -114,7 +121,7 @@ public class playerServiceImpl implements PlayerService {
 	 * @return 返回给前端的bean
 	 */
 	@Override
-	public SmartgymPlayersCtr playerDaotoCtr(SmartgymPlayers player) {
+	public SmartgymPlayersCtr playerDaoToCtr(SmartgymPlayers player) {
 		// 根据项目id查询项目具体信息
 		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(player.getItemId());
 		if (itemCtr == null)
@@ -159,11 +166,49 @@ public class playerServiceImpl implements PlayerService {
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(0);
 		List<SmartgymPlayers> list = smartgymPlayersMapper.selectByExample(example);
-		
+
 		for (SmartgymPlayers player : list) {
 			smartgymPlayersMapper.deleteByPrimaryKey(player.getId());
 		}
-		
+
 		return SGResult.build(200, "硬删除项目表成功！");
 	}
+
+	/**
+	 * 根据报名表信息生成参赛信息
+	 */
+	@Override
+	public SmartgymPlayers applicationDaoToplayerDao(SmartgymApplications apply) {
+		SmartgymPlayers player = new SmartgymPlayers();
+
+		player.setId(apply.getId());
+		player.setName(apply.getName());
+		player.setCollege(apply.getCollege());
+		player.setStudentNo(apply.getStudentNo());
+		player.setItemId(apply.getItemId());
+		player.setJob(apply.getJob());
+		player.setGender(apply.getGender());
+
+		return player;
+	}
+
+	/**
+	 * 校级管理员审核通过
+	 */
+	@Override
+	public SGResult reviewByUniversityManager(List<SmartgymApplications> applications) {
+		if (applications == null || applications.isEmpty())
+			return SGResult.build(200, "请先选择要审核的报名记录！");
+		
+		for (SmartgymApplications apply : applications) {
+			if (apply.getStatus() != 3)
+				return SGResult.build(404, "校级管理员审核未通过！");
+			SmartgymPlayers player = applicationDaoToplayerDao(apply);
+			player.setCreated(new Date());
+			player.setUpdated(new Date());
+			smartgymPlayersMapper.insertSelective(player);
+		}
+		return SGResult.build(200, "院级管理员审核完成！");
+	}
+
 }

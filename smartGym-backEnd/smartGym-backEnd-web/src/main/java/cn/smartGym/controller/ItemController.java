@@ -24,6 +24,13 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	/**
+	 * 添加比赛项目
+	 * 
+	 * @param itemCtr
+	 * @param dateString
+	 * @return
+	 */
 	@RequestMapping(value = "/item/addItem", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
@@ -39,6 +46,12 @@ public class ItemController {
 		}
 	}
 
+	/**
+	 * 删除比赛项目
+	 * 
+	 * @param itemCtr
+	 * @return
+	 */
 	@RequestMapping(value = "/item/deleteItem", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody

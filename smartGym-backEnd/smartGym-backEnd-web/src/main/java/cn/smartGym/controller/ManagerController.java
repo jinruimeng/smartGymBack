@@ -65,15 +65,16 @@ public class ManagerController {
 	/**
 	 * 根据项目查询报名人数
 	 * 
-	 * @param game
+	 * @param itemCtr
 	 * @return
 	 */
 	@RequestMapping(value = "/manager/getInfoGroupByItem", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInfoGroupByItem(String game) {
+	public SGResult getInfoGroupByItem(SmartgymItemsCtr itemCtr) {
 		try {
-			List<SmartgymItemsCtr> itemsCtr = itemService.getItemsByGame(game);
+			itemCtr.setStatus(1);
+			List<SmartgymItemsCtr> itemsCtr = itemService.getItemsByItemDetails(itemCtr);
 			Map<Map<Map<String, String>, String>, Long> result = applyService.getApplyNumGroupByItem(itemsCtr);
 			return SGResult.build(200, "查询成功！", result);
 		} catch (Exception e) {
@@ -85,15 +86,16 @@ public class ManagerController {
 	/**
 	 * 根据学院查询报名人数
 	 * 
-	 * @param game
+	 * @param itemCtr
 	 * @return
 	 */
 	@RequestMapping(value = "/manager/getInfoGroupByCollege", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInfoGroupByCollege(String game) {
+	public SGResult getInfoGroupByCollege(SmartgymItemsCtr itemCtr) {
 		try {
-			List<SmartgymItemsCtr> itemsCtr = itemService.getItemsByGame(game);
+			itemCtr.setStatus(1);
+			List<SmartgymItemsCtr> itemsCtr = itemService.getItemsByItemDetails(itemCtr);
 			Map<Map<String, Map<String, String>>, Long> result = applyService.getApplyNumGroupByCollege(itemsCtr);
 			return SGResult.build(200, "查询成功！", result);
 		} catch (Exception e) {
@@ -145,6 +147,7 @@ public class ManagerController {
 	/**
 	 * 院级管理员待审核名单显示
 	 * 
+	 * @param itemCtr
 	 * @return
 	 */
 	@RequestMapping(value = "/manager/viewByCollegeManager", method = { RequestMethod.POST,
@@ -166,6 +169,7 @@ public class ManagerController {
 	/**
 	 * 院级管理员审核
 	 * 
+	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value = "/manager/reviewByCollegeManager", method = { RequestMethod.POST,
@@ -183,6 +187,7 @@ public class ManagerController {
 	/**
 	 * 校级管理员待审核名单显示
 	 * 
+	 * @param itemCtr
 	 * @return
 	 */
 	@RequestMapping(value = "/manager/viewByUniversityManager", method = { RequestMethod.POST,
@@ -200,10 +205,11 @@ public class ManagerController {
 			return SGResult.build(404, "查询校级管理员待审核名单失败！", e);
 		}
 	}
-	
+
 	/**
 	 * 校级管理员审核
 	 * 
+	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value = "/manager/reviewByUniversityManager", method = { RequestMethod.POST,
@@ -218,18 +224,21 @@ public class ManagerController {
 			return SGResult.build(404, "院级管理员审核失败！", e);
 		}
 	}
-	
+
 	/**
 	 * 生成参赛号
+	 * 
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value = "/manager/genPlayerNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult genPlayerNo(String game) {
+	public SGResult genPlayerNo(SmartgymItemsCtr itemCtr) {
 		try {
-			return playerService.genPlayerNo(game);
+			itemCtr.setStatus(1);
+			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
+			return playerService.genPlayerNo(itemsId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "生成参赛号失败！", e);

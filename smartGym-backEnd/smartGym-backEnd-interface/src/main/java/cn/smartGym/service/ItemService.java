@@ -34,8 +34,8 @@ public interface ItemService {
 
 	List<Long> getItemIdByItemDetails(SmartgymItemsCtr itemCtr);
 
-	SmartgymItemsCtr getItemByItemId(Long itemId);
+	SmartgymItemsCtr getItemByItemId(Long itemId,Integer status);
 
-	List<SmartgymItemsCtr> getItemsByGame(String game);
+	List<SmartgymItemsCtr> getItemsByItemDetails(SmartgymItemsCtr itemCtr);
 	
 }

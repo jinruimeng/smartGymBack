@@ -100,7 +100,7 @@ public class ApplyServiceImpl implements ApplyService {
 	@Override
 	public SmartgymApplicationsCtr applyDaoToCtr(SmartgymApplications apply) {
 		// 根据itemId获取项目具体信息
-		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(apply.getItemId());
+		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(apply.getItemId(),1);
 		// 转换为Dao层的pojo
 		SmartgymApplicationsCtr applyCtr = new SmartgymApplicationsCtr();
 		// 设置项目信息
@@ -279,6 +279,7 @@ public class ApplyServiceImpl implements ApplyService {
 			itemTotal.put(itemInfo, "total");
 			result.put(itemTotal, itemTotalNum);
 
+			//将该项目的需报名人数加入到结果中
 			Map<Map<String, String>, String> itemNeed = new HashMap<>();
 			itemNeed.put(itemInfo, "need");
 			result.put(itemNeed, (long) itemCtr.getParticipantNum());

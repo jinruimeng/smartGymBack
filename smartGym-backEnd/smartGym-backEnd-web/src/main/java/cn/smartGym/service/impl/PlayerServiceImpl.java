@@ -70,8 +70,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * playerController-Dao层接收bean转换器
 	 * 
-	 * @param playerCtr
-	 *            接收前端数据的bean
+	 * @param playerCtr 接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
@@ -118,14 +117,13 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param player
-	 *            从数据库中查询出数据封装的bean
+	 * @param player 从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
 	@Override
 	public SmartgymPlayersCtr playerDaoToCtr(SmartgymPlayers player) {
 		// 根据项目id查询项目具体信息
-		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(player.getItemId());
+		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(player.getItemId(), null);
 		if (itemCtr == null)
 			return null;
 		// 转换为Ctr层的pojo
@@ -214,49 +212,39 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 
 	/**
-	 * 根据比赛名称设置参赛人员参赛号
-	 * 
-	 * @param game
-	 *            最高一级的比赛名称
+	 * 设置参赛队员参赛号
 	 */
 	@Override
-	public SGResult genPlayerNo(String game) {
-		// 根据比赛名称获取所有比赛小项items的id，即itemId
-		List<SmartgymItemsCtr> itemCtrs = itemService.getItemsByGame(game);
-		List<Long> itemIds = new ArrayList<>();
-		for (SmartgymItemsCtr itemCtr : itemCtrs) {
-			itemIds.add(itemCtr.getId());
-		}
-		// 根据item_id查出参赛表中的参赛人员的学号，保持唯一
+	public SGResult genPlayerNo(List<Long> itemsId) {
 		SmartgymPlayersExample example = new SmartgymPlayersExample();
 		example.setOrderByClause("student_no");
-		for (Long itemId : itemIds) {
+		for (Long itemId : itemsId) {
 			Criteria criteria = example.or();
 			criteria.andItemIdEqualTo(itemId);
 			criteria.andStatusGreaterThanOrEqualTo(1);
 		}
 		List<SmartgymPlayers> players = smartgymPlayersMapper.selectByExample(example);
 
-		String preSid = "0000000";
-		String prePid = "000000";
-		Integer preCollege = 0;
+		String curSid = "0000000";
+		String curPid = "000000";
+		Integer curCollege = 0;
 		int index = 0;
 		for (SmartgymPlayers player : players) {
-			if (!player.getStudentNo().equals(preSid)) {
-				if (player.getCollege() == preCollege)
+			if (!player.getStudentNo().equals(curSid)) {
+				if (player.getCollege() == curCollege)
 					index++;
 				else
 					index = 1;
-				preSid = player.getStudentNo();
-				prePid = String.format("%02d", player.getCollege()) + String.format("%04d", index);
-				preCollege = player.getCollege();
+				curSid = player.getStudentNo();
+				curPid = String.format("%02d", player.getCollege()) + String.format("%04d", index);
+				curCollege = player.getCollege();
 			}
 
-			player.setPlayerNo(prePid);
+			player.setPlayerNo(curPid);
+			player.setUpdated(new Date());
 			smartgymPlayersMapper.updateByPrimaryKeySelective(player);
 		}
-
-		return SGResult.build(200, "成功生成参赛号!");
+		return SGResult.build(200, "生成参赛号成功!");
 	}
 
 }

@@ -21,6 +21,6 @@ public interface PlayerService {
 	
 	SGResult reviewByUniversityManager(List<SmartgymApplications> applications);
 	
-	SGResult genPlayerNo(String game);
+	SGResult genPlayerNo(List<Long> itemsId);
 	
 }

@@ -136,20 +136,18 @@ public class ItemServiceImpl implements ItemService {
 		SmartgymItemsExample example = new SmartgymItemsExample();
 		Criteria criteria = example.createCriteria();
 
-		if (!StringUtils.isBlank(itemCtr.getGame())) {
-			criteria.andGameEqualTo(itemCtr.getGame());
-		} else if (!StringUtils.isBlank(itemCtr.getCategory())) {
-			criteria.andCategoryEqualTo(itemCtr.getCategory());
-		} else if (!StringUtils.isBlank(itemCtr.getItem())) {
+		if (!StringUtils.isBlank(itemCtr.getItem()))
 			criteria.andItemEqualTo(itemCtr.getItem());
-		} else {
-		}
+		if (!StringUtils.isBlank(itemCtr.getCategory()))
+			criteria.andCategoryEqualTo(itemCtr.getCategory());
+		if (!StringUtils.isBlank(itemCtr.getGame()))
+			criteria.andGameEqualTo(itemCtr.getGame());
 		criteria.andStatusNotEqualTo(0);
 		if (status != null)
 			criteria.andStatusEqualTo(status);
 
 		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
-		
+
 		if (!StringUtils.isBlank(itemCtr.getItem())) {
 			String gender;
 			for (SmartgymItems smartgymItems : list) {

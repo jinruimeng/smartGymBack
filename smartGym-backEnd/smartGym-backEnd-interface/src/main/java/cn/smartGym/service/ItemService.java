@@ -18,24 +18,24 @@ public interface ItemService {
 
 	SmartgymItemsCtr itemDaoToCtr(SmartgymItems item);
 
-	List<SmartgymItems> checkItem(SmartgymItemsCtr itemCtr);
-
-	List<String> applySelect(SmartgymItemsCtr itemCtr);
+	List<String> getNameByDetailsAndStatus(SmartgymItemsCtr itemCtr, Integer status);
 
 	List<Long> selectItemByStatus(Integer... statuses);
 
 	SGResult addItem(SmartgymItemsCtr itemCtr);
 
 	SGResult deleteItem(SmartgymItemsCtr itemCtr);
-	
+
 	SGResult hardDeleteItem();
 
 	SGResult maintenanceItem();
 
 	List<Long> getItemIdByItemDetails(SmartgymItemsCtr itemCtr);
 
-	SmartgymItemsCtr getItemByItemId(Long itemId,Integer status);
+	SmartgymItemsCtr getItemByItemId(Long itemId, Integer status);
 
-	List<SmartgymItemsCtr> getItemsByItemDetails(SmartgymItemsCtr itemCtr);
-	
+	List<SmartgymItemsCtr> getItemsCtrByItemDetails(SmartgymItemsCtr itemCtr);
+
+	List<SmartgymItems> getItemsByItemDetails(SmartgymItemsCtr itemCtr);
+
 }

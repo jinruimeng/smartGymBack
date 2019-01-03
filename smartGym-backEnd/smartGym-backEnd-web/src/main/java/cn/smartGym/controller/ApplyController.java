@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
-import cn.smartGym.pojoCtr.SmartgymItemsCtr;
 import cn.smartGym.service.ApplyService;
-import cn.smartGym.service.ItemService;
 import common.utils.SGResult;
 
 /**
@@ -25,9 +23,6 @@ public class ApplyController {
 
 	@Autowired
 	private ApplyService applyService;
-
-	@Autowired
-	private ItemService itemService;
 
 	/**
 	 * 项目报名实现
@@ -47,23 +42,6 @@ public class ApplyController {
 			return SGResult.build(404, "报名失败！", e);
 		}
 
-	}
-
-	/**
-	 * 项目报名页面数据查询
-	 * 
-	 * @param itemsCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/apply/applyPage", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult applyPage(SmartgymItemsCtr itemsCtr) {
-		List<String> result = itemService.applySelect(itemsCtr);
-		if (result == null || result.size() == 0) {
-			SGResult.build(404, "获取项目信息失败！");
-		}
-		return SGResult.build(200, "获取项目信息成功!", result);
 	}
 
 	/**

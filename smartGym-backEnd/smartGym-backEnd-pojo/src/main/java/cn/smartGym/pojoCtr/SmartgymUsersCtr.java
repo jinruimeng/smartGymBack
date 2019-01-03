@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class SmartgymUsersCtr implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 2741694336785053911L;
+	
 	private Long id;
 
 	private String encryptedData;

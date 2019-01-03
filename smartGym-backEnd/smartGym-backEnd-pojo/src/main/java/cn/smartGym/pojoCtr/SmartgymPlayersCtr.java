@@ -3,9 +3,7 @@ package cn.smartGym.pojoCtr;
 import java.io.Serializable;
 
 public class SmartgymPlayersCtr implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -1254682028835756571L;
 
 	private String name;

@@ -40,7 +40,21 @@ public class ItemServiceImpl implements ItemService {
 	 * @return 返回给前端的信息
 	 */
 	public SGResult addItem(SmartgymItemsCtr itemCtr) {
-		List<SmartgymItems> list = checkItem(itemCtr);
+		// 检查数据合法性
+		if (StringUtils.isBlank(itemCtr.getGame()))
+			return SGResult.build(200, "赛事不能为空！");
+		if (StringUtils.isBlank(itemCtr.getCategory()))
+			return SGResult.build(200, "分类不能为空！");
+		if (StringUtils.isBlank(itemCtr.getItem()))
+			return SGResult.build(200, "项目不能为空！");
+		if (StringUtils.isBlank(itemCtr.getGender()))
+			return SGResult.build(200, "组别不能为空！");
+		if (itemCtr.getDate() == null)
+			return SGResult.build(200, "组别不能为空！");
+		if (StringUtils.isBlank(itemCtr.getPlace()))
+			return SGResult.build(200, "地点不能为空！");
+
+		List<SmartgymItems> list = getItemsByItemDetails(itemCtr);
 		if (!list.isEmpty())
 			return SGResult.build(200, "该项目已存在，请先删除！");
 
@@ -70,26 +84,18 @@ public class ItemServiceImpl implements ItemService {
 		SmartgymItemsExample example = new SmartgymItemsExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusNotEqualTo(0);
-
 		if (!StringUtils.isBlank(itemCtr.getGame()))
 			criteria.andGameEqualTo(itemCtr.getGame());
-
 		if (!StringUtils.isBlank(itemCtr.getCategory()))
 			criteria.andCategoryEqualTo(itemCtr.getCategory());
-
 		if (!StringUtils.isBlank(itemCtr.getItem()))
 			criteria.andItemEqualTo(itemCtr.getItem());
-
 		if (!StringUtils.isBlank(itemCtr.getGender()))
-			// 设置项目性别查询条件
 			criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
-
 		if (itemCtr.getStatus() != null)
 			criteria.andStatusEqualTo(itemCtr.getStatus());
 
 		List<SmartgymItems> items = smartgymItemsMapper.selectByExample(example);
-		if (items == null || items.size() == 0)
-			return null;
 
 		List<Long> itemsId = new ArrayList<>();
 		for (SmartgymItems item : items) {
@@ -110,22 +116,23 @@ public class ItemServiceImpl implements ItemService {
 		criteria.andStatusNotEqualTo(0);
 		if (status != null)
 			criteria.andStatusEqualTo(status);
+
 		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
 		if (list == null || list.isEmpty())
 			return null;
 		SmartgymItems item = list.get(0);
+
 		return itemDaoToCtr(item);
 	}
 
 	/**
-	 * 异步查询加载比赛项目
+	 * 异步查询加载各级名称
 	 * 
 	 * @param item 接收的item
 	 * @return 根据item返回信息
 	 */
-	public List<String> applySelect(SmartgymItemsCtr itemCtr) {
+	public List<String> getNameByDetailsAndStatus(SmartgymItemsCtr itemCtr, Integer status) {
 		ArrayList<String> result = new ArrayList<>();
-		List<SmartgymItems> list = new ArrayList<>();
 		SmartgymItemsExample example = new SmartgymItemsExample();
 		Criteria criteria = example.createCriteria();
 
@@ -137,10 +144,12 @@ public class ItemServiceImpl implements ItemService {
 			criteria.andItemEqualTo(itemCtr.getItem());
 		} else {
 		}
-		criteria.andDateGreaterThan(new Date());
-		criteria.andStatusEqualTo(1);
+		criteria.andStatusNotEqualTo(0);
+		if (status != null)
+			criteria.andStatusEqualTo(status);
 
-		list = smartgymItemsMapper.selectByExample(example);
+		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+		
 		if (!StringUtils.isBlank(itemCtr.getItem())) {
 			String gender;
 			for (SmartgymItems smartgymItems : list) {
@@ -176,8 +185,8 @@ public class ItemServiceImpl implements ItemService {
 					result.add(game);
 				}
 			}
-			return result;
 
+			return result;
 		}
 	}
 
@@ -231,55 +240,67 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	/**
-	 * 根据Item具体信息获取Item
+	 * 根据Item具体信息获取ItemCtr
 	 */
 	@Override
-	public List<SmartgymItemsCtr> getItemsByItemDetails(SmartgymItemsCtr itemCtr) {
-		// 根据项目的名称分类小项等生成比赛项目Id
-				SmartgymItemsExample example = new SmartgymItemsExample();
-				Criteria criteria = example.createCriteria();
-				criteria.andStatusNotEqualTo(0);
+	public List<SmartgymItemsCtr> getItemsCtrByItemDetails(SmartgymItemsCtr itemCtr) {
+		SmartgymItemsExample example = new SmartgymItemsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusNotEqualTo(0);
 
-				if (!StringUtils.isBlank(itemCtr.getGame()))
-					criteria.andGameEqualTo(itemCtr.getGame());
+		if (!StringUtils.isBlank(itemCtr.getGame()))
+			criteria.andGameEqualTo(itemCtr.getGame());
 
-				if (!StringUtils.isBlank(itemCtr.getCategory()))
-					criteria.andCategoryEqualTo(itemCtr.getCategory());
+		if (!StringUtils.isBlank(itemCtr.getCategory()))
+			criteria.andCategoryEqualTo(itemCtr.getCategory());
 
-				if (!StringUtils.isBlank(itemCtr.getItem()))
-					criteria.andItemEqualTo(itemCtr.getItem());
+		if (!StringUtils.isBlank(itemCtr.getItem()))
+			criteria.andItemEqualTo(itemCtr.getItem());
 
-				if (!StringUtils.isBlank(itemCtr.getGender()))
-					// 设置项目性别查询条件
-					criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
+		if (!StringUtils.isBlank(itemCtr.getGender()))
+			// 设置项目性别查询条件
+			criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
 
-				if (itemCtr.getStatus() != null)
-					criteria.andStatusEqualTo(itemCtr.getStatus());
+		if (itemCtr.getStatus() != null)
+			criteria.andStatusEqualTo(itemCtr.getStatus());
 
-				List<SmartgymItems> items = smartgymItemsMapper.selectByExample(example);
-				if (items == null || items.size() == 0)
-					return null;
+		List<SmartgymItems> items = smartgymItemsMapper.selectByExample(example);
 
-				List<SmartgymItemsCtr> itemsCtr = new ArrayList<>();
-				for (SmartgymItems item : items) {
-					itemsCtr.add(itemDaoToCtr(item));
-				}
+		List<SmartgymItemsCtr> itemsCtr = new ArrayList<>();
 
-				return itemsCtr;
+		if (!items.isEmpty()) {
+			for (SmartgymItems item : items) {
+				itemsCtr.add(itemDaoToCtr(item));
+			}
+		}
+
+		return itemsCtr;
 	}
 
 	/**
-	 * 检查项目是否已存在
+	 * 根据Item具体信息获取ItemCtr
 	 */
 	@Override
-	public List<SmartgymItems> checkItem(SmartgymItemsCtr itemCtr) {
+	public List<SmartgymItems> getItemsByItemDetails(SmartgymItemsCtr itemCtr) {
 		SmartgymItemsExample example = new SmartgymItemsExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andGameEqualTo(itemCtr.getGame());
-		criteria.andCategoryEqualTo(itemCtr.getCategory());
-		criteria.andCategoryEqualTo(itemCtr.getItem());
-		criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
-		criteria.andStatusGreaterThanOrEqualTo(1);
+		criteria.andStatusNotEqualTo(0);
+
+		if (!StringUtils.isBlank(itemCtr.getGame()))
+			criteria.andGameEqualTo(itemCtr.getGame());
+
+		if (!StringUtils.isBlank(itemCtr.getCategory()))
+			criteria.andCategoryEqualTo(itemCtr.getCategory());
+
+		if (!StringUtils.isBlank(itemCtr.getItem()))
+			criteria.andItemEqualTo(itemCtr.getItem());
+
+		if (!StringUtils.isBlank(itemCtr.getGender()))
+			// 设置项目性别查询条件
+			criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
+
+		if (itemCtr.getStatus() != null)
+			criteria.andStatusEqualTo(itemCtr.getStatus());
 
 		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
 
@@ -291,14 +312,15 @@ public class ItemServiceImpl implements ItemService {
 	 */
 	@Override
 	public SGResult deleteItem(SmartgymItemsCtr itemCtr) {
-		List<SmartgymItems> list = checkItem(itemCtr);
+		List<SmartgymItems> items = getItemsByItemDetails(itemCtr);
 
-		if (list.size() == 0)
+		if (items.isEmpty())
 			return SGResult.build(200, "没有该项目！");
 		else {
-			SmartgymItems item = list.get(0);
-			item.setStatus(0);
-			smartgymItemsMapper.updateByPrimaryKeySelective(item);
+			for (SmartgymItems item : items) {
+				item.setStatus(0);
+				smartgymItemsMapper.updateByPrimaryKeySelective(item);
+			}
 			return SGResult.build(200, "删除成功！");
 		}
 	}

@@ -29,13 +29,17 @@ public interface ApplyService {
 
 	List<SmartgymApplicationsCtr> getApplycationListByStudentNo(String studentno);
 
-	List<SmartgymApplications> getApplycationListByItemsId(List<Long> itemsId, Integer status);
+	List<SmartgymApplications> getApplycationListByItemsId(List<Long> itemsId, Integer status, String college);
 
 	Long countByitem(Long itemId);
 
 	Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItem(List<SmartgymItemsCtr> itemsCtr);
 
+	Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItemDetail(List<SmartgymItemsCtr> itemsCtr);
+
 	Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollege(List<SmartgymItemsCtr> itemsCtr);
+
+	Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollegeDetail(List<SmartgymItemsCtr> itemsCtr);
 
 	SGResult reviewByCollegeManager(Long ids[]);
 

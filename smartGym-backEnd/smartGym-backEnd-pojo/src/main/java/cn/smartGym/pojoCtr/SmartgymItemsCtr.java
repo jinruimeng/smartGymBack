@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class SmartgymItemsCtr implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6605952592376124670L;
 
 	private Long id;

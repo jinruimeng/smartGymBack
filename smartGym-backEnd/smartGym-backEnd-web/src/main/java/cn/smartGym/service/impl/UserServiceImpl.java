@@ -70,7 +70,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public SmartgymUsersCtr userDaoToCtr(SmartgymUsers user) {
 		SmartgymUsersCtr userCtr = new SmartgymUsersCtr();
-
+		
+		userCtr.setId(user.getId());
 		userCtr.setPhone(user.getPhone());
 		userCtr.setStudentNo(user.getStudentNo());
 		userCtr.setWxId(user.getWxId());
@@ -78,6 +79,8 @@ public class UserServiceImpl implements UserService {
 		userCtr.setCampus(campusService.getCampus(user.getCampus()));
 		userCtr.setCollege(collegeService.getCollege(user.getCollege()));
 		userCtr.setGender(genderService.genderIntToStr(user.getGender()));
+		userCtr.setAuthority(user.getAuthority());
+		userCtr.setStatus(user.getStatus());
 
 		return userCtr;
 	}
@@ -134,7 +137,6 @@ public class UserServiceImpl implements UserService {
 			if (null != result && result.length() > 0) {
 				// 解密成功
 				JSONObject userInfoJSON = JSONObject.fromObject(result);
-				System.out.println(userInfoJSON.toString());
 				/*
 				 * Map userInfo = new HashMap(); userInfo.put("openId",
 				 * userInfoJSON.get("openId")); userInfo.put("nickName",
@@ -145,7 +147,6 @@ public class UserServiceImpl implements UserService {
 				 * userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
 				 * userInfo.put("unionId", userInfoJSON.get("unionId"));
 				 */
-				System.out.println(userInfoJSON.get("unionId"));
 				return SGResult.ok(userInfoJSON.get("unionId"));
 			} else
 				return SGResult.build(403, "用户信息解密失败！");

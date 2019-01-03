@@ -310,8 +310,6 @@ public class ItemServiceImpl implements ItemService {
 	public SGResult maintenanceItem() {
 		Date date = new Date();
 
-		System.out.println(date);
-
 		SmartgymItemsExample example = new SmartgymItemsExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);

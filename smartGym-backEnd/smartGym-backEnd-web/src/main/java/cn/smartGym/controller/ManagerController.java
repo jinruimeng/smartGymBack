@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojo.SmartgymApplications;
 import cn.smartGym.pojoCtr.SmartgymItemsCtr;
+import cn.smartGym.pojoCtr.SmartgymUsersCtr;
 import cn.smartGym.service.ApplyService;
 import cn.smartGym.service.ItemService;
+import cn.smartGym.service.ManagerService;
 import cn.smartGym.service.PlayerService;
 import cn.smartGym.service.UserService;
 import common.utils.SGResult;
@@ -38,6 +40,9 @@ public class ManagerController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ManagerService managerService;
 
 	/**
 	 * 根据项目查询报名人数
@@ -266,5 +271,77 @@ public class ManagerController {
 			return SGResult.build(404, "生成参赛号失败！", e);
 		}
 	}
-
+	
+	/**
+	 * 生成参赛队员分组和赛道
+	 * @param usersCtr
+	 * @return
+	 */
+	@RequestMapping(value = "/manager/genGroupNoAndPathNo", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult genGroupNoAndPathNo(Long itemId) {
+		try {
+			return playerService.genGroupNoAndPathNo(itemId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "设置参赛队员分组和赛道失败！");
+		}
+	}
+	
+	
+//	/**
+//	 * 根据用户的信息，得到权限，从而根据权限显示可以查看的Users
+//	 * @param userCtr
+//	 * @return
+//	 */
+//	@RequestMapping(value = "/manager/getUserList", method = { RequestMethod.POST,
+//			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+//	@ResponseBody
+//	public SGResult getUserList(SmartgymUsersCtr userCtr) {
+//		try {
+//			List<SmartgymUsersCtr> list = managerService.getUserList(userCtr);
+//			return SGResult.build(200, "返回用户列表成功！", list);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return SGResult.build(404, "返回用户列表失败！");
+//		}
+//		
+//	}
+	
+	/**
+	 * 管理员根据学号查询用户信息
+	 * @param userCtr
+	 * @return
+	 */
+	@RequestMapping(value = "/manager/getUser", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult getUser(SmartgymUsersCtr userCtr, String studentNo) {
+		try {
+			return managerService.getUser(userCtr, studentNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "查询用户失败！");
+		}
+	}
+	
+	
+	/**
+	 * 设置用户权限
+	 * @param usersCtr
+	 * @return
+	 */
+	@RequestMapping(value = "/manager/setUserAuthority", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult setUserAuthority(SmartgymUsersCtr usersCtr) {
+		try {
+			return managerService.setUserAuthority(usersCtr);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "设置用户权限失败！");
+		}
+	}
+	
 }

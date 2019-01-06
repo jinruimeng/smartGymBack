@@ -252,7 +252,7 @@ public class PlayerServiceImpl implements PlayerService {
 	 * 产生参赛队员的组号和赛道号，每个项目的分组都不同，所以要传入需要设置分组的项目id
 	 */
 
-	public SGResult genGroupNoAndPathNo(Long itemId) {
+	public SGResult genGroupNoAndPathNo(Long itemId, Integer number) {
 		SmartgymPlayersExample example = new SmartgymPlayersExample();
 		example.setOrderByClause("student_no");
 		Criteria criteria = example.createCriteria();
@@ -265,9 +265,9 @@ public class PlayerServiceImpl implements PlayerService {
 		//设置分组号和赛道号
 		for(int i = 0; i < list.size(); i++) {
 			//设置分组号
-			list.get(i).setGroupNo(i / 8 + 1);
+			list.get(i).setGroupNo(i / number + 1);
 			//设置赛道号
-			list.get(i).setPathNo(i % 8 + 1);
+			list.get(i).setPathNo(i % number + 1);
 			//更新到数据库
 			smartgymPlayersMapper.updateByPrimaryKeySelective(list.get(i));
 		}

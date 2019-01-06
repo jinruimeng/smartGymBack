@@ -280,9 +280,9 @@ public class ManagerController {
 	@RequestMapping(value = "/manager/genGroupNoAndPathNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult genGroupNoAndPathNo(Long itemId) {
+	public SGResult genGroupNoAndPathNo(Long itemId, Integer number) {
 		try {
-			return playerService.genGroupNoAndPathNo(itemId);
+			return playerService.genGroupNoAndPathNo(itemId, number);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "设置参赛队员分组和赛道失败！");

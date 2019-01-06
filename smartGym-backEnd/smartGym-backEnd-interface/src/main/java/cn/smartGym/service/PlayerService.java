@@ -23,6 +23,6 @@ public interface PlayerService {
 	
 	SGResult genPlayerNo(List<Long> itemsId);
 	
-	SGResult genGroupNoAndPathNo(Long itemId);
+	SGResult genGroupNoAndPathNo(Long itemId, Integer number);
 	
 }

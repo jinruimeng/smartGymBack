@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public SmartgymUsersCtr userDaoToCtr(SmartgymUsers user) {
 		SmartgymUsersCtr userCtr = new SmartgymUsersCtr();
-		
+
 		userCtr.setId(user.getId());
 		userCtr.setPhone(user.getPhone());
 		userCtr.setStudentNo(user.getStudentNo());
@@ -126,8 +126,9 @@ public class UserServiceImpl implements UserService {
 		JSONObject json = JSONObject.fromObject(sr);
 		// 获取会话密钥（session_key）
 		String session_key = json.get("session_key").toString();
-		// 用户的唯一标识（openid）
-//        String openid = (String) json.get("openid");
+		// 用户的唯一标识（openId）
+//        String openId = (String) json.get("openid");
+//		System.out.println("openId: " + openId);
 
 		/*
 		 * 2、对encryptedData加密数据进行AES解密
@@ -147,6 +148,7 @@ public class UserServiceImpl implements UserService {
 				 * userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
 				 * userInfo.put("unionId", userInfoJSON.get("unionId"));
 				 */
+//				System.out.println("unionId: " + userInfoJSON.get("unionId"));
 				return SGResult.ok(userInfoJSON.get("unionId"));
 			} else
 				return SGResult.build(403, "用户信息解密失败！");
@@ -215,7 +217,7 @@ public class UserServiceImpl implements UserService {
 		if (!(boolean) result.getData()) {
 			return SGResult.build(400, "此微信已注册账号！");
 		}
-		
+
 		result = checkData(user.getPhone(), 3);
 		if (result.getStatus() != 200)
 			return result;
@@ -279,10 +281,10 @@ public class UserServiceImpl implements UserService {
 			if (!(boolean) checkData(user.getPhone(), 3).getData())
 				return SGResult.build(200, "该手机号已经被注册！");
 		}
-		
+
 		user.setId(userOld.getId());
 		user.setUpdated(new Date());
-		
+
 		smartgymUsersMapper.updateByPrimaryKeySelective(user);
 		return SGResult.build(200, "修改资料成功！", user);
 	}
@@ -296,11 +298,11 @@ public class UserServiceImpl implements UserService {
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(0);
 		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
-		
+
 		for (SmartgymUsers user : list) {
 			smartgymUsersMapper.deleteByPrimaryKey(user.getId());
 		}
-		
+
 		return SGResult.build(200, "硬删除用户信息成功！");
 	}
 
@@ -309,21 +311,21 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public SGResult deleteUser(String wxId) {
-		if(StringUtils.isBlank(wxId))
+		if (StringUtils.isBlank(wxId))
 			return SGResult.build(200, "微信号不能为空!");
-		
+
 		SmartgymUsersExample example = new SmartgymUsersExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);
 		criteria.andWxIdEqualTo(wxId);
 		List<SmartgymUsers> list = smartgymUsersMapper.selectByExample(example);
-		
-		if(list.isEmpty())
+
+		if (list.isEmpty())
 			return SGResult.build(200, "没有该微信号对应的账号信息!", wxId);
 		else {
 			for (SmartgymUsers user : list) {
 				user.setStatus(0);
-				//0-已删除 1-正常
+				// 0-已删除 1-正常
 				user.setUpdated(new Date());
 				smartgymUsersMapper.updateByPrimaryKeySelective(user);
 			}

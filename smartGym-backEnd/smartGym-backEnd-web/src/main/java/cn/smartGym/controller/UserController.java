@@ -59,8 +59,11 @@ public class UserController {
 
 		if (!result.isEmpty())
 			return SGResult.build(200, "该用户已注册！", userService.userDaoToCtr(result.get(0)));
-		else
-			return SGResult.build(200, "该用户未注册！", wxId);
+		else {
+			userCtr.setWxId(wxId);
+			userCtr.setStatus(0);
+			return SGResult.build(200, "该用户未注册！", userCtr);
+		}
 	}
 
 	/**

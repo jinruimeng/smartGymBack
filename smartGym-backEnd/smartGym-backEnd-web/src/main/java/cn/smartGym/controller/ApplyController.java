@@ -50,12 +50,12 @@ public class ApplyController {
 	 * @param studentno
 	 * @return
 	 */
-	@RequestMapping(value = "/apply/getApplycationListByStudentNo", method = { RequestMethod.POST,
+	@RequestMapping(value = "/apply/getApplicationListByStudentNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getApplycationListByStudentNo(String studentNo) {
+	public SGResult getApplicationListByStudentNo(String studentNo) {
 		try {
-			List<SmartgymApplicationsCtr> result = applyService.getApplycationListByStudentNo(studentNo);
+			List<SmartgymApplicationsCtr> result = applyService.getApplicationListByStudentNo(studentNo);
 			return SGResult.build(200, "查询成功！", result);
 		} catch (Exception e) {
 			e.printStackTrace();

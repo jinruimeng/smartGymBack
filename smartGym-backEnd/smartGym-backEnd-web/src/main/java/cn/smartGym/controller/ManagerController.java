@@ -50,7 +50,7 @@ public class ManagerController {
 	 * @param itemCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/getInfoGroupByItem", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/getInfoGroupByItem", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getInfoGroupByItem(SmartgymItemsCtr itemCtr) {
@@ -71,7 +71,7 @@ public class ManagerController {
 	 * @param itemCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/getInfoGroupByItemDetail", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/getInfoGroupByItemDetail", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getInfoGroupByItemDetail(SmartgymItemsCtr itemCtr) {
@@ -92,7 +92,7 @@ public class ManagerController {
 	 * @param itemCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/getInfoGroupByCollege", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/getInfoGroupByCollege", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getInfoGroupByCollege(SmartgymItemsCtr itemCtr) {
@@ -113,7 +113,7 @@ public class ManagerController {
 	 * @param itemCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/getInfoGroupByCollegeDetail", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/getInfoGroupByCollegeDetail", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getInfoGroupByCollegeDetail(SmartgymItemsCtr itemCtr) {
@@ -133,7 +133,7 @@ public class ManagerController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/maintenance", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/maintenance", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult maintenance() {
@@ -152,7 +152,7 @@ public class ManagerController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/hardDelete", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/hardDelete", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult hardDelete() {
@@ -174,7 +174,7 @@ public class ManagerController {
 	 * @param itemCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/viewByCollegeManager", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/viewByCollegeManager", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult viewByCollegeManager(SmartgymItemsCtr itemCtr, String college) {
@@ -184,7 +184,7 @@ public class ManagerController {
 
 			itemCtr.setStatus(1);
 			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
-			List<SmartgymApplications> applycations = applyService.getApplycationListByItemsId(itemsId, 1, college);
+			List<SmartgymApplications> applycations = applyService.getApplicationListByItemsId(itemsId, 1, college);
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
 			return SGResult.build(200, "查询院级管理员待审核名单成功！", applycations);
 		} catch (Exception e) {
@@ -199,7 +199,7 @@ public class ManagerController {
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/reviewByCollegeManager", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/reviewByCollegeManager", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult reviewByCollegeManager(Long ids[]) {
@@ -217,14 +217,14 @@ public class ManagerController {
 	 * @param itemCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/viewByUniversityManager", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/viewByUniversityManager", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult viewByUniversityManager(SmartgymItemsCtr itemCtr) {
 		try {
 			itemCtr.setStatus(1);
 			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
-			List<SmartgymApplications> applycations = applyService.getApplycationListByItemsId(itemsId, 2, null);
+			List<SmartgymApplications> applycations = applyService.getApplicationListByItemsId(itemsId, 2, null);
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
 			return SGResult.build(200, "查询校级管理员待审核名单成功！", applycations);
 		} catch (Exception e) {
@@ -239,7 +239,7 @@ public class ManagerController {
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/reviewByUniversityManager", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/reviewByUniversityManager", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult reviewByUniversityManager(Long[] ids) {
@@ -258,7 +258,7 @@ public class ManagerController {
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/genPlayerNo", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/genPlayerNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult genPlayerNo(SmartgymItemsCtr itemCtr) {
@@ -277,7 +277,7 @@ public class ManagerController {
 	 * @param usersCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/genGroupNoAndPathNo", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/genGroupNoAndPathNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult genGroupNoAndPathNo(Long itemId, Integer number) {
@@ -314,7 +314,7 @@ public class ManagerController {
 	 * @param userCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/getUser", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/getUser", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getUser(SmartgymUsersCtr userCtr, String studentNo) {
@@ -332,7 +332,7 @@ public class ManagerController {
 	 * @param usersCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/manager/setUserAuthority", method = { RequestMethod.POST,
+	@RequestMapping(value = "smartgym/manager/setUserAuthority", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult setUserAuthority(SmartgymUsersCtr usersCtr) {

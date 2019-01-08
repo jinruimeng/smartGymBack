@@ -193,7 +193,7 @@ public class ApplyServiceImpl implements ApplyService {
 	 * @param 学号
 	 * @return 根据学号查找到的学生已报名比赛项目信息
 	 */
-	public List<SmartgymApplicationsCtr> getApplycationListByStudentNo(String studentno) {
+	public List<SmartgymApplicationsCtr> getApplicationListByStudentNo(String studentno) {
 		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStudentNoEqualTo(studentno);
@@ -571,7 +571,7 @@ public class ApplyServiceImpl implements ApplyService {
 	 * 根据项目id、状态和学院获取报名记录
 	 */
 	@Override
-	public List<SmartgymApplications> getApplycationListByItemsId(List<Long> itemsId, Integer status, String college) {
+	public List<SmartgymApplications> getApplicationListByItemsId(List<Long> itemsId, Integer status, String college) {
 		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
 		for (Long itemId : itemsId) {
 			Criteria criteria = example.or();

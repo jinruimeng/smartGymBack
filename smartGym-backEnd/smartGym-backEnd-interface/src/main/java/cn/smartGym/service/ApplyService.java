@@ -27,9 +27,9 @@ public interface ApplyService {
 
 	SGResult maintenanceApply(List<Long> itemsId);
 
-	List<SmartgymApplicationsCtr> getApplycationListByStudentNo(String studentno);
+	List<SmartgymApplicationsCtr> getApplicationListByStudentNo(String studentno);
 
-	List<SmartgymApplications> getApplycationListByItemsId(List<Long> itemsId, Integer status, String college);
+	List<SmartgymApplications> getApplicationListByItemsId(List<Long> itemsId, Integer status, String college);
 
 	Long countByitem(Long itemId);
 

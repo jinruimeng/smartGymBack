@@ -1,4 +1,4 @@
-package cn.smartGym.service.impl;
+ package cn.smartGym.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -104,6 +104,7 @@ public class ApplyServiceImpl implements ApplyService {
 		// 转换为Dao层的pojo
 		SmartgymApplicationsCtr applyCtr = new SmartgymApplicationsCtr();
 		// 设置项目信息
+		applyCtr.setId(apply.getId());
 		applyCtr.setGame(itemCtr.getGame());
 		applyCtr.setCategory(itemCtr.getCategory());
 		applyCtr.setItem(itemCtr.getItem());
@@ -116,14 +117,6 @@ public class ApplyServiceImpl implements ApplyService {
 		applyCtr.setGender(genderGroupService.genderIntToStr(apply.getGender()));
 		// 设置姓名
 		applyCtr.setName(apply.getName());
-		/*
-		 * SmartgymUsersExample userExample = new SmartgymUsersExample();
-		 * cn.smartGym.pojo.SmartgymUsersExample.Criteria userCriteria =
-		 * userExample.createCriteria();
-		 * userCriteria.andStudentnoEqualTo(apply.getStudentno());
-		 * applyCtr.setName(smartgymUsersMapper.selectByExample(userExample).get (0).
-		 * getName());
-		 */
 		// 设置学院
 		applyCtr.setCollege(collegeService.getCollege(apply.getCollege()));
 
@@ -579,7 +572,7 @@ public class ApplyServiceImpl implements ApplyService {
 			criteria.andItemIdEqualTo(itemId);
 			if (status != null)
 				criteria.andStatusEqualTo(status);
-			if(StringUtils.isBlank(college))
+			if(!StringUtils.isBlank(college))
 				criteria.andCollegeEqualTo(collegeService.getId(college));
 		}
 		return smartgymApplicationsMapper.selectByExample(example);

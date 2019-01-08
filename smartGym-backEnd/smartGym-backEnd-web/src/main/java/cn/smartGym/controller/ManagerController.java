@@ -1,5 +1,6 @@
 package cn.smartGym.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojo.SmartgymApplications;
+import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
 import cn.smartGym.pojoCtr.SmartgymItemsCtr;
 import cn.smartGym.pojoCtr.SmartgymUsersCtr;
 import cn.smartGym.service.ApplyService;
@@ -184,9 +186,14 @@ public class ManagerController {
 
 			itemCtr.setStatus(1);
 			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
-			List<SmartgymApplications> applycations = applyService.getApplicationListByItemsId(itemsId, 1, college);
+			List<SmartgymApplications> applications = applyService.getApplicationListByItemsId(itemsId, 1, college);
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
-			return SGResult.build(200, "查询院级管理员待审核名单成功！", applycations);
+			
+			ArrayList<SmartgymApplicationsCtr> applicationsCtr = new ArrayList<SmartgymApplicationsCtr>();
+			for (SmartgymApplications applycation : applications) {
+				applicationsCtr.add(applyService.applyDaoToCtr(applycation));
+			}
+			return SGResult.build(200, "查询院级管理员待审核名单成功！", applicationsCtr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "查询院级管理员待审核名单失败！", e);
@@ -224,9 +231,14 @@ public class ManagerController {
 		try {
 			itemCtr.setStatus(1);
 			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
-			List<SmartgymApplications> applycations = applyService.getApplicationListByItemsId(itemsId, 2, null);
+			List<SmartgymApplications> applications = applyService.getApplicationListByItemsId(itemsId, 2, null);
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
-			return SGResult.build(200, "查询校级管理员待审核名单成功！", applycations);
+			
+			ArrayList<SmartgymApplicationsCtr> applicationsCtr = new ArrayList<SmartgymApplicationsCtr>();
+			for (SmartgymApplications applycation : applications) {
+				applicationsCtr.add(applyService.applyDaoToCtr(applycation));
+			}
+			return SGResult.build(200, "查询校级管理员待审核名单成功！", applicationsCtr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "查询校级管理员待审核名单失败！", e);

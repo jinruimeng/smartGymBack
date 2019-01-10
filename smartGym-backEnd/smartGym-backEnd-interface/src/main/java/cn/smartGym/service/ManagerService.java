@@ -12,9 +12,9 @@ import common.utils.SGResult;
 
 public interface ManagerService {
 	
-	SGResult getUser(SmartgymUsersCtr userCtr, String studentNo);
+	SGResult getUser(SmartgymUsersCtr userCtr, String studentNoSelected);
 	
-	SGResult setUserAuthority(SmartgymUsersCtr userCtr);
+	public SGResult setUserAuthority(String studentNo, Integer authority);
 	
 	List<SmartgymUsersCtr> getUserList(SmartgymUsersCtr userCtr);
 	

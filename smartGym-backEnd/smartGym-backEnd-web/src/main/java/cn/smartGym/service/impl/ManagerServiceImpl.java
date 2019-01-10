@@ -34,14 +34,37 @@ public class ManagerServiceImpl implements ManagerService {
 	/**
 	 * 管理员根据学号查找用户信息
 	 * @param userCtr 管理员信息
-	 * @param studentNo 要查询的用户学号
+	 * @param studentNoSelected 要查询的用户学号
 	 */
-	public SGResult getUser(SmartgymUsersCtr userCtr, String studentNo) {
+	public SGResult getUser(SmartgymUsersCtr userCtr, String studentNoSelected) {
 		//得到管理员的权限级别0-普通用户  1-院级管理员  2-校级管理员  3-开发者
 		Integer authority = userCtr.getAuthority();
 		//得到管理员的学院
 		Integer college = collegeService.getId(userCtr.getCollege());
+
 		//根据学号查询结果
+		SmartgymUsersExample example = new SmartgymUsersExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(1);
+		criteria.andStudentNoEqualTo(studentNoSelected);
+		List<SmartgymUsers> list = userMapper.selectByExample(example);
+		if(list == null || list.size() <= 0)
+			return SGResult.build(404, "没有查到该用户，请重新输入学号！");
+		//查到用户
+		SmartgymUsers user = list.get(0);
+		
+		//如果用户的权限高于管理员，或者用户所属学院与管理员不在同一学院，则不予返回
+//		if(user.getAuthority() >= authority || user.getCollege() != college)
+		if(user.getAuthority() >= authority)
+			return SGResult.build(404, "没有查到该用户，您权限不够！");
+		return SGResult.build(200, "查询成功！", userService.userDaoToCtr(user));
+	}
+	
+	/**
+	 * 设置用户权限
+	 * @param authority 0-普通用户  1-院级管理员  2-校级管理员  3-开发者
+	 */
+	public SGResult setUserAuthority(String studentNo, Integer authority) {
 		SmartgymUsersExample example = new SmartgymUsersExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);
@@ -51,18 +74,8 @@ public class ManagerServiceImpl implements ManagerService {
 			return SGResult.build(404, "没有查到该用户，请重新输入学号！");
 		//查到用户
 		SmartgymUsers user = list.get(0);
-		//如果用户的权限高于管理员，或者用户所属学院与管理员不在同一学院，则不予返回
-		if(user.getAuthority() >= authority || user.getCollege() != college)
-			return SGResult.build(404, "没有查到该用户，您权限不够！");
-		return SGResult.build(200, "查询成功！", userService.userDaoToCtr(user));
-	}
-	
-	/**
-	 * 设置用户权限
-	 * @param authority 0-普通用户  1-院级管理员  2-校级管理员  3-开发者
-	 */
-	public SGResult setUserAuthority(SmartgymUsersCtr userCtr) {
-		userMapper.updateByPrimaryKeySelective(userService.userCtrToDao(userCtr));
+		user.setAuthority(authority);
+		userMapper.updateByPrimaryKeySelective(user);
 		return SGResult.build(200, "设置权限成功！");
 	}
 	
@@ -107,14 +120,4 @@ public class ManagerServiceImpl implements ManagerService {
 		return listCtr;
 	}
 
-	/**
-	 * 设置用户权限
-	 */
-//	public SGResult setUsersAuthority(List<SmartgymUsersCtr> usersCtr) {
-//		for (SmartgymUsersCtr userCtr : usersCtr) {
-//			SmartgymUsers user = userService.userCtrToDao(userCtr);
-//			userMapper.updateByPrimaryKeySelective(user);
-//		}
-//		return SGResult.build(200, "设置权限成功！");
-//	}
 }

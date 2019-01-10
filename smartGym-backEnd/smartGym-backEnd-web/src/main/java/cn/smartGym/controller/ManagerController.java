@@ -329,9 +329,9 @@ public class ManagerController {
 	@RequestMapping(value = "smartgym/manager/getUser", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getUser(SmartgymUsersCtr userCtr, String studentNo) {
+	public SGResult getUser(SmartgymUsersCtr userCtr, String studentNoSelected) {
 		try {
-			return managerService.getUser(userCtr, studentNo);
+			return managerService.getUser(userCtr, studentNoSelected);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "查询用户失败！");
@@ -347,9 +347,9 @@ public class ManagerController {
 	@RequestMapping(value = "smartgym/manager/setUserAuthority", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult setUserAuthority(SmartgymUsersCtr usersCtr) {
+	public SGResult setUserAuthority(String studentNo, Integer authority) {
 		try {
-			return managerService.setUserAuthority(usersCtr);
+			return managerService.setUserAuthority(studentNo, authority);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "设置用户权限失败！");

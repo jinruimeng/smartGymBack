@@ -54,8 +54,8 @@ public class ManagerServiceImpl implements ManagerService {
 		SmartgymUsers user = list.get(0);
 		
 		//如果用户的权限高于管理员，或者用户所属学院与管理员不在同一学院，则不予返回
-//		if(user.getAuthority() >= authority || user.getCollege() != college)
-		if(user.getAuthority() >= authority)
+		if(user.getAuthority() >= authority || user.getCollege() != college)
+//		if(user.getAuthority() >= authority)
 			return SGResult.build(404, "没有查到该用户，您权限不够！");
 		return SGResult.build(200, "查询成功！", userService.userDaoToCtr(user));
 	}

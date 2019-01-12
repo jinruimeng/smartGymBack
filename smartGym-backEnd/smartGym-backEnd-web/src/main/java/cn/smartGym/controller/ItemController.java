@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojoCtr.SmartgymItemsCtr;
+import cn.smartGym.pojoCtr.ItemCtr;
 import cn.smartGym.service.ItemService;
 import common.utils.SGResult;
 
@@ -35,7 +35,7 @@ public class ItemController {
 	@RequestMapping(value = "/item/getInfo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInfoPage(SmartgymItemsCtr itemsCtr) {
+	public SGResult getInfoPage(ItemCtr itemsCtr) {
 		List<String> result = itemService.getNameByDetailsAndStatus(itemsCtr, 1);
 		// 0-已删除，1-正在报名，2-报名结束
 		if (result == null || result.size() == 0) {
@@ -54,7 +54,7 @@ public class ItemController {
 	@RequestMapping(value = "/item/addItem", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult addItem(SmartgymItemsCtr itemCtr, String dateString) {
+	public SGResult addItem(ItemCtr itemCtr, String dateString) {
 		try {
 			// 字符串转换为日期格式
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -77,7 +77,7 @@ public class ItemController {
 	@RequestMapping(value = "/item/deleteItem", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult deleteItem(SmartgymItemsCtr itemCtr) {
+	public SGResult deleteItem(ItemCtr itemCtr) {
 		try {
 			return itemService.deleteItem(itemCtr);
 		} catch (Exception e) {

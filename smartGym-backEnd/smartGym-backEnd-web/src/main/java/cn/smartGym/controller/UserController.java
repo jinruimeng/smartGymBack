@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojo.SmartgymUsers;
-import cn.smartGym.pojoCtr.SmartgymUsersCtr;
+import cn.smartGym.pojo.Student;
+import cn.smartGym.pojoCtr.UserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.UserService;
@@ -44,7 +44,7 @@ public class UserController {
 	@RequestMapping(value = "/user/signIn", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult signIn(SmartgymUsersCtr userCtr) {
+	public SGResult signIn(UserCtr userCtr) {
 		// 解密用户敏感数据
 		String wxId;
 
@@ -55,7 +55,7 @@ public class UserController {
 			wxId = (String) sgResult.getData();
 
 		// 根据解析到的wxId查询用户是否注册
-		List<SmartgymUsers> result = userService.selectByWxid(wxId);
+		List<Student> result = userService.selectByWxid(wxId);
 
 		if (!result.isEmpty())
 			return SGResult.build(200, "该用户已注册！", userService.userDaoToCtr(result.get(0)));
@@ -75,7 +75,7 @@ public class UserController {
 	@RequestMapping(value = "/user/register", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult register(SmartgymUsersCtr userCtr) {
+	public SGResult register(UserCtr userCtr) {
 		try {
 			return userService.register(userCtr);
 		} catch (Exception e) {
@@ -128,7 +128,7 @@ public class UserController {
 	@RequestMapping(value = "/user/update", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult updateUser(SmartgymUsersCtr userCtr) {
+	public SGResult updateUser(UserCtr userCtr) {
 		try {
 			return userService.update(userCtr);
 		} catch (Exception e) {

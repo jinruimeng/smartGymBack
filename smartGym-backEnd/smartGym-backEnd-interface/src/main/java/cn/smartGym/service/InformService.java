@@ -1,6 +1,6 @@
 package cn.smartGym.service;
 
-import cn.smartGym.pojo.SmartgymInform;
+import cn.smartGym.pojo.Information;
 import common.utils.SGResult;
 
 /**
@@ -10,9 +10,9 @@ import common.utils.SGResult;
  */
 public interface InformService {
 
-	SGResult addInform(SmartgymInform smartgymInform);
+	SGResult addInform(Information Information);
 	
-	SGResult updateInform(SmartgymInform smartgymInform);
+	SGResult updateInform(Information Information);
 	
 	SGResult deleteInformById(Long id);
 	

@@ -2,8 +2,8 @@ package cn.smartGym.service;
 
 import java.util.List;
 
-import cn.smartGym.pojo.SmartgymUsers;
-import cn.smartGym.pojoCtr.SmartgymUsersCtr;
+import cn.smartGym.pojo.Student;
+import cn.smartGym.pojoCtr.UserCtr;
 import common.utils.SGResult;
 
 /**
@@ -14,23 +14,29 @@ import common.utils.SGResult;
  */
 public interface UserService {
 
-	SmartgymUsers userCtrToDao(SmartgymUsersCtr userCtr);
+	Student userCtrToDao(UserCtr userCtr);
 
-	SmartgymUsersCtr userDaoToCtr(SmartgymUsers userDao);
+	UserCtr userDaoToCtr(Student userDao);
 
-	SGResult decodeUserInfo(SmartgymUsersCtr userCtr);
+	SGResult decodeUserInfo(UserCtr userCtr);
 
 	SGResult checkData(String param, int type);
 
-	SGResult register(SmartgymUsersCtr userCtr);
+	SGResult register(UserCtr userCtr);
 	
 	SGResult deleteUser(String wxId);
 	
 	SGResult hardDeleteUser();
 	
-	List<SmartgymUsers> selectByWxid(String id);
+	List<Student> selectByWxid(String id);
 	
-	SGResult update(SmartgymUsersCtr userCtr);
+	SGResult update(UserCtr userCtr);
 	
 	Integer getCollegeByStudentNo(String studentNo);
+	
+	SGResult getUser(UserCtr userCtr, String studentNoSelected);
+	
+	SGResult setUserAuthority(String studentNo, Integer authority);
+	
+	List<UserCtr> getUserList(UserCtr userCtr);
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
+import cn.smartGym.pojoCtr.PlayerCtr;
 import cn.smartGym.service.PlayerService;
 import common.utils.SGResult;
 
@@ -35,7 +35,7 @@ public class PlayerController {
 	@ResponseBody
 	public SGResult getPlayerListByStudentNo(String studentNo) {
 		try {
-			List<SmartgymPlayersCtr> result = playerService.getPlayerListByStudentNo(studentNo);
+			List<PlayerCtr> result = playerService.getPlayerListByStudentNo(studentNo);
 			if (result == null || result.size() == 0)
 				return SGResult.build(200, "未报名！");
 			else

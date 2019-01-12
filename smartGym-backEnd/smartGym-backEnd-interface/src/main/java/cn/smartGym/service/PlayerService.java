@@ -2,24 +2,24 @@ package cn.smartGym.service;
 
 import java.util.List;
 
-import cn.smartGym.pojo.SmartgymApplications;
-import cn.smartGym.pojo.SmartgymPlayers;
-import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
+import cn.smartGym.pojo.Application;
+import cn.smartGym.pojo.Player;
+import cn.smartGym.pojoCtr.PlayerCtr;
 import common.utils.SGResult;
 
 public interface PlayerService {
 
-	List<SmartgymPlayersCtr> getPlayerListByStudentNo(String studentno);
+	List<PlayerCtr> getPlayerListByStudentNo(String studentno);
 
-	SmartgymPlayers playerCtrToDao(SmartgymPlayersCtr playerCtr);
+	Player playerCtrToDao(PlayerCtr playerCtr);
 
-	SmartgymPlayersCtr playerDaoToCtr(SmartgymPlayers player);
+	PlayerCtr playerDaoToCtr(Player player);
 	
-	SmartgymPlayers applicationDaoToplayerDao(SmartgymApplications apply);
+	Player applicationDaoToplayerDao(Application apply);
 	
 	SGResult hardDeletePlayer();
 	
-	SGResult reviewByUniversityManager(List<SmartgymApplications> applications);
+	SGResult reviewByUniversityManager(List<Application> applications);
 	
 	SGResult genPlayerNo(List<Long> itemsId);
 	

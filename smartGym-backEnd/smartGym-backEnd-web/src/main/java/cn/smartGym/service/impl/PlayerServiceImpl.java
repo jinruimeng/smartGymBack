@@ -7,13 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.smartGym.mapper.SmartgymPlayersMapper;
-import cn.smartGym.pojo.SmartgymApplications;
-import cn.smartGym.pojo.SmartgymPlayers;
-import cn.smartGym.pojo.SmartgymPlayersExample;
-import cn.smartGym.pojo.SmartgymPlayersExample.Criteria;
-import cn.smartGym.pojoCtr.SmartgymItemsCtr;
-import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
+import cn.smartGym.mapper.PlayerMapper;
+import cn.smartGym.pojo.Application;
+import cn.smartGym.pojo.Player;
+import cn.smartGym.pojo.PlayerExample;
+import cn.smartGym.pojo.PlayerExample.Criteria;
+import cn.smartGym.pojoCtr.ItemCtr;
+import cn.smartGym.pojoCtr.PlayerCtr;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
@@ -31,7 +31,7 @@ import common.utils.SGResult;
 public class PlayerServiceImpl implements PlayerService {
 
 	@Autowired
-	private SmartgymPlayersMapper smartgymPlayersMapper;
+	private PlayerMapper PlayerMapper;
 
 	@Autowired
 	private CollegeService collegeService;
@@ -51,17 +51,17 @@ public class PlayerServiceImpl implements PlayerService {
 	 * @param studentno
 	 * @return
 	 */
-	public List<SmartgymPlayersCtr> getPlayerListByStudentNo(String studentNo) {
-		SmartgymPlayersExample example = new SmartgymPlayersExample();
+	public List<PlayerCtr> getPlayerListByStudentNo(String studentNo) {
+		PlayerExample example = new PlayerExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStudentNoEqualTo(studentNo);
 		criteria.andStatusGreaterThanOrEqualTo(1);
-		List<SmartgymPlayers> list = smartgymPlayersMapper.selectByExample(example);
+		List<Player> list = PlayerMapper.selectByExample(example);
 		if (list == null || list.size() == 0)
 			return null;
-		List<SmartgymPlayersCtr> result = new ArrayList<>();
-		for (SmartgymPlayers player : list) {
-			SmartgymPlayersCtr playerCtr = playerDaoToCtr(player);
+		List<PlayerCtr> result = new ArrayList<>();
+		for (Player player : list) {
+			PlayerCtr playerCtr = playerDaoToCtr(player);
 			result.add(playerCtr);
 		}
 		return result;
@@ -74,8 +74,8 @@ public class PlayerServiceImpl implements PlayerService {
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
-	public SmartgymPlayers playerCtrToDao(SmartgymPlayersCtr playerCtr) {
-		SmartgymItemsCtr itemsCtr = new SmartgymItemsCtr();
+	public Player playerCtrToDao(PlayerCtr playerCtr) {
+		ItemCtr itemsCtr = new ItemCtr();
 		itemsCtr.setGame(playerCtr.getGame());
 		itemsCtr.setCategory(playerCtr.getCategory());
 		itemsCtr.setItem(playerCtr.getItem());
@@ -87,7 +87,7 @@ public class PlayerServiceImpl implements PlayerService {
 		playerCtr.setItemId(itemsId.get(0));
 
 		// 转换为Dao层的pojo
-		SmartgymPlayers player = new SmartgymPlayers();
+		Player player = new Player();
 		// 设置姓名
 		player.setName(playerCtr.getName());
 		// 设置学院
@@ -121,13 +121,13 @@ public class PlayerServiceImpl implements PlayerService {
 	 * @return 返回给前端的bean
 	 */
 	@Override
-	public SmartgymPlayersCtr playerDaoToCtr(SmartgymPlayers player) {
+	public PlayerCtr playerDaoToCtr(Player player) {
 		// 根据项目id查询项目具体信息
-		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(player.getItemId(), null);
+		ItemCtr itemCtr = itemService.getItemByItemId(player.getItemId(), null);
 		if (itemCtr == null)
 			return null;
 		// 转换为Ctr层的pojo
-		SmartgymPlayersCtr playerCtr = new SmartgymPlayersCtr();
+		PlayerCtr playerCtr = new PlayerCtr();
 		// 设置项目信息
 		playerCtr.setGame(itemCtr.getGame());
 		playerCtr.setCategory(itemCtr.getCategory());
@@ -162,13 +162,13 @@ public class PlayerServiceImpl implements PlayerService {
 	 */
 	@Override
 	public SGResult hardDeletePlayer() {
-		SmartgymPlayersExample example = new SmartgymPlayersExample();
+		PlayerExample example = new PlayerExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(0);
-		List<SmartgymPlayers> list = smartgymPlayersMapper.selectByExample(example);
+		List<Player> list = PlayerMapper.selectByExample(example);
 
-		for (SmartgymPlayers player : list) {
-			smartgymPlayersMapper.deleteByPrimaryKey(player.getId());
+		for (Player player : list) {
+			PlayerMapper.deleteByPrimaryKey(player.getId());
 		}
 
 		return SGResult.build(200, "硬删除项目表成功！");
@@ -178,8 +178,8 @@ public class PlayerServiceImpl implements PlayerService {
 	 * 根据报名表信息生成参赛信息
 	 */
 	@Override
-	public SmartgymPlayers applicationDaoToplayerDao(SmartgymApplications apply) {
-		SmartgymPlayers player = new SmartgymPlayers();
+	public Player applicationDaoToplayerDao(Application apply) {
+		Player player = new Player();
 
 		player.setId(apply.getId());
 		player.setName(apply.getName());
@@ -196,17 +196,17 @@ public class PlayerServiceImpl implements PlayerService {
 	 * 校级管理员审核通过
 	 */
 	@Override
-	public SGResult reviewByUniversityManager(List<SmartgymApplications> applications) {
+	public SGResult reviewByUniversityManager(List<Application> applications) {
 		if (applications == null || applications.isEmpty())
 			return SGResult.build(200, "请先选择要审核的报名记录！");
 
-		for (SmartgymApplications apply : applications) {
+		for (Application apply : applications) {
 			if (apply.getStatus() != 3)
 				return SGResult.build(404, "校级管理员审核未通过！");
-			SmartgymPlayers player = applicationDaoToplayerDao(apply);
+			Player player = applicationDaoToplayerDao(apply);
 			player.setCreated(new Date());
 			player.setUpdated(new Date());
-			smartgymPlayersMapper.insertSelective(player);
+			PlayerMapper.insertSelective(player);
 		}
 		return SGResult.build(200, "院级管理员审核完成！");
 	}
@@ -216,20 +216,20 @@ public class PlayerServiceImpl implements PlayerService {
 	 */
 	@Override
 	public SGResult genPlayerNo(List<Long> itemsId) {
-		SmartgymPlayersExample example = new SmartgymPlayersExample();
+		PlayerExample example = new PlayerExample();
 		example.setOrderByClause("student_no");
 		for (Long itemId : itemsId) {
 			Criteria criteria = example.or();
 			criteria.andItemIdEqualTo(itemId);
 			criteria.andStatusGreaterThanOrEqualTo(1);
 		}
-		List<SmartgymPlayers> players = smartgymPlayersMapper.selectByExample(example);
+		List<Player> players = PlayerMapper.selectByExample(example);
 
 		String curSid = "0000000";
 		String curPid = "000000";
 		Integer curCollege = 0;
 		int index = 0;
-		for (SmartgymPlayers player : players) {
+		for (Player player : players) {
 			if (!player.getStudentNo().equals(curSid)) {
 				if (player.getCollege() == curCollege)
 					index++;
@@ -242,7 +242,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 			player.setPlayerNo(curPid);
 			player.setUpdated(new Date());
-			smartgymPlayersMapper.updateByPrimaryKeySelective(player);
+			PlayerMapper.updateByPrimaryKeySelective(player);
 		}
 		return SGResult.build(200, "生成参赛号成功!");
 	}
@@ -253,12 +253,12 @@ public class PlayerServiceImpl implements PlayerService {
 	 */
 
 	public SGResult genGroupNoAndPathNo(Long itemId, Integer number) {
-		SmartgymPlayersExample example = new SmartgymPlayersExample();
+		PlayerExample example = new PlayerExample();
 		example.setOrderByClause("student_no");
 		Criteria criteria = example.createCriteria();
 		criteria.andItemIdEqualTo(itemId);
 		criteria.andStatusGreaterThanOrEqualTo(1);
-		List<SmartgymPlayers> list = smartgymPlayersMapper.selectByExample(example);
+		List<Player> list = PlayerMapper.selectByExample(example);
 		if(list == null || list.size() <= 0)
 			return SGResult.build(404, "设置参赛队员分组和赛道失败！");
 
@@ -269,7 +269,7 @@ public class PlayerServiceImpl implements PlayerService {
 			//设置赛道号
 			list.get(i).setPathNo(i % number + 1);
 			//更新到数据库
-			smartgymPlayersMapper.updateByPrimaryKeySelective(list.get(i));
+			PlayerMapper.updateByPrimaryKeySelective(list.get(i));
 		}
 		return SGResult.build(200, "设置参赛队员分组和赛道成功！");
 	}

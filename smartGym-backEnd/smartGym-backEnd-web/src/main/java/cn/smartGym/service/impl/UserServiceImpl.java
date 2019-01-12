@@ -8,10 +8,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.smartGym.mapper.StudentMapper;
-import cn.smartGym.pojo.Student;
-import cn.smartGym.pojo.StudentExample;
-import cn.smartGym.pojo.StudentExample.Criteria;
+import cn.smartGym.mapper.SgUserMapper;
+import cn.smartGym.pojo.SgUser;
+import cn.smartGym.pojo.SgUserExample;
+import cn.smartGym.pojo.SgUserExample.Criteria;
 import cn.smartGym.pojoCtr.UserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
@@ -33,7 +33,7 @@ import net.sf.json.JSONObject;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private StudentMapper userMapper;
+	private SgUserMapper userMapper;
 	@Autowired
 	private CampusService campusService;
 	@Autowired
@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService {
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
-	public Student userCtrToDao(UserCtr userCtr) {
-		Student user = new Student();
+	public SgUser userCtrToDao(UserCtr userCtr) {
+		SgUser user = new SgUser();
 
 		user.setPhone(userCtr.getPhone());
 		user.setStudentNo(userCtr.getStudentNo());
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 	 * @return 返回给前端的bean
 	 */
 	@Override
-	public UserCtr userDaoToCtr(Student user) {
+	public UserCtr userDaoToCtr(SgUser user) {
 		UserCtr userCtr = new UserCtr();
 
 		userCtr.setId(user.getId());
@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public SGResult checkData(String param, int type) {
 		// 根据不同的type生成不同的查询条件
-		StudentExample example = new StudentExample();
+		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);
 
@@ -181,7 +181,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		// 执行查询
-		List<Student> list = userMapper.selectByExample(example);
+		List<SgUser> list = userMapper.selectByExample(example);
 		// 判断结果中是否包含数据
 		if (list != null && list.size() > 0) {
 			// 如果有数据返回false
@@ -197,7 +197,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public SGResult register(UserCtr userCtr) {
-		Student user = userCtrToDao(userCtr);
+		SgUser user = userCtrToDao(userCtr);
 
 		// 数据有效性检验
 		if (StringUtils.isBlank(user.getStudentNo()) || StringUtils.isBlank(user.getName())
@@ -244,12 +244,12 @@ public class UserServiceImpl implements UserService {
 	 * 根据微信id查询用户
 	 */
 	@Override
-	public List<Student> selectByWxid(String wxid) {
-		StudentExample example = new StudentExample();
+	public List<SgUser> selectByWxid(String wxid) {
+		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andWxIdEqualTo(wxid);
 		criteria.andStatusEqualTo(1);
-		List<Student> result = userMapper.selectByExample(example);
+		List<SgUser> result = userMapper.selectByExample(example);
 		return result;
 	}
 
@@ -265,17 +265,17 @@ public class UserServiceImpl implements UserService {
 			return SGResult.build(200, "微信号不能为空，请重新登录！");
 
 		// 检查学号和微信是否对应
-		StudentExample example = new StudentExample();
+		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStudentNoEqualTo(userCtr.getStudentNo());
 		criteria.andWxIdEqualTo(userCtr.getWxId());
 		criteria.andStatusEqualTo(1);
-		List<Student> selectByExample = userMapper.selectByExample(example);
+		List<SgUser> selectByExample = userMapper.selectByExample(example);
 		if (selectByExample.isEmpty())
 			return SGResult.build(200, "不能修改学号！");
 
-		Student userOld = selectByExample.get(0);
-		Student user = userCtrToDao(userCtr);
+		SgUser userOld = selectByExample.get(0);
+		SgUser user = userCtrToDao(userCtr);
 
 		// 如果手机号已修改，检查该手机号是否已经被注册
 		if (!user.getPhone().equals(userOld.getPhone())) {
@@ -295,12 +295,12 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public SGResult hardDeleteUser() {
-		StudentExample example = new StudentExample();
+		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(0);
-		List<Student> list = userMapper.selectByExample(example);
+		List<SgUser> list = userMapper.selectByExample(example);
 
-		for (Student user : list) {
+		for (SgUser user : list) {
 			userMapper.deleteByPrimaryKey(user.getId());
 		}
 
@@ -315,16 +315,16 @@ public class UserServiceImpl implements UserService {
 		if (StringUtils.isBlank(wxId))
 			return SGResult.build(200, "微信号不能为空!");
 
-		StudentExample example = new StudentExample();
+		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);
 		criteria.andWxIdEqualTo(wxId);
-		List<Student> list = userMapper.selectByExample(example);
+		List<SgUser> list = userMapper.selectByExample(example);
 
 		if (list.isEmpty())
 			return SGResult.build(200, "没有该微信号对应的账号信息!", wxId);
 		else {
-			for (Student user : list) {
+			for (SgUser user : list) {
 				user.setStatus(0);
 				// 0-已删除 1-正常
 				user.setUpdated(new Date());
@@ -339,10 +339,10 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public Integer getCollegeByStudentNo(String studentNo) {
-		StudentExample example = new StudentExample();
+		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStudentNoEqualTo(studentNo);
-		List<Student> list = userMapper.selectByExample(example);
+		List<SgUser> list = userMapper.selectByExample(example);
 		return list.get(0).getCollege();
 	}
 	
@@ -358,15 +358,15 @@ public class UserServiceImpl implements UserService {
 		Integer college = collegeService.getId(userCtr.getCollege());
 
 		//根据学号查询结果
-		StudentExample example = new StudentExample();
+		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);
 		criteria.andStudentNoEqualTo(studentNoSelected);
-		List<Student> list = userMapper.selectByExample(example);
+		List<SgUser> list = userMapper.selectByExample(example);
 		if(list == null || list.size() <= 0)
 			return SGResult.build(404, "没有查到该用户，请重新输入学号！");
 		//查到用户
-		Student user = list.get(0);
+		SgUser user = list.get(0);
 		
 		//如果用户的权限高于管理员，或者用户所属学院与管理员不在同一学院，则不予返回
 		if(user.getAuthority() >= authority || user.getCollege() != college)
@@ -380,15 +380,15 @@ public class UserServiceImpl implements UserService {
 	 * @param authority 0-普通用户  1-院级管理员  2-校级管理员  3-开发者
 	 */
 	public SGResult setUserAuthority(String studentNo, Integer authority) {
-		StudentExample example = new StudentExample();
+		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);
 		criteria.andStudentNoEqualTo(studentNo);
-		List<Student> list = userMapper.selectByExample(example);
+		List<SgUser> list = userMapper.selectByExample(example);
 		if(list == null || list.size() <= 0)
 			return SGResult.build(404, "没有查到该用户，请重新输入学号！");
 		//查到用户
-		Student user = list.get(0);
+		SgUser user = list.get(0);
 		user.setAuthority(authority);
 		userMapper.updateByPrimaryKeySelective(user);
 		return SGResult.build(200, "设置权限成功！");
@@ -402,8 +402,8 @@ public class UserServiceImpl implements UserService {
 		//取出权限
 		Integer authority = userCtr.getAuthority();
 		//查询结果集
-		List<Student> list = new ArrayList<>();
-		StudentExample example = new StudentExample();
+		List<SgUser> list = new ArrayList<>();
+		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		//如果是开发者,则返回所有的User
 		if(authority == 3) {
@@ -429,7 +429,7 @@ public class UserServiceImpl implements UserService {
 		}
 		//返回给表现层
 		List<UserCtr> listCtr = new ArrayList<>();
-		for (Student user : list) {
+		for (SgUser user : list) {
 			listCtr.add(userDaoToCtr(user));
 		}	
 		return listCtr;

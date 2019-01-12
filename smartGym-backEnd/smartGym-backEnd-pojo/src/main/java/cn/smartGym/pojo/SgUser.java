@@ -2,7 +2,7 @@ package cn.smartGym.pojo;
 
 import java.util.Date;
 
-public class Student {
+public class SgUser {
     private Long id;
 
     private String name;

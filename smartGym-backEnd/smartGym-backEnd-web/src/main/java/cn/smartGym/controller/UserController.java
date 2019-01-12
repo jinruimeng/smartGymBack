@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojo.Student;
+import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoCtr.UserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
@@ -55,7 +55,7 @@ public class UserController {
 			wxId = (String) sgResult.getData();
 
 		// 根据解析到的wxId查询用户是否注册
-		List<Student> result = userService.selectByWxid(wxId);
+		List<SgUser> result = userService.selectByWxid(wxId);
 
 		if (!result.isEmpty())
 			return SGResult.build(200, "该用户已注册！", userService.userDaoToCtr(result.get(0)));

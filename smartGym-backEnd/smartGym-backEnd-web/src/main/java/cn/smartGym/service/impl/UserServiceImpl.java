@@ -12,7 +12,7 @@ import cn.smartGym.mapper.SgUserMapper;
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojo.SgUserExample;
 import cn.smartGym.pojo.SgUserExample.Criteria;
-import cn.smartGym.pojoctr.request.UserCtr;
+import cn.smartGym.pojoctr.request.SgUserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderService;
@@ -44,11 +44,12 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * Controller-Dao层接收bean转换器
 	 * 
-	 * @param userCtr 接收前端数据的bean
+	 * @param userCtr
+	 *            接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
-	public SgUser userCtrToDao(UserCtr userCtr) {
+	public SgUser userCtrToDao(SgUserCtr userCtr) {
 		SgUser user = new SgUser();
 
 		user.setPhone(userCtr.getPhone());
@@ -65,12 +66,13 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param user 从数据库中查询出数据封装的bean
+	 * @param user
+	 *            从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
 	@Override
-	public UserCtr userDaoToCtr(SgUser user) {
-		UserCtr userCtr = new UserCtr();
+	public SgUserCtr userDaoToCtr(SgUser user) {
+		SgUserCtr userCtr = new SgUserCtr();
 
 		userCtr.setId(user.getId());
 		userCtr.setPhone(user.getPhone());
@@ -89,31 +91,30 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 解密用户敏感数据
 	 *
-	 * @param encryptedData 明文,加密数据
-	 * @param iv            加密算法的初始向量
-	 * @param code          用户允许登录后，回调内容会带上 code（有效期五分钟），开发者需要将 code
-	 *                      发送到开发者服务器后台，使用code 换取 session_key api，将 code 换成 openid 和
-	 *                      session_key
+	 * @param encryptedData
+	 *            明文,加密数据
+	 * @param iv
+	 *            加密算法的初始向量
+	 * @param code
+	 *            用户允许登录后，回调内容会带上 code（有效期五分钟），开发者需要将 code 发送到开发者服务器后台，使用code 换取
+	 *            session_key api，将 code 换成 openid 和 session_key
 	 * @return
 	 */
 	@Override
-	public SGResult decodeUserInfo(UserCtr userCtr) {
+	public SGResult decodeUserInfo(SgUserCtr userCtr) {
 		String encryptedData = userCtr.getEncryptedData();
 		String code = userCtr.getCode();
 		String iv = userCtr.getIv();
-
 		// 登录凭证不能为空
 		if (code == null || code.length() == 0) {
 			return SGResult.build(402, "code不能为空");
 		}
-
 		// 小程序唯一标识 (在微信小程序管理后台获取)
 		String wxspAppid = "wxb0c3c36ab6123dc5";
 		// 小程序的 app secret (在微信小程序管理后台获取)
 		String wxspSecret = "5fae01890e20ad4439657813deaf4114";
 		// 授权（必填）
 		String grant_type = "authorization_code";
-
 		/*
 		 * 1、向微信服务器 使用登录凭证 code 获取 session_key 和 openid
 		 */
@@ -128,8 +129,8 @@ public class UserServiceImpl implements UserService {
 		// 获取会话密钥（session_key）
 		String session_key = json.get("session_key").toString();
 		// 用户的唯一标识（openId）
-//        String openId = (String) json.get("openid");
-//		System.out.println("openId: " + openId);
+		// String openId = (String) json.get("openid");
+		// System.out.println("openId: " + openId);
 
 		/*
 		 * 2、对encryptedData加密数据进行AES解密
@@ -143,13 +144,15 @@ public class UserServiceImpl implements UserService {
 				 * Map userInfo = new HashMap(); userInfo.put("openId",
 				 * userInfoJSON.get("openId")); userInfo.put("nickName",
 				 * userInfoJSON.get("nickName")); userInfo.put("gender",
-				 * userInfoJSON.get("gender")); userInfo.put("city", userInfoJSON.get("city"));
-				 * userInfo.put("province", userInfoJSON.get("province"));
-				 * userInfo.put("country", userInfoJSON.get("country"));
-				 * userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
-				 * userInfo.put("unionId", userInfoJSON.get("unionId"));
+				 * userInfoJSON.get("gender")); userInfo.put("city",
+				 * userInfoJSON.get("city")); userInfo.put("province",
+				 * userInfoJSON.get("province")); userInfo.put("country",
+				 * userInfoJSON.get("country")); userInfo.put("avatarUrl",
+				 * userInfoJSON.get("avatarUrl")); userInfo.put("unionId",
+				 * userInfoJSON.get("unionId"));
 				 */
-//				System.out.println("unionId: " + userInfoJSON.get("unionId"));
+				// System.out.println("unionId: " +
+				// userInfoJSON.get("unionId"));
 				return SGResult.ok(userInfoJSON.get("unionId"));
 			} else
 				return SGResult.build(403, "用户信息解密失败！");
@@ -193,11 +196,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 用户注册
+	 * 注册用户/新增用户
+	 * 
+	 * @param userCtr
 	 */
 	@Override
-	public SGResult register(UserCtr userCtr) {
-		SgUser user = userCtrToDao(userCtr);
+	public SGResult register(SgUser user) {
 
 		// 数据有效性检验
 		if (StringUtils.isBlank(user.getStudentNo()) || StringUtils.isBlank(user.getName())
@@ -241,23 +245,91 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 根据微信id查询用户
+	 * 删除用户：根据微信wxId软删除
+	 * 
+	 * @param wxId
+	 *            要删除用户的wxId
 	 */
 	@Override
-	public List<SgUser> selectByWxid(String wxid) {
+	public SGResult deleteUserByWxId(String wxId) {
+		if (StringUtils.isBlank(wxId))
+			return SGResult.build(200, "微信号不能为空!");
+
 		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andWxIdEqualTo(wxid);
 		criteria.andStatusEqualTo(1);
-		List<SgUser> result = userMapper.selectByExample(example);
-		return result;
+		criteria.andWxIdEqualTo(wxId);
+		List<SgUser> list = userMapper.selectByExample(example);
+
+		if (list.isEmpty())
+			return SGResult.build(200, "没有该微信号对应的账号信息!", wxId);
+		else {
+			for (SgUser user : list) {
+				user.setStatus(0);
+				// 0-已删除 1-正常
+				user.setUpdated(new Date());
+				userMapper.updateByPrimaryKeySelective(user);
+			}
+			return SGResult.build(200, "删除账号成功！", list);
+		}
 	}
 
 	/**
-	 * 用户修改资料
+	 * 删除用户：根据学号studentNo软删除
+	 * 
+	 * @param studentNo
+	 *            要删除用户的studentNo
 	 */
 	@Override
-	public SGResult update(UserCtr userCtr) {
+	public SGResult deleteUserByStudentNo(String studentNo) {
+		if (StringUtils.isBlank(studentNo))
+			return SGResult.build(200, "学号不能为空!");
+
+		SgUserExample example = new SgUserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(1);
+		criteria.andWxIdEqualTo(studentNo);
+		List<SgUser> list = userMapper.selectByExample(example);
+
+		if (list.isEmpty())
+			return SGResult.build(200, "没有该学号对应的账号信息!", studentNo);
+		else {
+			for (SgUser user : list) {
+				user.setStatus(0);
+				// 0-已删除 1-正常
+				user.setUpdated(new Date());
+				userMapper.updateByPrimaryKeySelective(user);
+			}
+			return SGResult.build(200, "删除账号成功！", list);
+		}
+	}
+
+	/**
+	 * 删除用户：硬删除状态为0(status==0)的用户信息
+	 * 
+	 * @param
+	 */
+	@Override
+	public SGResult hardDeleteUser() {
+		SgUserExample example = new SgUserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(0);
+		List<SgUser> list = userMapper.selectByExample(example);
+
+		for (SgUser user : list) {
+			userMapper.deleteByPrimaryKey(user.getId());
+		}
+
+		return SGResult.build(200, "硬删除用户信息成功！");
+	}
+
+	/**
+	 * 修改用户信息
+	 * 
+	 * @param userCtr
+	 */
+	@Override
+	public SGResult update(SgUserCtr userCtr) {
 		// 检查数据合法性
 		if (userCtr.getStudentNo() == null)
 			return SGResult.build(200, "学号不能为空，请重新登录！");
@@ -291,47 +363,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 硬删除状态为（0）的用户信息
+	 * 查询用户：根据微信id查询
+	 * 
+	 * @param wxId
 	 */
 	@Override
-	public SGResult hardDeleteUser() {
+	public List<SgUser> selectByWxId(String wxId) {
 		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStatusEqualTo(0);
-		List<SgUser> list = userMapper.selectByExample(example);
-
-		for (SgUser user : list) {
-			userMapper.deleteByPrimaryKey(user.getId());
-		}
-
-		return SGResult.build(200, "硬删除用户信息成功！");
-	}
-
-	/**
-	 * 删除用户
-	 */
-	@Override
-	public SGResult deleteUser(String wxId) {
-		if (StringUtils.isBlank(wxId))
-			return SGResult.build(200, "微信号不能为空!");
-
-		SgUserExample example = new SgUserExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andStatusEqualTo(1);
 		criteria.andWxIdEqualTo(wxId);
-		List<SgUser> list = userMapper.selectByExample(example);
-
-		if (list.isEmpty())
-			return SGResult.build(200, "没有该微信号对应的账号信息!", wxId);
-		else {
-			for (SgUser user : list) {
-				user.setStatus(0);
-				// 0-已删除 1-正常
-				user.setUpdated(new Date());
-				userMapper.updateByPrimaryKeySelective(user);
-			}
-			return SGResult.build(200, "删除账号成功！", list);
-		}
+		criteria.andStatusEqualTo(1);
+		List<SgUser> result = userMapper.selectByExample(example);
+		return result;
 	}
 
 	/**
@@ -345,39 +388,44 @@ public class UserServiceImpl implements UserService {
 		List<SgUser> list = userMapper.selectByExample(example);
 		return list.get(0).getCollege();
 	}
-	
+
 	/**
 	 * 管理员根据学号查找用户信息
-	 * @param userCtr 管理员信息
-	 * @param studentNoSelected 要查询的用户学号
+	 * 
+	 * @param userCtr
+	 *            管理员信息
+	 * @param studentNoSelected
+	 *            要查询的用户学号
 	 */
-	public SGResult getUser(UserCtr userCtr, String studentNoSelected) {
-		//得到管理员的权限级别0-普通用户  1-院级管理员  2-校级管理员  3-开发者
+	public SGResult getUser(SgUserCtr userCtr, String studentNoSelected) {
+		// 得到管理员的权限级别0-普通用户 1-院级管理员 2-校级管理员 3-开发者
 		Integer authority = userCtr.getAuthority();
-		//得到管理员的学院
+		// 得到管理员的学院
 		Integer college = collegeService.getId(userCtr.getCollege());
 
-		//根据学号查询结果
+		// 根据学号查询结果
 		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);
 		criteria.andStudentNoEqualTo(studentNoSelected);
 		List<SgUser> list = userMapper.selectByExample(example);
-		if(list == null || list.size() <= 0)
+		if (list == null || list.size() <= 0)
 			return SGResult.build(404, "没有查到该用户，请重新输入学号！");
-		//查到用户
+		// 查到用户
 		SgUser user = list.get(0);
-		
-		//如果用户的权限高于管理员，或者用户所属学院与管理员不在同一学院，则不予返回
-		if(user.getAuthority() >= authority || user.getCollege() != college)
-//		if(user.getAuthority() >= authority)
+
+		// 如果用户的权限高于管理员，或者用户所属学院与管理员不在同一学院，则不予返回
+		if (user.getAuthority() >= authority || user.getCollege() != college)
+			// if(user.getAuthority() >= authority)
 			return SGResult.build(404, "没有查到该用户，您权限不够！");
 		return SGResult.build(200, "查询成功！", userDaoToCtr(user));
 	}
-	
+
 	/**
 	 * 设置用户权限
-	 * @param authority 0-普通用户  1-院级管理员  2-校级管理员  3-开发者
+	 * 
+	 * @param authority
+	 *            0-普通用户 1-院级管理员 2-校级管理员 3-开发者
 	 */
 	public SGResult setUserAuthority(String studentNo, Integer authority) {
 		SgUserExample example = new SgUserExample();
@@ -385,41 +433,43 @@ public class UserServiceImpl implements UserService {
 		criteria.andStatusEqualTo(1);
 		criteria.andStudentNoEqualTo(studentNo);
 		List<SgUser> list = userMapper.selectByExample(example);
-		if(list == null || list.size() <= 0)
+		if (list == null || list.size() <= 0)
 			return SGResult.build(404, "没有查到该用户，请重新输入学号！");
-		//查到用户
+		// 查到用户
 		SgUser user = list.get(0);
 		user.setAuthority(authority);
 		userMapper.updateByPrimaryKeySelective(user);
 		return SGResult.build(200, "设置权限成功！");
 	}
-	
+
 	/**
 	 * 根据前端提供的用户信息返回User列表
-	 * @param authority 0-普通用户  1-院级管理员  2-校级管理员  3-开发者
+	 * 
+	 * @param authority
+	 *            0-普通用户 1-院级管理员 2-校级管理员 3-开发者
 	 */
-	public List<UserCtr> getUserList(UserCtr userCtr) {
-		//取出权限
+	public List<SgUserCtr> getUserList(SgUserCtr userCtr) {
+		// 取出权限
 		Integer authority = userCtr.getAuthority();
-		//查询结果集
+		// 查询结果集
 		List<SgUser> list = new ArrayList<>();
 		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
-		//如果是开发者,则返回所有的User
-		if(authority == 3) {
+		// 如果是开发者,则返回所有的User
+		if (authority == 3) {
 			criteria.andStatusEqualTo(1);
 			list = userMapper.selectByExample(example);
-		} else if(authority == 2) {
-			//如果是校级管理员，则返回校级管理员以下的所有User
+		} else if (authority == 2) {
+			// 如果是校级管理员，则返回校级管理员以下的所有User
 			criteria.andStatusEqualTo(1);
 			criteria.andAuthorityLessThan(2);
 			list = userMapper.selectByExample(example);
-		}else if(authority == 1) {
-			//如果开发者是院级管理员，则查出该院所有院级管理员以下的User
-			//得到该管理员所属的院系
+		} else if (authority == 1) {
+			// 如果开发者是院级管理员，则查出该院所有院级管理员以下的User
+			// 得到该管理员所属的院系
 			String collegeName = userCtr.getCollege();
 			Integer college = collegeService.getId(collegeName);
-			//根据院系和权限去查询
+			// 根据院系和权限去查询
 			criteria.andStatusEqualTo(1);
 			criteria.andAuthorityLessThan(1);
 			criteria.andCollegeEqualTo(college);
@@ -427,11 +477,11 @@ public class UserServiceImpl implements UserService {
 		} else {
 			list.add(userCtrToDao(userCtr));
 		}
-		//返回给表现层
-		List<UserCtr> listCtr = new ArrayList<>();
+		// 返回给表现层
+		List<SgUserCtr> listCtr = new ArrayList<>();
 		for (SgUser user : list) {
 			listCtr.add(userDaoToCtr(user));
-		}	
+		}
 		return listCtr;
 	}
 

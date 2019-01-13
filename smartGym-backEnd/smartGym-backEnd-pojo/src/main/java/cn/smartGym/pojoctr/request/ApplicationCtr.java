@@ -7,6 +7,10 @@ public class ApplicationCtr implements Serializable{
 	private static final long serialVersionUID = 896372022414526179L;
 	
 	private Long id;
+	
+	private String name;
+	
+	private String college;
 
 	private String job;
 
@@ -23,10 +27,6 @@ public class ApplicationCtr implements Serializable{
 	private String category;
 
 	private String item;
-
-	private String name;
-	
-	private String college;
 	
 	public String getJob() {
 		return job;

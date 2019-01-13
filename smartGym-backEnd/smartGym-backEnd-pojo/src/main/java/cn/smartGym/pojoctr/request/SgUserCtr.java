@@ -3,11 +3,13 @@ package cn.smartGym.pojoctr.request;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserCtr implements Serializable{
+public class SgUserCtr implements Serializable {
 
 	private static final long serialVersionUID = 2741694336785053911L;
-	
+
 	private Long id;
+
+	private String name;
 
 	private String encryptedData;
 
@@ -18,8 +20,6 @@ public class UserCtr implements Serializable{
 	private String wxId;
 
 	private String studentNo;
-	
-	private String name;
 
 	private String gender;
 
@@ -32,10 +32,6 @@ public class UserCtr implements Serializable{
 	private Integer status;
 
 	private Integer authority;
-
-    private Date created;
-
-    private Date updated;
 
 	public String getEncryptedData() {
 		return encryptedData;
@@ -107,22 +103,6 @@ public class UserCtr implements Serializable{
 
 	public void setAuthority(Integer authority) {
 		this.authority = authority;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getUpdated() {
-		return updated;
-	}
-
-	public void setUpdated(Date updated) {
-		this.updated = updated;
 	}
 
 	public String getName() {

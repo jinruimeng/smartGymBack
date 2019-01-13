@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojoctr.request.ApplicationCtr;
 import cn.smartGym.pojoctr.request.ItemCtr;
-import cn.smartGym.pojoctr.request.UserCtr;
+import cn.smartGym.pojoctr.request.SgUserCtr;
 import cn.smartGym.pojoctr.response.ApplicationInfo;
 import cn.smartGym.service.ApplyService;
 import cn.smartGym.service.ItemService;
@@ -309,7 +309,7 @@ public class ManagerController {
 	@RequestMapping(value = "/smartgym/manager/getUser", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getUser(UserCtr userCtr, String studentNoSelected) {
+	public SGResult getUser(SgUserCtr userCtr, String studentNoSelected) {
 		try {
 			return userService.getUser(userCtr, studentNoSelected);
 		} catch (Exception e) {

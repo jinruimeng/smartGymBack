@@ -17,17 +17,17 @@ public class ItemCtr implements Serializable {
 
 	private String gender;
 
+	private Integer pathNum;
+	
 	private Date date;
 
 	private String place;
-	
-	private Integer pathNum;
 
 	private Integer participantNum;
 
-	private String description;
-
 	private Integer status;
+	
+	private String description;
 
 	public String getGame() {
 		return game;

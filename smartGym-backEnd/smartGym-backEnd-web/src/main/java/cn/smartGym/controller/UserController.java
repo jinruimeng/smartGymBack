@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojo.SgUser;
-import cn.smartGym.pojoctr.request.UserCtr;
+import cn.smartGym.pojoctr.request.SgUserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.UserService;
@@ -44,7 +44,7 @@ public class UserController {
 	@RequestMapping(value = "/smartgym/user/signIn", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult signIn(UserCtr userCtr) {
+	public SGResult signIn(SgUserCtr userCtr) {
 		// 解密用户敏感数据
 		String wxId;
 
@@ -55,7 +55,7 @@ public class UserController {
 			wxId = (String) sgResult.getData();
 
 		// 根据解析到的wxId查询用户是否注册
-		List<SgUser> result = userService.selectByWxid(wxId);
+		List<SgUser> result = userService.selectByWxId(wxId);
 
 		if (!result.isEmpty())
 			return SGResult.build(200, "该用户已注册！", userService.userDaoToCtr(result.get(0)));
@@ -75,9 +75,9 @@ public class UserController {
 	@RequestMapping(value = "/smartgym/user/register", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult register(UserCtr userCtr) {
+	public SGResult register(SgUserCtr userCtr) {
 		try {
-			return userService.register(userCtr);
+			return userService.register(userService.userCtrToDao(userCtr));
 		} catch (Exception e) {
 			return SGResult.build(404, "注册失败!", e);
 		}
@@ -95,7 +95,7 @@ public class UserController {
 	@ResponseBody
 	public SGResult deleteUser(String wxId) {
 		try {
-			return userService.deleteUser(wxId);
+			return userService.deleteUserByWxId(wxId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "删除账号失败！", e);
@@ -128,7 +128,7 @@ public class UserController {
 	@RequestMapping(value = "/smartgym/user/update", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult updateUser(UserCtr userCtr) {
+	public SGResult updateUser(SgUserCtr userCtr) {
 		try {
 			return userService.update(userCtr);
 		} catch (Exception e) {

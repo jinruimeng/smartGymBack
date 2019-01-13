@@ -1,6 +1,6 @@
 package cn.smartGym.pojo;
 
-public class Campuse {
+public class Campus {
     private Integer id;
 
     private String campus;

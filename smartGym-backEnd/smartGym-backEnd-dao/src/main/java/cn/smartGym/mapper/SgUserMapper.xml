@@ -83,7 +83,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from SG_user
+    from sg_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,21 +94,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from SG_user
+    from sg_user
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from SG_user
+    delete from sg_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="cn.smartGym.pojo.SgUserExample">
-    delete from SG_user
+    delete from sg_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="cn.smartGym.pojo.SgUser">
-    insert into SG_user (id, name, wx_id, 
+    insert into sg_user (id, name, wx_id, 
       student_no, gender, campus, 
       college, phone, status, 
       authority, created, updated
@@ -120,7 +120,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.smartGym.pojo.SgUser">
-    insert into SG_user
+    insert into sg_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -199,13 +199,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="cn.smartGym.pojo.SgUserExample" resultType="java.lang.Long">
-    select count(*) from SG_user
+    select count(*) from sg_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update SG_user
+    update sg_user
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -249,7 +249,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update SG_user
+    update sg_user
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       wx_id = #{record.wxId,jdbcType=VARCHAR},
@@ -267,7 +267,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="cn.smartGym.pojo.SgUser">
-    update SG_user
+    update sg_user
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -306,7 +306,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.smartGym.pojo.SgUser">
-    update SG_user
+    update sg_user
     set name = #{name,jdbcType=VARCHAR},
       wx_id = #{wxId,jdbcType=VARCHAR},
       student_no = #{studentNo,jdbcType=VARCHAR},

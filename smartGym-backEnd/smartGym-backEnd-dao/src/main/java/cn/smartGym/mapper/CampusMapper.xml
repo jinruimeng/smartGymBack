@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.smartGym.mapper.CampuseMapper">
-  <resultMap id="BaseResultMap" type="cn.smartGym.pojo.Campuse">
+<mapper namespace="cn.smartGym.mapper.CampusMapper">
+  <resultMap id="BaseResultMap" type="cn.smartGym.pojo.Campus">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="campus" jdbcType="VARCHAR" property="campus" />
   </resultMap>
@@ -66,13 +66,13 @@
   <sql id="Base_Column_List">
     id, campus
   </sql>
-  <select id="selectByExample" parameterType="cn.smartGym.pojo.CampuseExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.smartGym.pojo.CampusExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from campuse
+    from campus
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,25 +83,25 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from campuse
+    from campus
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from campuse
+    delete from campus
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.smartGym.pojo.CampuseExample">
-    delete from campuse
+  <delete id="deleteByExample" parameterType="cn.smartGym.pojo.CampusExample">
+    delete from campus
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.smartGym.pojo.Campuse">
-    insert into campuse (id, campus)
+  <insert id="insert" parameterType="cn.smartGym.pojo.Campus">
+    insert into campus (id, campus)
     values (#{id,jdbcType=INTEGER}, #{campus,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.smartGym.pojo.Campuse">
-    insert into campuse
+  <insert id="insertSelective" parameterType="cn.smartGym.pojo.Campus">
+    insert into campus
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -119,14 +119,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.smartGym.pojo.CampuseExample" resultType="java.lang.Long">
-    select count(*) from campuse
+  <select id="countByExample" parameterType="cn.smartGym.pojo.CampusExample" resultType="java.lang.Long">
+    select count(*) from campus
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update campuse
+    update campus
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -140,15 +140,15 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update campuse
+    update campus
     set id = #{record.id,jdbcType=INTEGER},
       campus = #{record.campus,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.smartGym.pojo.Campuse">
-    update campuse
+  <update id="updateByPrimaryKeySelective" parameterType="cn.smartGym.pojo.Campus">
+    update campus
     <set>
       <if test="campus != null">
         campus = #{campus,jdbcType=VARCHAR},
@@ -156,8 +156,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.smartGym.pojo.Campuse">
-    update campuse
+  <update id="updateByPrimaryKey" parameterType="cn.smartGym.pojo.Campus">
+    update campus
     set campus = #{campus,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

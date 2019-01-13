@@ -3,14 +3,14 @@ package cn.smartGym.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CampuseExample {
+public class CampusExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public CampuseExample() {
+    public CampusExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

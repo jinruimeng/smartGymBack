@@ -136,5 +136,11 @@ public class UserController {
 			return SGResult.build(404, "修改资料失败！", e);
 		}
 	}
-
+//
+//	@RequestMapping(value = "/index", method = { RequestMethod.POST,
+//			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+//	@ResponseBody
+//	public String index() {
+//		return "Just for test";
+//	}
 }

@@ -55,10 +55,10 @@ public class UserController {
 			wxId = (String) sgResult.getData();
 
 		// 根据解析到的wxId查询用户是否注册
-		List<SgUser> result = userService.selectByWxId(wxId);
+		SgUser user = (SgUser) userService.selectByWxId(wxId).getData();
 
-		if (!result.isEmpty())
-			return SGResult.build(200, "该用户已注册！", userService.userDaoToCtr(result.get(0)));
+		if (user != null)
+			return SGResult.build(200, "该用户已注册！", userService.userDaoToCtr(user));
 		else {
 			userCtr.setWxId(wxId);
 			userCtr.setStatus(0);
@@ -130,7 +130,7 @@ public class UserController {
 	@ResponseBody
 	public SGResult updateUser(SgUserCtr userCtr) {
 		try {
-			return userService.update(userCtr);
+			return userService.update(userService.userCtrToDao(userCtr));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "修改资料失败！", e);

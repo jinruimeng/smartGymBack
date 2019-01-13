@@ -264,13 +264,12 @@ public class UserServiceImpl implements UserService {
 		if (list.isEmpty())
 			return SGResult.build(200, "没有该微信号对应的账号信息!", wxId);
 		else {
-			for (SgUser user : list) {
-				user.setStatus(0);
-				// 0-已删除 1-正常
-				user.setUpdated(new Date());
-				userMapper.updateByPrimaryKeySelective(user);
-			}
-			return SGResult.build(200, "删除账号成功！", list);
+			SgUser user = list.get(0);
+			user.setStatus(0);
+			// 0-已删除 1-正常
+			user.setUpdated(new Date());
+			userMapper.updateByPrimaryKeySelective(user);
+			return SGResult.build(200, "删除账号成功！", user);
 		}
 	}
 
@@ -294,13 +293,12 @@ public class UserServiceImpl implements UserService {
 		if (list.isEmpty())
 			return SGResult.build(200, "没有该学号对应的账号信息!", studentNo);
 		else {
-			for (SgUser user : list) {
-				user.setStatus(0);
-				// 0-已删除 1-正常
-				user.setUpdated(new Date());
-				userMapper.updateByPrimaryKeySelective(user);
-			}
-			return SGResult.build(200, "删除账号成功！", list);
+			SgUser user = list.get(0);
+			user.setStatus(0);
+			// 0-已删除 1-正常
+			user.setUpdated(new Date());
+			userMapper.updateByPrimaryKeySelective(user);
+			return SGResult.build(200, "删除账号成功！", user);
 		}
 	}
 
@@ -326,28 +324,27 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 修改用户信息
 	 * 
-	 * @param userCtr
+	 * @param user
 	 */
 	@Override
-	public SGResult update(SgUserCtr userCtr) {
+	public SGResult update(SgUser user) {
 		// 检查数据合法性
-		if (userCtr.getStudentNo() == null)
+		if (user.getStudentNo() == null)
 			return SGResult.build(200, "学号不能为空，请重新登录！");
-		if (userCtr.getWxId() == null)
+		if (user.getWxId() == null)
 			return SGResult.build(200, "微信号不能为空，请重新登录！");
 
 		// 检查学号和微信是否对应
 		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStudentNoEqualTo(userCtr.getStudentNo());
-		criteria.andWxIdEqualTo(userCtr.getWxId());
+		criteria.andStudentNoEqualTo(user.getStudentNo());
+		criteria.andWxIdEqualTo(user.getWxId());
 		criteria.andStatusEqualTo(1);
 		List<SgUser> selectByExample = userMapper.selectByExample(example);
 		if (selectByExample.isEmpty())
 			return SGResult.build(200, "不能修改学号！");
 
 		SgUser userOld = selectByExample.get(0);
-		SgUser user = userCtrToDao(userCtr);
 
 		// 如果手机号已修改，检查该手机号是否已经被注册
 		if (!user.getPhone().equals(userOld.getPhone())) {
@@ -363,45 +360,66 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 查询用户：根据微信id查询
+	 * 查询用户：根据微信id查询用户信息
 	 * 
 	 * @param wxId
 	 */
 	@Override
-	public List<SgUser> selectByWxId(String wxId) {
+	public SGResult selectByWxId(String wxId) {
 		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andWxIdEqualTo(wxId);
 		criteria.andStatusEqualTo(1);
-		List<SgUser> result = userMapper.selectByExample(example);
-		return result;
+		List<SgUser> list = userMapper.selectByExample(example);
+		if(list == null || list.size() <= 0)
+			return SGResult.build(404, "未查找到该用户！");
+		
+		return SGResult.build(200, "查找成功！", list.get(0));
 	}
 
 	/**
-	 * 根据学号查询所在学院
+	 * 查询用户：根据微信id查询用户信息
+	 * 
+	 * @param studentNo
 	 */
 	@Override
-	public Integer getCollegeByStudentNo(String studentNo) {
+	public SGResult selectByStudentNo(String studentNo) {
 		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStudentNoEqualTo(studentNo);
+		criteria.andWxIdEqualTo(studentNo);
+		criteria.andStatusEqualTo(1);
 		List<SgUser> list = userMapper.selectByExample(example);
-		return list.get(0).getCollege();
+		if(list == null || list.size() <= 0)
+			return SGResult.build(404, "未查找到该用户！");
+		
+		return SGResult.build(200, "查找成功！", list.get(0));
 	}
+	
+//	/**
+//	 * 根据学号查询所在学院
+//	 */
+//	@Override
+//	public Integer getCollegeByStudentNo(String studentNo) {
+//		SgUserExample example = new SgUserExample();
+//		Criteria criteria = example.createCriteria();
+//		criteria.andStudentNoEqualTo(studentNo);
+//		List<SgUser> list = userMapper.selectByExample(example);
+//		return list.get(0).getCollege();
+//	}
 
 	/**
 	 * 管理员根据学号查找用户信息
 	 * 
-	 * @param userCtr
+	 * @param managerUser
 	 *            管理员信息
 	 * @param studentNoSelected
 	 *            要查询的用户学号
 	 */
-	public SGResult getUser(SgUserCtr userCtr, String studentNoSelected) {
+	public SGResult getUser(SgUser managerUser, String studentNoSelected) {
 		// 得到管理员的权限级别0-普通用户 1-院级管理员 2-校级管理员 3-开发者
-		Integer authority = userCtr.getAuthority();
+		Integer authority = managerUser.getAuthority();
 		// 得到管理员的学院
-		Integer college = collegeService.getId(userCtr.getCollege());
+		Integer college = managerUser.getCollege();
 
 		// 根据学号查询结果
 		SgUserExample example = new SgUserExample();
@@ -443,14 +461,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 根据前端提供的用户信息返回User列表
+	 * 根据前端提供的管理员信息返回User列表
 	 * 
 	 * @param authority
 	 *            0-普通用户 1-院级管理员 2-校级管理员 3-开发者
 	 */
-	public List<SgUserCtr> getUserList(SgUserCtr userCtr) {
+	public List<SgUserCtr> getUserList(SgUser managerUser) {
 		// 取出权限
-		Integer authority = userCtr.getAuthority();
+		Integer authority = managerUser.getAuthority();
 		// 查询结果集
 		List<SgUser> list = new ArrayList<>();
 		SgUserExample example = new SgUserExample();
@@ -467,15 +485,14 @@ public class UserServiceImpl implements UserService {
 		} else if (authority == 1) {
 			// 如果开发者是院级管理员，则查出该院所有院级管理员以下的User
 			// 得到该管理员所属的院系
-			String collegeName = userCtr.getCollege();
-			Integer college = collegeService.getId(collegeName);
+			Integer college = managerUser.getCollege();
 			// 根据院系和权限去查询
 			criteria.andStatusEqualTo(1);
 			criteria.andAuthorityLessThan(1);
 			criteria.andCollegeEqualTo(college);
 			list = userMapper.selectByExample(example);
 		} else {
-			list.add(userCtrToDao(userCtr));
+			list.add(managerUser);
 		}
 		// 返回给表现层
 		List<SgUserCtr> listCtr = new ArrayList<>();

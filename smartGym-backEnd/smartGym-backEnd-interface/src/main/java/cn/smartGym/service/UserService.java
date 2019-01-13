@@ -30,15 +30,17 @@ public interface UserService {
 	
 	SGResult hardDeleteUser();
 	
-	List<SgUser> selectByWxId(String id);
+	SGResult selectByWxId(String id);
 	
-	SGResult update(SgUserCtr userCtr);
+	SGResult selectByStudentNo(String studentNo);
 	
-	Integer getCollegeByStudentNo(String studentNo);
+	SGResult update(SgUser user);
 	
-	SGResult getUser(SgUserCtr userCtr, String studentNoSelected);
+//	Integer getCollegeByStudentNo(String studentNo);
+	
+	SGResult getUser(SgUser managerUser, String studentNoSelected);
 	
 	SGResult setUserAuthority(String studentNo, Integer authority);
 	
-	List<SgUserCtr> getUserList(SgUserCtr userCtr);
+	List<SgUserCtr> getUserList(SgUser user);
 }

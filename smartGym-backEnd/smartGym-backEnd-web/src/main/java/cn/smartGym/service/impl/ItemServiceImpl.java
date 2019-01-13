@@ -12,7 +12,7 @@ import cn.smartGym.mapper.ItemMapper;
 import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.ItemExample;
 import cn.smartGym.pojo.ItemExample.Criteria;
-import cn.smartGym.pojoCtr.ItemCtr;
+import cn.smartGym.pojoctr.request.ItemCtr;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
 import common.utils.IDUtils;
@@ -28,7 +28,7 @@ import common.utils.SGResult;
 public class ItemServiceImpl implements ItemService {
 
 	@Autowired
-	private ItemMapper ItemMapper;
+	private ItemMapper itemMapper;
 
 	@Autowired
 	private GenderGroupService genderGroupService;
@@ -54,8 +54,8 @@ public class ItemServiceImpl implements ItemService {
 		if (StringUtils.isBlank(itemCtr.getPlace()))
 			return SGResult.build(200, "地点不能为空！");
 
-		List<Item> list = getItemsByItemDetails(itemCtr);
-		if (!list.isEmpty())
+		List<ItemCtr> itemsCtr = getItemsCtrByItemDetails(itemCtr);
+		if (!itemsCtr.isEmpty())
 			return SGResult.build(200, "该项目已存在，请先删除！");
 
 		Item item = itemCtrToDao(itemCtr);
@@ -68,7 +68,7 @@ public class ItemServiceImpl implements ItemService {
 		item.setCreated(new Date());
 		item.setUpdated(new Date());
 		// 插入数据库
-		ItemMapper.insert(item);
+		itemMapper.insert(item);
 		// 返回成功
 		return SGResult.build(200, "添加项目成功!");
 	}
@@ -95,7 +95,7 @@ public class ItemServiceImpl implements ItemService {
 		if (itemCtr.getStatus() != null)
 			criteria.andStatusEqualTo(itemCtr.getStatus());
 
-		List<Item> items = ItemMapper.selectByExample(example);
+		List<Item> items = itemMapper.selectByExample(example);
 
 		List<Long> itemsId = new ArrayList<>();
 		for (Item item : items) {
@@ -117,7 +117,7 @@ public class ItemServiceImpl implements ItemService {
 		if (status != null)
 			criteria.andStatusEqualTo(status);
 
-		List<Item> list = ItemMapper.selectByExample(example);
+		List<Item> list = itemMapper.selectByExample(example);
 		if (list == null || list.isEmpty())
 			return null;
 		Item item = list.get(0);
@@ -146,7 +146,7 @@ public class ItemServiceImpl implements ItemService {
 		if (status != null)
 			criteria.andStatusEqualTo(status);
 
-		List<Item> list = ItemMapper.selectByExample(example);
+		List<Item> list = itemMapper.selectByExample(example);
 
 		if (!StringUtils.isBlank(itemCtr.getItem())) {
 			String gender;
@@ -264,7 +264,7 @@ public class ItemServiceImpl implements ItemService {
 		if (itemCtr.getStatus() != null)
 			criteria.andStatusEqualTo(itemCtr.getStatus());
 
-		List<Item> items = ItemMapper.selectByExample(example);
+		List<Item> items = itemMapper.selectByExample(example);
 
 		List<ItemCtr> itemsCtr = new ArrayList<>();
 
@@ -278,48 +278,19 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	/**
-	 * 根据Item具体信息获取ItemCtr
-	 */
-	@Override
-	public List<Item> getItemsByItemDetails(ItemCtr itemCtr) {
-		ItemExample example = new ItemExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andStatusNotEqualTo(0);
-
-		if (!StringUtils.isBlank(itemCtr.getGame()))
-			criteria.andGameEqualTo(itemCtr.getGame());
-
-		if (!StringUtils.isBlank(itemCtr.getCategory()))
-			criteria.andCategoryEqualTo(itemCtr.getCategory());
-
-		if (!StringUtils.isBlank(itemCtr.getItem()))
-			criteria.andItemEqualTo(itemCtr.getItem());
-
-		if (!StringUtils.isBlank(itemCtr.getGender()))
-			// 设置项目性别查询条件
-			criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
-
-		if (itemCtr.getStatus() != null)
-			criteria.andStatusEqualTo(itemCtr.getStatus());
-
-		List<Item> list = ItemMapper.selectByExample(example);
-
-		return list;
-	}
-
-	/**
 	 * 删除项目
 	 */
 	@Override
-	public SGResult deleteItem(ItemCtr itemCtr) {
-		List<Item> items = getItemsByItemDetails(itemCtr);
+	public SGResult deleteItem(ItemCtr itemCtrDetail) {
+		List<ItemCtr> itemsCtr = getItemsCtrByItemDetails(itemCtrDetail);
 
-		if (items.isEmpty())
+		if (itemsCtr.isEmpty())
 			return SGResult.build(200, "没有该项目！");
 		else {
-			for (Item item : items) {
+			for (ItemCtr itemCtr : itemsCtr) {
+				Item item = itemCtrToDao(itemCtr);
 				item.setStatus(0);
-				ItemMapper.updateByPrimaryKeySelective(item);
+				itemMapper.updateByPrimaryKeySelective(item);
 			}
 			return SGResult.build(200, "删除成功！");
 		}
@@ -334,15 +305,15 @@ public class ItemServiceImpl implements ItemService {
 
 		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStatusEqualTo(1);
+		criteria.andStatusBetween(1, 2);
 		criteria.andDateLessThan(date);
-		List<Item> list = ItemMapper.selectByExample(example);
+		List<Item> list = itemMapper.selectByExample(example);
 
 		for (Item item : list) {
-			item.setStatus(2);
-			// 0-已取消，1-正在报名，2-已结束
+			item.setStatus(3);
+			// 0-已取消，1-正在报名，2-报名已结束，3-比赛已结束
 			item.setUpdated(date);
-			ItemMapper.updateByPrimaryKeySelective(item);
+			itemMapper.updateByPrimaryKeySelective(item);
 		}
 
 		return SGResult.build(200, "维护项目表成功！", list);
@@ -358,7 +329,7 @@ public class ItemServiceImpl implements ItemService {
 			Criteria criteria = example.or();
 			criteria.andStatusEqualTo(status);
 		}
-		List<Item> list = ItemMapper.selectByExample(example);
+		List<Item> list = itemMapper.selectByExample(example);
 
 		List<Long> itemsId = new ArrayList<>();
 		for (Item item : list) {
@@ -376,13 +347,46 @@ public class ItemServiceImpl implements ItemService {
 		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(0);
-		List<Item> list = ItemMapper.selectByExample(example);
+		List<Item> list = itemMapper.selectByExample(example);
 
 		for (Item item : list) {
-			ItemMapper.deleteByPrimaryKey(item.getId());
+			itemMapper.deleteByPrimaryKey(item.getId());
 		}
 
 		return SGResult.build(200, "硬删除项目表成功！");
+	}
+
+	/**
+	 * 校级管理员审核（关闭item）
+	 */
+	@Override
+	public List<Long> reviewByUniversityManage(ItemCtr itemCtrDetail) {
+		itemCtrDetail.setStatus(1);
+
+		List<ItemCtr> itemsCtr = getItemsCtrByItemDetails(itemCtrDetail);
+
+		List<Long> itemsId = new ArrayList<>();
+
+		for (ItemCtr itemCtr : itemsCtr) {
+			Item item = itemCtrToDao(itemCtr);
+			item.setStatus(2);
+			item.setUpdated(new Date());
+			itemMapper.updateByPrimaryKeySelective(item);
+			itemsId.add(item.getId());
+		}
+		return itemsId;
+	}
+
+	/**
+	 * 获取项目的每组人数
+	 */
+	@Override
+	public Integer getPathNumberByItemId(Long itemId) {
+		Item item = itemMapper.selectByPrimaryKey(itemId);
+		if (item != null)
+			return item.getPathNum();
+		else
+			return null;
 	}
 
 }

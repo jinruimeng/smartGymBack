@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojoCtr.ApplicationCtr;
+import cn.smartGym.pojoctr.request.ApplicationCtr;
 import cn.smartGym.service.ApplyService;
 import common.utils.SGResult;
 
@@ -30,7 +30,7 @@ public class ApplyController {
 	 * @param applyCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/apply/addApply", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/apply/addApply", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
 	@ResponseBody
 	public SGResult addApply(ApplicationCtr applyCtr) {
@@ -50,7 +50,7 @@ public class ApplyController {
 	 * @param studentno
 	 * @return
 	 */
-	@RequestMapping(value = "/apply/getApplicationListByStudentNo", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/apply/getApplicationListByStudentNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getApplicationListByStudentNo(String studentNo) {

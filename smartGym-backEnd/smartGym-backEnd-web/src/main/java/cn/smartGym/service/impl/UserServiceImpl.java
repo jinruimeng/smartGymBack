@@ -12,7 +12,7 @@ import cn.smartGym.mapper.SgUserMapper;
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojo.SgUserExample;
 import cn.smartGym.pojo.SgUserExample.Criteria;
-import cn.smartGym.pojoCtr.UserCtr;
+import cn.smartGym.pojoctr.request.UserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderService;

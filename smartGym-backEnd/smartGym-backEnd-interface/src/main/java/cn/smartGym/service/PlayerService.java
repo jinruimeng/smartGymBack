@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Player;
-import cn.smartGym.pojoCtr.PlayerCtr;
+import cn.smartGym.pojoctr.request.PlayerCtr;
 import common.utils.SGResult;
 
 public interface PlayerService {
@@ -14,15 +14,15 @@ public interface PlayerService {
 	Player playerCtrToDao(PlayerCtr playerCtr);
 
 	PlayerCtr playerDaoToCtr(Player player);
-	
+
 	Player applicationDaoToplayerDao(Application apply);
-	
+
 	SGResult hardDeletePlayer();
-	
+
 	SGResult reviewByUniversityManager(List<Application> applications);
-	
+
 	SGResult genPlayerNo(List<Long> itemsId);
-	
-	SGResult genGroupNoAndPathNo(Long itemId, Integer number);
-	
+
+	SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum);
+
 }

@@ -1,4 +1,4 @@
-package cn.smartGym.pojoCtr;
+package cn.smartGym.pojoctr.request;
 
 import java.io.Serializable;
 

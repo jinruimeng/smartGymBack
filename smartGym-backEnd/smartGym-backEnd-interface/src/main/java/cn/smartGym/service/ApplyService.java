@@ -1,11 +1,11 @@
 package cn.smartGym.service;
 
 import java.util.List;
-import java.util.Map;
 
 import cn.smartGym.pojo.Application;
-import cn.smartGym.pojoCtr.ApplicationCtr;
-import cn.smartGym.pojoCtr.ItemCtr;
+import cn.smartGym.pojoctr.request.ApplicationCtr;
+import cn.smartGym.pojoctr.request.ItemCtr;
+import cn.smartGym.pojoctr.response.ApplicationInfo;
 import common.utils.SGResult;
 
 /**
@@ -29,19 +29,19 @@ public interface ApplyService {
 
 	List<ApplicationCtr> getApplicationListByStudentNo(String studentno);
 
-	List<Application> getApplicationListByItemsId(List<Long> itemsId, Integer status, String college);
+	List<ApplicationCtr> getApplicationListByItemsId(List<Long> itemsId, Integer status, String college);
 
 	Long countByitem(Long itemId);
 
-	Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItem(List<ItemCtr> itemsCtr);
+	List<ApplicationInfo> getApplyNumGroupByItem(List<ItemCtr> itemsCtr);
 
-	Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItemDetail(List<ItemCtr> itemsCtr);
+	List<ApplicationInfo> getApplyNumGroupByItemDetail(ItemCtr itemCtr);
 
-	Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollege(List<ItemCtr> itemsCtr);
+	List<ApplicationInfo> getApplyNumGroupByCollege(List<ItemCtr> itemsCtr);
 
-	Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollegeDetail(List<ItemCtr> itemsCtr);
+	List<ApplicationInfo> getApplyNumGroupByCollegeDetail(List<ItemCtr> itemsCtr,String college);
 
 	SGResult reviewByCollegeManager(Long ids[]);
 
-	List<Application> reviewByUniversityManager(Long ids[]);
+	List<Application> reviewByUniversityManager(List<Long> itemsId);
 }

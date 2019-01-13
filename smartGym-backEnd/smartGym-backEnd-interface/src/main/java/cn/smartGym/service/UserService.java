@@ -3,7 +3,7 @@ package cn.smartGym.service;
 import java.util.List;
 
 import cn.smartGym.pojo.SgUser;
-import cn.smartGym.pojoCtr.UserCtr;
+import cn.smartGym.pojoctr.request.UserCtr;
 import common.utils.SGResult;
 
 /**

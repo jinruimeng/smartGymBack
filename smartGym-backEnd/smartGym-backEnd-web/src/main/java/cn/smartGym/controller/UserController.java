@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojo.SgUser;
-import cn.smartGym.pojoCtr.UserCtr;
+import cn.smartGym.pojoctr.request.UserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.UserService;
@@ -41,7 +41,7 @@ public class UserController {
 	 * @param userCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/user/signIn", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/user/signIn", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult signIn(UserCtr userCtr) {
@@ -72,7 +72,7 @@ public class UserController {
 	 * @param userCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/user/register", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/user/register", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult register(UserCtr userCtr) {
@@ -90,7 +90,7 @@ public class UserController {
 	 * @param userCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/user/delete", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/user/delete", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult deleteUser(String wxId) {
@@ -107,7 +107,7 @@ public class UserController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/user/getAllCollegesAndCampus", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/user/getAllCollegesAndCampus", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getAllCollegesAndCampus() {
@@ -125,7 +125,7 @@ public class UserController {
 	 * @param userCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/user/update", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/user/update", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult updateUser(UserCtr userCtr) {

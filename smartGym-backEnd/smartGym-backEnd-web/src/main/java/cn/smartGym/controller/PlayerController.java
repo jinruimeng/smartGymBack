@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojoCtr.PlayerCtr;
+import cn.smartGym.pojoctr.request.PlayerCtr;
 import cn.smartGym.service.PlayerService;
 import common.utils.SGResult;
 
@@ -30,7 +30,7 @@ public class PlayerController {
 	 * @param studentno
 	 * @return
 	 */
-	@RequestMapping(value = "/player/getPlayerListByStudentNo", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/player/getPlayerListByStudentNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getPlayerListByStudentNo(String studentNo) {

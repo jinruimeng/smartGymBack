@@ -3,7 +3,7 @@ package cn.smartGym.service;
 import java.util.List;
 
 import cn.smartGym.pojo.Item;
-import cn.smartGym.pojoCtr.ItemCtr;
+import cn.smartGym.pojoctr.request.ItemCtr;
 import common.utils.SGResult;
 
 /**
@@ -36,6 +36,8 @@ public interface ItemService {
 
 	List<ItemCtr> getItemsCtrByItemDetails(ItemCtr itemCtr);
 
-	List<Item> getItemsByItemDetails(ItemCtr itemCtr);
+	List<Long> reviewByUniversityManage(ItemCtr itemCtr);
+	
+	Integer getPathNumberByItemId(Long itemId);
 
 }

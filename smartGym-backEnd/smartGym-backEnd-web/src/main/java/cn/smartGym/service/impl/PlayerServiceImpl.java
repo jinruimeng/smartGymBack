@@ -12,8 +12,8 @@ import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Player;
 import cn.smartGym.pojo.PlayerExample;
 import cn.smartGym.pojo.PlayerExample.Criteria;
-import cn.smartGym.pojoCtr.ItemCtr;
-import cn.smartGym.pojoCtr.PlayerCtr;
+import cn.smartGym.pojoctr.request.ItemCtr;
+import cn.smartGym.pojoctr.request.PlayerCtr;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
@@ -208,6 +208,7 @@ public class PlayerServiceImpl implements PlayerService {
 			player.setUpdated(new Date());
 			PlayerMapper.insertSelective(player);
 		}
+
 		return SGResult.build(200, "院级管理员审核完成！");
 	}
 
@@ -247,31 +248,34 @@ public class PlayerServiceImpl implements PlayerService {
 		return SGResult.build(200, "生成参赛号成功!");
 	}
 
-
 	/**
 	 * 产生参赛队员的组号和赛道号，每个项目的分组都不同，所以要传入需要设置分组的项目id
 	 */
 
-	public SGResult genGroupNoAndPathNo(Long itemId, Integer number) {
+	public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
 		PlayerExample example = new PlayerExample();
 		example.setOrderByClause("student_no");
 		Criteria criteria = example.createCriteria();
 		criteria.andItemIdEqualTo(itemId);
 		criteria.andStatusGreaterThanOrEqualTo(1);
 		List<Player> list = PlayerMapper.selectByExample(example);
-		if(list == null || list.size() <= 0)
+		if (list == null || list.size() <= 0)
 			return SGResult.build(404, "设置参赛队员分组和赛道失败！");
 
-		//设置分组号和赛道号
-		for(int i = 0; i < list.size(); i++) {
-			//设置分组号
-			list.get(i).setGroupNo(i / number + 1);
-			//设置赛道号
-			list.get(i).setPathNo(i % number + 1);
-			//更新到数据库
+		if (pathNum == null || pathNum == 0)
+			pathNum = list.size() + 1;
+
+		// 设置分组号和赛道号
+		for (int i = 0; i < list.size(); i++) {
+			// 设置分组号
+			list.get(i).setGroupNo(i / pathNum + 1);
+			// 设置赛道号
+			list.get(i).setPathNo(i % pathNum + 1);
+			// 更新到数据库
+			list.get(i).setUpdated(new Date());
 			PlayerMapper.updateByPrimaryKeySelective(list.get(i));
 		}
 		return SGResult.build(200, "设置参赛队员分组和赛道成功！");
 	}
-	
+
 }

@@ -14,6 +14,7 @@ import cn.smartGym.mapper.ApplicationMapper;
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.ApplicationExample;
 import cn.smartGym.pojo.ApplicationExample.Criteria;
+import cn.smartGym.pojo.Item;
 import cn.smartGym.pojoctr.request.ApplicationCtr;
 import cn.smartGym.pojoctr.request.ItemCtr;
 import cn.smartGym.pojoctr.response.ApplicationInfo;
@@ -50,7 +51,8 @@ public class ApplyServiceImpl implements ApplyService {
 	/**
 	 * Controller-Dao层接收bean转换器
 	 * 
-	 * @param applyCtr 接收前端数据的bean
+	 * @param applyCtr
+	 *            接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
@@ -64,7 +66,7 @@ public class ApplyServiceImpl implements ApplyService {
 		itemsCtr.setStatus(1);
 
 		// 根据具体项目信息查找itemId
-		List<Long> list = itemService.getItemIdByItemDetails(itemsCtr);
+		List<Long> list = itemService.getItemIdsByItemDetails(itemService.itemCtrToDao(itemsCtr));
 
 		if (list == null || list.isEmpty())
 			return null;
@@ -94,20 +96,21 @@ public class ApplyServiceImpl implements ApplyService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param apply 从数据库中查询出数据封装的bean
+	 * @param apply
+	 *            从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
 	@Override
 	public ApplicationCtr applyDaoToCtr(Application apply) {
 		// 根据itemId获取项目具体信息
-		ItemCtr itemCtr = itemService.getItemByItemId(apply.getItemId(), null);
+		Item item = itemService.getItemByItemId(apply.getItemId(), null);
 		// 转换为Dao层的pojo
 		ApplicationCtr applyCtr = new ApplicationCtr();
 		// 设置项目信息
 		applyCtr.setId(apply.getId());
-		applyCtr.setGame(itemCtr.getGame());
-		applyCtr.setCategory(itemCtr.getCategory());
-		applyCtr.setItem(itemCtr.getItem());
+		applyCtr.setGame(item.getGame());
+		applyCtr.setCategory(item.getCategory());
+		applyCtr.setItem(item.getItem());
 		applyCtr.setItemId(apply.getItemId());
 		// 设置用户Id
 		applyCtr.setStudentNo(apply.getStudentNo());
@@ -542,7 +545,7 @@ public class ApplyServiceImpl implements ApplyService {
 		for (ApplicationCtr applicationCtr : applicationsCtr) {
 			ids.add(applicationCtr.getId());
 		}
-		
+
 		if (ids == null || ids.isEmpty())
 			return null;
 
@@ -580,11 +583,12 @@ public class ApplyServiceImpl implements ApplyService {
 			if (status != null)
 				criteria.andStatusEqualTo(status);
 			if (!StringUtils.isBlank(college))
-				criteria.andCollegeEqualTo(collegeService.getId(college));
+				if (college.equals("total"))
+					criteria.andCollegeEqualTo(collegeService.getId(college));
 		}
 
 		List<Application> applications = ApplicationMapper.selectByExample(example);
-		
+
 		List<ApplicationCtr> applicationsCtr = new ArrayList<ApplicationCtr>();
 		for (Application application : applications) {
 			applicationsCtr.add(applyDaoToCtr(application));

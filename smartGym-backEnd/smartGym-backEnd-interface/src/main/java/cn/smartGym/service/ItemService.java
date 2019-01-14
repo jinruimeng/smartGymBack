@@ -17,27 +17,28 @@ public interface ItemService {
 	Item itemCtrToDao(ItemCtr itemCtr);
 
 	ItemCtr itemDaoToCtr(Item item);
+	
+	SGResult addItem(Item item);
 
-	List<String> getNameByDetailsAndStatus(ItemCtr itemCtr, Integer status);
-
-	List<Long> selectItemByStatus(Integer... statuses);
-
-	SGResult addItem(ItemCtr itemCtr);
-
-	SGResult deleteItem(ItemCtr itemCtr);
-
+	SGResult deleteItem(Item itemToBeDeleted);
+	
 	SGResult hardDeleteItem();
-
-	SGResult maintenanceItem();
-
-	List<Long> getItemIdByItemDetails(ItemCtr itemCtr);
-
-	ItemCtr getItemByItemId(Long itemId, Integer status);
-
-	List<ItemCtr> getItemsCtrByItemDetails(ItemCtr itemCtr);
-
-	List<Long> reviewByUniversityManage(ItemCtr itemCtr);
+	
+	Item getItemByItemId(Long itemId, Integer status);
+	
+	List<Item> getItemsByItemDetails(Item item);
+	
+	List<Long> getItemIdsByItemDetails(Item item);
 	
 	Integer getPathNumberByItemId(Long itemId);
+	
+	List<Long> getItemIdsByStatus(Integer... statuses);
+	
+	SGResult maintenanceItem();
+	
+	List<Long> reviewByUniversityManager(Item itemToBeChecked);
+
+	//
+	List<String> getNameByDetailsAndStatus(ItemCtr itemCtr, Integer status);
 
 }

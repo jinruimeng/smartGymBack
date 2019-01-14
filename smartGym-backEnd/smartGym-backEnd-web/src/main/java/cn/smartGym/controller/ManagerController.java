@@ -1,6 +1,7 @@
 package cn.smartGym.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojo.Application;
+import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoctr.request.ApplicationCtr;
 import cn.smartGym.pojoctr.request.ItemCtr;
@@ -54,7 +56,12 @@ public class ManagerController {
 	public SGResult getInfoGroupByItem(ItemCtr itemCtr) {
 		try {
 			itemCtr.setStatus(1);
-			List<ItemCtr> itemsCtr = itemService.getItemsCtrByItemDetails(itemCtr);
+			List<Item> items = itemService.getItemsByItemDetails(itemService.itemCtrToDao(itemCtr));
+			List<ItemCtr> itemsCtr = new ArrayList<>();
+			for (Item item : items) {
+				itemService.itemDaoToCtr(item);
+			}
+			
 			List<ApplicationInfo> result = applyService.getApplyNumGroupByItem(itemsCtr);
 			return SGResult.build(200, "查询成功！", result);
 		} catch (Exception e) {
@@ -74,8 +81,8 @@ public class ManagerController {
 	@ResponseBody
 	public SGResult getInfoGroupByItemDetail(Long itemId) {
 		try {
-			ItemCtr itemCtr = itemService.getItemByItemId(itemId, 1);
-			List<ApplicationInfo> result = applyService.getApplyNumGroupByItemDetail(itemCtr);
+			Item item = itemService.getItemByItemId(itemId, 1);
+			List<ApplicationInfo> result = applyService.getApplyNumGroupByItemDetail(itemService.itemDaoToCtr(item));
 			return SGResult.build(200, "查询成功！", result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +102,11 @@ public class ManagerController {
 	public SGResult getInfoGroupByCollege(ItemCtr itemCtr) {
 		try {
 			itemCtr.setStatus(1);
-			List<ItemCtr> itemsCtr = itemService.getItemsCtrByItemDetails(itemCtr);
+			List<Item> items = itemService.getItemsByItemDetails(itemService.itemCtrToDao(itemCtr));
+			List<ItemCtr> itemsCtr = new ArrayList<>();
+			for (Item item : items) {
+				itemService.itemDaoToCtr(item);
+			}
 			List<ApplicationInfo> result = applyService.getApplyNumGroupByCollege(itemsCtr);
 			return SGResult.build(200, "查询成功！", result);
 		} catch (Exception e) {
@@ -116,7 +127,11 @@ public class ManagerController {
 	public SGResult getInfoGroupByCollegeDetail(ItemCtr itemCtr, String college) {
 		try {
 			itemCtr.setStatus(1);
-			List<ItemCtr> itemsCtr = itemService.getItemsCtrByItemDetails(itemCtr);
+			List<Item> items = itemService.getItemsByItemDetails(itemService.itemCtrToDao(itemCtr));
+			List<ItemCtr> itemsCtr = new ArrayList<>();
+			for (Item item : items) {
+				itemService.itemDaoToCtr(item);
+			}
 			List<ApplicationInfo> result = applyService.getApplyNumGroupByCollegeDetail(itemsCtr, college);
 			return SGResult.build(200, "查询成功！", result);
 		} catch (Exception e) {
@@ -136,7 +151,7 @@ public class ManagerController {
 	public SGResult maintenance() {
 		try {
 			itemService.maintenanceItem();
-			applyService.maintenanceApply(itemService.selectItemByStatus(0, 3));
+			applyService.maintenanceApply(itemService.getItemIdsByStatus(0, 3));
 			return SGResult.build(200, "维护成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,7 +195,7 @@ public class ManagerController {
 				return SGResult.build(200, "学院不能为空！");
 
 			itemCtr.setStatus(1);
-			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
+			List<Long> itemsId = itemService.getItemIdsByItemDetails(itemService.itemCtrToDao(itemCtr));
 			List<ApplicationCtr> applicationsCtr = applyService.getApplicationListByItemsId(itemsId, 1, college);
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
 
@@ -221,7 +236,7 @@ public class ManagerController {
 	public SGResult viewByUniversityManager(ItemCtr itemCtr) {
 		try {
 			itemCtr.setStatus(1);
-			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
+			List<Long> itemsId = itemService.getItemIdsByItemDetails(itemService.itemCtrToDao(itemCtr));
 			List<ApplicationCtr> applicationsCtr = applyService.getApplicationListByItemsId(itemsId, 2, null);
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
 
@@ -244,7 +259,7 @@ public class ManagerController {
 	public SGResult reviewByUniversityManager(ItemCtr itemCtr) {
 		try {
 			// 关闭比赛报名
-			List<Long> itemsId = itemService.reviewByUniversityManage(itemCtr);
+			List<Long> itemsId = itemService.reviewByUniversityManager(itemService.itemCtrToDao(itemCtr));
 			// 生成参赛表
 			List<Application> applications = applyService.reviewByUniversityManager(itemsId);
 			playerService.reviewByUniversityManager(applications);
@@ -252,8 +267,7 @@ public class ManagerController {
 			playerService.genPlayerNo(itemsId);
 			// 分组
 			for (Long itemId : itemsId) {
-				Integer pathNum = itemService.getPathNumberByItemId(itemId);
-				playerService.genGroupNoAndPathNo(itemId,pathNum);
+				playerService.genGroupNoAndPathNo(itemId);
 			}
 			return SGResult.build(200, "校级管理员审核成功！");
 		} catch (Exception e) {
@@ -353,7 +367,7 @@ public class ManagerController {
 			if (StringUtils.isBlank(dateString))
 				return SGResult.build(200, "日期不能为空！");
 			itemCtr.setDate(sdf.parse(dateString));
-			return itemService.addItem(itemCtr);
+			return itemService.addItem(itemService.itemCtrToDao(itemCtr));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "添加项目失败！", e);
@@ -371,7 +385,7 @@ public class ManagerController {
 	@ResponseBody
 	public SGResult deleteItem(ItemCtr itemCtr) {
 		try {
-			return itemService.deleteItem(itemCtr);
+			return itemService.deleteItem(itemService.itemCtrToDao(itemCtr));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "删除项目失败！", e);

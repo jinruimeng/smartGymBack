@@ -1,6 +1,7 @@
 package cn.smartGym.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import cn.smartGym.mapper.PlayerMapper;
 import cn.smartGym.pojo.Application;
+import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.Player;
 import cn.smartGym.pojo.PlayerExample;
 import cn.smartGym.pojo.PlayerExample.Criteria;
@@ -46,31 +48,10 @@ public class PlayerServiceImpl implements PlayerService {
 	private ItemService itemService;
 
 	/**
-	 * 根据学号获取已参加项目信息
-	 * 
-	 * @param studentno
-	 * @return
-	 */
-	public List<PlayerCtr> getPlayerListByStudentNo(String studentNo) {
-		PlayerExample example = new PlayerExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andStudentNoEqualTo(studentNo);
-		criteria.andStatusGreaterThanOrEqualTo(1);
-		List<Player> list = PlayerMapper.selectByExample(example);
-		if (list == null || list.size() == 0)
-			return null;
-		List<PlayerCtr> result = new ArrayList<>();
-		for (Player player : list) {
-			PlayerCtr playerCtr = playerDaoToCtr(player);
-			result.add(playerCtr);
-		}
-		return result;
-	}
-
-	/**
 	 * playerController-Dao层接收bean转换器
 	 * 
-	 * @param playerCtr 接收前端数据的bean
+	 * @param playerCtr
+	 *            接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
@@ -82,7 +63,7 @@ public class PlayerServiceImpl implements PlayerService {
 		itemsCtr.setGender(playerCtr.getGender());
 
 		// 根据项目的具体信息生成itemId
-		List<Long> itemsId = itemService.getItemIdByItemDetails(itemsCtr);
+		List<Long> itemsId = itemService.getItemIdsByItemDetails(itemService.itemCtrToDao(itemsCtr));
 
 		playerCtr.setItemId(itemsId.get(0));
 
@@ -117,21 +98,22 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param player 从数据库中查询出数据封装的bean
+	 * @param player
+	 *            从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
 	@Override
 	public PlayerCtr playerDaoToCtr(Player player) {
 		// 根据项目id查询项目具体信息
-		ItemCtr itemCtr = itemService.getItemByItemId(player.getItemId(), null);
-		if (itemCtr == null)
+		Item item = itemService.getItemByItemId(player.getItemId(), null);
+		if (item == null)
 			return null;
 		// 转换为Ctr层的pojo
 		PlayerCtr playerCtr = new PlayerCtr();
 		// 设置项目信息
-		playerCtr.setGame(itemCtr.getGame());
-		playerCtr.setCategory(itemCtr.getCategory());
-		playerCtr.setItem(itemCtr.getItem());
+		playerCtr.setGame(item.getGame());
+		playerCtr.setCategory(item.getCategory());
+		playerCtr.setItem(item.getItem());
 		playerCtr.setItemId(player.getItemId());
 		// 设置姓名
 		playerCtr.setName(player.getName());
@@ -159,6 +141,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 	/**
 	 * 硬删除状态为（0）的选手信息
+	 * 
 	 */
 	@Override
 	public SGResult hardDeletePlayer() {
@@ -175,51 +158,78 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 
 	/**
-	 * 根据报名表信息生成参赛信息
+	 * 根据学号获取报名信息
+	 * 
+	 * @param studentno
+	 * @return
 	 */
-	@Override
-	public Player applicationDaoToplayerDao(Application apply) {
-		Player player = new Player();
-
-		player.setId(apply.getId());
-		player.setName(apply.getName());
-		player.setCollege(apply.getCollege());
-		player.setStudentNo(apply.getStudentNo());
-		player.setItemId(apply.getItemId());
-		player.setJob(apply.getJob());
-		player.setGender(apply.getGender());
-
-		return player;
+	public List<Player> getPlayerListByStudentNo(String studentNo) {
+		PlayerExample example = new PlayerExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStudentNoEqualTo(studentNo);
+		criteria.andStatusGreaterThanOrEqualTo(1);
+		List<Player> list = PlayerMapper.selectByExample(example);
+		return list;
 	}
 
 	/**
-	 * 校级管理员审核通过
+	 * 根据项目id和学院college获取报名信息
+	 * 
+	 * @param itemId,
+	 *            college 项目id, 学院名称，可以为空
 	 */
-	@Override
-	public SGResult reviewByUniversityManager(List<Application> applications) {
-		if (applications == null || applications.isEmpty())
-			return SGResult.build(200, "请先选择要审核的报名记录！");
+	public List<Player> getPlayerListByItemIdAndCollege(Long itemId, String college) {
+		PlayerExample example = new PlayerExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(itemId);
+		if (college != null)
+			criteria.andCollegeEqualTo(collegeService.getId(college));
+		criteria.andStatusEqualTo(1);
+		List<Player> list = PlayerMapper.selectByExample(example);
+		return list;
+	}
 
-		for (Application apply : applications) {
-			if (apply.getStatus() != 3)
-				return SGResult.build(404, "校级管理员审核未通过！");
-			Player player = applicationDaoToplayerDao(apply);
-			player.setCreated(new Date());
-			player.setUpdated(new Date());
-			PlayerMapper.insertSelective(player);
+	/**
+	 * 根据项目id获取报名信息
+	 * 
+	 * @param itemId
+	 *            项目id
+	 */
+	public List<Player> getPlayerListByItemId(Long itemId) {
+		return getPlayerListByItemIdAndCollege(itemId, null);
+	}
+
+	/**
+	 * 根据项目具体信息获取报名信息
+	 * 
+	 * @param itemId
+	 *            college 项目id, 学院名称
+	 */
+	public List<Player> getPlayerListByItemDetails(Item item, String college) {
+		List<Long> itemIds = itemService.getItemIdsByItemDetails(item);
+		if (itemIds == null || itemIds.size() <= 0)
+			return null;
+		List<Player> result = new ArrayList<>();
+		for (Long itemId : itemIds) {
+			List<Player> list = getPlayerListByItemIdAndCollege(itemId, college);
+			for (Player player : list) {
+				result.add(player);
+			}
 		}
-
-		return SGResult.build(200, "院级管理员审核完成！");
+		return result;
 	}
 
 	/**
-	 * 设置参赛队员参赛号
+	 * 生成参赛号PlayerNo——根据itemIds
+	 * 
+	 * @param itemIds
+	 *            项目的id列表
 	 */
 	@Override
-	public SGResult genPlayerNo(List<Long> itemsId) {
+	public SGResult genPlayerNo(List<Long> itemIds) {
 		PlayerExample example = new PlayerExample();
 		example.setOrderByClause("student_no");
-		for (Long itemId : itemsId) {
+		for (Long itemId : itemIds) {
 			Criteria criteria = example.or();
 			criteria.andItemIdEqualTo(itemId);
 			criteria.andStatusGreaterThanOrEqualTo(1);
@@ -249,21 +259,27 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 
 	/**
-	 * 产生参赛队员的组号和赛道号，每个项目的分组都不同，所以要传入需要设置分组的项目id
+	 * 生成组号GroupNo和赛道号PathNo——根据单个项目id
+	 * @param itemId 项目id
 	 */
-
-	public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
+	public SGResult genGroupNoAndPathNo(Long itemId) {
+		
 		PlayerExample example = new PlayerExample();
-		example.setOrderByClause("student_no");
+		example.setOrderByClause("id");
 		Criteria criteria = example.createCriteria();
 		criteria.andItemIdEqualTo(itemId);
-		criteria.andStatusGreaterThanOrEqualTo(1);
+		criteria.andStatusEqualTo(1);
 		List<Player> list = PlayerMapper.selectByExample(example);
 		if (list == null || list.size() <= 0)
 			return SGResult.build(404, "设置参赛队员分组和赛道失败！");
+		
+		// 打乱list中的item顺序
+		Collections.shuffle(list);
 
+		// 取出赛道数,如果赛道数为空或为0,默认设为8
+		Integer pathNum = itemService.getPathNumberByItemId(itemId);
 		if (pathNum == null || pathNum == 0)
-			pathNum = list.size() + 1;
+			pathNum = 8;
 
 		// 设置分组号和赛道号
 		for (int i = 0; i < list.size(); i++) {
@@ -276,6 +292,47 @@ public class PlayerServiceImpl implements PlayerService {
 			PlayerMapper.updateByPrimaryKeySelective(list.get(i));
 		}
 		return SGResult.build(200, "设置参赛队员分组和赛道成功！");
+	}
+
+	/**
+	 * 根据报名表信息生成参赛信息
+	 * 
+	 * @param apply
+	 *            报名表信息
+	 */
+	@Override
+	public Player applicationDaoToPlayerDao(Application apply) {
+		Player player = new Player();
+
+		player.setId(apply.getId());
+		player.setName(apply.getName());
+		player.setCollege(apply.getCollege());
+		player.setStudentNo(apply.getStudentNo());
+		player.setItemId(apply.getItemId());
+		player.setJob(apply.getJob());
+		player.setGender(apply.getGender());
+
+		return player;
+	}
+
+	/**
+	 * 校级管理员审核通过
+	 */
+	@Override
+	public SGResult reviewByUniversityManager(List<Application> applications) {
+		if (applications == null || applications.isEmpty())
+			return SGResult.build(200, "请先选择要审核的报名记录！");
+
+		for (Application apply : applications) {
+			if (apply.getStatus() != 3)
+				return SGResult.build(404, "校级管理员审核未通过！");
+			Player player = applicationDaoToPlayerDao(apply);
+			player.setCreated(new Date());
+			player.setUpdated(new Date());
+			PlayerMapper.insertSelective(player);
+		}
+
+		return SGResult.build(200, "院级管理员审核完成！");
 	}
 
 }

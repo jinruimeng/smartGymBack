@@ -371,9 +371,9 @@ public class UserServiceImpl implements UserService {
 		criteria.andWxIdEqualTo(wxId);
 		criteria.andStatusEqualTo(1);
 		List<SgUser> list = userMapper.selectByExample(example);
-		if(list == null || list.size() <= 0)
+		if (list == null || list.size() <= 0)
 			return SGResult.build(404, "未查找到该用户！");
-		
+
 		return SGResult.build(200, "查找成功！", list.get(0));
 	}
 
@@ -389,23 +389,23 @@ public class UserServiceImpl implements UserService {
 		criteria.andWxIdEqualTo(studentNo);
 		criteria.andStatusEqualTo(1);
 		List<SgUser> list = userMapper.selectByExample(example);
-		if(list == null || list.size() <= 0)
+		if (list == null || list.size() <= 0)
 			return SGResult.build(404, "未查找到该用户！");
-		
+
 		return SGResult.build(200, "查找成功！", list.get(0));
 	}
-	
-//	/**
-//	 * 根据学号查询所在学院
-//	 */
-//	@Override
-//	public Integer getCollegeByStudentNo(String studentNo) {
-//		SgUserExample example = new SgUserExample();
-//		Criteria criteria = example.createCriteria();
-//		criteria.andStudentNoEqualTo(studentNo);
-//		List<SgUser> list = userMapper.selectByExample(example);
-//		return list.get(0).getCollege();
-//	}
+
+	// /**
+	// * 根据学号查询所在学院
+	// */
+	// @Override
+	// public Integer getCollegeByStudentNo(String studentNo) {
+	// SgUserExample example = new SgUserExample();
+	// Criteria criteria = example.createCriteria();
+	// criteria.andStudentNoEqualTo(studentNo);
+	// List<SgUser> list = userMapper.selectByExample(example);
+	// return list.get(0).getCollege();
+	// }
 
 	/**
 	 * 管理员根据学号查找用户信息
@@ -433,10 +433,10 @@ public class UserServiceImpl implements UserService {
 		SgUser user = list.get(0);
 
 		// 如果用户的权限高于管理员，或者用户所属学院与管理员不在同一学院，则不予返回
-		if (user.getAuthority() >= authority || user.getCollege() != college)
-			// if(user.getAuthority() >= authority)
-			return SGResult.build(404, "没有查到该用户，您权限不够！");
-		return SGResult.build(200, "查询成功！", userDaoToCtr(user));
+		if (user.getAuthority() < authority)
+			if (authority == 2 || college == user.getCollege())
+				return SGResult.build(200, "查询成功！", userDaoToCtr(user));
+		return SGResult.build(404, "没有查到该用户，您权限不够！");
 	}
 
 	/**

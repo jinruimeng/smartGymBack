@@ -30,11 +30,11 @@ public interface UserService {
 	
 	SGResult hardDeleteUser();
 	
+	SGResult update(SgUser user);
+	
 	SGResult selectByWxId(String id);
 	
 	SGResult selectByStudentNo(String studentNo);
-	
-	SGResult update(SgUser user);
 	
 //	Integer getCollegeByStudentNo(String studentNo);
 	

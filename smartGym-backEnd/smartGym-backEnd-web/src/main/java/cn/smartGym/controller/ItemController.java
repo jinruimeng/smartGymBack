@@ -41,5 +41,23 @@ public class ItemController {
 		}
 		return SGResult.build(200, "获取项目信息成功!", result);
 	}
+	
+	/**
+	 * 获取正在报名的项目信息
+	 * 
+	 * @param itemsCtr
+	 * @return
+	 */
+	@RequestMapping(value = "/smartgym/item/getInfo2", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult getInfoPage2(ItemCtr itemsCtr) {
+		List<String> result = itemService.getNameByDetailsAndStatus(itemsCtr, 2);
+		// 0-已删除，1-正在报名，2-报名结束
+		if (result == null || result.size() == 0) {
+			SGResult.build(404, "获取项目信息失败！");
+		}
+		return SGResult.build(200, "获取项目信息成功!", result);
+	}
 
 }

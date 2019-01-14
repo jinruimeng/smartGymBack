@@ -29,7 +29,7 @@ public interface ApplyService {
 
 	List<ApplicationCtr> getApplicationListByStudentNo(String studentno);
 
-	List<ApplicationCtr> getApplicationListByItemsId(List<Long> itemsId, Integer status, String college);
+	List<ApplicationCtr> getApplicationListByItemsId(List<Long> itemsId, String college, Integer... statuses);
 
 	Long countByitem(Long itemId);
 
@@ -39,7 +39,7 @@ public interface ApplyService {
 
 	List<ApplicationInfo> getApplyNumGroupByCollege(List<ItemCtr> itemsCtr);
 
-	List<ApplicationInfo> getApplyNumGroupByCollegeDetail(List<ItemCtr> itemsCtr,String college);
+	List<ApplicationInfo> getApplyNumGroupByCollegeDetail(List<ItemCtr> itemsCtr, String college);
 
 	SGResult reviewByCollegeManager(Long ids[]);
 

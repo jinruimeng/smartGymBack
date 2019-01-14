@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Item;
+import cn.smartGym.pojo.Player;
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoctr.request.ApplicationCtr;
 import cn.smartGym.pojoctr.request.ItemCtr;
+import cn.smartGym.pojoctr.request.PlayerCtr;
 import cn.smartGym.pojoctr.response.ApplicationInfo;
 import cn.smartGym.service.ApplyService;
 import cn.smartGym.service.ItemService;
@@ -61,7 +63,7 @@ public class ManagerController {
 			for (Item item : items) {
 				itemService.itemDaoToCtr(item);
 			}
-			
+
 			List<ApplicationInfo> result = applyService.getApplyNumGroupByItem(itemsCtr);
 			return SGResult.build(200, "查询成功！", result);
 		} catch (Exception e) {
@@ -196,7 +198,7 @@ public class ManagerController {
 
 			itemCtr.setStatus(1);
 			List<Long> itemsId = itemService.getItemIdsByItemDetails(itemService.itemCtrToDao(itemCtr));
-			List<ApplicationCtr> applicationsCtr = applyService.getApplicationListByItemsId(itemsId, 1, college);
+			List<ApplicationCtr> applicationsCtr = applyService.getApplicationListByItemsId(itemsId, college, 1, 2);
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
 
 			return SGResult.build(200, "查询院级管理员待审核名单成功！", applicationsCtr);
@@ -237,9 +239,8 @@ public class ManagerController {
 		try {
 			itemCtr.setStatus(1);
 			List<Long> itemsId = itemService.getItemIdsByItemDetails(itemService.itemCtrToDao(itemCtr));
-			List<ApplicationCtr> applicationsCtr = applyService.getApplicationListByItemsId(itemsId, 2, null);
+			List<ApplicationCtr> applicationsCtr = applyService.getApplicationListByItemsId(itemsId, null, 1, 2, 3);
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
-
 			return SGResult.build(200, "查询校级管理员待审核名单成功！", applicationsCtr);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -277,44 +278,6 @@ public class ManagerController {
 	}
 
 	/**
-	 * 生成参赛号
-	 * 
-	 * @param ids
-	 * @return
-	 */
-/*	@RequestMapping(value = "/smartgym/manager/genPlayerNo", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult genPlayerNo(ItemCtr itemCtr) {
-		try {
-			itemCtr.setStatus(1);
-			List<Long> itemsId = itemService.getItemIdByItemDetails(itemCtr);
-			return playerService.genPlayerNo(itemsId);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "生成参赛号失败！", e);
-		}
-	}*/
-
-	/**
-	 * 生成参赛队员分组和赛道
-	 * 
-	 * @param usersCtr
-	 * @return
-	 */
-/*	@RequestMapping(value = "/smartgym/manager/genGroupNoAndPathNo", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult genGroupNoAndPathNo(Long itemId, Integer number) {
-		try {
-			return playerService.genGroupNoAndPathNo(itemId, number);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "设置参赛队员分组和赛道失败！");
-		}
-	}*/
-
-	/**
 	 * 管理员根据学号查询用户信息
 	 * 
 	 * @param userCtr
@@ -349,7 +312,7 @@ public class ManagerController {
 			return SGResult.build(404, "设置用户权限失败！");
 		}
 	}
-	
+
 	/**
 	 * 添加比赛项目
 	 * 
@@ -391,6 +354,30 @@ public class ManagerController {
 			return SGResult.build(404, "删除项目失败！", e);
 		}
 	}
-
-
+	
+	/**
+	 * 根据项目详情和学院获取报名表信息
+	 * 
+	 * @param studentno
+	 * @return
+	 */
+	@RequestMapping(value = "/smartgym/manager/getPlayersListByItemDetailsAndCollege", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult getPlayersListByItemDetailsAndCollege(Item item, String college) {
+		try {
+			List<Player> playersList = playerService.getPlayerListByItemDetails(item, college);
+			if (playersList == null || playersList.size() == 0)
+				return SGResult.build(200, "未查到相关信息！");
+			List<PlayerCtr> result = new ArrayList<>();
+			for (Player player : playersList) {
+				PlayerCtr playerCtr = playerService.playerDaoToCtr(player);
+				result.add(playerCtr);
+			}
+			return SGResult.build(200, "查询成功！", result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(404, "查询失败！", e);
+		}
+	}
 }

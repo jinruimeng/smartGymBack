@@ -51,8 +51,7 @@ public class ApplyServiceImpl implements ApplyService {
 	/**
 	 * Controller-Dao层接收bean转换器
 	 * 
-	 * @param applyCtr
-	 *            接收前端数据的bean
+	 * @param applyCtr 接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
@@ -87,6 +86,8 @@ public class ApplyServiceImpl implements ApplyService {
 		apply.setJob(jobService.jobStringToInt(applyCtr.getJob()));
 		// 设置项目Id
 		apply.setItemId(applyCtr.getItemId());
+		// 设置状态
+		apply.setStatus(applyCtr.getStatus());
 		// 设置学院
 		apply.setCollege(collegeService.getId(applyCtr.getCollege()));
 
@@ -96,8 +97,7 @@ public class ApplyServiceImpl implements ApplyService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param apply
-	 *            从数据库中查询出数据封装的bean
+	 * @param apply 从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
 	@Override
@@ -120,6 +120,8 @@ public class ApplyServiceImpl implements ApplyService {
 		applyCtr.setGender(genderGroupService.genderIntToStr(apply.getGender()));
 		// 设置姓名
 		applyCtr.setName(apply.getName());
+		// 设置状态
+		applyCtr.setStatus(apply.getStatus());
 		// 设置学院
 		applyCtr.setCollege(collegeService.getCollege(apply.getCollege()));
 
@@ -540,7 +542,7 @@ public class ApplyServiceImpl implements ApplyService {
 	 */
 	@Override
 	public List<Application> reviewByUniversityManager(List<Long> itemsId) {
-		List<ApplicationCtr> applicationsCtr = getApplicationListByItemsId(itemsId, 2, null);
+		List<ApplicationCtr> applicationsCtr = getApplicationListByItemsId(itemsId, null, 2);
 		List<Long> ids = new ArrayList<>();
 		for (ApplicationCtr applicationCtr : applicationsCtr) {
 			ids.add(applicationCtr.getId());
@@ -574,19 +576,23 @@ public class ApplyServiceImpl implements ApplyService {
 	 * 根据项目id、状态和学院获取报名记录
 	 */
 	@Override
-	public List<ApplicationCtr> getApplicationListByItemsId(List<Long> itemsId, Integer status, String college) {
+	public List<ApplicationCtr> getApplicationListByItemsId(List<Long> itemsId, String college, Integer... statuses) {
 		ApplicationExample example = new ApplicationExample();
 		for (Long itemId : itemsId) {
 			Criteria criteria = example.or();
 			criteria.andStatusNotEqualTo(0);
+			if (statuses != null && statuses.length != 0) {
+				ArrayList<Integer> statusList = new ArrayList<>();
+				for (Integer status : statuses) {
+					statusList.add(status);
+				}
+				criteria.andStatusIn(statusList);
+			}
 			criteria.andItemIdEqualTo(itemId);
-			if (status != null)
-				criteria.andStatusEqualTo(status);
 			if (!StringUtils.isBlank(college))
-				if (college.equals("total"))
+				if (!college.equals("total"))
 					criteria.andCollegeEqualTo(collegeService.getId(college));
 		}
-
 		List<Application> applications = ApplicationMapper.selectByExample(example);
 
 		List<ApplicationCtr> applicationsCtr = new ArrayList<ApplicationCtr>();

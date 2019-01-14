@@ -1,7 +1,6 @@
 package cn.smartGym.pojoctr.request;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class SgUserCtr implements Serializable {
 

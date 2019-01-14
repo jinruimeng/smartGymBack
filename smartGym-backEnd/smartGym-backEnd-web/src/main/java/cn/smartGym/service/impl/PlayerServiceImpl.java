@@ -21,6 +21,7 @@ import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
 import cn.smartGym.service.JobService;
 import cn.smartGym.service.PlayerService;
+import common.utils.ListAndArray;
 import common.utils.SGResult;
 
 /**
@@ -50,8 +51,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * playerController-Dao层接收bean转换器
 	 * 
-	 * @param playerCtr
-	 *            接收前端数据的bean
+	 * @param playerCtr 接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
@@ -91,6 +91,8 @@ public class PlayerServiceImpl implements PlayerService {
 		player.setGrades(playerCtr.getGrades());
 		// 设置排名
 		player.setRankNo(playerCtr.getRankNo());
+		// 设置状态
+		player.setStatus(playerCtr.getStatus());
 
 		return player;
 	}
@@ -98,8 +100,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param player
-	 *            从数据库中查询出数据封装的bean
+	 * @param player 从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
 	@Override
@@ -135,6 +136,8 @@ public class PlayerServiceImpl implements PlayerService {
 		playerCtr.setGrades(player.getGrades());
 		// 设置排名
 		playerCtr.setRankNo(player.getRankNo());
+		// 设置状态
+		playerCtr.setStatus(player.getStatus());
 
 		return playerCtr;
 	}
@@ -175,16 +178,21 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据项目id和学院college获取报名信息
 	 * 
-	 * @param itemId,
-	 *            college 项目id, 学院名称，可以为空
+	 * @param itemId, college 项目id, 学院名称，可以为空
 	 */
-	public List<Player> getPlayerListByItemIdAndCollege(Long itemId, String college) {
+	public List<Player> getPlayerListByItemIdAndCollege(String college, Long... itemsId) {
+		ArrayList<Player> result = new ArrayList<Player>();
+		if (itemsId == null || itemsId.length == 0)
+			return result;
+
 		PlayerExample example = new PlayerExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andIdEqualTo(itemId);
-		if (college != null)
+		if (college != null && !college.equals("total")) {
 			criteria.andCollegeEqualTo(collegeService.getId(college));
-		criteria.andStatusEqualTo(1);
+		}
+		ArrayList<Long> itemsIdList = (ArrayList<Long>) ListAndArray.arrayToList(itemsId);
+		criteria.andIdIn(itemsIdList);
+		criteria.andStatusNotEqualTo(0);
 		List<Player> list = PlayerMapper.selectByExample(example);
 		return list;
 	}
@@ -192,38 +200,31 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据项目id获取报名信息
 	 * 
-	 * @param itemId
-	 *            项目id
+	 * @param itemId 项目id
 	 */
 	public List<Player> getPlayerListByItemId(Long itemId) {
-		return getPlayerListByItemIdAndCollege(itemId, null);
+		return getPlayerListByItemIdAndCollege(null, itemId);
 	}
 
 	/**
 	 * 根据项目具体信息获取报名信息
 	 * 
-	 * @param itemId
-	 *            college 项目id, 学院名称
+	 * @param itemId college 项目id, 学院名称
 	 */
 	public List<Player> getPlayerListByItemDetails(Item item, String college) {
 		List<Long> itemIds = itemService.getItemIdsByItemDetails(item);
 		if (itemIds == null || itemIds.size() <= 0)
 			return null;
-		List<Player> result = new ArrayList<>();
-		for (Long itemId : itemIds) {
-			List<Player> list = getPlayerListByItemIdAndCollege(itemId, college);
-			for (Player player : list) {
-				result.add(player);
-			}
-		}
+		Long[] itemIdsArray = ListAndArray.longListToArray(itemIds);
+		List<Player> result = getPlayerListByItemIdAndCollege(college, itemIdsArray);
+
 		return result;
 	}
 
 	/**
 	 * 生成参赛号PlayerNo——根据itemIds
 	 * 
-	 * @param itemIds
-	 *            项目的id列表
+	 * @param itemIds 项目的id列表
 	 */
 	@Override
 	public SGResult genPlayerNo(List<Long> itemIds) {
@@ -260,10 +261,11 @@ public class PlayerServiceImpl implements PlayerService {
 
 	/**
 	 * 生成组号GroupNo和赛道号PathNo——根据单个项目id
+	 * 
 	 * @param itemId 项目id
 	 */
 	public SGResult genGroupNoAndPathNo(Long itemId) {
-		
+
 		PlayerExample example = new PlayerExample();
 		example.setOrderByClause("id");
 		Criteria criteria = example.createCriteria();
@@ -272,7 +274,7 @@ public class PlayerServiceImpl implements PlayerService {
 		List<Player> list = PlayerMapper.selectByExample(example);
 		if (list == null || list.size() <= 0)
 			return SGResult.build(404, "设置参赛队员分组和赛道失败！");
-		
+
 		// 打乱list中的item顺序
 		Collections.shuffle(list);
 
@@ -297,8 +299,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据报名表信息生成参赛信息
 	 * 
-	 * @param apply
-	 *            报名表信息
+	 * @param apply 报名表信息
 	 */
 	@Override
 	public Player applicationDaoToPlayerDao(Application apply) {

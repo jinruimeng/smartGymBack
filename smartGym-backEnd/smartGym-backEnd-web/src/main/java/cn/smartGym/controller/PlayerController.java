@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.Player;
 import cn.smartGym.pojoctr.request.PlayerCtr;
 import cn.smartGym.service.PlayerService;
@@ -53,31 +52,5 @@ public class PlayerController {
 			return SGResult.build(404, "查询失败！", e);
 		}
 
-	}
-	
-	/**
-	 * 根据项目详情和学院获取报名表信息
-	 * 
-	 * @param studentno
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/player/getPlayerListByItemDetailsAndCollege", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult getPlayerListByItemDetailsAndCollege(Item item, String college) {
-		try {
-			List<Player> list = playerService.getPlayerListByItemDetails(item, college);
-			if (list == null || list.size() == 0)
-				return SGResult.build(200, "未查到相关信息！");
-			List<PlayerCtr> result = new ArrayList<>();
-			for (Player player : list) {
-				PlayerCtr playerCtr = playerService.playerDaoToCtr(player);
-				result.add(playerCtr);
-			}
-			return SGResult.build(200, "查询成功！", result);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "查询失败！", e);
-		}
 	}
 }

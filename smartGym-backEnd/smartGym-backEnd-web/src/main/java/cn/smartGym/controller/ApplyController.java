@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
+import cn.smartGym.pojoctr.request.ApplicationCtr;
 import cn.smartGym.service.ApplyService;
 import common.utils.SGResult;
 
@@ -30,10 +30,10 @@ public class ApplyController {
 	 * @param applyCtr
 	 * @return
 	 */
-	@RequestMapping(value = "/apply/addApply", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/apply/addApply", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
 	@ResponseBody
-	public SGResult addApply(SmartgymApplicationsCtr applyCtr) {
+	public SGResult addApply(ApplicationCtr applyCtr) {
 		// 插入数据库
 		try {
 			return applyService.addApply(applyCtr);
@@ -50,12 +50,12 @@ public class ApplyController {
 	 * @param studentno
 	 * @return
 	 */
-	@RequestMapping(value = "/apply/getApplicationListByStudentNo", method = { RequestMethod.POST,
+	@RequestMapping(value = "/smartgym/apply/getApplicationListByStudentNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getApplicationListByStudentNo(String studentNo) {
 		try {
-			List<SmartgymApplicationsCtr> result = applyService.getApplicationListByStudentNo(studentNo);
+			List<ApplicationCtr> result = applyService.getApplicationListByStudentNo(studentNo);
 			return SGResult.build(200, "查询成功！", result);
 		} catch (Exception e) {
 			e.printStackTrace();

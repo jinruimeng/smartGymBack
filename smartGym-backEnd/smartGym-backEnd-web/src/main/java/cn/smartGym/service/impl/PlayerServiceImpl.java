@@ -1,19 +1,22 @@
 package cn.smartGym.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.smartGym.mapper.SmartgymPlayersMapper;
-import cn.smartGym.pojo.SmartgymApplications;
-import cn.smartGym.pojo.SmartgymPlayers;
-import cn.smartGym.pojo.SmartgymPlayersExample;
-import cn.smartGym.pojo.SmartgymPlayersExample.Criteria;
-import cn.smartGym.pojoCtr.SmartgymItemsCtr;
-import cn.smartGym.pojoCtr.SmartgymPlayersCtr;
+import cn.smartGym.mapper.PlayerMapper;
+import cn.smartGym.pojo.Application;
+import cn.smartGym.pojo.Item;
+import cn.smartGym.pojo.Player;
+import cn.smartGym.pojo.PlayerExample;
+import cn.smartGym.pojo.PlayerExample.Criteria;
+import cn.smartGym.pojoctr.request.ItemCtr;
+import cn.smartGym.pojoctr.request.PlayerCtr;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
@@ -31,7 +34,7 @@ import common.utils.SGResult;
 public class PlayerServiceImpl implements PlayerService {
 
 	@Autowired
-	private SmartgymPlayersMapper smartgymPlayersMapper;
+	private PlayerMapper PlayerMapper;
 
 	@Autowired
 	private CollegeService collegeService;
@@ -46,48 +49,26 @@ public class PlayerServiceImpl implements PlayerService {
 	private ItemService itemService;
 
 	/**
-	 * 根据学号获取已参加项目信息
-	 * 
-	 * @param studentno
-	 * @return
-	 */
-	public List<SmartgymPlayersCtr> getPlayerListByStudentNo(String studentNo) {
-		SmartgymPlayersExample example = new SmartgymPlayersExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andStudentNoEqualTo(studentNo);
-		criteria.andStatusGreaterThanOrEqualTo(1);
-		List<SmartgymPlayers> list = smartgymPlayersMapper.selectByExample(example);
-		if (list == null || list.size() == 0)
-			return null;
-		List<SmartgymPlayersCtr> result = new ArrayList<>();
-		for (SmartgymPlayers player : list) {
-			SmartgymPlayersCtr playerCtr = playerDaoToCtr(player);
-			result.add(playerCtr);
-		}
-		return result;
-	}
-
-	/**
 	 * playerController-Dao层接收bean转换器
 	 * 
 	 * @param playerCtr 接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
-	public SmartgymPlayers playerCtrToDao(SmartgymPlayersCtr playerCtr) {
-		SmartgymItemsCtr itemsCtr = new SmartgymItemsCtr();
+	public Player playerCtrToDao(PlayerCtr playerCtr) {
+		ItemCtr itemsCtr = new ItemCtr();
 		itemsCtr.setGame(playerCtr.getGame());
 		itemsCtr.setCategory(playerCtr.getCategory());
 		itemsCtr.setItem(playerCtr.getItem());
 		itemsCtr.setGender(playerCtr.getGender());
 
 		// 根据项目的具体信息生成itemId
-		List<Long> itemsId = itemService.getItemIdByItemDetails(itemsCtr);
+		List<Long> itemsId = itemService.getItemIdsByItemDetails(itemService.itemCtrToDao(itemsCtr));
 
 		playerCtr.setItemId(itemsId.get(0));
 
 		// 转换为Dao层的pojo
-		SmartgymPlayers player = new SmartgymPlayers();
+		Player player = new Player();
 		// 设置姓名
 		player.setName(playerCtr.getName());
 		// 设置学院
@@ -110,6 +91,8 @@ public class PlayerServiceImpl implements PlayerService {
 		player.setGrades(playerCtr.getGrades());
 		// 设置排名
 		player.setRankNo(playerCtr.getRankNo());
+		// 设置状态
+		player.setStatus(playerCtr.getStatus());
 
 		return player;
 	}
@@ -121,17 +104,17 @@ public class PlayerServiceImpl implements PlayerService {
 	 * @return 返回给前端的bean
 	 */
 	@Override
-	public SmartgymPlayersCtr playerDaoToCtr(SmartgymPlayers player) {
+	public PlayerCtr playerDaoToCtr(Player player) {
 		// 根据项目id查询项目具体信息
-		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(player.getItemId(), null);
-		if (itemCtr == null)
+		Item item = itemService.getItemByItemId(player.getItemId(), null);
+		if (item == null)
 			return null;
 		// 转换为Ctr层的pojo
-		SmartgymPlayersCtr playerCtr = new SmartgymPlayersCtr();
+		PlayerCtr playerCtr = new PlayerCtr();
 		// 设置项目信息
-		playerCtr.setGame(itemCtr.getGame());
-		playerCtr.setCategory(itemCtr.getCategory());
-		playerCtr.setItem(itemCtr.getItem());
+		playerCtr.setGame(item.getGame());
+		playerCtr.setCategory(item.getCategory());
+		playerCtr.setItem(item.getItem());
 		playerCtr.setItemId(player.getItemId());
 		// 设置姓名
 		playerCtr.setName(player.getName());
@@ -153,33 +136,176 @@ public class PlayerServiceImpl implements PlayerService {
 		playerCtr.setGrades(player.getGrades());
 		// 设置排名
 		playerCtr.setRankNo(player.getRankNo());
+		// 设置状态
+		playerCtr.setStatus(player.getStatus());
 
 		return playerCtr;
 	}
 
 	/**
 	 * 硬删除状态为（0）的选手信息
+	 * 
 	 */
 	@Override
 	public SGResult hardDeletePlayer() {
-		SmartgymPlayersExample example = new SmartgymPlayersExample();
+		PlayerExample example = new PlayerExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(0);
-		List<SmartgymPlayers> list = smartgymPlayersMapper.selectByExample(example);
+		List<Player> list = PlayerMapper.selectByExample(example);
 
-		for (SmartgymPlayers player : list) {
-			smartgymPlayersMapper.deleteByPrimaryKey(player.getId());
+		for (Player player : list) {
+			PlayerMapper.deleteByPrimaryKey(player.getId());
 		}
 
 		return SGResult.build(200, "硬删除项目表成功！");
 	}
 
 	/**
-	 * 根据报名表信息生成参赛信息
+	 * 根据学号获取报名信息
+	 * 
+	 * @param studentno
+	 * @return
+	 */
+	public List<Player> getPlayerListByStudentNo(String studentNo) {
+		PlayerExample example = new PlayerExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStudentNoEqualTo(studentNo);
+		criteria.andStatusGreaterThanOrEqualTo(1);
+		List<Player> list = PlayerMapper.selectByExample(example);
+		return list;
+	}
+
+	/**
+	 * 根据项目id和学院college获取报名信息
+	 * 
+	 * @param itemId, college 项目id, 学院名称，可以为空
+	 */
+	public List<Player> getPlayerListByItemIdAndCollege(String college, Long... itemIds) {
+		
+		ArrayList<Player> result = new ArrayList<Player>();
+		if (itemIds == null || itemIds.length == 0)
+			return result;
+
+		PlayerExample example = new PlayerExample();
+		Criteria criteria = example.createCriteria();
+		if (college != null && !college.equals("total")) {
+			criteria.andCollegeEqualTo(collegeService.getId(college));
+		}
+
+		criteria.andItemIdIn(Arrays.asList(itemIds));
+		criteria.andStatusNotEqualTo(0);
+		List<Player> list = PlayerMapper.selectByExample(example);
+		return list;
+	}
+
+	/**
+	 * 根据项目id获取报名信息
+	 * 
+	 * @param itemId 项目id
+	 */
+	public List<Player> getPlayerListByItemId(Long itemId) {
+		return getPlayerListByItemIdAndCollege(null, itemId);
+	}
+
+	/**
+	 * 根据项目具体信息获取报名信息
+	 * 
+	 * @param itemId college 项目id, 学院名称
+	 */
+	public List<Player> getPlayerListByItemDetails(Item item, String college) {
+		List<Long> itemIds = itemService.getItemIdsByItemDetails(item);
+		if (itemIds == null || itemIds.size() <= 0)
+			return null;
+
+		//		Long[] itemIdsArray = ListAndArray.longListToArray(itemIds);
+		List<Player> result = getPlayerListByItemIdAndCollege(college, itemIds.toArray(new Long[itemIds.size()]));
+		
+		return result;
+	}
+
+	/**
+	 * 生成参赛号PlayerNo——根据itemIds
+	 * 
+	 * @param itemIds 项目的id列表
 	 */
 	@Override
-	public SmartgymPlayers applicationDaoToplayerDao(SmartgymApplications apply) {
-		SmartgymPlayers player = new SmartgymPlayers();
+	public SGResult genPlayerNo(List<Long> itemIds) {
+		PlayerExample example = new PlayerExample();
+		example.setOrderByClause("student_no");
+		for (Long itemId : itemIds) {
+			Criteria criteria = example.or();
+			criteria.andItemIdEqualTo(itemId);
+			criteria.andStatusGreaterThanOrEqualTo(1);
+		}
+		List<Player> players = PlayerMapper.selectByExample(example);
+
+		String curSid = "0000000";
+		String curPid = "000000";
+		Integer curCollege = 0;
+		int index = 0;
+		for (Player player : players) {
+			if (!player.getStudentNo().equals(curSid)) {
+				if (player.getCollege() == curCollege)
+					index++;
+				else
+					index = 1;
+				curSid = player.getStudentNo();
+				curPid = String.format("%02d", player.getCollege()) + String.format("%04d", index);
+				curCollege = player.getCollege();
+			}
+
+			player.setPlayerNo(curPid);
+			player.setUpdated(new Date());
+			PlayerMapper.updateByPrimaryKeySelective(player);
+		}
+		return SGResult.build(200, "生成参赛号成功!");
+	}
+
+	/**
+	 * 生成组号GroupNo和赛道号PathNo——根据单个项目id
+	 * 
+	 * @param itemId 项目id
+	 */
+	public SGResult genGroupNoAndPathNo(Long itemId) {
+
+		PlayerExample example = new PlayerExample();
+		example.setOrderByClause("id");
+		Criteria criteria = example.createCriteria();
+		criteria.andItemIdEqualTo(itemId);
+		criteria.andStatusEqualTo(1);
+		List<Player> list = PlayerMapper.selectByExample(example);
+		if (list == null || list.size() <= 0)
+			return SGResult.build(404, "设置参赛队员分组和赛道失败！");
+
+		// 打乱list中的item顺序
+		Collections.shuffle(list);
+
+		// 取出赛道数,如果赛道数为空或为0,默认设为8
+		Integer pathNum = itemService.getPathNumberByItemId(itemId);
+		if (pathNum == null || pathNum == 0)
+			pathNum = 8;
+
+		// 设置分组号和赛道号
+		for (int i = 0; i < list.size(); i++) {
+			// 设置分组号
+			list.get(i).setGroupNo(i / pathNum + 1);
+			// 设置赛道号
+			list.get(i).setPathNo(i % pathNum + 1);
+			// 更新到数据库
+			list.get(i).setUpdated(new Date());
+			PlayerMapper.updateByPrimaryKeySelective(list.get(i));
+		}
+		return SGResult.build(200, "设置参赛队员分组和赛道成功！");
+	}
+
+	/**
+	 * 根据报名表信息生成参赛信息
+	 * 
+	 * @param apply 报名表信息
+	 */
+	@Override
+	public Player applicationDaoToPlayerDao(Application apply) {
+		Player player = new Player();
 
 		player.setId(apply.getId());
 		player.setName(apply.getName());
@@ -196,82 +322,20 @@ public class PlayerServiceImpl implements PlayerService {
 	 * 校级管理员审核通过
 	 */
 	@Override
-	public SGResult reviewByUniversityManager(List<SmartgymApplications> applications) {
+	public SGResult reviewByUniversityManager(List<Application> applications) {
 		if (applications == null || applications.isEmpty())
 			return SGResult.build(200, "请先选择要审核的报名记录！");
 
-		for (SmartgymApplications apply : applications) {
+		for (Application apply : applications) {
 			if (apply.getStatus() != 3)
 				return SGResult.build(404, "校级管理员审核未通过！");
-			SmartgymPlayers player = applicationDaoToplayerDao(apply);
+			Player player = applicationDaoToPlayerDao(apply);
 			player.setCreated(new Date());
 			player.setUpdated(new Date());
-			smartgymPlayersMapper.insertSelective(player);
+			PlayerMapper.insertSelective(player);
 		}
+
 		return SGResult.build(200, "院级管理员审核完成！");
 	}
 
-	/**
-	 * 设置参赛队员参赛号
-	 */
-	@Override
-	public SGResult genPlayerNo(List<Long> itemsId) {
-		SmartgymPlayersExample example = new SmartgymPlayersExample();
-		example.setOrderByClause("student_no");
-		for (Long itemId : itemsId) {
-			Criteria criteria = example.or();
-			criteria.andItemIdEqualTo(itemId);
-			criteria.andStatusGreaterThanOrEqualTo(1);
-		}
-		List<SmartgymPlayers> players = smartgymPlayersMapper.selectByExample(example);
-
-		String curSid = "0000000";
-		String curPid = "000000";
-		Integer curCollege = 0;
-		int index = 0;
-		for (SmartgymPlayers player : players) {
-			if (!player.getStudentNo().equals(curSid)) {
-				if (player.getCollege() == curCollege)
-					index++;
-				else
-					index = 1;
-				curSid = player.getStudentNo();
-				curPid = String.format("%02d", player.getCollege()) + String.format("%04d", index);
-				curCollege = player.getCollege();
-			}
-
-			player.setPlayerNo(curPid);
-			player.setUpdated(new Date());
-			smartgymPlayersMapper.updateByPrimaryKeySelective(player);
-		}
-		return SGResult.build(200, "生成参赛号成功!");
-	}
-
-
-	/**
-	 * 产生参赛队员的组号和赛道号，每个项目的分组都不同，所以要传入需要设置分组的项目id
-	 */
-
-	public SGResult genGroupNoAndPathNo(Long itemId, Integer number) {
-		SmartgymPlayersExample example = new SmartgymPlayersExample();
-		example.setOrderByClause("student_no");
-		Criteria criteria = example.createCriteria();
-		criteria.andItemIdEqualTo(itemId);
-		criteria.andStatusGreaterThanOrEqualTo(1);
-		List<SmartgymPlayers> list = smartgymPlayersMapper.selectByExample(example);
-		if(list == null || list.size() <= 0)
-			return SGResult.build(404, "设置参赛队员分组和赛道失败！");
-
-		//设置分组号和赛道号
-		for(int i = 0; i < list.size(); i++) {
-			//设置分组号
-			list.get(i).setGroupNo(i / number + 1);
-			//设置赛道号
-			list.get(i).setPathNo(i % number + 1);
-			//更新到数据库
-			smartgymPlayersMapper.updateByPrimaryKeySelective(list.get(i));
-		}
-		return SGResult.build(200, "设置参赛队员分组和赛道成功！");
-	}
-	
 }

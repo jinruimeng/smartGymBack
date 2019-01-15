@@ -8,11 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.smartGym.mapper.SmartgymItemsMapper;
-import cn.smartGym.pojo.SmartgymItems;
-import cn.smartGym.pojo.SmartgymItemsExample;
-import cn.smartGym.pojo.SmartgymItemsExample.Criteria;
-import cn.smartGym.pojoCtr.SmartgymItemsCtr;
+import cn.smartGym.mapper.ItemMapper;
+import cn.smartGym.pojo.Item;
+import cn.smartGym.pojo.ItemExample;
+import cn.smartGym.pojo.ItemExample.Criteria;
+import cn.smartGym.pojoctr.request.ItemCtr;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
 import common.utils.IDUtils;
@@ -28,180 +28,27 @@ import common.utils.SGResult;
 public class ItemServiceImpl implements ItemService {
 
 	@Autowired
-	private SmartgymItemsMapper smartgymItemsMapper;
+	private ItemMapper itemMapper;
 
 	@Autowired
 	private GenderGroupService genderGroupService;
 
 	/**
-	 * 添加比赛项目功能
-	 * 
-	 * @param item 添加的项目
-	 * @return 返回给前端的信息
-	 */
-	public SGResult addItem(SmartgymItemsCtr itemCtr) {
-		// 检查数据合法性
-		if (StringUtils.isBlank(itemCtr.getGame()))
-			return SGResult.build(200, "赛事不能为空！");
-		if (StringUtils.isBlank(itemCtr.getCategory()))
-			return SGResult.build(200, "分类不能为空！");
-		if (StringUtils.isBlank(itemCtr.getItem()))
-			return SGResult.build(200, "项目不能为空！");
-		if (StringUtils.isBlank(itemCtr.getGender()))
-			return SGResult.build(200, "组别不能为空！");
-		if (itemCtr.getDate() == null)
-			return SGResult.build(200, "组别不能为空！");
-		if (StringUtils.isBlank(itemCtr.getPlace()))
-			return SGResult.build(200, "地点不能为空！");
-
-		List<SmartgymItems> list = getItemsByItemDetails(itemCtr);
-		if (!list.isEmpty())
-			return SGResult.build(200, "该项目已存在，请先删除！");
-
-		SmartgymItems item = itemCtrToDao(itemCtr);
-		// 生成比赛项目id
-		final long itemId = IDUtils.genId();
-		// 补全item其他属性
-		if (item.getStatus() == null)
-			item.setId(itemId);
-		item.setStatus(1); // 0-已取消 1-正在报名 2-已结束
-		item.setCreated(new Date());
-		item.setUpdated(new Date());
-		// 插入数据库
-		smartgymItemsMapper.insert(item);
-		// 返回成功
-		return SGResult.build(200, "添加项目成功!");
-	}
-
-	/**
-	 * 根据Item具体信息获取ItemId
-	 * 
-	 * @param itemCtr
-	 * @return
-	 */
-	public List<Long> getItemIdByItemDetails(SmartgymItemsCtr itemCtr) {
-		// 根据项目的名称分类小项等生成比赛项目Id
-		SmartgymItemsExample example = new SmartgymItemsExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andStatusNotEqualTo(0);
-		if (!StringUtils.isBlank(itemCtr.getGame()))
-			criteria.andGameEqualTo(itemCtr.getGame());
-		if (!StringUtils.isBlank(itemCtr.getCategory()))
-			criteria.andCategoryEqualTo(itemCtr.getCategory());
-		if (!StringUtils.isBlank(itemCtr.getItem()))
-			criteria.andItemEqualTo(itemCtr.getItem());
-		if (!StringUtils.isBlank(itemCtr.getGender()))
-			criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
-		if (itemCtr.getStatus() != null)
-			criteria.andStatusEqualTo(itemCtr.getStatus());
-
-		List<SmartgymItems> items = smartgymItemsMapper.selectByExample(example);
-
-		List<Long> itemsId = new ArrayList<>();
-		for (SmartgymItems item : items) {
-			itemsId.add(item.getId());
-		}
-
-		return itemsId;
-	}
-
-	/**
-	 * 根据ItemId获取Item实体
-	 */
-	public SmartgymItemsCtr getItemByItemId(Long itemId, Integer status) {
-		// 根据项目id查询比赛项目信息
-		SmartgymItemsExample example = new SmartgymItemsExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andIdEqualTo(itemId);
-		criteria.andStatusNotEqualTo(0);
-		if (status != null)
-			criteria.andStatusEqualTo(status);
-
-		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
-		if (list == null || list.isEmpty())
-			return null;
-		SmartgymItems item = list.get(0);
-
-		return itemDaoToCtr(item);
-	}
-
-	/**
-	 * 异步查询加载各级名称
-	 * 
-	 * @param item 接收的item
-	 * @return 根据item返回信息
-	 */
-	public List<String> getNameByDetailsAndStatus(SmartgymItemsCtr itemCtr, Integer status) {
-		ArrayList<String> result = new ArrayList<>();
-		SmartgymItemsExample example = new SmartgymItemsExample();
-		Criteria criteria = example.createCriteria();
-
-		if (!StringUtils.isBlank(itemCtr.getItem()))
-			criteria.andItemEqualTo(itemCtr.getItem());
-		if (!StringUtils.isBlank(itemCtr.getCategory()))
-			criteria.andCategoryEqualTo(itemCtr.getCategory());
-		if (!StringUtils.isBlank(itemCtr.getGame()))
-			criteria.andGameEqualTo(itemCtr.getGame());
-		criteria.andStatusNotEqualTo(0);
-		if (status != null)
-			criteria.andStatusEqualTo(status);
-
-		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
-
-		if (!StringUtils.isBlank(itemCtr.getItem())) {
-			String gender;
-			for (SmartgymItems smartgymItems : list) {
-				gender = genderGroupService.genderIntToStr(smartgymItems.getGender());
-				if (!result.contains(gender)) {
-					result.add(gender);
-				}
-			}
-			return result;
-		} else if (!StringUtils.isBlank(itemCtr.getCategory())) {
-			String item;
-			for (SmartgymItems smartgymItems : list) {
-				item = smartgymItems.getItem();
-				if (!result.contains(item)) {
-					result.add(item);
-				}
-			}
-			return result;
-		} else if (!StringUtils.isBlank(itemCtr.getGame())) {
-			String category;
-			for (SmartgymItems smartgymItems : list) {
-				category = smartgymItems.getCategory();
-				if (!result.contains(category)) {
-					result.add(category);
-				}
-			}
-			return result;
-		} else {
-			String game;
-			for (SmartgymItems smartgymItems : list) {
-				game = smartgymItems.getGame();
-				if (!result.contains(game)) {
-					result.add(game);
-				}
-			}
-
-			return result;
-		}
-	}
-
-	/**
 	 * Controller-Dao层接收bean转换器
 	 * 
-	 * @param itemCtr 接收前端数据的bean
+	 * @param itemCtr
+	 *            接收前端数据的bean
 	 * @return 封装存储到数据库中数据的bean
 	 */
-	public SmartgymItems itemCtrToDao(SmartgymItemsCtr itemCtr) {
-		SmartgymItems item = new SmartgymItems();
+	public Item itemCtrToDao(ItemCtr itemCtr) {
+		Item item = new Item();
 		item.setGame(itemCtr.getGame());
 		item.setCategory(itemCtr.getCategory());
 		item.setItem(itemCtr.getItem());
 		item.setDate(itemCtr.getDate());
 		item.setPlace(itemCtr.getPlace());
 		item.setParticipantNum(itemCtr.getParticipantNum());
+		item.setPathNum(itemCtr.getPathNum());
 		item.setDescription(itemCtr.getDescription());
 		item.setGender(genderGroupService.genderStrToInt(itemCtr.getGender()));
 		if (itemCtr.getId() != null)
@@ -215,11 +62,12 @@ public class ItemServiceImpl implements ItemService {
 	/**
 	 * Dao-Controller层接收bean转换器
 	 * 
-	 * @param item 从数据库中查询出数据封装的bean
+	 * @param item
+	 *            从数据库中查询出数据封装的bean
 	 * @return 返回给前端的bean
 	 */
-	public SmartgymItemsCtr itemDaoToCtr(SmartgymItems item) {
-		SmartgymItemsCtr itemCtr = new SmartgymItemsCtr();
+	public ItemCtr itemDaoToCtr(Item item) {
+		ItemCtr itemCtr = new ItemCtr();
 		itemCtr.setId(item.getId());
 		itemCtr.setGame(item.getGame());
 		itemCtr.setCategory(item.getCategory());
@@ -227,6 +75,7 @@ public class ItemServiceImpl implements ItemService {
 		itemCtr.setDate(item.getDate());
 		itemCtr.setPlace(item.getPlace());
 		itemCtr.setParticipantNum(item.getParticipantNum());
+		itemCtr.setPathNum(item.getPathNum());
 		itemCtr.setDescription(item.getDescription());
 		itemCtr.setGender(genderGroupService.genderIntToStr(item.getGender()));
 		if (item.getId() != null)
@@ -238,149 +87,314 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	/**
-	 * 根据Item具体信息获取ItemCtr
+	 * 添加比赛项目功能
+	 * 
+	 * @param item
+	 *            添加的项目
+	 * @return 返回给前端的信息
 	 */
-	@Override
-	public List<SmartgymItemsCtr> getItemsCtrByItemDetails(SmartgymItemsCtr itemCtr) {
-		SmartgymItemsExample example = new SmartgymItemsExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andStatusNotEqualTo(0);
+	public SGResult addItem(Item item) {
+		// 检查数据合法性
+		if (StringUtils.isBlank(item.getGame()))
+			return SGResult.build(200, "赛事不能为空！");
+		if (StringUtils.isBlank(item.getCategory()))
+			return SGResult.build(200, "分类不能为空！");
+		if (StringUtils.isBlank(item.getItem()))
+			return SGResult.build(200, "项目不能为空！");
+		if (item.getGender() == null || StringUtils.isBlank(item.getGender().toString()))
+			return SGResult.build(200, "性别不能为空！");
+		if (item.getPathNum() == null || StringUtils.isBlank(item.getPathNum().toString()))
+			return SGResult.build(200, "赛道数不能为空！");
+		if (item.getDate() == null || StringUtils.isBlank(item.getDate().toString()))
+			return SGResult.build(200, "比赛日期不能为空！");
+		if (StringUtils.isBlank(item.getPlace()))
+			return SGResult.build(200, "比赛地点不能为空！");
 
-		if (!StringUtils.isBlank(itemCtr.getGame()))
-			criteria.andGameEqualTo(itemCtr.getGame());
+		List<Item> items = getItemsByItemDetails(item);
+		if (items != null && items.size() > 0)
+			return SGResult.build(200, "该项目已存在，请先删除！", items);
 
-		if (!StringUtils.isBlank(itemCtr.getCategory()))
-			criteria.andCategoryEqualTo(itemCtr.getCategory());
-
-		if (!StringUtils.isBlank(itemCtr.getItem()))
-			criteria.andItemEqualTo(itemCtr.getItem());
-
-		if (!StringUtils.isBlank(itemCtr.getGender()))
-			// 设置项目性别查询条件
-			criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
-
-		if (itemCtr.getStatus() != null)
-			criteria.andStatusEqualTo(itemCtr.getStatus());
-
-		List<SmartgymItems> items = smartgymItemsMapper.selectByExample(example);
-
-		List<SmartgymItemsCtr> itemsCtr = new ArrayList<>();
-
-		if (!items.isEmpty()) {
-			for (SmartgymItems item : items) {
-				itemsCtr.add(itemDaoToCtr(item));
-			}
-		}
-
-		return itemsCtr;
+		// 生成比赛项目id
+		final long itemId = IDUtils.genId();
+		// 补全item其他属性
+		if (item.getStatus() == null)
+			item.setId(itemId);
+		item.setStatus(1); // 0-已取消 1-正在报名 2-已结束
+		item.setCreated(new Date());
+		item.setUpdated(new Date());
+		// 插入数据库
+		itemMapper.insert(item);
+		// 返回成功
+		return SGResult.build(200, "添加项目成功!");
 	}
 
 	/**
-	 * 根据Item具体信息获取ItemCtr
+	 * 删除项目——根据项目的具体信息
+	 * 
+	 * @param itemToBeDeleted
+	 *            要删除的项目
 	 */
 	@Override
-	public List<SmartgymItems> getItemsByItemDetails(SmartgymItemsCtr itemCtr) {
-		SmartgymItemsExample example = new SmartgymItemsExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andStatusNotEqualTo(0);
+	public SGResult deleteItem(Item itemToBeDeleted) {
+		List<Item> items = getItemsByItemDetails(itemToBeDeleted);
+		if (items == null || items.size() <= 0)
+			return SGResult.build(200, "未找到要删除的项目！");
 
-		if (!StringUtils.isBlank(itemCtr.getGame()))
-			criteria.andGameEqualTo(itemCtr.getGame());
-
-		if (!StringUtils.isBlank(itemCtr.getCategory()))
-			criteria.andCategoryEqualTo(itemCtr.getCategory());
-
-		if (!StringUtils.isBlank(itemCtr.getItem()))
-			criteria.andItemEqualTo(itemCtr.getItem());
-
-		if (!StringUtils.isBlank(itemCtr.getGender()))
-			// 设置项目性别查询条件
-			criteria.andGenderEqualTo(genderGroupService.genderStrToInt(itemCtr.getGender()));
-
-		if (itemCtr.getStatus() != null)
-			criteria.andStatusEqualTo(itemCtr.getStatus());
-
-		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
-
-		return list;
+		for (Item item : items) {
+			item.setStatus(0);
+			itemMapper.updateByPrimaryKeySelective(item);
+		}
+		return SGResult.build(200, "删除成功！");
 	}
 
 	/**
-	 * 删除项目
+	 * 硬删除状态为（0）的项目表
+	 * 
 	 */
 	@Override
-	public SGResult deleteItem(SmartgymItemsCtr itemCtr) {
-		List<SmartgymItems> items = getItemsByItemDetails(itemCtr);
-
-		if (items.isEmpty())
-			return SGResult.build(200, "没有该项目！");
-		else {
-			for (SmartgymItems item : items) {
-				item.setStatus(0);
-				smartgymItemsMapper.updateByPrimaryKeySelective(item);
-			}
-			return SGResult.build(200, "删除成功！");
+	public SGResult hardDeleteItem() {
+		ItemExample example = new ItemExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(0);
+		List<Item> list = itemMapper.selectByExample(example);
+		for (Item item : list) {
+			itemMapper.deleteByPrimaryKey(item.getId());
 		}
+		return SGResult.build(200, "硬删除项目表成功！");
+	}
+
+	/**
+	 * 查找item——根据itemId和状态status
+	 * 
+	 * @param itemId
+	 *            要找的项目id
+	 * @param status
+	 *            状态
+	 */
+	public Item getItemByItemId(Long itemId, Integer status) {
+		// 根据项目id和状态status查询比赛项目信息
+		ItemExample example = new ItemExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(itemId);
+		criteria.andStatusNotEqualTo(0);
+		if (status != null)
+			// 0-已取消 1-正在报名 2-已结束
+			criteria.andStatusEqualTo(status);
+
+		List<Item> list = itemMapper.selectByExample(example);
+		if (list == null || list.size() <= 0)
+			return null;
+		return list.get(0);
+	}
+
+	/**
+	 * 查找item列表——根据item详细信息
+	 * 
+	 * @param 要查找的项目具体信息（game,category,item)
+	 */
+	@Override
+	public List<Item> getItemsByItemDetails(Item item) {
+		ItemExample example = new ItemExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusNotEqualTo(0);
+		if (!StringUtils.isBlank(item.getGame()))
+			criteria.andGameEqualTo(item.getGame());
+		if (!StringUtils.isBlank(item.getCategory()))
+			criteria.andCategoryEqualTo(item.getCategory());
+		if (!StringUtils.isBlank(item.getItem()))
+			criteria.andItemEqualTo(item.getItem());
+		if (item.getGender() != null && !StringUtils.isBlank(item.getGender().toString()))
+			// 设置项目性别查询条件
+			criteria.andGenderEqualTo(item.getGender());
+		if (item.getStatus() != null)
+			criteria.andStatusEqualTo(item.getStatus());
+
+		// 执行查询
+		List<Item> items = itemMapper.selectByExample(example);
+		
+		if (items == null || items.size() <= 0)
+			return null;
+		return items;
+
+	}
+
+	/**
+	 * 查找itemId列表——根据Item具体信息获取ItemId列表
+	 * 
+	 * @param itemCtr
+	 * @return
+	 */
+	public List<Long> getItemIdsByItemDetails(Item item) {
+		// 根据项目的名称分类小项等生成比赛项目Id
+		// ItemExample example = new ItemExample();
+		// Criteria criteria = example.createCriteria();
+		// criteria.andStatusNotEqualTo(0);
+		// if (!StringUtils.isBlank(item.getGame()))
+		// criteria.andGameEqualTo(item.getGame());
+		// if (!StringUtils.isBlank(item.getCategory()))
+		// criteria.andCategoryEqualTo(item.getCategory());
+		// if (!StringUtils.isBlank(item.getItem()))
+		// criteria.andItemEqualTo(item.getItem());
+		// if (item.getGender() != null &&
+		// !StringUtils.isBlank(item.getGender().toString()))
+		// criteria.andGenderEqualTo(item.getGender());
+		// if (item.getStatus() != null)
+		// criteria.andStatusEqualTo(item.getStatus());
+		// // 执行查询
+		// List<Item> items = itemMapper.selectByExample(example);
+
+		List<Item> items = getItemsByItemDetails(item);
+		if (items == null || items.size() <= 0)
+			return null;
+		List<Long> itemIds = new ArrayList<>();
+		for (Item item0 : items) {
+			itemIds.add(item0.getId());
+		}
+		
+		return itemIds;
+	}
+
+	/**
+	 * 根据itemId获得赛道数
+	 * 
+	 * @param itemId
+	 *            要查找的项目id
+	 */
+	@Override
+	public Integer getPathNumberByItemId(Long itemId) {
+		Item item = itemMapper.selectByPrimaryKey(itemId);
+		return item.getPathNum();
+	}
+
+	/**
+	 * 根据状态status查找项目id
+	 * 
+	 * @param statuses
+	 *            要查询的状态列表
+	 */
+	@Override
+	public List<Long> getItemIdsByStatus(Integer... statuses) {
+		ItemExample example = new ItemExample();
+		for (Integer status : statuses) {
+			Criteria criteria = example.or();
+			criteria.andStatusEqualTo(status);
+		}
+		List<Item> list = itemMapper.selectByExample(example);
+		if (list == null || list.size() <= 0)
+			return null;
+		List<Long> itemIds = new ArrayList<>();
+		for (Item item : list)
+			itemIds.add(item.getId());
+
+		return itemIds;
 	}
 
 	/**
 	 * 维护项目表（将已结束的项目的状态设置为“已结束状态”）
+	 * 
 	 */
 	@Override
 	public SGResult maintenanceItem() {
 		Date date = new Date();
-
-		SmartgymItemsExample example = new SmartgymItemsExample();
+		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStatusEqualTo(1);
+		criteria.andStatusBetween(1, 2);
 		criteria.andDateLessThan(date);
-		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+		List<Item> list = itemMapper.selectByExample(example);
 
-		for (SmartgymItems item : list) {
-			item.setStatus(2);
-			// 0-已取消，1-正在报名，2-已结束
+		for (Item item : list) {
+			item.setStatus(3);
+			// 0-已取消，1-正在报名，2-报名已结束，3-比赛已结束
 			item.setUpdated(date);
-			smartgymItemsMapper.updateByPrimaryKeySelective(item);
+			itemMapper.updateByPrimaryKeySelective(item);
 		}
 
 		return SGResult.build(200, "维护项目表成功！", list);
 	}
 
 	/**
-	 * 根据状态获取比赛的id
+	 * 校级管理员审核某个项目（关闭item）
 	 */
 	@Override
-	public List<Long> selectItemByStatus(Integer... statuses) {
-		SmartgymItemsExample example = new SmartgymItemsExample();
-		for (Integer status : statuses) {
-			Criteria criteria = example.or();
-			criteria.andStatusEqualTo(status);
-		}
-		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
+	public List<Long> reviewByUniversityManager(Item itemToBeChecked) {
+		itemToBeChecked.setStatus(1);
 
-		List<Long> itemsId = new ArrayList<>();
-		for (SmartgymItems item : list) {
-			itemsId.add(item.getId());
-		}
+		List<Item> items = getItemsByItemDetails(itemToBeChecked);
 
-		return itemsId;
+		List<Long> itemIds = new ArrayList<>();
+
+		for (Item item : items) {
+			item.setStatus(2);
+			item.setUpdated(new Date());
+			itemMapper.updateByPrimaryKeySelective(item);
+			itemIds.add(item.getId());
+		}
+		return itemIds;
 	}
 
+	
+	//未梳理2019.1.14
 	/**
-	 * 硬删除状态为（0）的项目表
+	 * 异步查询加载各级名称
+	 * 
+	 * @param item
+	 *            接收的item
+	 * @return 根据item返回信息
 	 */
-	@Override
-	public SGResult hardDeleteItem() {
-		SmartgymItemsExample example = new SmartgymItemsExample();
+	public List<String> getNameByDetailsAndStatus(ItemCtr itemCtr, Integer status) {
+		ArrayList<String> result = new ArrayList<>();
+		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStatusEqualTo(0);
-		List<SmartgymItems> list = smartgymItemsMapper.selectByExample(example);
 
-		for (SmartgymItems item : list) {
-			smartgymItemsMapper.deleteByPrimaryKey(item.getId());
+		if (!StringUtils.isBlank(itemCtr.getItem()))
+			criteria.andItemEqualTo(itemCtr.getItem());
+		if (!StringUtils.isBlank(itemCtr.getCategory()))
+			criteria.andCategoryEqualTo(itemCtr.getCategory());
+		if (!StringUtils.isBlank(itemCtr.getGame()))
+			criteria.andGameEqualTo(itemCtr.getGame());
+		criteria.andStatusNotEqualTo(0);
+		if (status != null)
+			criteria.andStatusEqualTo(status);
+
+		List<Item> list = itemMapper.selectByExample(example);
+
+		if (!StringUtils.isBlank(itemCtr.getItem())) {
+			String gender;
+			for (Item Item : list) {
+				gender = genderGroupService.genderIntToStr(Item.getGender());
+				if (!result.contains(gender)) {
+					result.add(gender);
+				}
+			}
+			return result;
+		} else if (!StringUtils.isBlank(itemCtr.getCategory())) {
+			String item;
+			for (Item Item : list) {
+				item = Item.getItem();
+				if (!result.contains(item)) {
+					result.add(item);
+				}
+			}
+			return result;
+		} else if (!StringUtils.isBlank(itemCtr.getGame())) {
+			String category;
+			for (Item Item : list) {
+				category = Item.getCategory();
+				if (!result.contains(category)) {
+					result.add(category);
+				}
+			}
+			return result;
+		} else {
+			String game;
+			for (Item Item : list) {
+				game = Item.getGame();
+				if (!result.contains(game)) {
+					result.add(game);
+				}
+			}
+
+			return result;
 		}
-
-		return SGResult.build(200, "硬删除项目表成功！");
 	}
-
 }

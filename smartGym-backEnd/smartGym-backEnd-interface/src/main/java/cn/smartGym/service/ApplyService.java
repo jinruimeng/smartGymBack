@@ -1,11 +1,11 @@
 package cn.smartGym.service;
 
 import java.util.List;
-import java.util.Map;
 
-import cn.smartGym.pojo.SmartgymApplications;
-import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
-import cn.smartGym.pojoCtr.SmartgymItemsCtr;
+import cn.smartGym.pojo.Application;
+import cn.smartGym.pojoctr.request.ApplicationCtr;
+import cn.smartGym.pojoctr.request.ItemCtr;
+import cn.smartGym.pojoctr.response.ApplicationInfo;
 import common.utils.SGResult;
 
 /**
@@ -15,33 +15,33 @@ import common.utils.SGResult;
  *
  */
 public interface ApplyService {
-	SmartgymApplications applyCtrToDao(SmartgymApplicationsCtr apply);
+	Application applyCtrToDao(ApplicationCtr apply);
 
-	SmartgymApplicationsCtr applyDaoToCtr(SmartgymApplications apply);
+	ApplicationCtr applyDaoToCtr(Application apply);
 
-	SGResult checkData(SmartgymApplications apply);
+	SGResult checkData(Application apply);
 
-	SGResult addApply(SmartgymApplicationsCtr applyCtr);
+	SGResult addApply(ApplicationCtr applyCtr);
 
 	SGResult hardDeleteApply();
 
 	SGResult maintenanceApply(List<Long> itemsId);
 
-	List<SmartgymApplicationsCtr> getApplicationListByStudentNo(String studentno);
+	List<ApplicationCtr> getApplicationListByStudentNo(String studentno);
 
-	List<SmartgymApplications> getApplicationListByItemsId(List<Long> itemsId, Integer status, String college);
+	List<ApplicationCtr> getApplicationListByItemsId(List<Long> itemsId, String college, Integer... statuses);
 
 	Long countByitem(Long itemId);
 
-	Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItem(List<SmartgymItemsCtr> itemsCtr);
+	List<ApplicationInfo> getApplyNumGroupByItem(List<ItemCtr> itemsCtr);
 
-	Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItemDetail(List<SmartgymItemsCtr> itemsCtr);
+	List<ApplicationInfo> getApplyNumGroupByItemDetail(ItemCtr itemCtr);
 
-	Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollege(List<SmartgymItemsCtr> itemsCtr);
+	List<ApplicationInfo> getApplyNumGroupByCollege(List<ItemCtr> itemsCtr);
 
-	Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollegeDetail(List<SmartgymItemsCtr> itemsCtr);
+	List<ApplicationInfo> getApplyNumGroupByCollegeDetail(List<ItemCtr> itemsCtr, String college);
 
 	SGResult reviewByCollegeManager(Long ids[]);
 
-	List<SmartgymApplications> reviewByUniversityManager(Long ids[]);
+	List<Application> reviewByUniversityManager(List<Long> itemsId);
 }

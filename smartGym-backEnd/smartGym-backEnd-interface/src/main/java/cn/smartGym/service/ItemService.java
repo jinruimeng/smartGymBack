@@ -2,8 +2,8 @@ package cn.smartGym.service;
 
 import java.util.List;
 
-import cn.smartGym.pojo.SmartgymItems;
-import cn.smartGym.pojoCtr.SmartgymItemsCtr;
+import cn.smartGym.pojo.Item;
+import cn.smartGym.pojoctr.request.ItemCtr;
 import common.utils.SGResult;
 
 /**
@@ -14,28 +14,31 @@ import common.utils.SGResult;
  */
 public interface ItemService {
 
-	SmartgymItems itemCtrToDao(SmartgymItemsCtr itemCtr);
+	Item itemCtrToDao(ItemCtr itemCtr);
 
-	SmartgymItemsCtr itemDaoToCtr(SmartgymItems item);
+	ItemCtr itemDaoToCtr(Item item);
+	
+	SGResult addItem(Item item);
 
-	List<String> getNameByDetailsAndStatus(SmartgymItemsCtr itemCtr, Integer status);
-
-	List<Long> selectItemByStatus(Integer... statuses);
-
-	SGResult addItem(SmartgymItemsCtr itemCtr);
-
-	SGResult deleteItem(SmartgymItemsCtr itemCtr);
-
+	SGResult deleteItem(Item itemToBeDeleted);
+	
 	SGResult hardDeleteItem();
-
+	
+	Item getItemByItemId(Long itemId, Integer status);
+	
+	List<Item> getItemsByItemDetails(Item item);
+	
+	List<Long> getItemIdsByItemDetails(Item item);
+	
+	Integer getPathNumberByItemId(Long itemId);
+	
+	List<Long> getItemIdsByStatus(Integer... statuses);
+	
 	SGResult maintenanceItem();
+	
+	List<Long> reviewByUniversityManager(Item itemToBeChecked);
 
-	List<Long> getItemIdByItemDetails(SmartgymItemsCtr itemCtr);
-
-	SmartgymItemsCtr getItemByItemId(Long itemId, Integer status);
-
-	List<SmartgymItemsCtr> getItemsCtrByItemDetails(SmartgymItemsCtr itemCtr);
-
-	List<SmartgymItems> getItemsByItemDetails(SmartgymItemsCtr itemCtr);
+	//
+	List<String> getNameByDetailsAndStatus(ItemCtr itemCtr, Integer status);
 
 }

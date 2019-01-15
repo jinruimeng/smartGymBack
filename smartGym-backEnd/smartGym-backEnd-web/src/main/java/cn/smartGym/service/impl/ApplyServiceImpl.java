@@ -1,8 +1,7 @@
- package cn.smartGym.service.impl;
+package cn.smartGym.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,12 +10,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.smartGym.mapper.SmartgymApplicationsMapper;
-import cn.smartGym.pojo.SmartgymApplications;
-import cn.smartGym.pojo.SmartgymApplicationsExample;
-import cn.smartGym.pojo.SmartgymApplicationsExample.Criteria;
-import cn.smartGym.pojoCtr.SmartgymApplicationsCtr;
-import cn.smartGym.pojoCtr.SmartgymItemsCtr;
+import cn.smartGym.mapper.ApplicationMapper;
+import cn.smartGym.pojo.Application;
+import cn.smartGym.pojo.ApplicationExample;
+import cn.smartGym.pojo.ApplicationExample.Criteria;
+import cn.smartGym.pojo.Item;
+import cn.smartGym.pojoctr.request.ApplicationCtr;
+import cn.smartGym.pojoctr.request.ItemCtr;
+import cn.smartGym.pojoctr.response.ApplicationInfo;
 import cn.smartGym.service.ApplyService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderGroupService;
@@ -33,7 +34,7 @@ import common.utils.SGResult;
 public class ApplyServiceImpl implements ApplyService {
 
 	@Autowired
-	private SmartgymApplicationsMapper smartgymApplicationsMapper;
+	private ApplicationMapper ApplicationMapper;
 
 	@Autowired
 	private CollegeService collegeService;
@@ -54,8 +55,8 @@ public class ApplyServiceImpl implements ApplyService {
 	 * @return 封装存储到数据库中数据的bean
 	 */
 	@Override
-	public SmartgymApplications applyCtrToDao(SmartgymApplicationsCtr applyCtr) {
-		SmartgymItemsCtr itemsCtr = new SmartgymItemsCtr();
+	public Application applyCtrToDao(ApplicationCtr applyCtr) {
+		ItemCtr itemsCtr = new ItemCtr();
 		itemsCtr.setGame(applyCtr.getGame());
 		itemsCtr.setCategory(applyCtr.getCategory());
 		itemsCtr.setItem(applyCtr.getItem());
@@ -64,7 +65,7 @@ public class ApplyServiceImpl implements ApplyService {
 		itemsCtr.setStatus(1);
 
 		// 根据具体项目信息查找itemId
-		List<Long> list = itemService.getItemIdByItemDetails(itemsCtr);
+		List<Long> list = itemService.getItemIdsByItemDetails(itemService.itemCtrToDao(itemsCtr));
 
 		if (list == null || list.isEmpty())
 			return null;
@@ -72,7 +73,7 @@ public class ApplyServiceImpl implements ApplyService {
 		applyCtr.setItemId(list.get(0));
 
 		// 转换为Dao层的pojo
-		SmartgymApplications apply = new SmartgymApplications();
+		Application apply = new Application();
 		// 设置姓名
 		apply.setName(applyCtr.getName());
 		// 设置学院
@@ -85,6 +86,8 @@ public class ApplyServiceImpl implements ApplyService {
 		apply.setJob(jobService.jobStringToInt(applyCtr.getJob()));
 		// 设置项目Id
 		apply.setItemId(applyCtr.getItemId());
+		// 设置状态
+		apply.setStatus(applyCtr.getStatus());
 		// 设置学院
 		apply.setCollege(collegeService.getId(applyCtr.getCollege()));
 
@@ -98,16 +101,16 @@ public class ApplyServiceImpl implements ApplyService {
 	 * @return 返回给前端的bean
 	 */
 	@Override
-	public SmartgymApplicationsCtr applyDaoToCtr(SmartgymApplications apply) {
+	public ApplicationCtr applyDaoToCtr(Application apply) {
 		// 根据itemId获取项目具体信息
-		SmartgymItemsCtr itemCtr = itemService.getItemByItemId(apply.getItemId(), 1);
+		Item item = itemService.getItemByItemId(apply.getItemId(), null);
 		// 转换为Dao层的pojo
-		SmartgymApplicationsCtr applyCtr = new SmartgymApplicationsCtr();
+		ApplicationCtr applyCtr = new ApplicationCtr();
 		// 设置项目信息
 		applyCtr.setId(apply.getId());
-		applyCtr.setGame(itemCtr.getGame());
-		applyCtr.setCategory(itemCtr.getCategory());
-		applyCtr.setItem(itemCtr.getItem());
+		applyCtr.setGame(item.getGame());
+		applyCtr.setCategory(item.getCategory());
+		applyCtr.setItem(item.getItem());
 		applyCtr.setItemId(apply.getItemId());
 		// 设置用户Id
 		applyCtr.setStudentNo(apply.getStudentNo());
@@ -117,6 +120,8 @@ public class ApplyServiceImpl implements ApplyService {
 		applyCtr.setGender(genderGroupService.genderIntToStr(apply.getGender()));
 		// 设置姓名
 		applyCtr.setName(apply.getName());
+		// 设置状态
+		applyCtr.setStatus(apply.getStatus());
 		// 设置学院
 		applyCtr.setCollege(collegeService.getCollege(apply.getCollege()));
 
@@ -130,15 +135,15 @@ public class ApplyServiceImpl implements ApplyService {
 	 * @return 返回信息
 	 */
 	@Override
-	public SGResult checkData(SmartgymApplications apply) {
-		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+	public SGResult checkData(Application apply) {
+		ApplicationExample example = new ApplicationExample();
 		Criteria criteria = example.createCriteria();
 
 		criteria.andJobEqualTo(apply.getJob());
 		criteria.andStudentNoEqualTo(apply.getStudentNo());
 		criteria.andItemIdEqualTo(apply.getItemId());
 		// 执行查询
-		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
+		List<Application> list = ApplicationMapper.selectByExample(example);
 		// 判断结果中是否包含数据
 		if (list != null && list.size() > 0) {
 			// 如果有数据返回false
@@ -155,8 +160,8 @@ public class ApplyServiceImpl implements ApplyService {
 	 * @return 返回给前端的信息 {status, msg, data}
 	 */
 	@Override
-	public SGResult addApply(SmartgymApplicationsCtr applyCtr) {
-		SmartgymApplications apply = applyCtrToDao(applyCtr);
+	public SGResult addApply(ApplicationCtr applyCtr) {
+		Application apply = applyCtrToDao(applyCtr);
 
 		// 数据有效性检验
 		if (StringUtils.isBlank(apply.getStudentNo()) || StringUtils.isBlank(apply.getJob().toString())
@@ -175,7 +180,7 @@ public class ApplyServiceImpl implements ApplyService {
 		apply.setCreated(new Date());
 		apply.setUpdated(new Date());
 		// 插入数据库
-		smartgymApplicationsMapper.insert(apply);
+		ApplicationMapper.insert(apply);
 		// 返回成功
 		return SGResult.build(200, "报名成功", apply);
 	}
@@ -186,17 +191,17 @@ public class ApplyServiceImpl implements ApplyService {
 	 * @param 学号
 	 * @return 根据学号查找到的学生已报名比赛项目信息
 	 */
-	public List<SmartgymApplicationsCtr> getApplicationListByStudentNo(String studentno) {
-		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+	public List<ApplicationCtr> getApplicationListByStudentNo(String studentno) {
+		ApplicationExample example = new ApplicationExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStudentNoEqualTo(studentno);
 		criteria.andStatusNotEqualTo(0);
-		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
+		List<Application> list = ApplicationMapper.selectByExample(example);
 		if (list == null || list.size() == 0)
 			return null;
-		List<SmartgymApplicationsCtr> result = new ArrayList<>();
-		for (SmartgymApplications apply : list) {
-			SmartgymApplicationsCtr applyCtr = applyDaoToCtr(apply);
+		List<ApplicationCtr> result = new ArrayList<>();
+		for (Application apply : list) {
+			ApplicationCtr applyCtr = applyDaoToCtr(apply);
 			result.add(applyCtr);
 		}
 		return result;
@@ -207,65 +212,73 @@ public class ApplyServiceImpl implements ApplyService {
 	 */
 	@Override
 	public Long countByitem(Long itemId) {
-		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+		ApplicationExample example = new ApplicationExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andItemIdEqualTo(itemId);
 		criteria.andStatusGreaterThanOrEqualTo(1);
-		return smartgymApplicationsMapper.countByExample(example);
+		return ApplicationMapper.countByExample(example);
 	}
 
 	/**
 	 * 查询报名情况 groupByItem
 	 */
 	@Override
-	public Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItem(List<SmartgymItemsCtr> itemsCtr) {
-		Map<Map<Map<String, String>, String>, Long> result = new HashMap<>();
-
-		Map<String, String> str = new HashMap<>();
-		str.put("total", "total");
-
-		Map<Map<String, String>, String> str2 = new HashMap<>();
-		str2.put(str, "total");
-
-		Map<Map<String, String>, String> str3 = new HashMap<>();
-		str3.put(str, "need");
+	public List<ApplicationInfo> getApplyNumGroupByItem(List<ItemCtr> itemsCtr) {
+		List<ApplicationInfo> result = new ArrayList<>();
 
 		// 报名的总人数
-		Long allTotal = (long) 0;
+		Long totalApply = (long) 0;
+
+		// 已审核的总人数
+		Long totalReview = (long) 0;
 
 		// 需报名的总人数
-		Long allNeed = (long) 0;
+		Integer totalNeed = 0;
 
-		for (SmartgymItemsCtr itemCtr : itemsCtr) {
+		for (ItemCtr itemCtr : itemsCtr) {
 			// 检查项目状态
 			if (itemCtr.getDate().before(new Date()) || itemCtr.getStatus() != 1)
 				continue;
 
 			// 得到项目信息
-			Map<String, String> itemInfo = new HashMap<>();
-			itemInfo.put(itemCtr.getItem(), itemCtr.getGender());
+			ApplicationInfo applicationInfo = new ApplicationInfo();
+			applicationInfo.setItemId(itemCtr.getId());
+			applicationInfo.setItem(itemCtr.getItem());
+			applicationInfo.setGender(itemCtr.getGender());
 
-			SmartgymApplicationsExample example = new SmartgymApplicationsExample();
-			Criteria criteria = example.createCriteria();
-			criteria.andItemIdEqualTo(itemCtr.getId());
-			criteria.andStatusGreaterThanOrEqualTo(1);
-			Long itemTotalNum = smartgymApplicationsMapper.countByExample(example);
+			// 获取需报名人数
+			applicationInfo.setNeedNumber(itemCtr.getParticipantNum());
+			totalNeed += itemCtr.getParticipantNum();
+
+			// 获取报名人数
+			ApplicationExample exampleApply = new ApplicationExample();
+			Criteria criteriaApply = exampleApply.createCriteria();
+			criteriaApply.andItemIdEqualTo(itemCtr.getId());
+			criteriaApply.andStatusGreaterThanOrEqualTo(1);
+			Long applyNum = ApplicationMapper.countByExample(exampleApply);
+			totalApply += applyNum;
+
+			// 获取已审核人数
+			ApplicationExample exampleReview = new ApplicationExample();
+			Criteria criteriaReview = exampleReview.createCriteria();
+			criteriaReview.andItemIdEqualTo(itemCtr.getId());
+			criteriaReview.andStatusGreaterThanOrEqualTo(2);
+			Long reviewNum = ApplicationMapper.countByExample(exampleReview);
+			totalReview += reviewNum;
 
 			// 将该项目的总报名人数加入到结果中
-			Map<Map<String, String>, String> itemTotal = new HashMap<>();
-			itemTotal.put(itemInfo, "total");
-			result.put(itemTotal, itemTotalNum);
-
-			// 将该项目的需报名人数加入到结果中
-			Map<Map<String, String>, String> itemNeed = new HashMap<>();
-			itemNeed.put(itemInfo, "need");
-			result.put(itemNeed, (long) itemCtr.getParticipantNum());
-
-			allTotal = allTotal + itemTotalNum;
-			allNeed = allNeed + itemCtr.getParticipantNum();
+			applicationInfo.setApplyNumber(applyNum);
+			applicationInfo.setReviewNumber(reviewNum);
+			result.add(applicationInfo);
 		}
-		result.put(str2, allTotal);
-		result.put(str3, allNeed);
+
+		ApplicationInfo applicationInfo = new ApplicationInfo();
+		applicationInfo.setItem("Total");
+		applicationInfo.setGender("Total");
+		applicationInfo.setApplyNumber(totalApply);
+		applicationInfo.setNeedNumber(totalNeed);
+		applicationInfo.setReviewNumber(totalReview);
+		result.add(applicationInfo);
 		return result;
 	}
 
@@ -273,76 +286,62 @@ public class ApplyServiceImpl implements ApplyService {
 	 * 查询报名情况（详细） groupByItem
 	 */
 	@Override
-	public Map<Map<Map<String, String>, String>, Long> getApplyNumGroupByItemDetail(List<SmartgymItemsCtr> itemsCtr) {
-		Map<Map<Map<String, String>, String>, Long> result = new HashMap<>();
-
-		Map<String, String> str = new HashMap<>();
-		str.put("total", "total");
-
-		Map<Map<String, String>, String> str2 = new HashMap<>();
-		str2.put(str, "total");
-
-		Map<Map<String, String>, String> str3 = new HashMap<>();
-		str3.put(str, "need");
+	public List<ApplicationInfo> getApplyNumGroupByItemDetail(ItemCtr itemCtr) {
+		List<ApplicationInfo> result = new ArrayList<>();
 
 		// 报名的总人数
-		Long allTotal = (long) 0;
+		Long totalApply = (long) 0;
 
-		// 需报名的总人数
-		Long allNeed = (long) 0;
+		// 已审核的总人数
+		Long totalReview = (long) 0;
 
 		// 获取所有学院
 		Map<Integer, String> allCollegesIdAndName = collegeService.getAllCollegesIdAndName();
 		Set<Integer> collegesId = allCollegesIdAndName.keySet();
 
-		for (SmartgymItemsCtr itemCtr : itemsCtr) {
-			// 检查项目状态
-			if (itemCtr.getDate().before(new Date()) || itemCtr.getStatus() != 1)
-				continue;
+		// 检查项目状态
+		if (itemCtr.getDate().before(new Date()) || itemCtr.getStatus() != 1)
+			return result;
 
-			Long itemTotalNum = (long) 0;
+		for (Integer collegeId : collegesId) {
+			// 设置项目信息表
+			String collegeName = allCollegesIdAndName.get(collegeId);
 
-			// 得到比赛信息
-			Map<String, String> itemInfo = new HashMap<>();
-			itemInfo.put(itemCtr.getItem(), itemCtr.getGender());
+			// 查询该学院该项目报名人数
+			ApplicationExample exampleApply = new ApplicationExample();
+			Criteria criteriaApply = exampleApply.createCriteria();
+			criteriaApply.andCollegeEqualTo(collegeId);
+			criteriaApply.andItemIdEqualTo(itemCtr.getId());
+			criteriaApply.andStatusGreaterThanOrEqualTo(1);
+			Long collegeApply = ApplicationMapper.countByExample(exampleApply);
 
-			for (Integer collegeId : collegesId) {
-				// 设置项目信息表
-				String collegeName = allCollegesIdAndName.get(collegeId);
+			// 查询该学院该项目已审核人数
+			ApplicationExample exampleReview = new ApplicationExample();
+			Criteria criteriaReview = exampleReview.createCriteria();
+			criteriaReview.andCollegeEqualTo(collegeId);
+			criteriaReview.andItemIdEqualTo(itemCtr.getId());
+			criteriaReview.andStatusGreaterThanOrEqualTo(2);
+			Long collegeReview = ApplicationMapper.countByExample(exampleReview);
 
-				// 查询该学院该项目报名人数
-				SmartgymApplicationsExample example = new SmartgymApplicationsExample();
-				Criteria criteria = example.createCriteria();
-				criteria.andCollegeEqualTo(collegeId);
-				criteria.andItemIdEqualTo(itemCtr.getId());
-				criteria.andStatusGreaterThanOrEqualTo(1);
-				Long count = smartgymApplicationsMapper.countByExample(example);
+			// 如果有人报名，加入到结果中
+			if (collegeApply != 0) {
+				ApplicationInfo applicationInfo = new ApplicationInfo();
+				applicationInfo.setCollege(collegeName);
+				applicationInfo.setApplyNumber(collegeApply);
+				applicationInfo.setReviewNumber(collegeReview);
+				result.add(applicationInfo);
 
-				// 如果有人报名，加入到结果中
-				if (count != 0) {
-					itemTotalNum = itemTotalNum + count;
-
-					Map<Map<String, String>, String> collegeAndItemInfo = new HashMap<>();
-					collegeAndItemInfo.put(itemInfo, collegeName);
-					result.put(collegeAndItemInfo, count);
-				}
+				totalApply += collegeApply;
+				totalReview += collegeReview;
 			}
-
-			// 将该项目的总报名人数加入到结果中
-			Map<Map<String, String>, String> itemTotal = new HashMap<>();
-			itemTotal.put(itemInfo, "total");
-			result.put(itemTotal, itemTotalNum);
-
-			// 将该项目的需报名人数加入到结果中
-			Map<Map<String, String>, String> itemNeed = new HashMap<>();
-			itemNeed.put(itemInfo, "need");
-			result.put(itemNeed, (long) itemCtr.getParticipantNum());
-
-			allTotal = allTotal + itemTotalNum;
-			allNeed = allNeed + itemCtr.getParticipantNum();
 		}
-		result.put(str2, allTotal);
-		result.put(str3, allNeed);
+
+		ApplicationInfo applicationInfo = new ApplicationInfo();
+		applicationInfo.setCollege("Total");
+		applicationInfo.setApplyNumber(totalApply);
+		applicationInfo.setReviewNumber(totalReview);
+		result.add(applicationInfo);
+
 		return result;
 	}
 
@@ -350,17 +349,12 @@ public class ApplyServiceImpl implements ApplyService {
 	 * 查询报名情况 groupByCollege
 	 */
 	@Override
-	public Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollege(List<SmartgymItemsCtr> itemsCtr) {
-		Map<Map<String, Map<String, String>>, Long> result = new HashMap<>();
-
-		Map<String, String> str = new HashMap<>();
-		str.put("total", "total");
-
-		Map<String, Map<String, String>> str2 = new HashMap<>();
-		str2.put("total", str);
+	public List<ApplicationInfo> getApplyNumGroupByCollege(List<ItemCtr> itemsCtr) {
+		List<ApplicationInfo> result = new ArrayList<>();
 
 		// 报名的总人数
-		Long allTotal = (long) 0;
+		Long allTotalApply = (long) 0;
+		Long allTotalReview = (long) 0;
 
 		// 获取所有学院
 		Map<Integer, String> allCollegesIdAndName = collegeService.getAllCollegesIdAndName();
@@ -370,32 +364,48 @@ public class ApplyServiceImpl implements ApplyService {
 			// 得到学院名
 			String collegeName = allCollegesIdAndName.get(collegeId);
 
-			SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+			ApplicationExample exampleApply = new ApplicationExample();
+			ApplicationExample exampleReview = new ApplicationExample();
 
-			for (SmartgymItemsCtr itemCtr : itemsCtr) {
+			for (ItemCtr itemCtr : itemsCtr) {
 				// 检查项目状态
 				if (itemCtr.getDate().before(new Date()) || itemCtr.getStatus() != 1)
 					continue;
 
-				Criteria criteria = example.or();
-				criteria.andCollegeEqualTo(collegeId);
-				criteria.andItemIdEqualTo(itemCtr.getId());
-				criteria.andCollegeGreaterThanOrEqualTo(1);
+				Criteria criteriaApply = exampleApply.or();
+				criteriaApply.andCollegeEqualTo(collegeId);
+				criteriaApply.andItemIdEqualTo(itemCtr.getId());
+				criteriaApply.andStatusGreaterThanOrEqualTo(1);
+
+				Criteria criteriaReview = exampleReview.or();
+				criteriaReview.andCollegeEqualTo(collegeId);
+				criteriaReview.andItemIdEqualTo(itemCtr.getId());
+				criteriaReview.andStatusGreaterThanOrEqualTo(2);
 			}
 
-			// 查询该学院该项目报名人数
-			Long collegeTotalNum = smartgymApplicationsMapper.countByExample(example);
+			// 查询该学院已报名人数
+			Long collegeApplyNum = ApplicationMapper.countByExample(exampleApply);
+
+			// 查询该学院已审核人数
+			Long collegeReviewNum = ApplicationMapper.countByExample(exampleReview);
 
 			// 将该学院的总报名人数加入到结果中
-			if (collegeTotalNum != 0) {
-				Map<String, Map<String, String>> collegeTotal = new HashMap<>();
-				collegeTotal.put(collegeName, str);
-				result.put(collegeTotal, collegeTotalNum);
-
-				allTotal = allTotal + collegeTotalNum;
+			if (collegeApplyNum != 0) {
+				ApplicationInfo applicationInfo = new ApplicationInfo();
+				applicationInfo.setCollege(collegeName);
+				applicationInfo.setApplyNumber(collegeApplyNum);
+				applicationInfo.setReviewNumber(collegeReviewNum);
+				result.add(applicationInfo);
+				allTotalApply += collegeApplyNum;
+				allTotalReview += collegeReviewNum;
 			}
 		}
-		result.put(str2, allTotal);
+
+		ApplicationInfo applicationInfo = new ApplicationInfo();
+		applicationInfo.setApplyNumber(allTotalApply);
+		applicationInfo.setReviewNumber(allTotalReview);
+		result.add(applicationInfo);
+
 		return result;
 	}
 
@@ -403,66 +413,62 @@ public class ApplyServiceImpl implements ApplyService {
 	 * 查询报名情况（详细） groupByCollege
 	 */
 	@Override
-	public Map<Map<String, Map<String, String>>, Long> getApplyNumGroupByCollegeDetail(
-			List<SmartgymItemsCtr> itemsCtr) {
-		Map<Map<String, Map<String, String>>, Long> result = new HashMap<>();
+	public List<ApplicationInfo> getApplyNumGroupByCollegeDetail(List<ItemCtr> itemsCtr, String college) {
+		List<ApplicationInfo> result = new ArrayList<>();
 
-		Map<String, String> str = new HashMap<>();
-		str.put("total", "total");
+		// 获取学院Id
+		Integer collegeId = collegeService.getId(college);
 
-		Map<String, Map<String, String>> str2 = new HashMap<>();
-		str2.put("total", str);
+		if (collegeId != null) {
+			Long collegeTotalApply = (long) 0;
+			Long collegeTotalReview = (long) 0;
 
-		// 报名的总人数
-		Long allTotal = (long) 0;
-
-		// 获取所有学院
-		Map<Integer, String> allCollegesIdAndName = collegeService.getAllCollegesIdAndName();
-		Set<Integer> collegesId = allCollegesIdAndName.keySet();
-
-		for (Integer collegeId : collegesId) {
-			Long collegeTotalNum = (long) 0;
-
-			// 得到学院名
-			String collegeName = allCollegesIdAndName.get(collegeId);
-
-			for (SmartgymItemsCtr itemCtr : itemsCtr) {
+			for (ItemCtr itemCtr : itemsCtr) {
 				// 检查项目状态
 				if (itemCtr.getDate().before(new Date()) || itemCtr.getStatus() != 1)
 					continue;
 
-				// 设置项目信息表
-				Map<String, String> itemInfo = new HashMap<>();
-				itemInfo.put(itemCtr.getItem(), itemCtr.getGender());
+				// 设置项目信息
+				ApplicationInfo applicationInfo = new ApplicationInfo();
+				applicationInfo.setItem(itemCtr.getItem());
+				applicationInfo.setGender(itemCtr.getGender());
 
 				// 查询该学院该项目报名人数
-				SmartgymApplicationsExample example = new SmartgymApplicationsExample();
-				Criteria criteria = example.createCriteria();
-				criteria.andCollegeEqualTo(collegeId);
-				criteria.andItemIdEqualTo(itemCtr.getId());
-				criteria.andCollegeGreaterThanOrEqualTo(1);
-				Long count = smartgymApplicationsMapper.countByExample(example);
+				ApplicationExample exampleApply = new ApplicationExample();
+				Criteria criteriaApply = exampleApply.createCriteria();
+				criteriaApply.andCollegeEqualTo(collegeId);
+				criteriaApply.andItemIdEqualTo(itemCtr.getId());
+				criteriaApply.andStatusGreaterThanOrEqualTo(1);
+				Long applyNum = ApplicationMapper.countByExample(exampleApply);
+				applicationInfo.setApplyNumber(applyNum);
 
-				// 如果有人报名，加入到结果中
-				if (count != 0) {
-					collegeTotalNum = collegeTotalNum + count;
+				// 查询该学院该项目已审核人数
+				ApplicationExample exampleReview = new ApplicationExample();
+				Criteria criteriaReview = exampleReview.createCriteria();
+				criteriaReview.andCollegeEqualTo(collegeId);
+				criteriaReview.andItemIdEqualTo(itemCtr.getId());
+				criteriaReview.andStatusGreaterThanOrEqualTo(2);
+				Long reviewNum = ApplicationMapper.countByExample(exampleReview);
+				applicationInfo.setReviewNumber(reviewNum);
 
-					Map<String, Map<String, String>> collegeAndItemInfo = new HashMap<>();
-					collegeAndItemInfo.put(collegeName, itemInfo);
-					result.put(collegeAndItemInfo, count);
+				// 计算学院报名和已审核总人数
+				if (applyNum != 0) {
+					collegeTotalApply += applyNum;
+					collegeTotalReview += reviewNum;
 				}
+				result.add(applicationInfo);
 			}
 
-			// 将该学院的总报名人数加入到结果中
-			if (collegeTotalNum != 0) {
-				Map<String, Map<String, String>> collegeTotal = new HashMap<>();
-				collegeTotal.put(collegeName, str);
-				result.put(collegeTotal, collegeTotalNum);
-
-				allTotal = allTotal + collegeTotalNum;
-			}
+			// 将总人数加入到结果中
+			ApplicationInfo applicationInfo = new ApplicationInfo();
+			applicationInfo.setGame("Total");
+			applicationInfo.setCategory("Total");
+			applicationInfo.setItem("Total");
+			applicationInfo.setGender("Total");
+			applicationInfo.setApplyNumber(collegeTotalApply);
+			applicationInfo.setReviewNumber(collegeTotalReview);
+			result.add(applicationInfo);
 		}
-		result.put(str2, allTotal);
 		return result;
 	}
 
@@ -471,21 +477,20 @@ public class ApplyServiceImpl implements ApplyService {
 	 */
 	@Override
 	public SGResult maintenanceApply(List<Long> itemsId) {
-		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+		ApplicationExample example = new ApplicationExample();
 
 		for (Long itemId : itemsId) {
 			Criteria criteria = example.or();
 			criteria.andItemIdEqualTo(itemId);
-			criteria.andStatusEqualTo(1);
 		}
 
-		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
+		List<Application> list = ApplicationMapper.selectByExample(example);
 
-		for (SmartgymApplications application : list) {
+		for (Application application : list) {
 			application.setStatus(0);
-			// 0-已删除（或已通过校级审核），1-正在审核，2-院级审核已通过，3-校级审核已通过
+			// 0-已删除，1-正在审核，2-院级审核已通过，3-校级审核已通过
 			application.setUpdated(new Date());
-			smartgymApplicationsMapper.updateByPrimaryKeySelective(application);
+			ApplicationMapper.updateByPrimaryKeySelective(application);
 		}
 		return SGResult.build(200, "维护报名表成功！", list);
 	}
@@ -495,13 +500,13 @@ public class ApplyServiceImpl implements ApplyService {
 	 */
 	@Override
 	public SGResult hardDeleteApply() {
-		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+		ApplicationExample example = new ApplicationExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(0);
-		List<SmartgymApplications> list = smartgymApplicationsMapper.selectByExample(example);
+		List<Application> list = ApplicationMapper.selectByExample(example);
 
-		for (SmartgymApplications application : list) {
-			smartgymApplicationsMapper.deleteByPrimaryKey(application.getId());
+		for (Application application : list) {
+			ApplicationMapper.deleteByPrimaryKey(application.getId());
 		}
 
 		return SGResult.build(200, "硬删除报名表成功！");
@@ -515,11 +520,11 @@ public class ApplyServiceImpl implements ApplyService {
 		if (ids == null || ids.length == 0)
 			return SGResult.build(200, "请先选择要审核的报名记录！");
 
-		SmartgymApplications applicationTemplate = new SmartgymApplications();
+		Application applicationTemplate = new Application();
 		applicationTemplate.setStatus(2);
 		applicationTemplate.setUpdated(new Date());
 
-		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+		ApplicationExample example = new ApplicationExample();
 
 		for (Long id : ids) {
 			Criteria criteria = example.or();
@@ -527,7 +532,7 @@ public class ApplyServiceImpl implements ApplyService {
 			criteria.andIdEqualTo(id);
 		}
 
-		smartgymApplicationsMapper.updateByExampleSelective(applicationTemplate, example);
+		ApplicationMapper.updateByExampleSelective(applicationTemplate, example);
 
 		return SGResult.build(200, "院级管理员审核完成！");
 	}
@@ -536,46 +541,66 @@ public class ApplyServiceImpl implements ApplyService {
 	 * 校级管理员审核
 	 */
 	@Override
-	public List<SmartgymApplications> reviewByUniversityManager(Long ids[]) {
-		if (ids == null || ids.length == 0)
+	public List<Application> reviewByUniversityManager(List<Long> itemsId) {
+		List<ApplicationCtr> applicationsCtr = getApplicationListByItemsId(itemsId, null, 2);
+		List<Long> ids = new ArrayList<>();
+		for (ApplicationCtr applicationCtr : applicationsCtr) {
+			ids.add(applicationCtr.getId());
+		}
+
+		if (ids == null || ids.isEmpty())
 			return null;
 
-		SmartgymApplications applicationTemplate = new SmartgymApplications();
+		Application applicationTemplate = new Application();
 		applicationTemplate.setStatus(3);
 		applicationTemplate.setUpdated(new Date());
 
-		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+		ApplicationExample example = new ApplicationExample();
 		for (Long id : ids) {
 			Criteria criteria = example.or();
 			criteria.andStatusEqualTo(2);
 			criteria.andIdEqualTo(id);
 		}
-		smartgymApplicationsMapper.updateByExampleSelective(applicationTemplate, example);
+		ApplicationMapper.updateByExampleSelective(applicationTemplate, example);
 
-		SmartgymApplicationsExample exampleOut = new SmartgymApplicationsExample();
+		ApplicationExample exampleOut = new ApplicationExample();
 		for (Long id : ids) {
 			Criteria criteria = exampleOut.or();
+			criteria.andStatusGreaterThanOrEqualTo(2);
 			criteria.andIdEqualTo(id);
 		}
-		return smartgymApplicationsMapper.selectByExample(exampleOut);
+		return ApplicationMapper.selectByExample(exampleOut);
 	}
 
 	/**
 	 * 根据项目id、状态和学院获取报名记录
 	 */
 	@Override
-	public List<SmartgymApplications> getApplicationListByItemsId(List<Long> itemsId, Integer status, String college) {
-		SmartgymApplicationsExample example = new SmartgymApplicationsExample();
+	public List<ApplicationCtr> getApplicationListByItemsId(List<Long> itemsId, String college, Integer... statuses) {
+		ApplicationExample example = new ApplicationExample();
 		for (Long itemId : itemsId) {
 			Criteria criteria = example.or();
 			criteria.andStatusNotEqualTo(0);
+			if (statuses != null && statuses.length != 0) {
+				ArrayList<Integer> statusList = new ArrayList<>();
+				for (Integer status : statuses) {
+					statusList.add(status);
+				}
+				criteria.andStatusIn(statusList);
+			}
 			criteria.andItemIdEqualTo(itemId);
-			if (status != null)
-				criteria.andStatusEqualTo(status);
-			if(!StringUtils.isBlank(college))
-				criteria.andCollegeEqualTo(collegeService.getId(college));
+			if (!StringUtils.isBlank(college))
+				if (!college.equals("total"))
+					criteria.andCollegeEqualTo(collegeService.getId(college));
 		}
-		return smartgymApplicationsMapper.selectByExample(example);
+		List<Application> applications = ApplicationMapper.selectByExample(example);
+
+		List<ApplicationCtr> applicationsCtr = new ArrayList<ApplicationCtr>();
+		for (Application application : applications) {
+			applicationsCtr.add(applyDaoToCtr(application));
+		}
+
+		return applicationsCtr;
 	}
 
 }

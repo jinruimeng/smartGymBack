@@ -2,8 +2,8 @@ package cn.smartGym.service;
 
 import java.util.List;
 
-import cn.smartGym.pojo.SmartgymUsers;
-import cn.smartGym.pojoCtr.SmartgymUsersCtr;
+import cn.smartGym.pojo.SgUser;
+import cn.smartGym.pojoctr.request.SgUserCtr;
 import common.utils.SGResult;
 
 /**
@@ -14,23 +14,33 @@ import common.utils.SGResult;
  */
 public interface UserService {
 
-	SmartgymUsers userCtrToDao(SmartgymUsersCtr userCtr);
+	SgUser userCtrToDao(SgUserCtr userCtr);
 
-	SmartgymUsersCtr userDaoToCtr(SmartgymUsers userDao);
+	SgUserCtr userDaoToCtr(SgUser userDao);
 
-	SGResult decodeUserInfo(SmartgymUsersCtr userCtr);
+	SGResult decodeUserInfo(SgUserCtr userCtr);
 
 	SGResult checkData(String param, int type);
 
-	SGResult register(SmartgymUsersCtr userCtr);
+	SGResult register(SgUser user);
 	
-	SGResult deleteUser(String wxId);
+	SGResult deleteUserByWxId(String wxId);
+	
+	SGResult deleteUserByStudentNo(String studentNo);
 	
 	SGResult hardDeleteUser();
 	
-	List<SmartgymUsers> selectByWxid(String id);
+	SGResult update(SgUser user);
 	
-	SGResult update(SmartgymUsersCtr userCtr);
+	SGResult selectByWxId(String id);
 	
-	Integer getCollegeByStudentNo(String studentNo);
+	SGResult selectByStudentNo(String studentNo);
+	
+//	Integer getCollegeByStudentNo(String studentNo);
+	
+	SGResult getUser(SgUser managerUser, String studentNoSelected);
+	
+	SGResult setUserAuthority(String studentNo, Integer authority);
+	
+	List<SgUserCtr> getUserList(SgUser user);
 }

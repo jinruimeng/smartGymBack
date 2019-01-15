@@ -7,10 +7,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.smartGym.mapper.SmartgymCampusesMapper;
-import cn.smartGym.pojo.SmartgymCampuses;
-import cn.smartGym.pojo.SmartgymCampusesExample;
-import cn.smartGym.pojo.SmartgymCampusesExample.Criteria;
+import cn.smartGym.mapper.CampusMapper;
+import cn.smartGym.pojo.Campus;
+import cn.smartGym.pojo.CampusExample;
+import cn.smartGym.pojo.CampusExample.Criteria;
 import cn.smartGym.service.CampusService;
 
 /**
@@ -23,7 +23,7 @@ import cn.smartGym.service.CampusService;
 public class CampusServiceImpl implements CampusService {
 
 	@Autowired
-	private SmartgymCampusesMapper smartgymCampusesMapper;
+	private CampusMapper campusMapper;
 
 	/**
 	 * 根据校区id获取校区名
@@ -32,8 +32,8 @@ public class CampusServiceImpl implements CampusService {
 		if (id == null)
 			return null;
 		// 根据主键查询
-		SmartgymCampuses smartgymCampuses = smartgymCampusesMapper.selectByPrimaryKey(id);
-		return smartgymCampuses.getCampus();
+		Campus Campus = campusMapper.selectByPrimaryKey(id);
+		return Campus.getCampus();
 	}
 
 	/**
@@ -43,12 +43,12 @@ public class CampusServiceImpl implements CampusService {
 		if (StringUtils.isBlank(campus))
 			return null;
 
-		SmartgymCampusesExample example = new SmartgymCampusesExample();
+		CampusExample example = new CampusExample();
 		Criteria criteria = example.createCriteria();
 		if (campus != null) {
 			criteria.andCampusEqualTo(campus);
 		}
-		List<SmartgymCampuses> list = smartgymCampusesMapper.selectByExample(example);
+		List<Campus> list = campusMapper.selectByExample(example);
 		if (list == null || list.size() == 0)
 			return null;
 		return list.get(0).getId();
@@ -57,10 +57,9 @@ public class CampusServiceImpl implements CampusService {
 	/**
 	 * 获取所有的校区名称
 	 */
-	@Override
 	public List<String> getAllCampuses() {
-		SmartgymCampusesExample example = new SmartgymCampusesExample();
-		List<SmartgymCampuses> list = smartgymCampusesMapper.selectByExample(example);
+		CampusExample example = new CampusExample();
+		List<Campus> list = campusMapper.selectByExample(example);
 		List<String> result = new ArrayList<>();
 		if (!list.isEmpty()) {
 			for (int n = 0; n < list.size(); n++)

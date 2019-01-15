@@ -6,15 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.smartGym.mapper.SmartgymInformMapper;
-import cn.smartGym.pojo.SmartgymInform;
-import cn.smartGym.pojo.SmartgymInformExample;
-import cn.smartGym.pojo.SmartgymInformExample.Criteria;
+import cn.smartGym.mapper.InformationMapper;
+import cn.smartGym.pojo.Information;
+import cn.smartGym.pojo.InformationExample;
+import cn.smartGym.pojo.InformationExample.Criteria;
 import cn.smartGym.service.InformService;
 import common.utils.IDUtils;
 import common.utils.SGResult;
+
 /**
  * 通知/活动管理服务层
+ * 
  * @author Ruimeng Jin
  *
  */
@@ -22,19 +24,19 @@ import common.utils.SGResult;
 public class InformServiceImpl implements InformService {
 
 	@Autowired
-	private SmartgymInformMapper smartgymInformMapper;
-	
+	private InformationMapper InformationMapper;
+
 	@Override
 	/**
 	 * 新增通知
 	 */
-	public SGResult addInform(SmartgymInform smartgymInform) {
-		smartgymInform.setId(IDUtils.genId());
-		smartgymInform.setStatus(1);//0删除，1正常
-		smartgymInform.setCreated(new Date());
-		smartgymInform.setUpdated(new Date());
-		smartgymInformMapper.insert(smartgymInform);
-	
+	public SGResult addInform(Information Information) {
+		Information.setId(IDUtils.genId());
+		Information.setStatus(1);// 0删除，1正常
+		Information.setCreated(new Date());
+		Information.setUpdated(new Date());
+		InformationMapper.insert(Information);
+
 		return SGResult.build(200, "新增通知成功！");
 	}
 
@@ -42,9 +44,9 @@ public class InformServiceImpl implements InformService {
 	/**
 	 * 更新通知
 	 */
-	public SGResult updateInform(SmartgymInform smartgymInform) {
-		
-		smartgymInformMapper.updateByPrimaryKeySelective(smartgymInform);
+	public SGResult updateInform(Information Information) {
+
+		InformationMapper.updateByPrimaryKeySelective(Information);
 		return SGResult.build(200, "更新通知成功！");
 	}
 
@@ -53,34 +55,34 @@ public class InformServiceImpl implements InformService {
 	 * 根据id删除通知
 	 */
 	public SGResult deleteInformById(Long id) {
-		smartgymInformMapper.deleteByPrimaryKey(id);
+		InformationMapper.deleteByPrimaryKey(id);
 		return SGResult.build(200, "删除通知成功！");
 	}
-	
-	
-	
+
 	@Override
 	/**
-	 * 根据通知类型返回通知列表：0-通知+活动，1-通知，2-活动
-	 * 注意：不把通知正文（description)和备注（remark）返回
+	 * 根据通知类型返回通知列表：0-通知+活动，1-通知，2-活动 注意：不把通知正文（description)和备注（remark）返回
 	 */
 	public SGResult getInformList(Integer type) {
 		// 根据type查询inform表
 		try {
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		SmartgymInformExample example = new SmartgymInformExample();
+		InformationExample example = new InformationExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andTypeEqualTo(type);
+		if (type == 0)
+			criteria.andTypeGreaterThan(type);
+		else
+			criteria.andTypeEqualTo(type);
 		criteria.andStatusEqualTo(1);
-		List<SmartgymInform> list = smartgymInformMapper.selectByExample(example);
-		if(list == null || list.size() == 0)
-			return SGResult.build(404, "返回通知列表失败！");
-		for (SmartgymInform smartgymInform : list) {
-			smartgymInform.setDescription("");
-			smartgymInform.setRemark("");
+		List<Information> list = InformationMapper.selectByExample(example);
+		if (list == null || list.size() == 0)
+			return SGResult.build(404, "未找到通知！");
+		for (Information Information : list) {
+			Information.setDescription("");
+			Information.setRemark("");
 		}
 		return SGResult.build(200, "返回通知列表成功！", list);
 	}
@@ -90,12 +92,10 @@ public class InformServiceImpl implements InformService {
 	 * 根据通知id返回通知具体信息
 	 */
 	public SGResult getInformById(Long id) {
-		SmartgymInform smartgymInform = smartgymInformMapper.selectByPrimaryKey(id);
-		if(smartgymInform == null)
-			return SGResult.build(404, "没有找到您要找的通知！");
-		return SGResult.build(200, "查找通知成功！");
+		Information Information = InformationMapper.selectByPrimaryKey(id);
+		if (Information == null)
+			return SGResult.build(404, "没有找到您查询的通知信息！");
+		return SGResult.build(200, "查找通知成功！", Information);
 	}
-
-	
 
 }

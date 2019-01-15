@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojo.SmartgymInform;
+import cn.smartGym.pojo.Information;
 import cn.smartGym.service.InformService;
 import common.utils.SGResult;
 
@@ -24,9 +24,9 @@ public class InformController {
 	@RequestMapping(value = "/inform/addInform", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult addInform(SmartgymInform smartgymInform) {
+	public SGResult addInform(Information Information) {
 		try {
-			return informService.addInform(smartgymInform);
+			return informService.addInform(Information);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "新增通知失败！");
@@ -36,9 +36,9 @@ public class InformController {
 	@RequestMapping(value = "/inform/updateInform", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult updateInform(SmartgymInform smartgymInform) {
+	public SGResult updateInform(Information Information) {
 		try {
-			return informService.updateInform(smartgymInform);
+			return informService.updateInform(Information);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "更新通知失败！");

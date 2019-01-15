@@ -9,10 +9,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.smartGym.mapper.SmartgymCollegesMapper;
-import cn.smartGym.pojo.SmartgymColleges;
-import cn.smartGym.pojo.SmartgymCollegesExample;
-import cn.smartGym.pojo.SmartgymCollegesExample.Criteria;
+import cn.smartGym.mapper.CollegeMapper;
+import cn.smartGym.pojo.College;
+import cn.smartGym.pojo.CollegeExample;
+import cn.smartGym.pojo.CollegeExample.Criteria;
 import cn.smartGym.service.CollegeService;
 
 /**
@@ -25,7 +25,7 @@ import cn.smartGym.service.CollegeService;
 public class CollegeServiceImpl implements CollegeService {
 
 	@Autowired
-	private SmartgymCollegesMapper smartgymCollegesMapper;
+	private CollegeMapper CollegeMapper;
 
 	/**
 	 * 根据学院id获取学院名称
@@ -35,8 +35,8 @@ public class CollegeServiceImpl implements CollegeService {
 		if (id == null)
 			return null;
 		// 根据主键查询
-		SmartgymColleges smartgymColleges = smartgymCollegesMapper.selectByPrimaryKey(id);
-		return smartgymColleges.getCollege();
+		College College = CollegeMapper.selectByPrimaryKey(id);
+		return College.getCollege();
 	}
 
 	/**
@@ -46,10 +46,10 @@ public class CollegeServiceImpl implements CollegeService {
 	public Integer getId(String college) {
 		if(StringUtils.isBlank(college))
 			return null;
-		SmartgymCollegesExample example = new SmartgymCollegesExample();
+		CollegeExample example = new CollegeExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andCollegeEqualTo(college);
-		List<SmartgymColleges> list = smartgymCollegesMapper.selectByExample(example);
+		List<College> list = CollegeMapper.selectByExample(example);
 		if (list == null || list.size() == 0)
 			return null;
 		return list.get(0).getId();
@@ -60,8 +60,8 @@ public class CollegeServiceImpl implements CollegeService {
 	 */
 	@Override
 	public List<String> getAllColleges() {
-		SmartgymCollegesExample example = new SmartgymCollegesExample();
-		List<SmartgymColleges> list = smartgymCollegesMapper.selectByExample(example);
+		CollegeExample example = new CollegeExample();
+		List<College> list = CollegeMapper.selectByExample(example);
 		List<String> result = new ArrayList<>();
 		if (!list.isEmpty()) {
 			for (int n = 0; n < list.size(); n++)
@@ -76,10 +76,10 @@ public class CollegeServiceImpl implements CollegeService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<Integer, String> getAllCollegesIdAndName() {
-		SmartgymCollegesExample example = new SmartgymCollegesExample();
-		List<SmartgymColleges> colleges = smartgymCollegesMapper.selectByExample(example);
+		CollegeExample example = new CollegeExample();
+		List<College> colleges = CollegeMapper.selectByExample(example);
 		Map<Integer, String> result = new HashedMap();
-		for (SmartgymColleges college : colleges) {
+		for (College college : colleges) {
 			result.put(college.getId(), college.getCollege());
 		}
 		return result;

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.smartGym.controller.pojoCtr.PlayerCtr;
 import cn.smartGym.pojo.Player;
-import cn.smartGym.pojoctr.request.PlayerCtr;
 import cn.smartGym.service.PlayerService;
 import common.utils.SGResult;
 

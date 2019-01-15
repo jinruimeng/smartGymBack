@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.pojoctr.request.ItemCtr;
+import cn.smartGym.controller.pojoCtr.ItemCtr;
 import cn.smartGym.service.ItemService;
 import common.utils.SGResult;
 

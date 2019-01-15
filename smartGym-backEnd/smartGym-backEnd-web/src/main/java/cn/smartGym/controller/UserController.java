@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.smartGym.controller.pojoCtr.SgUserCtr;
 import cn.smartGym.pojo.SgUser;
-import cn.smartGym.pojoctr.request.SgUserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.UserService;

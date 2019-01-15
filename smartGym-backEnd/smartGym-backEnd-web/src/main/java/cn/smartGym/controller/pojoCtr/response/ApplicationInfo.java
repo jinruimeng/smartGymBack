@@ -1,4 +1,4 @@
-package cn.smartGym.pojoctr.response;
+package cn.smartGym.controller.pojoCtr.response;
 
 import java.io.Serializable;
 

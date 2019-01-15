@@ -9,14 +9,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.smartGym.controller.pojoCtr.ItemCtr;
+import cn.smartGym.controller.pojoCtr.PlayerCtr;
 import cn.smartGym.mapper.PlayerMapper;
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.Player;
 import cn.smartGym.pojo.PlayerExample;
 import cn.smartGym.pojo.PlayerExample.Criteria;
-import cn.smartGym.pojoctr.request.ItemCtr;
-import cn.smartGym.pojoctr.request.PlayerCtr;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;

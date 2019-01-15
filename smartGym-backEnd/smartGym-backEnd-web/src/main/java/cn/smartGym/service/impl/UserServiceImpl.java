@@ -8,11 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.smartGym.controller.pojoCtr.SgUserCtr;
 import cn.smartGym.mapper.SgUserMapper;
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojo.SgUserExample;
 import cn.smartGym.pojo.SgUserExample.Criteria;
-import cn.smartGym.pojoctr.request.SgUserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderService;

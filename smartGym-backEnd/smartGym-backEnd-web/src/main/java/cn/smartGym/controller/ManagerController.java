@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.smartGym.controller.pojoCtr.ApplicationCtr;
+import cn.smartGym.controller.pojoCtr.ItemCtr;
+import cn.smartGym.controller.pojoCtr.PlayerCtr;
+import cn.smartGym.controller.pojoCtr.response.ApplicationInfo;
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.Player;
 import cn.smartGym.pojo.SgUser;
-import cn.smartGym.pojoctr.request.ApplicationCtr;
-import cn.smartGym.pojoctr.request.ItemCtr;
-import cn.smartGym.pojoctr.request.PlayerCtr;
-import cn.smartGym.pojoctr.response.ApplicationInfo;
 import cn.smartGym.service.ApplyService;
 import cn.smartGym.service.ItemService;
 import cn.smartGym.service.PlayerService;

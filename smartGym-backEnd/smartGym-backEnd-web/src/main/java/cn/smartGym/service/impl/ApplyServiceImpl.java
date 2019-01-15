@@ -10,14 +10,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.smartGym.controller.pojoCtr.ApplicationCtr;
+import cn.smartGym.controller.pojoCtr.ItemCtr;
+import cn.smartGym.controller.pojoCtr.response.ApplicationInfo;
 import cn.smartGym.mapper.ApplicationMapper;
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.ApplicationExample;
 import cn.smartGym.pojo.ApplicationExample.Criteria;
 import cn.smartGym.pojo.Item;
-import cn.smartGym.pojoctr.request.ApplicationCtr;
-import cn.smartGym.pojoctr.request.ItemCtr;
-import cn.smartGym.pojoctr.response.ApplicationInfo;
 import cn.smartGym.service.ApplyService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.GenderGroupService;

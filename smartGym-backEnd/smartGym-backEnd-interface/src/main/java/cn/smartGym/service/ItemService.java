@@ -2,8 +2,8 @@ package cn.smartGym.service;
 
 import java.util.List;
 
+import cn.smartGym.controller.pojoCtr.ItemCtr;
 import cn.smartGym.pojo.Item;
-import cn.smartGym.pojoctr.request.ItemCtr;
 import common.utils.SGResult;
 
 /**

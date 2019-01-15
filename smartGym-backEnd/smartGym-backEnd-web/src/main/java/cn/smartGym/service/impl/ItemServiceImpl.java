@@ -8,11 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.smartGym.controller.pojoCtr.ItemCtr;
 import cn.smartGym.mapper.ItemMapper;
 import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.ItemExample;
 import cn.smartGym.pojo.ItemExample.Criteria;
-import cn.smartGym.pojoctr.request.ItemCtr;
 import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
 import common.utils.IDUtils;
@@ -225,24 +225,6 @@ public class ItemServiceImpl implements ItemService {
 	 * @return
 	 */
 	public List<Long> getItemIdsByItemDetails(Item item) {
-		// 根据项目的名称分类小项等生成比赛项目Id
-		// ItemExample example = new ItemExample();
-		// Criteria criteria = example.createCriteria();
-		// criteria.andStatusNotEqualTo(0);
-		// if (!StringUtils.isBlank(item.getGame()))
-		// criteria.andGameEqualTo(item.getGame());
-		// if (!StringUtils.isBlank(item.getCategory()))
-		// criteria.andCategoryEqualTo(item.getCategory());
-		// if (!StringUtils.isBlank(item.getItem()))
-		// criteria.andItemEqualTo(item.getItem());
-		// if (item.getGender() != null &&
-		// !StringUtils.isBlank(item.getGender().toString()))
-		// criteria.andGenderEqualTo(item.getGender());
-		// if (item.getStatus() != null)
-		// criteria.andStatusEqualTo(item.getStatus());
-		// // 执行查询
-		// List<Item> items = itemMapper.selectByExample(example);
-
 		List<Item> items = getItemsByItemDetails(item);
 		if (items == null || items.size() <= 0)
 			return null;

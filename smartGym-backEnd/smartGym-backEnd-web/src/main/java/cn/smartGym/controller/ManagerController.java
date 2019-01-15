@@ -364,9 +364,9 @@ public class ManagerController {
 	@RequestMapping(value = "/smartgym/manager/getPlayersListByItemDetailsAndCollege", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getPlayersListByItemDetailsAndCollege(Item item, String college) {
+	public SGResult getPlayersListByItemDetailsAndCollege(ItemCtr itemCtr, String college) {
 		try {
-			List<Player> playersList = playerService.getPlayerListByItemDetails(item, college);
+			List<Player> playersList = playerService.getPlayerListByItemDetails(itemService.itemCtrToDao(itemCtr), college);
 			if (playersList == null || playersList.size() == 0)
 				return SGResult.build(200, "未查到相关信息！");
 			List<PlayerCtr> result = new ArrayList<>();

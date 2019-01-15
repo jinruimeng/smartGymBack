@@ -18,7 +18,7 @@ public interface PlayerService {
 
 	List<Player> getPlayerListByStudentNo(String studentno);
 
-	List<Player> getPlayerListByItemIdAndCollege(String college, List<Long> itemIds);
+	List<Player> getPlayerListByItemIdAndCollege(String college, Long... itemIds);
 
 	List<Player> getPlayerListByItemId(Long itemId);
 

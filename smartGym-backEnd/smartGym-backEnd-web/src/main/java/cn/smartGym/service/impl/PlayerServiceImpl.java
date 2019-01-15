@@ -180,10 +180,10 @@ public class PlayerServiceImpl implements PlayerService {
 	 * 
 	 * @param itemId, college 项目id, 学院名称，可以为空
 	 */
-	public List<Player> getPlayerListByItemIdAndCollege(String college, List<Long> itemIds) {
+	public List<Player> getPlayerListByItemIdAndCollege(String college, Long... itemIds) {
 		
 		ArrayList<Player> result = new ArrayList<Player>();
-		if (itemIds == null || itemIds.size() == 0)
+		if (itemIds == null || itemIds.length == 0)
 			return result;
 
 		PlayerExample example = new PlayerExample();
@@ -191,9 +191,8 @@ public class PlayerServiceImpl implements PlayerService {
 		if (college != null && !college.equals("total")) {
 			criteria.andCollegeEqualTo(collegeService.getId(college));
 		}
-//		ArrayList<Long> itemsIdList = (ArrayList<Long>) ListAndArray.arrayToList(itemIds);
-//		criteria.andIdIn(itemsIdList);
-		criteria.andItemIdIn(itemIds);
+
+		criteria.andItemIdIn(Arrays.asList(itemIds));
 		criteria.andStatusNotEqualTo(0);
 		List<Player> list = PlayerMapper.selectByExample(example);
 		return list;
@@ -205,7 +204,7 @@ public class PlayerServiceImpl implements PlayerService {
 	 * @param itemId 项目id
 	 */
 	public List<Player> getPlayerListByItemId(Long itemId) {
-		return getPlayerListByItemIdAndCollege(null, Arrays.asList(itemId));
+		return getPlayerListByItemIdAndCollege(null, itemId);
 	}
 
 	/**
@@ -219,7 +218,7 @@ public class PlayerServiceImpl implements PlayerService {
 			return null;
 
 		//		Long[] itemIdsArray = ListAndArray.longListToArray(itemIds);
-		List<Player> result = getPlayerListByItemIdAndCollege(college, itemIds);
+		List<Player> result = getPlayerListByItemIdAndCollege(college, itemIds.toArray(new Long[itemIds.size()]));
 		
 		return result;
 	}

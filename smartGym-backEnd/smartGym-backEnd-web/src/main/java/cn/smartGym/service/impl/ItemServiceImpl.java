@@ -211,6 +211,7 @@ public class ItemServiceImpl implements ItemService {
 
 		// 执行查询
 		List<Item> items = itemMapper.selectByExample(example);
+		
 		if (items == null || items.size() <= 0)
 			return null;
 		return items;
@@ -249,6 +250,7 @@ public class ItemServiceImpl implements ItemService {
 		for (Item item0 : items) {
 			itemIds.add(item0.getId());
 		}
+		
 		return itemIds;
 	}
 

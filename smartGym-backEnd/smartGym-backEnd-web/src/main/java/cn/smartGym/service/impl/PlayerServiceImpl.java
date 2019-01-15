@@ -1,6 +1,7 @@
 package cn.smartGym.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,6 @@ import cn.smartGym.service.GenderGroupService;
 import cn.smartGym.service.ItemService;
 import cn.smartGym.service.JobService;
 import cn.smartGym.service.PlayerService;
-import common.utils.ListAndArray;
 import common.utils.SGResult;
 
 /**
@@ -180,9 +180,10 @@ public class PlayerServiceImpl implements PlayerService {
 	 * 
 	 * @param itemId, college 项目id, 学院名称，可以为空
 	 */
-	public List<Player> getPlayerListByItemIdAndCollege(String college, Long... itemsId) {
+	public List<Player> getPlayerListByItemIdAndCollege(String college, List<Long> itemIds) {
+		
 		ArrayList<Player> result = new ArrayList<Player>();
-		if (itemsId == null || itemsId.length == 0)
+		if (itemIds == null || itemIds.size() == 0)
 			return result;
 
 		PlayerExample example = new PlayerExample();
@@ -190,8 +191,9 @@ public class PlayerServiceImpl implements PlayerService {
 		if (college != null && !college.equals("total")) {
 			criteria.andCollegeEqualTo(collegeService.getId(college));
 		}
-		ArrayList<Long> itemsIdList = (ArrayList<Long>) ListAndArray.arrayToList(itemsId);
-		criteria.andIdIn(itemsIdList);
+//		ArrayList<Long> itemsIdList = (ArrayList<Long>) ListAndArray.arrayToList(itemIds);
+//		criteria.andIdIn(itemsIdList);
+		criteria.andItemIdIn(itemIds);
 		criteria.andStatusNotEqualTo(0);
 		List<Player> list = PlayerMapper.selectByExample(example);
 		return list;
@@ -203,7 +205,7 @@ public class PlayerServiceImpl implements PlayerService {
 	 * @param itemId 项目id
 	 */
 	public List<Player> getPlayerListByItemId(Long itemId) {
-		return getPlayerListByItemIdAndCollege(null, itemId);
+		return getPlayerListByItemIdAndCollege(null, Arrays.asList(itemId));
 	}
 
 	/**
@@ -215,9 +217,10 @@ public class PlayerServiceImpl implements PlayerService {
 		List<Long> itemIds = itemService.getItemIdsByItemDetails(item);
 		if (itemIds == null || itemIds.size() <= 0)
 			return null;
-		Long[] itemIdsArray = ListAndArray.longListToArray(itemIds);
-		List<Player> result = getPlayerListByItemIdAndCollege(college, itemIdsArray);
 
+		//		Long[] itemIdsArray = ListAndArray.longListToArray(itemIds);
+		List<Player> result = getPlayerListByItemIdAndCollege(college, itemIds);
+		
 		return result;
 	}
 

@@ -1,8 +1,8 @@
 package common.enums;
 
 public enum Gender {
-	male(0,"男"),female(1,"女");
-	
+	male(0, "男"), female(1, "女");
+
 	private Integer index;
 	private String name;
 
@@ -10,7 +10,7 @@ public enum Gender {
 		this.index = index;
 		this.name = name;
 	}
-	
+
 	public Integer getIndex() {
 		return index;
 	}
@@ -27,17 +27,17 @@ public enum Gender {
 		this.name = name;
 	}
 
-	public static String getName(Integer index) {  
-		for (Gender i : Gender.values())   
-			if (i.getIndex() == index) 
+	public static String getName(Integer index) {
+		for (Gender i : Gender.values())
+			if (i.getIndex() == index)
 				return i.name;
-		return "男";  
+		return null;
 	}
-	
-	public static Integer getIndex(String name) {  
-		for (Gender i : Gender.values())   
-			if (i.getName().equals(name)) 
+
+	public static Integer getIndex(String name) {
+		for (Gender i : Gender.values())
+			if (i.getName().equals(name))
 				return i.index;
-		return 0;  
-	} 
+		return null;
+	}
 }

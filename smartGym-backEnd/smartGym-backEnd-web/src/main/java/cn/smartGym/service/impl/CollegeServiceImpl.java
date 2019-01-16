@@ -75,7 +75,7 @@ public class CollegeServiceImpl implements CollegeService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<Integer, String> getAllCollegesIdAndName() {
+	public Map<Integer, String> getAllCollegeIdsAndName() {
 		CollegeExample example = new CollegeExample();
 		List<College> colleges = CollegeMapper.selectByExample(example);
 		Map<Integer, String> result = new HashedMap();

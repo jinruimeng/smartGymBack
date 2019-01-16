@@ -12,6 +12,7 @@ import common.utils.SGResult;
 
 /**
  * 通知表现层
+ * 
  * @author Ruimeng Jin
  *
  */
@@ -20,66 +21,45 @@ public class InformController {
 
 	@Autowired
 	private InformService informService;
-	
+
 	@RequestMapping(value = "/inform/addInform", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult addInform(Information Information) {
-		try {
-			return informService.addInform(Information);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "新增通知失败！");
-		}
+	public SGResult addInform(Information Information) throws Exception {
+		informService.addInform(Information);
+		return SGResult.build(200, "增加消息成功！");
 	}
-	
+
 	@RequestMapping(value = "/inform/updateInform", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult updateInform(Information Information) {
-		try {
-			return informService.updateInform(Information);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "更新通知失败！");
-		}
+	public SGResult updateInform(Information Information) throws Exception {
+		informService.updateInform(Information);
+		return SGResult.build(200, "修改消息成功！");
 	}
-	
-	
+
 	@RequestMapping(value = "/inform/deleteInformById", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult deleteInformById(Long id) {
-		try {
-			return informService.deleteInformById(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "删除通知失败！");
-		}
+	public SGResult deleteInformById(Long id) throws Exception {
+		if (id == null)
+			return SGResult.build(203, "请选择要删除的通知！");
+		return informService.deleteInformById(id);
 	}
-	
-	
+
 	@RequestMapping(value = "/inform/getInformList", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInformList(Integer type) {
-		try {
-			return informService.getInformList(type);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "返回通知列表失败！");
-		}
+	public SGResult getInformList(Integer type) throws Exception {
+		if (type == null)
+			return SGResult.build(203, "通知的类型不能为空！");
+		return informService.getInformListByTypeAndIds(type, new Long[0]);
 	}
-	
+
 	@RequestMapping(value = "/inform/getInformById", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInformById(Long id) {
-		try {
-			return informService.getInformById(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "查找通知信息失败！");
-		}
+	public SGResult getInformById(Long id) throws Exception {
+		return informService.getInformListByTypeAndIds(0, id);
 	}
 }

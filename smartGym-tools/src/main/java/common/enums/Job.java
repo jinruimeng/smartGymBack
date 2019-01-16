@@ -31,13 +31,13 @@ public enum Job {
 		for (Job i : Job.values())   
 			if (i.getIndex() == index) 
 				return i.name;
-		return "队员";  
+		return null;  
 	}
 	
 	public static Integer getIndex(String name) {  
 		for (Job i : Job.values())   
 			if (i.getName().equals(name)) 
 				return i.index;
-		return 0;  
+		return null;  
 	} 
 }

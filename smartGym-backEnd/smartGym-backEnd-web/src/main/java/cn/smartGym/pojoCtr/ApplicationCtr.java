@@ -27,9 +27,9 @@ public class ApplicationCtr implements Serializable {
 
 	private String studentNo;
 
-	private Long itemId;// 不用接收
+	private Long itemId;
 
-	private Integer status;// 不用接收
+	private Integer status;
 
 	private String game;
 

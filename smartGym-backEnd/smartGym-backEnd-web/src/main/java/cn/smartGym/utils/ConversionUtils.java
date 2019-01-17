@@ -80,6 +80,7 @@ public class ConversionUtils {
 		applicationCtr.setGender(GenderGroup.getName(application.getGender()));
 		applicationCtr.setStudentNo(application.getStudentNo());
 		applicationCtr.setItemId(application.getItemId());
+		applicationCtr.setStatus(application.getStatus());
 		applicationCtr.setItem(item.getItem());
 		applicationCtr.setGame(item.getGame());
 		applicationCtr.setCategory(item.getCategory());

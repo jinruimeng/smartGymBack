@@ -240,7 +240,8 @@ public class ManagerController {
 		playerService.genPlayerNo(itemIds);
 		// 分组
 		for (Long itemId : itemIds) {
-			playerService.genGroupNoAndPathNo(itemId);
+			Integer pathNum = itemService.getPathNumberByItemId(itemId);
+			playerService.genGroupNoAndPathNo(itemId, pathNum);
 		}
 		return SGResult.build(200, "校级管理员审核成功！");
 	}

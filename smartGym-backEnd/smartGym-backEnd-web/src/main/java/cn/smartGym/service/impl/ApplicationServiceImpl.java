@@ -18,7 +18,7 @@ import cn.smartGym.pojo.ApplicationExample.Criteria;
 import cn.smartGym.pojo.Item;
 import cn.smartGym.pojoCtr.response.ApplicationInfo;
 import cn.smartGym.service.ApplicationService;
-import cn.smartGym.service.CollegeService;
+import cn.smartGym.utils.ConversionUtils;
 import common.enums.GenderGroup;
 import common.utils.IDUtils;
 import common.utils.SGResult;
@@ -32,9 +32,6 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	@Autowired
 	private ApplicationMapper ApplicationMapper;
-
-	@Autowired
-	private CollegeService collegeService;
 
 	/**
 	 * 报名比赛
@@ -157,7 +154,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			criteria.andStatusIn(Arrays.asList(statuses));
 		if (!StringUtils.isBlank(college))
 			if (!college.equals("total"))
-				criteria.andCollegeEqualTo(collegeService.getId(college));
+				criteria.andCollegeEqualTo(ConversionUtils.getCollegeIndex(college));
 
 		List<Application> applications = ApplicationMapper.selectByExample(example);
 
@@ -301,7 +298,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		Long totalReview = (long) 0;
 
 		// 获取所有学院
-		Map<Integer, String> allCollegesIdAndName = collegeService.getAllCollegeIdsAndName();
+		Map<Integer, String> allCollegesIdAndName = ConversionUtils.getAllCollegeIdsAndName();
 		Set<Integer> collegesId = allCollegesIdAndName.keySet();
 
 		// 检查项目状态
@@ -362,7 +359,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		Long allTotalReview = (long) 0;
 
 		// 获取所有学院
-		Map<Integer, String> allCollegesIdAndName = collegeService.getAllCollegeIdsAndName();
+		Map<Integer, String> allCollegesIdAndName = ConversionUtils.getAllCollegeIdsAndName();
 		Set<Integer> collegesId = allCollegesIdAndName.keySet();
 
 		for (Integer collegeId : collegesId) {
@@ -422,7 +419,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		List<ApplicationInfo> result = new ArrayList<>();
 
 		// 获取学院Id
-		Integer collegeId = collegeService.getId(college);
+		Integer collegeId = ConversionUtils.getCollegeIndex(college);
 
 		if (collegeId != null) {
 			Long collegeTotalApplication = (long) 0;

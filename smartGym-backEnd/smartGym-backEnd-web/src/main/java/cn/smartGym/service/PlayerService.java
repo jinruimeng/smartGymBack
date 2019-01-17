@@ -16,7 +16,7 @@ public interface PlayerService {
 
 	void genPlayerNo(List<Long> itemsId);
 
-	SGResult genGroupNoAndPathNo(Long itemId);
+	SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum);
 
 	List<Player> getPlayersByStudentNo(String studentNo);
 

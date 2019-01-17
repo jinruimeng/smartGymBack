@@ -2,6 +2,7 @@ package cn.smartGym.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -199,7 +200,7 @@ public class ConversionUtils {
 		}
 		return playersCtr;
 	}
-	
+
 	public static SgUserCtr userDaoToCtr(SgUser user) {
 		SgUserCtr userCtr = new SgUserCtr();
 		userCtr.setId(user.getId());
@@ -231,12 +232,36 @@ public class ConversionUtils {
 
 		return user;
 	}
-	
+
 	public static List<SgUserCtr> daoListToCtrList(List<SgUser> users) {
 		List<SgUserCtr> usersCtr = new ArrayList<>();
 		for (SgUser user : users) {
 			usersCtr.add(userDaoToCtr(user));
 		}
 		return usersCtr;
+	}
+
+	public static String getCollegeName(Integer id) {
+		return conversionUtil.collegeService.getCollege(id);
+	}
+
+	public static Integer getCollegeIndex(String college) {
+		return conversionUtil.collegeService.getId(college);
+	}
+
+	public static Map<Integer, String> getAllCollegeIdsAndName() {
+		return conversionUtil.collegeService.getAllCollegeIdsAndName();
+	}
+
+	public static String getCampusName(Integer id) {
+		return conversionUtil.campusService.getCampus(id);
+	}
+
+	public static Integer getCampusIndex(String college) {
+		return conversionUtil.campusService.getId(college);
+	}
+
+	public static List<String> getAllCampuses() {
+		return conversionUtil.campusService.getAllCampuses();
 	}
 }

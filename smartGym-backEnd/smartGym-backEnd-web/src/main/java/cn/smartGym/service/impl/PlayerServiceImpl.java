@@ -14,9 +14,8 @@ import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Player;
 import cn.smartGym.pojo.PlayerExample;
 import cn.smartGym.pojo.PlayerExample.Criteria;
-import cn.smartGym.service.CollegeService;
-import cn.smartGym.service.ItemService;
 import cn.smartGym.service.PlayerService;
+import cn.smartGym.utils.ConversionUtils;
 import common.utils.SGResult;
 
 /**
@@ -30,12 +29,6 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Autowired
 	private PlayerMapper PlayerMapper;
-
-	@Autowired
-	private CollegeService collegeService;
-
-	@Autowired
-	private ItemService itemService;
 
 	/**
 	 * 根据报名表信息生成参赛信息
@@ -129,7 +122,7 @@ public class PlayerServiceImpl implements PlayerService {
 	 * 
 	 * @param itemId 项目id
 	 */
-	public SGResult genGroupNoAndPathNo(Long itemId) {
+	public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
 
 		PlayerExample example = new PlayerExample();
 		example.setOrderByClause("id");
@@ -143,10 +136,9 @@ public class PlayerServiceImpl implements PlayerService {
 		// 打乱list中的item顺序
 		Collections.shuffle(list);
 
-		// 取出赛道数,如果赛道数为空或为0,默认设为8
-		Integer pathNum = itemService.getPathNumberByItemId(itemId);
+		// 取出赛道数,如果赛道数为空或为0,默认为全部运动员分为一组
 		if (pathNum == null || pathNum == 0)
-			pathNum = 8;
+			pathNum = list.size() + 1;
 
 		// 设置分组号和赛道号
 		for (int i = 0; i < list.size(); i++) {
@@ -190,7 +182,7 @@ public class PlayerServiceImpl implements PlayerService {
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusNotEqualTo(0);
 		if (!college.equals("total")) {
-			criteria.andCollegeEqualTo(collegeService.getId(college));
+			criteria.andCollegeEqualTo(ConversionUtils.getCollegeIndex(college));
 		}
 
 		if (itemIds != null && itemIds.length != 0)

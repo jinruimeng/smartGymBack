@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.smartGym.annotation.ArchivesLog;
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.Player;
@@ -318,15 +317,13 @@ public class ManagerController {
 	@RequestMapping(value = "/smartgym/manager/getPlayersListByItemDetailsAndCollege", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	@ArchivesLog(operateContent = "获取运动员列表")
+//	@ArchivesLog(operateContent = "获取运动员列表")
 	public SGResult getPlayersListByItemDetailsAndCollege(ItemCtr itemCtr, String college) throws Exception {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
 		List<Long> itemIds = itemService.getItemIdsByItems(items);
 		List<Player> players = playerService.getPlayersByCollegeAndItemIds(college,
 				itemIds.toArray(new Long[itemIds.size()]));
 
-		int i = 1 / 0;
-		
 		if (players == null || players.size() == 0)
 			return SGResult.build(201, "未查到相关信息！");
 

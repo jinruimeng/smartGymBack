@@ -119,16 +119,11 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult maintenance() throws Exception {
-		try {
 			itemService.maintenanceItem();
 			List<Item> items = itemService.getItemsByDetailsAndStatuses(null, 0, 2);
 			List<Long> itemIds = itemService.getItemIdsByItems(items);
 			applicationService.maintenanceApplication(itemIds);
 			return SGResult.build(200, "维护成功！");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "维护失败！", e);
-		}
 	}
 
 	/**
@@ -140,17 +135,12 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult hardDelete() throws Exception {
-		try {
 			itemService.hardDeleteItem();
 			applicationService.hardDeleteApplication();
 			playerService.hardDeletePlayer();
 			userService.hardDeleteUser();
 			informService.hardDeleteInformation();
 			return SGResult.build(200, "硬删除成功！");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "硬删除失败！", e);
-		}
 	}
 
 	/**
@@ -163,7 +153,6 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult viewByCollegeManager(ItemCtr itemCtr, String college) throws Exception {
-		try {
 			if (StringUtils.isBlank(college))
 				return SGResult.build(200, "学院不能为空！");
 
@@ -174,10 +163,6 @@ public class ManagerController {
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
 
 			return SGResult.build(200, "查询院级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "查询院级管理员待审核名单失败！", e);
-		}
 	}
 
 	/**
@@ -190,12 +175,7 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult reviewByCollegeManager(Long[] ids) throws Exception {
-		try {
 			return applicationService.reviewByCollegeManager(Arrays.asList(ids));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "院级管理员审核失败！", e);
-		}
 	}
 
 	/**
@@ -208,17 +188,12 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult viewByUniversityManager(ItemCtr itemCtr) throws Exception {
-		try {
 			List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
 			List<Long> itemIds = itemService.getItemIdsByItems(items);
 			List<Application> applications = applicationService.getApplicationListByItemIdsAndCollegeAndStatus(itemIds,
 					"total", 1, 2, 3);
 			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
 			return SGResult.build(200, "查询校级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(404, "查询校级管理员待审核名单失败！", e);
-		}
 	}
 
 	/**

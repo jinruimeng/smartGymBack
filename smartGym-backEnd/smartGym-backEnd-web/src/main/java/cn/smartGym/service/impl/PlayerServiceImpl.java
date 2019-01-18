@@ -15,7 +15,7 @@ import cn.smartGym.pojo.Player;
 import cn.smartGym.pojo.PlayerExample;
 import cn.smartGym.pojo.PlayerExample.Criteria;
 import cn.smartGym.service.PlayerService;
-import cn.smartGym.utils.ConversionUtils;
+import cn.smartGym.utils.CollegeAndCampusUtils;
 import common.utils.SGResult;
 
 /**
@@ -182,7 +182,7 @@ public class PlayerServiceImpl implements PlayerService {
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusNotEqualTo(0);
 		if (!college.equals("total")) {
-			criteria.andCollegeEqualTo(ConversionUtils.getCollegeIndex(college));
+			criteria.andCollegeEqualTo(CollegeAndCampusUtils.getCollegeIndex(college));
 		}
 
 		if (itemIds != null && itemIds.length != 0)

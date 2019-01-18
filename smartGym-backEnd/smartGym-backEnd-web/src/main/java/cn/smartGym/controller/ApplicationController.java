@@ -55,6 +55,6 @@ public class ApplicationController {
 		if (StringUtils.isBlank(studentNo))
 			return SGResult.build(203, "学号不能为空！");
 		List<Application> result = applicationService.getApplicationListByStatusAndStudentNo(null, studentNo);
-		return SGResult.build(200, "查询成功！", result);
+		return SGResult.build(200, "查询成功！", ConversionUtils.applicationdaoListToCtrList(result));
 	}
 }

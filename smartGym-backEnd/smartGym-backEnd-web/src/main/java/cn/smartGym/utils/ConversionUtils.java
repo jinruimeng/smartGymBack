@@ -2,7 +2,6 @@ package cn.smartGym.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -34,11 +33,11 @@ public class ConversionUtils {
 	@Autowired
 	private ItemService itemService;
 
-	public static ConversionUtils conversionUtil;
+	public static ConversionUtils conversionUtils;
 
 	@PostConstruct
 	public void init() {
-		conversionUtil = this;
+		conversionUtils = this;
 	}
 
 	public static Application applicationCtrToDao(ApplicationCtr applicationCtr) {
@@ -50,14 +49,14 @@ public class ConversionUtils {
 		item.setItem(applicationCtr.getItem());
 		item.setGender(GenderGroup.getIndex(applicationCtr.getGender()));
 		// 根据具体项目信息查找itemId
-		List<Item> items = conversionUtil.itemService.getItemsByDetailsAndStatuses(item, new Integer[0]);
-		List<Long> itemIds = conversionUtil.itemService.getItemIdsByItems(items);
+		List<Item> items = conversionUtils.itemService.getItemsByDetailsAndStatuses(item, new Integer[0]);
+		List<Long> itemIds = conversionUtils.itemService.getItemIdsByItems(items);
 		if (itemIds == null || itemIds.isEmpty())
 			return application;
 
 		application.setId(applicationCtr.getId());
 		application.setName(applicationCtr.getName());
-		application.setCollege(conversionUtil.collegeService.getId(applicationCtr.getCollege()));
+		application.setCollege(conversionUtils.collegeService.getId(applicationCtr.getCollege()));
 		application.setJob(Job.getIndex(applicationCtr.getJob()));
 		application.setGender(GenderGroup.getIndex(applicationCtr.getGender()));
 		application.setStudentNo(applicationCtr.getStudentNo());
@@ -69,13 +68,13 @@ public class ConversionUtils {
 	public static ApplicationCtr applicationDaoToCtr(Application application) {
 		ApplicationCtr applicationCtr = new ApplicationCtr();
 
-		Item item = conversionUtil.itemService.getItemByItemIdAndStatuses(application.getItemId(), new Integer[0]);
+		Item item = conversionUtils.itemService.getItemByItemIdAndStatuses(application.getItemId(), new Integer[0]);
 		if (item == null)
 			return applicationCtr;
 
 		applicationCtr.setId(application.getId());
 		applicationCtr.setName(application.getName());
-		applicationCtr.setCollege(conversionUtil.collegeService.getCollege(application.getCollege()));
+		applicationCtr.setCollege(conversionUtils.collegeService.getCollege(application.getCollege()));
 		applicationCtr.setJob(Job.getName(application.getJob()));
 		applicationCtr.setGender(GenderGroup.getName(application.getGender()));
 		applicationCtr.setStudentNo(application.getStudentNo());
@@ -139,7 +138,7 @@ public class ConversionUtils {
 	public static PlayerCtr playerDaoToCtr(Player player) {
 		PlayerCtr playCtr = new PlayerCtr();
 
-		Item item = conversionUtil.itemService.getItemByItemIdAndStatuses(player.getItemId(), new Integer[0]);
+		Item item = conversionUtils.itemService.getItemByItemIdAndStatuses(player.getItemId(), new Integer[0]);
 		if (item == null)
 			return playCtr;
 
@@ -149,7 +148,7 @@ public class ConversionUtils {
 		playCtr.setItemId(player.getItemId());
 		playCtr.setId(player.getId());
 		playCtr.setName(player.getName());
-		playCtr.setCollege(conversionUtil.collegeService.getCollege(player.getCollege()));
+		playCtr.setCollege(conversionUtils.collegeService.getCollege(player.getCollege()));
 		playCtr.setStudentNo(player.getStudentNo());
 		playCtr.setJob(Job.getName(player.getJob()));
 		playCtr.setPlayerNo(player.getPlayerNo());
@@ -171,15 +170,15 @@ public class ConversionUtils {
 		item.setCategory(playerCtr.getCategory());
 		item.setItem(playerCtr.getItem());
 		item.setGender(GenderGroup.getIndex(playerCtr.getGender()));
-		List<Item> items = conversionUtil.itemService.getItemsByDetailsAndStatuses(item, new Integer[0]);
-		List<Long> itemIds = conversionUtil.itemService.getItemIdsByItems(items);
+		List<Item> items = conversionUtils.itemService.getItemsByDetailsAndStatuses(item, new Integer[0]);
+		List<Long> itemIds = conversionUtils.itemService.getItemIdsByItems(items);
 		if (itemIds == null || itemIds.size() == 0)
 			return player;
 		playerCtr.setItemId(itemIds.get(0));
 
 		player.setId(playerCtr.getId());
 		player.setName(playerCtr.getName());
-		player.setCollege(conversionUtil.collegeService.getId(playerCtr.getCollege()));
+		player.setCollege(conversionUtils.collegeService.getId(playerCtr.getCollege()));
 		player.setStudentNo(playerCtr.getStudentNo());
 		player.setItemId(playerCtr.getItemId());
 		player.setJob(Job.getIndex(playerCtr.getJob()));
@@ -209,8 +208,8 @@ public class ConversionUtils {
 		userCtr.setWxId(user.getWxId());
 		userCtr.setStudentNo(user.getStudentNo());
 		userCtr.setGender(Gender.getName(user.getGender()));
-		userCtr.setCampus(conversionUtil.campusService.getCampus(user.getCampus()));
-		userCtr.setCollege(conversionUtil.collegeService.getCollege(user.getCollege()));
+		userCtr.setCampus(conversionUtils.campusService.getCampus(user.getCampus()));
+		userCtr.setCollege(conversionUtils.collegeService.getCollege(user.getCollege()));
 		userCtr.setPhone(user.getPhone());
 		userCtr.setStatus(user.getStatus());
 		userCtr.setAuthority(user.getAuthority());
@@ -225,8 +224,8 @@ public class ConversionUtils {
 		user.setWxId(userCtr.getWxId());
 		user.setStudentNo(userCtr.getStudentNo());
 		user.setGender(Gender.getIndex(userCtr.getGender()));
-		user.setCampus(conversionUtil.campusService.getId(userCtr.getCampus()));
-		user.setCollege(conversionUtil.collegeService.getId(userCtr.getCollege()));
+		user.setCampus(conversionUtils.campusService.getId(userCtr.getCampus()));
+		user.setCollege(conversionUtils.collegeService.getId(userCtr.getCollege()));
 		user.setPhone(userCtr.getPhone());
 		user.setStatus(userCtr.getStatus());
 		user.setAuthority(userCtr.getAuthority());
@@ -241,28 +240,5 @@ public class ConversionUtils {
 		}
 		return usersCtr;
 	}
-
-	public static String getCollegeName(Integer id) {
-		return conversionUtil.collegeService.getCollege(id);
-	}
-
-	public static Integer getCollegeIndex(String college) {
-		return conversionUtil.collegeService.getId(college);
-	}
-
-	public static Map<Integer, String> getAllCollegeIdsAndName() {
-		return conversionUtil.collegeService.getAllCollegeIdsAndName();
-	}
-
-	public static String getCampusName(Integer id) {
-		return conversionUtil.campusService.getCampus(id);
-	}
-
-	public static Integer getCampusIndex(String college) {
-		return conversionUtil.campusService.getId(college);
-	}
-
-	public static List<String> getAllCampuses() {
-		return conversionUtil.campusService.getAllCampuses();
-	}
+	
 }

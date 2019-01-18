@@ -18,8 +18,6 @@
 	</dependencies>
 	<modules>
 		<module>smartGym-backEnd-dao</module>
-		<module>smartGym-backEnd-interface</module>
-		<module>smartGym-backEnd-pojo</module>
 		<module>smartGym-backEnd-web</module>
 	</modules>
 	<build>
@@ -29,11 +27,11 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
 					<path>/</path>
-<!-- 					<port>8080</port> -->
-<!-- 					<url>http://202.120.162.23:8080/manager/text</url> -->
-<!-- 					<update>true</update> -->
-<!-- 					<username>jinruimeng</username> -->
-<!-- 					<password>0012345678</password> -->
+					<port>8080</port>
+					<url>http://202.120.162.23:8080/manager/text</url>
+					<update>true</update>
+					<username>jinruimeng</username>
+					<password>0012345678</password>
 				</configuration>
 			</plugin>
 		</plugins>

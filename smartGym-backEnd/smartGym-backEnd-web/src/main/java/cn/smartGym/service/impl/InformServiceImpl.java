@@ -1,5 +1,6 @@
 package cn.smartGym.service.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -24,78 +25,80 @@ import common.utils.SGResult;
 public class InformServiceImpl implements InformService {
 
 	@Autowired
-	private InformationMapper InformationMapper;
+	private InformationMapper informationMapper;
 
-	@Override
 	/**
 	 * 新增通知
 	 */
-	public SGResult addInform(Information Information) {
+	@Override
+	public void addInform(Information Information) {
 		Information.setId(IDUtils.genId());
 		Information.setStatus(1);// 0删除，1正常
 		Information.setCreated(new Date());
 		Information.setUpdated(new Date());
-		InformationMapper.insert(Information);
-
-		return SGResult.build(200, "新增通知成功！");
+		informationMapper.insert(Information);
 	}
 
-	@Override
 	/**
-	 * 更新通知
+	 * 硬删除
 	 */
-	public SGResult updateInform(Information Information) {
-
-		InformationMapper.updateByPrimaryKeySelective(Information);
-		return SGResult.build(200, "更新通知成功！");
+	@Override
+	public void hardDeleteInformation() {
+		InformationExample example = new InformationExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(0);
+		informationMapper.deleteByExample(example);
 	}
 
-	@Override
 	/**
 	 * 根据id删除通知
 	 */
-	public SGResult deleteInformById(Long id) {
-		InformationMapper.deleteByPrimaryKey(id);
+	@Override
+	public SGResult deleteInformById(Long... ids) {
+		// 设置查询条件
+		InformationExample example = new InformationExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(1);
+		criteria.andIdIn(Arrays.asList(ids));
+
+		// 设置模板
+		Information information = new Information();
+		information.setStatus(0);
+		information.setUpdated(new Date());
+		informationMapper.updateByExampleSelective(information, example);
+
 		return SGResult.build(200, "删除通知成功！");
 	}
 
+	/**
+	 * 更新通知
+	 */
 	@Override
+	public void updateInform(Information Information) {
+
+		informationMapper.updateByPrimaryKeySelective(Information);
+	}
+
 	/**
 	 * 根据通知类型返回通知列表：0-通知+活动，1-通知，2-活动 注意：不把通知正文（description)和备注（remark）返回
 	 */
-	public SGResult getInformList(Integer type) {
-		// 根据type查询inform表
-		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		InformationExample example = new InformationExample();
-		Criteria criteria = example.createCriteria();
-		if (type == 0)
-			criteria.andTypeGreaterThan(type);
-		else
-			criteria.andTypeEqualTo(type);
-		criteria.andStatusEqualTo(1);
-		List<Information> list = InformationMapper.selectByExample(example);
-		if (list == null || list.size() == 0)
-			return SGResult.build(404, "未找到通知！");
-		for (Information Information : list) {
-			Information.setDescription("");
-			Information.setRemark("");
-		}
-		return SGResult.build(200, "返回通知列表成功！", list);
-	}
-
 	@Override
-	/**
-	 * 根据通知id返回通知具体信息
-	 */
-	public SGResult getInformById(Long id) {
-		Information Information = InformationMapper.selectByPrimaryKey(id);
-		if (Information == null)
-			return SGResult.build(404, "没有找到您查询的通知信息！");
-		return SGResult.build(200, "查找通知成功！", Information);
+	public SGResult getInformListByTypeAndIds(Integer type, Long... ids) {
+		// 根据type查询inform表
+		InformationExample example = new InformationExample();
+
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(1);
+		if (type != 0)
+			criteria.andTypeEqualTo(type);
+		if (ids != null && ids.length != 0)
+			criteria.andIdIn(Arrays.asList(ids));
+
+		List<Information> informationList = informationMapper.selectByExample(example);
+		if (informationList == null || informationList.size() == 0)
+			return SGResult.build(201, "未找到通知！");
+
+		return SGResult.build(200, "查询通知成功！", informationList);
 	}
 
 }

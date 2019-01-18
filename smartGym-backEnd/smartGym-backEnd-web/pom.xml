@@ -16,11 +16,6 @@
 		</dependency>
 		<dependency>
 			<groupId>cn.smartGym</groupId>
-			<artifactId>smartGym-backEnd-interface</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.smartGym</groupId>
 			<artifactId>smartGym-backEnd-dao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

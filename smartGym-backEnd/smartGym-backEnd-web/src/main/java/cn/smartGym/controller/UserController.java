@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojo.SgUser;
-import cn.smartGym.pojoctr.request.SgUserCtr;
+import cn.smartGym.pojoCtr.SgUserCtr;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.UserService;
+import cn.smartGym.utils.ConversionUtils;
 import common.utils.SGResult;
 
 /**
@@ -44,23 +45,20 @@ public class UserController {
 	@RequestMapping(value = "/smartgym/user/signIn", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult signIn(SgUserCtr userCtr) {
+	public SGResult signIn(SgUserCtr userCtr) throws Exception {
 		// 解密用户敏感数据
-		String wxId;
-
-		SGResult sgResult = userService.decodeUserInfo(userCtr);
+		SGResult sgResult = userCtr.decodeWxId();
 		if (sgResult.getStatus() != 200)
 			return sgResult;
 		else
-			wxId = (String) sgResult.getData();
+			userCtr.setWxId((String) sgResult.getData());
 
 		// 根据解析到的wxId查询用户是否注册
-		SgUser user = (SgUser) userService.selectByWxId(wxId).getData();
+		SgUser user = (SgUser) userService.getUserByDtail(ConversionUtils.userCtrToDao(userCtr)).getData();
 
-		if (user != null)
-			return SGResult.build(200, "该用户已注册！", userService.userDaoToCtr(user));
-		else {
-			userCtr.setWxId(wxId);
+		if (user != null) {
+			return SGResult.build(200, "该用户已注册！", ConversionUtils.userDaoToCtr(user));
+		} else {
 			userCtr.setStatus(0);
 			return SGResult.build(200, "该用户未注册！", userCtr);
 		}
@@ -75,10 +73,11 @@ public class UserController {
 	@RequestMapping(value = "/smartgym/user/register", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult register(SgUserCtr userCtr) {
+	public SGResult register(SgUserCtr userCtr) throws Exception {
 		try {
-			return userService.register(userService.userCtrToDao(userCtr));
+			return userService.register(ConversionUtils.userCtrToDao(userCtr));
 		} catch (Exception e) {
+			e.printStackTrace();
 			return SGResult.build(404, "注册失败!", e);
 		}
 
@@ -93,9 +92,9 @@ public class UserController {
 	@RequestMapping(value = "/smartgym/user/delete", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult deleteUser(String wxId) {
+	public SGResult deleteUser(SgUserCtr userCtr) throws Exception {
 		try {
-			return userService.deleteUserByWxId(wxId);
+			return userService.deleteUserByDtail(ConversionUtils.userCtrToDao(userCtr));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "删除账号失败！", e);
@@ -110,7 +109,7 @@ public class UserController {
 	@RequestMapping(value = "/smartgym/user/getAllCollegesAndCampus", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getAllCollegesAndCampus() {
+	public SGResult getAllCollegesAndCampus() throws Exception {
 		List<String> colleges = collegeService.getAllColleges();
 		List<String> campuses = campusService.getAllCampuses();
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
@@ -128,9 +127,9 @@ public class UserController {
 	@RequestMapping(value = "/smartgym/user/update", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult updateUser(SgUserCtr userCtr) {
+	public SGResult updateUser(SgUserCtr userCtr) throws Exception {
 		try {
-			return userService.update(userService.userCtrToDao(userCtr));
+			return userService.update(ConversionUtils.userCtrToDao(userCtr));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return SGResult.build(404, "修改资料失败！", e);

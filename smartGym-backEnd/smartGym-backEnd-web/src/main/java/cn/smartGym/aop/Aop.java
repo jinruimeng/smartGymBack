@@ -29,7 +29,11 @@ public class Aop {
 			String exception = "调用的方法：" + MethodName + "，传递参数：" + Arrays.toString(joinPoint.getArgs()) + "，方法发生异常：" + e;
 			e.printStackTrace();
 			System.out.println(exception);
+			
 			return SGResult.build(500, "操作失败！", e);
 		}
+		
+		
 	}
+	
 }

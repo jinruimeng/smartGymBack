@@ -221,7 +221,6 @@
 				<version>${json-lib.version}</version>
 				<classifier>jdk15</classifier><!-- 指定jdk版本 -->
 			</dependency>
-			
 			 <!-- servlet依赖的jar包 -->
 	        <dependency>
 	            <groupId>javax.servlet</groupId>

@@ -37,6 +37,6 @@
 	<!-- 切面 -->
 	<aop:config>
 		<aop:advisor advice-ref="txAdvice"
-			pointcut="execution(* cn.smartGym.service..*.*(..))" />
+			pointcut="execution(* cn.smartGym..*.*.*(..))" />
 	</aop:config>
 </beans>

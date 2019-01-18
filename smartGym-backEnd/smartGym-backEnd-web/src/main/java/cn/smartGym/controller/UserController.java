@@ -4,11 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoCtr.SgUserCtr;
@@ -25,6 +31,7 @@ import common.utils.SGResult;
  *
  */
 @Controller
+
 public class UserController {
 
 	@Autowired
@@ -36,6 +43,8 @@ public class UserController {
 	@Autowired
 	private CampusService campusService;
 
+	@Value("${SESSION_USER}")
+	private String SESSION_USER;
 	/**
 	 * 登录时检测用户是否已注册
 	 * 
@@ -48,11 +57,19 @@ public class UserController {
 	public SGResult signIn(SgUserCtr userCtr) throws Exception {
 		// 解密用户敏感数据
 		SGResult sgResult = userCtr.decodeWxId();
+		
 		if (sgResult.getStatus() != 200)
 			return sgResult;
 		else
 			userCtr.setWxId((String) sgResult.getData());
 
+
+		// 将用户存入session
+		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        // 获取session
+        HttpSession session = req.getSession();
+        session.setAttribute(SESSION_USER, userCtr);
+		
 		// 根据解析到的wxId查询用户是否注册
 		SgUser user = (SgUser) userService.getUserByDtail(ConversionUtils.userCtrToDao(userCtr)).getData();
 

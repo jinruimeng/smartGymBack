@@ -20,6 +20,8 @@ import cn.smartGym.pojoCtr.response.ApplicationInfo;
 import cn.smartGym.service.ApplicationService;
 import cn.smartGym.utils.CollegeAndCampusUtils;
 import common.enums.GenderGroup;
+import common.exceptions.ArgumentException;
+import common.exceptions.BusinessException;
 import common.utils.IDUtils;
 import common.utils.SGResult;
 
@@ -40,14 +42,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 	 * @return 返回给前端的信息 {status, msg, data}
 	 */
 	@Override
-	public SGResult addApplication(Application application) {
+	public SGResult addApplication(Application application) throws ArgumentException {
 		// 数据有效性检验
 		if (StringUtils.isBlank(application.getStudentNo()) || StringUtils.isBlank(application.getJob().toString())
 				|| StringUtils.isBlank(application.getItemId().toString())
 				|| StringUtils.isBlank(application.getName().toString()))
-			return SGResult.build(203, "报名信息不完整，报名失败！");
+//			return SGResult.build(203, "报名信息不完整，报名失败！");
+			throw new ArgumentException("报名信息不完整，报名失败！");
+
 		SGResult result = checkData(application);
-		if (result.getStatus() != 200) {
+		if (!result.isOK()) {
 			return result;
 		}
 
@@ -62,7 +66,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		// 插入数据库
 		ApplicationMapper.insert(application);
 		// 返回成功
-		return SGResult.build(200, "报名成功！");
+		return SGResult.ok("报名成功！");
 	}
 
 	/**
@@ -72,7 +76,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 	 * @return 返回信息
 	 */
 	@Override
-	public SGResult checkData(Application application) {
+	public SGResult checkData(Application application) throws BusinessException {
 		ApplicationExample example = new ApplicationExample();
 		Criteria criteria = example.createCriteria();
 
@@ -84,7 +88,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 		// 判断结果中是否包含数据
 		if (list != null && list.size() > 0) {
 			// 如果有数据返回false
-			return SGResult.build(201, "已报名该项目！");
+//			return SGResult.build(201, "已报名该项目！");
+			throw new BusinessException("已报名该项目！");
 		}
 		// 如果没有数据返回true
 		return SGResult.ok();
@@ -167,7 +172,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Override
 	public SGResult reviewByCollegeManager(List<Long> ids) {
 		if (ids == null || ids.size() == 0)
-			return SGResult.build(200, "请先选择要审核的报名记录！");
+			return SGResult.ok("请先选择要审核的报名记录！");
 
 		Application applicationTemplate = new Application();
 		applicationTemplate.setStatus(2);
@@ -180,7 +185,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 		ApplicationMapper.updateByExampleSelective(applicationTemplate, example);
 
-		return SGResult.build(200, "院级管理员审核完成！");
+		return SGResult.ok("院级管理员审核完成！");
 	}
 
 	/***

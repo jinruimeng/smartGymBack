@@ -33,7 +33,8 @@
 		<property name="maxUploadSize" value="5242880"></property>
 	</bean>
 
-	<aop:config proxy-target-class="true" />
-
+	<!-- 启动AOP AspectJ注解自动代理 -->
 	<aop:aspectj-autoproxy /><!-- 用户扫描aop实现类上@Aspect标签 -->
+	<!-- 通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller -->
+	<aop:config proxy-target-class="true" />
 </beans>

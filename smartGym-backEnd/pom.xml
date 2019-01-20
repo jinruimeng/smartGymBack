@@ -12,7 +12,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>cn.smartGym</groupId>
-			<artifactId>smartGym-tools</artifactId>
+			<artifactId>smartGym-base</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

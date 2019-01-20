@@ -15,6 +15,7 @@ import cn.smartGym.pojo.Item;
 import cn.smartGym.pojoCtr.ItemCtr;
 import cn.smartGym.service.ItemService;
 import cn.smartGym.utils.ConversionUtils;
+import common.enums.ErrorCode;
 import common.utils.SGResult;
 
 /**
@@ -41,7 +42,7 @@ public class ItemController {
 	public SGResult getInfoPage(ItemCtr itemCtr) throws Exception {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 1);
 		if (items == null || items.size() == 0) {
-			return SGResult.build(201, "获取项目信息失败！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");
 		}
 		Set<String> result = new HashSet<>();
 		// 0-已删除，1-正在报名，2-报名结束，3-比赛已结束
@@ -54,7 +55,7 @@ public class ItemController {
 		else
 			result = itemService.getPropertiesByItems(items, "game");
 
-		return SGResult.build(200, "获取项目信息成功!", result);
+		return SGResult.ok( "获取项目信息成功!", result);
 	}
 
 	/**
@@ -71,7 +72,7 @@ public class ItemController {
 		// 0-已删除，1-正在报名，2-报名结束，3-比赛已结束
 		Set<String> result = new HashSet<>();
 		if (items == null || items.size() == 0) {
-			return SGResult.build(201, "获取项目信息失败！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");
 		}
 		if (!StringUtils.isBlank(itemCtr.getItem()))
 			result = itemService.getPropertiesByItems(items, "gender");
@@ -82,7 +83,7 @@ public class ItemController {
 		else {
 			result = itemService.getPropertiesByItems(items, "game");
 		}
-		return SGResult.build(200, "获取项目信息成功!", result);
+		return SGResult.ok( "获取项目信息成功!", result);
 	}
 
 }

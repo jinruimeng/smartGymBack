@@ -24,6 +24,7 @@ import cn.smartGym.service.ItemService;
 import cn.smartGym.service.PlayerService;
 import cn.smartGym.service.UserService;
 import cn.smartGym.utils.ConversionUtils;
+import common.enums.ErrorCode;
 import common.utils.SGResult;
 
 /**
@@ -62,7 +63,7 @@ public class ManagerController {
 	public SGResult getInfoGroupByItem(ItemCtr itemCtr) throws Exception {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
 		List<ApplicationInfo> result = applicationService.getApplicationNumGroupByItem(items);
-		return SGResult.build(200, "查询成功！", result);
+		return SGResult.ok("查询成功！", result);
 	}
 
 	/**
@@ -77,7 +78,7 @@ public class ManagerController {
 	public SGResult getInfoGroupByItemDetail(Long itemId) throws Exception {
 		Item item = itemService.getItemByItemIdAndStatuses(itemId);
 		List<ApplicationInfo> result = applicationService.getApplicationNumGroupByItemDetail(item);
-		return SGResult.build(200, "查询成功！", result);
+		return SGResult.ok("查询成功！", result);
 	}
 
 	/**
@@ -92,7 +93,7 @@ public class ManagerController {
 	public SGResult getInfoGroupByCollege(ItemCtr itemCtr) throws Exception {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
 		List<ApplicationInfo> result = applicationService.getApplicationNumGroupByCollege(items);
-		return SGResult.build(200, "查询成功！", result);
+		return SGResult.ok("查询成功！", result);
 	}
 
 	/**
@@ -107,7 +108,7 @@ public class ManagerController {
 	public SGResult getInfoGroupByCollegeDetail(ItemCtr itemCtr, String college) throws Exception {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
 		List<ApplicationInfo> result = applicationService.getApplicationNumGroupByCollegeDetail(items, college);
-		return SGResult.build(200, "查询成功！", result);
+		return SGResult.ok("查询成功！", result);
 	}
 
 	/**
@@ -119,11 +120,11 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult maintenance() throws Exception {
-			itemService.maintenanceItem();
-			List<Item> items = itemService.getItemsByDetailsAndStatuses(null, 0, 2);
-			List<Long> itemIds = itemService.getItemIdsByItems(items);
-			applicationService.maintenanceApplication(itemIds);
-			return SGResult.build(200, "维护成功！");
+		itemService.maintenanceItem();
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(null, 0, 2);
+		List<Long> itemIds = itemService.getItemIdsByItems(items);
+		applicationService.maintenanceApplication(itemIds);
+		return SGResult.ok("维护成功！");
 	}
 
 	/**
@@ -135,12 +136,12 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult hardDelete() throws Exception {
-			itemService.hardDeleteItem();
-			applicationService.hardDeleteApplication();
-			playerService.hardDeletePlayer();
-			userService.hardDeleteUser();
-			informService.hardDeleteInformation();
-			return SGResult.build(200, "硬删除成功！");
+		itemService.hardDeleteItem();
+		applicationService.hardDeleteApplication();
+		playerService.hardDeletePlayer();
+		userService.hardDeleteUser();
+		informService.hardDeleteInformation();
+		return SGResult.ok("硬删除成功！");
 	}
 
 	/**
@@ -153,16 +154,16 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult viewByCollegeManager(ItemCtr itemCtr, String college) throws Exception {
-			if (StringUtils.isBlank(college))
-				return SGResult.build(200, "学院不能为空！");
+		if (StringUtils.isBlank(college))
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学院不能为空！");
 
-			List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
-			List<Long> itemIds = itemService.getItemIdsByItems(items);
-			List<Application> applications = applicationService.getApplicationListByItemIdsAndCollegeAndStatus(itemIds,
-					college, 1, 2);
-			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
+		List<Long> itemIds = itemService.getItemIdsByItems(items);
+		List<Application> applications = applicationService.getApplicationListByItemIdsAndCollegeAndStatus(itemIds,
+				college, 1, 2);
+		// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
 
-			return SGResult.build(200, "查询院级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
+		return SGResult.ok("查询院级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
 	}
 
 	/**
@@ -175,7 +176,7 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult reviewByCollegeManager(Long[] ids) throws Exception {
-			return applicationService.reviewByCollegeManager(Arrays.asList(ids));
+		return applicationService.reviewByCollegeManager(Arrays.asList(ids));
 	}
 
 	/**
@@ -188,12 +189,12 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult viewByUniversityManager(ItemCtr itemCtr) throws Exception {
-			List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
-			List<Long> itemIds = itemService.getItemIdsByItems(items);
-			List<Application> applications = applicationService.getApplicationListByItemIdsAndCollegeAndStatus(itemIds,
-					"total", 1, 2, 3);
-			// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
-			return SGResult.build(200, "查询校级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
+		List<Long> itemIds = itemService.getItemIdsByItems(items);
+		List<Application> applications = applicationService.getApplicationListByItemIdsAndCollegeAndStatus(itemIds,
+				"total", 1, 2, 3);
+		// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
+		return SGResult.ok("查询校级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
 	}
 
 	/**
@@ -210,7 +211,9 @@ public class ManagerController {
 		List<Long> itemIds = itemService.reviewByUniversityManager(ConversionUtils.itemCtrtoDao(itemCtr));
 		// 生成参赛表
 		List<Application> applications = applicationService.reviewByUniversityManager(itemIds);
-		playerService.reviewByUniversityManager(applications);
+		SGResult sGResult = playerService.reviewByUniversityManager(applications);
+		if (!sGResult.isOK())
+			return sGResult;
 		// 生成参赛编号
 		playerService.genPlayerNo(itemIds);
 		// 分组
@@ -218,7 +221,7 @@ public class ManagerController {
 			Integer pathNum = itemService.getPathNumberByItemId(itemId);
 			playerService.genGroupNoAndPathNo(itemId, pathNum);
 		}
-		return SGResult.build(200, "校级管理员审核成功！");
+		return SGResult.ok("校级管理员审核成功！");
 	}
 
 	/**
@@ -246,7 +249,7 @@ public class ManagerController {
 	@ResponseBody
 	public SGResult setUserAuthority(Integer authority, String[] studentNos) throws Exception {
 		if (studentNos == null || studentNos.length == 0)
-			return SGResult.build(203, "学号不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学号不能为空！");
 		return userService.setUserAuthority(authority, studentNos);
 	}
 
@@ -265,7 +268,7 @@ public class ManagerController {
 		// 字符串转换为日期格式
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		if (StringUtils.isBlank(dateString))
-			return SGResult.build(203, "日期不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "日期不能为空！");
 		itemCtr.setDate(sdf.parse(dateString));
 		return itemService.addItem(ConversionUtils.itemCtrtoDao(itemCtr));
 	}
@@ -300,9 +303,9 @@ public class ManagerController {
 				itemIds.toArray(new Long[itemIds.size()]));
 
 		if (players == null || players.size() == 0)
-			return SGResult.build(201, "未查到相关信息！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到相关信息！");
 
 		List<PlayerCtr> playersCtr = ConversionUtils.playerDaoListToCtrList(players);
-		return SGResult.build(200, "查询成功！", playersCtr);
+		return SGResult.ok("查询成功！", playersCtr);
 	}
 }

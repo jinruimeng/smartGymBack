@@ -13,6 +13,7 @@ import cn.smartGym.pojo.Player;
 import cn.smartGym.pojoCtr.PlayerCtr;
 import cn.smartGym.service.PlayerService;
 import cn.smartGym.utils.ConversionUtils;
+import common.enums.ErrorCode;
 import common.utils.SGResult;
 
 /**
@@ -38,16 +39,16 @@ public class PlayerController {
 	@ResponseBody
 	public SGResult getPlayerListByStudentNo(String studentNo) throws Exception {
 		if (StringUtils.isBlank(studentNo))
-			return SGResult.build(203, "学号不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学号不能为空！");
 
 		List<Player> players = playerService.getPlayersByStudentNo(studentNo);
 
 		if (players == null || players.size() == 0)
-			return SGResult.build(201, "该学生未参加比赛！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");
 
 		List<PlayerCtr> result = ConversionUtils.playerDaoListToCtrList(players);
 
-		return SGResult.build(200, "查询成功！", result);
+		return SGResult.ok( "查询成功！", result);
 
 	}
 }

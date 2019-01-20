@@ -64,7 +64,10 @@ public class SGResult implements Serializable {
 	}
 
 	public Boolean isOK() {
-		return this.status == ErrorCode.SUCCESS.getErrorCode();
+		if (this.status == null)
+			return false;
+		else
+			return this.status == ErrorCode.SUCCESS.getErrorCode();
 	}
 
 	public Integer getStatus() {

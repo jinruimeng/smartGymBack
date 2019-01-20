@@ -16,6 +16,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -24,7 +25,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.google.gson.Gson;
 
 import cn.smartGym.pojo.SgUser;
+import cn.smartGym.pojoCtr.SgUserCtr;
 import cn.smartGym.service.UserService;
+import cn.smartGym.utils.ConversionUtils;
+import common.jedis.JedisClient;
+import common.utils.JsonUtils;
 import common.utils.LogAopUtils;
 import common.utils.SGResult;
 
@@ -43,6 +48,10 @@ public class ArchivesLogAspect {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	private JedisClient jedisClient;
+	@Value("${SESSION_EXPIRE}")
+	private Integer SESSION_EXPIRE;
 
 	private String userWxId = null; // 请求者微信号
 	private String userName = null; // 请求者
@@ -55,7 +64,7 @@ public class ArchivesLogAspect {
 	private long endTimeMillis = 0; // 结束时间
 	private long errorTimeMillis = 0; // 结束时间
 	private StringBuffer sb = null;
-	private String separator = System.getProperty("line.separator");//换行符
+//	private String separator = System.getProperty("line.separator");// 换行符
 
 	/**
 	 * 定义一个方法，用于声明切入点表达式，方法中一般不需要添加其他代码 使用@Pointcut声明切入点表达式
@@ -87,25 +96,40 @@ public class ArchivesLogAspect {
 
 		if (inputParamMap.containsKey("wxId"))
 			userWxId = ((String[]) inputParamMap.get("wxId"))[0];
+
+		// 先去redis中查看是否有用户的信息，如果没有，则去数据库中查看
 		if (!StringUtils.isBlank(userWxId)) {
-			SgUser sgUser = new SgUser();
-			sgUser.setWxId(userWxId);
-			sgUser = (SgUser) userService.getUserByDtail(sgUser).getData();
-			if (sgUser != null) {
-				userName = sgUser.getName();
-				studentNo = sgUser.getStudentNo();
+			SgUserCtr sgUserCtr = new SgUserCtr();
+			String sgUserCtrSignInString = jedisClient.get(userWxId);
+			if (!StringUtils.isBlank(sgUserCtrSignInString)) {
+				sgUserCtr = JsonUtils.jsonToPojo(sgUserCtrSignInString, SgUserCtr.class);
+				userName = sgUserCtr.getName();
+				studentNo = sgUserCtr.getStudentNo();
+			} else {
+				SgUser sgUser = new SgUser();
+				sgUser.setWxId(userWxId);
+				sgUser = (SgUser) userService.getUserByDtail(sgUser).getData();
+				sgUserCtr = ConversionUtils.userDaoToCtr(sgUser);
+				if (sgUserCtr != null) {
+					userName = sgUserCtr.getName();
+					studentNo = sgUserCtr.getStudentNo();
+					// 把用户信息写入redis，key：wxId value：用户信息
+					jedisClient.set("wxId:" + userWxId, JsonUtils.objectToJson(sgUserCtr));
+					// 设置Session的过期时间
+					jedisClient.expire("wxId:" + userWxId, SESSION_EXPIRE);
+				}
 			}
 		}
 		// 打印请求内容
 		logger.info("====================请求内容开始====================");
-		logger.info("请求者微信号:" + userWxId + separator);
-		logger.info("请求者姓名:" + userName + separator);
-		logger.info("请求者学号:" + studentNo + separator);
-		logger.info("请求地址:" + requestPath + separator);
-		logger.info("请求方式:" + requestMethod + separator);
-		logger.info("请求参数:" + new Gson().toJson(inputParamMap) + separator);
-		logger.info("请求类方法:" + joinPoint.getSignature() + separator);
-		logger.info("请求类方法参数:" + Arrays.toString(joinPoint.getArgs()) + separator);
+		logger.info("请求者微信号:" + userWxId);
+		logger.info("请求者姓名:" + userName);
+		logger.info("请求者学号:" + studentNo);
+		logger.info("请求地址:" + requestPath);
+		logger.info("请求方式:" + requestMethod);
+		logger.info("请求参数:" + new Gson().toJson(inputParamMap));
+		logger.info("请求类方法:" + joinPoint.getSignature());
+		logger.info("请求类方法参数:" + Arrays.toString(joinPoint.getArgs()));
 
 		Object[] args = joinPoint.getArgs();
 		String classType = joinPoint.getTarget().getClass().getName();
@@ -114,8 +138,8 @@ public class ArchivesLogAspect {
 		String methodName = joinPoint.getSignature().getName(); // 获取方法名称
 		// 获取参数名称和值
 		sb = LogAopUtils.getNameAndArgs(this.getClass(), clazzName, methodName, args);
-		logger.info("请求类方法参数名称和值：" + sb + separator);
-		logger.info("====================请求内容结束====================" + separator);
+		logger.info("请求类方法参数名称和值：" + sb);
+		logger.info("====================请求内容结束====================");
 	}
 
 	/**
@@ -132,34 +156,34 @@ public class ArchivesLogAspect {
 			Object result = joinPoint.proceed();
 			outputParamMap.put("result", result);
 			logger.info("====================返回内容开始====================");
-			logger.info("方法执行结果:" + new Gson().toJson(outputParamMap) + separator);
+			logger.info("方法执行结果:" + new Gson().toJson(outputParamMap));
 			endTimeMillis = System.currentTimeMillis(); // 记录方法执行完成的时间
-			logger.info("方法执行所用时间:" + (endTimeMillis - startTimeMillis) + "ms" + separator);
+			logger.info("方法执行所用时间:" + (endTimeMillis - startTimeMillis) + "ms");
 			logger.info("====================返回内容结束====================");
 			return result;
 		} catch (Throwable e) {
 			errorTimeMillis = System.currentTimeMillis(); // 记录方法发生异常的时间
 			logger.error("====================异常内容开始====================");
-			logger.error("方法开始执行时间:" + startTimeMillis + separator);
-			logger.error("请求者微信号:" + userWxId + separator);
-			logger.error("请求者姓名:" + userName + separator);
-			logger.error("请求者学号:" + studentNo + separator);
-			logger.error("请求地址:" + requestPath + separator);
-			logger.error("请求方式:" + requestMethod + separator);
-			logger.error("请求参数:" + new Gson().toJson(inputParamMap) + separator);
-			logger.error("请求类方法:" + joinPoint.getSignature() + separator);
-			logger.error("请求类方法参数:" + Arrays.toString(joinPoint.getArgs()) + separator);
-			logger.error("请求类方法参数名称和值：" + sb + separator);
-			logger.error("方法发生异常时间:" + errorTimeMillis + separator);
-			logger.error("方法发生的异常：" + e + separator);
+			logger.error("方法开始执行时间:" + startTimeMillis);
+			logger.error("请求者微信号:" + userWxId);
+			logger.error("请求者姓名:" + userName);
+			logger.error("请求者学号:" + studentNo);
+			logger.error("请求地址:" + requestPath);
+			logger.error("请求方式:" + requestMethod);
+			logger.error("请求参数:" + new Gson().toJson(inputParamMap));
+			logger.error("请求类方法:" + joinPoint.getSignature());
+			logger.error("请求类方法参数:" + Arrays.toString(joinPoint.getArgs()));
+			logger.error("请求类方法参数名称和值：" + sb);
+			logger.error("方法发生异常时间:" + errorTimeMillis);
+			logger.error("方法发生的异常：" + e);
 			// 输出异常到日志文件，具体异常信息
 			String errorMsg = "";
 			StackTraceElement[] trace = e.getStackTrace();
 			for (StackTraceElement s : trace) {
 				errorMsg += "\tat " + s + "\r\n";
 			}
-			logger.error(errorMsg + separator);
-			logger.error("====================异常内容结束====================" + separator);
+			logger.error(errorMsg);
+			logger.error("====================异常内容结束====================");
 
 			System.out.println("====================标准异常输出开始====================");
 			e.printStackTrace();

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Component;
 
+import common.enums.ErrorCode;
 import common.utils.AesCbcUtil;
 import common.utils.HttpRequest;
 import common.utils.SGResult;
@@ -39,9 +40,7 @@ public class SgUserCtr implements Serializable {
 	private Integer status;
 
 	private Integer authority;
-	
-	private String sessionId;
-	
+
 	public String getEncryptedData() {
 		return encryptedData;
 	}
@@ -150,7 +149,6 @@ public class SgUserCtr implements Serializable {
 		super();
 	}
 
-
 	/**
 	 * 解密用户敏感数据
 	 *
@@ -216,19 +214,11 @@ public class SgUserCtr implements Serializable {
 
 				return SGResult.ok(userInfoJSON.get("unionId"));
 			} else
-				return SGResult.build(404, "用户信息解密失败！");
+				return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "用户信息解密失败！");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return SGResult.build(404, "用户信息解密失败！");
+			return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "用户信息解密失败！");
 		}
-	}
-
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
 	}
 
 }

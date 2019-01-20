@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojo.Information;
 import cn.smartGym.service.InformService;
+import common.enums.ErrorCode;
 import common.utils.SGResult;
 
 /**
@@ -27,7 +28,7 @@ public class InformController {
 	@ResponseBody
 	public SGResult addInform(Information Information) throws Exception {
 		informService.addInform(Information);
-		return SGResult.build(200, "增加消息成功！");
+		return SGResult.ok( "增加消息成功！");
 	}
 
 	@RequestMapping(value = "/inform/updateInform", method = { RequestMethod.POST,
@@ -35,7 +36,7 @@ public class InformController {
 	@ResponseBody
 	public SGResult updateInform(Information Information) throws Exception {
 		informService.updateInform(Information);
-		return SGResult.build(200, "修改消息成功！");
+		return SGResult.ok( "修改消息成功！");
 	}
 
 	@RequestMapping(value = "/inform/deleteInformById", method = { RequestMethod.POST,
@@ -43,7 +44,7 @@ public class InformController {
 	@ResponseBody
 	public SGResult deleteInformById(Long id) throws Exception {
 		if (id == null)
-			return SGResult.build(203, "请选择要删除的通知！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "要删除的记录不能为空！");
 		return informService.deleteInformById(id);
 	}
 
@@ -52,7 +53,7 @@ public class InformController {
 	@ResponseBody
 	public SGResult getInformList(Integer type) throws Exception {
 		if (type == null)
-			return SGResult.build(203, "通知的类型不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "通知的类型不能为空！");
 		return informService.getInformListByTypeAndIds(type, new Long[0]);
 	}
 

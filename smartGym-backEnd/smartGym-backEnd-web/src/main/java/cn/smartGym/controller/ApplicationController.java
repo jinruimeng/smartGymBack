@@ -13,6 +13,7 @@ import cn.smartGym.pojo.Application;
 import cn.smartGym.pojoCtr.ApplicationCtr;
 import cn.smartGym.service.ApplicationService;
 import cn.smartGym.utils.ConversionUtils;
+import common.enums.ErrorCode;
 import common.utils.SGResult;
 
 /**
@@ -53,8 +54,8 @@ public class ApplicationController {
 	@ResponseBody
 	public SGResult getApplicationListByStudentNo(String studentNo) throws Exception {
 		if (StringUtils.isBlank(studentNo))
-			return SGResult.build(203, "学号不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学号不能为空！");
 		List<Application> result = applicationService.getApplicationListByStatusAndStudentNo(null, studentNo);
-		return SGResult.build(200, "查询成功！", ConversionUtils.applicationdaoListToCtrList(result));
+		return SGResult.ok("查询成功！", ConversionUtils.applicationdaoListToCtrList(result));
 	}
 }

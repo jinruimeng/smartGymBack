@@ -16,6 +16,7 @@ import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.ItemExample;
 import cn.smartGym.pojo.ItemExample.Criteria;
 import cn.smartGym.service.ItemService;
+import common.enums.ErrorCode;
 import common.enums.GenderGroup;
 import common.utils.IDUtils;
 import common.utils.SGResult;
@@ -41,23 +42,23 @@ public class ItemServiceImpl implements ItemService {
 	public SGResult addItem(Item item) {
 		// 检查数据合法性
 		if (StringUtils.isBlank(item.getGame()))
-			return SGResult.build(203, "赛事不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "赛事不能为空！");
 		if (StringUtils.isBlank(item.getCategory()))
-			return SGResult.build(203, "分类不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "分类不能为空！");
 		if (StringUtils.isBlank(item.getItem()))
-			return SGResult.build(203, "项目不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "项目不能为空！");
 		if (item.getGender() == null || StringUtils.isBlank(item.getGender().toString()))
-			return SGResult.build(203, "性别不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "性别不能为空！");
 		if (item.getPathNum() == null || StringUtils.isBlank(item.getPathNum().toString()))
-			return SGResult.build(203, "赛道数不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "赛道数不能为空！");
 		if (item.getDate() == null || StringUtils.isBlank(item.getDate().toString()))
-			return SGResult.build(203, "比赛日期不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "比赛日期不能为空！");
 		if (StringUtils.isBlank(item.getPlace()))
-			return SGResult.build(203, "比赛地点不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "比赛地点不能为空！");
 
 		List<Item> items = getItemsByDetailsAndStatuses(item);
 		if (items != null && items.size() > 0)
-			return SGResult.build(202, "该项目已存在，请先删除！", items);
+			return SGResult.build(ErrorCode.CONFLICT.getErrorCode(), "该项目已存在，请先删除！", items);
 
 		// 生成比赛项目id
 		final long itemId = IDUtils.genId();
@@ -70,7 +71,7 @@ public class ItemServiceImpl implements ItemService {
 		// 插入数据库
 		itemMapper.insert(item);
 		// 返回成功
-		return SGResult.build(200, "添加项目成功!");
+		return SGResult.ok( "添加项目成功!");
 	}
 
 	/**
@@ -97,14 +98,14 @@ public class ItemServiceImpl implements ItemService {
 	public SGResult deleteItem(Item itemToBeDeleted) {
 		List<Item> items = getItemsByDetailsAndStatuses(itemToBeDeleted);
 		if (items == null || items.size() == 0)
-			return SGResult.build(201, "未找到要删除的项目！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未找到要删除的项目！");
 
 		for (Item item : items) {
 			item.setStatus(0);
 			item.setUpdated(new Date());
 			itemMapper.updateByPrimaryKeySelective(item);
 		}
-		return SGResult.build(200, "删除项目成功！");
+		return SGResult.ok( "删除项目成功！");
 	}
 
 	/**

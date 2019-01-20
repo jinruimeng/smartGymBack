@@ -16,6 +16,7 @@ import cn.smartGym.pojo.PlayerExample;
 import cn.smartGym.pojo.PlayerExample.Criteria;
 import cn.smartGym.service.PlayerService;
 import cn.smartGym.utils.CollegeAndCampusUtils;
+import common.enums.ErrorCode;
 import common.utils.SGResult;
 
 /**
@@ -55,7 +56,7 @@ public class PlayerServiceImpl implements PlayerService {
 	@Override
 	public SGResult reviewByUniversityManager(List<Application> applications) {
 		if (applications == null || applications.isEmpty())
-			return SGResult.build(203, "请先选择要审核的报名记录！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "要审核的报名记录不能为空！");
 
 		System.out.println(applications.size());
 		for (Application application : applications) {
@@ -65,7 +66,7 @@ public class PlayerServiceImpl implements PlayerService {
 			player.setUpdated(new Date());
 			PlayerMapper.insertSelective(player);
 		}
-		return SGResult.build(200, "校级管理员审核完成！");
+		return SGResult.ok( "校级管理员审核完成！");
 	}
 
 	/**
@@ -131,7 +132,7 @@ public class PlayerServiceImpl implements PlayerService {
 		criteria.andStatusEqualTo(1);
 		List<Player> list = PlayerMapper.selectByExample(example);
 		if (list == null || list.size() <= 0)
-			return SGResult.build(404, "设置参赛队员分组和赛道失败！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查询到相关项目的报名记录！");
 
 		// 打乱list中的item顺序
 		Collections.shuffle(list);
@@ -150,7 +151,7 @@ public class PlayerServiceImpl implements PlayerService {
 			list.get(i).setUpdated(new Date());
 			PlayerMapper.updateByPrimaryKeySelective(list.get(i));
 		}
-		return SGResult.build(200, "设置参赛队员分组和赛道成功！");
+		return SGResult.ok( "设置参赛队员分组和赛道成功！");
 	}
 
 	/**

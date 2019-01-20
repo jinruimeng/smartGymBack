@@ -13,6 +13,7 @@ import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojo.SgUserExample;
 import cn.smartGym.pojo.SgUserExample.Criteria;
 import cn.smartGym.service.UserService;
+import common.enums.ErrorCode;
 import common.utils.IDUtils;
 import common.utils.SGResult;
 
@@ -38,28 +39,28 @@ public class UserServiceImpl implements UserService {
 		// 数据有效性检验
 		if (StringUtils.isBlank(user.getStudentNo()) || StringUtils.isBlank(user.getName())
 				|| StringUtils.isBlank(user.getPhone()) || StringUtils.isBlank(user.getWxId()))
-			return SGResult.build(203, "用户数据不完整，注册失败");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "用户数据不完整，注册失败");
 
 		// 1：学号 2：微信号 3：手机号
 		SGResult result = checkData(user.getStudentNo(), 1);
-		if (result.getStatus() != 200)
+		if (!result.isOK())
 			return result;
 		if (!(boolean) result.getData()) {
-			return SGResult.build(202, "此学号已经被注册!");
+			return SGResult.build(ErrorCode.CONFLICT.getErrorCode(), "此学号已经被注册!");
 		}
 
 		result = checkData(user.getWxId(), 2);
-		if (result.getStatus() != 200)
+		if (!result.isOK())
 			return result;
 		if (!(boolean) result.getData()) {
-			return SGResult.build(202, "此微信已注册账号！");
+			return SGResult.build(ErrorCode.CONFLICT.getErrorCode(), "此微信已注册账号！");
 		}
 
 		result = checkData(user.getPhone(), 3);
-		if (result.getStatus() != 200)
+		if (!result.isOK())
 			return result;
 		if (!(boolean) result.getData()) {
-			return SGResult.build(202, "此手机号已经被占用!");
+			return SGResult.build(ErrorCode.CONFLICT.getErrorCode(), "此手机号已经被占用!");
 		}
 
 		// 补全pojo属性
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService {
 		userMapper.insert(user);
 
 		// 返回添加成功
-		return SGResult.build(200, "注册成功！", user);
+		return SGResult.ok("注册成功！", user);
 	}
 
 	/**
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public SGResult deleteUserByDtail(SgUser user) {
 		if (StringUtils.isBlank(user.getWxId()) && StringUtils.isBlank(user.getStudentNo()))
-			return SGResult.build(203, "请输入学号或微信号!");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学号和微信号不能都为空!");
 
 		SgUserExample example = new SgUserExample();
 		Criteria criteria = example.createCriteria();
@@ -98,14 +99,14 @@ public class UserServiceImpl implements UserService {
 		List<SgUser> userList = userMapper.selectByExample(example);
 
 		if (userList.isEmpty())
-			return SGResult.build(201, "没有对应的账号信息!");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "没有对应的账号信息!");
 		else {
 			SgUser userDelete = userList.get(0);
 			userDelete.setStatus(0);
 			// 0-已删除 1-正常
 			userDelete.setUpdated(new Date());
 			userMapper.updateByPrimaryKeySelective(userDelete);
-			return SGResult.build(200, "删除账号成功！", userDelete);
+			return SGResult.ok("删除账号成功！", userDelete);
 		}
 	}
 
@@ -135,7 +136,7 @@ public class UserServiceImpl implements UserService {
 
 		List<SgUser> userList = userMapper.selectByExample(example);
 		if (userList == null || userList.size() <= 0)
-			return SGResult.build(201, "没有查到该用户，请重新输入学号！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "没有查到该用户信息！");
 
 		// 查到用户
 		for (SgUser user : userList) {
@@ -143,7 +144,7 @@ public class UserServiceImpl implements UserService {
 			user.setUpdated(new Date());
 			userMapper.updateByPrimaryKeySelective(user);
 		}
-		return SGResult.build(200, "设置权限成功！");
+		return SGResult.ok("设置权限成功！");
 	}
 
 	/**
@@ -155,9 +156,9 @@ public class UserServiceImpl implements UserService {
 	public SGResult update(SgUser user) {
 		// 检查数据合法性
 		if (user.getStudentNo() == null)
-			return SGResult.build(203, "学号不能为空，请重新登录！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学号不能为空！");
 		if (user.getWxId() == null)
-			return SGResult.build(203, "微信号不能为空，请重新登录！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "微信号不能为空！");
 
 		// 检查学号和微信是否对应
 		SgUserExample example = new SgUserExample();
@@ -167,21 +168,21 @@ public class UserServiceImpl implements UserService {
 		criteria.andStatusEqualTo(1);
 		List<SgUser> selectByExample = userMapper.selectByExample(example);
 		if (selectByExample.isEmpty())
-			return SGResult.build(203, "不能修改学号！");
+			return SGResult.build(ErrorCode.CONFLICT.getErrorCode(), "不能修改学号！");
 
 		SgUser userOld = selectByExample.get(0);
 
 		// 如果手机号已修改，检查该手机号是否已经被注册
 		if (!user.getPhone().equals(userOld.getPhone())) {
 			if (!(boolean) checkData(user.getPhone(), 3).getData())
-				return SGResult.build(202, "该手机号已经被注册！");
+				return SGResult.build(ErrorCode.CONFLICT.getErrorCode(), "该手机号已经被注册！");
 		}
 
 		user.setId(userOld.getId());
 		user.setUpdated(new Date());
 
 		userMapper.updateByPrimaryKeySelective(user);
-		return SGResult.build(200, "修改资料成功！", user);
+		return SGResult.ok("修改资料成功！", user);
 	}
 
 	/**
@@ -202,7 +203,7 @@ public class UserServiceImpl implements UserService {
 		} else if (type == 3) {
 			criteria.andPhoneEqualTo(param);
 		} else {
-			return SGResult.build(203, "数据类型错误!");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "数据类型错误!");
 		}
 
 		// 执行查询
@@ -226,7 +227,7 @@ public class UserServiceImpl implements UserService {
 	public SGResult getUserByDtail(SgUser user) {
 		SgUserExample example = new SgUserExample();
 		if (StringUtils.isBlank(user.getWxId()) && StringUtils.isBlank(user.getStudentNo()))
-			return SGResult.build(203, "微信号或学号不能为空！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "微信号和学号不能都为空！");
 
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);
@@ -238,9 +239,9 @@ public class UserServiceImpl implements UserService {
 
 		List<SgUser> userList = userMapper.selectByExample(example);
 		if (userList == null || userList.size() <= 0)
-			return SGResult.build(201, "未查到该用户！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到该用户信息！");
 
-		return SGResult.build(200, "查询成功！", userList.get(0));
+		return SGResult.ok("查询成功！", userList.get(0));
 	}
 
 	/**
@@ -267,9 +268,9 @@ public class UserServiceImpl implements UserService {
 
 		List<SgUser> userList = userMapper.selectByExample(example);
 		if (userList == null || userList.size() == 0)
-			return SGResult.build(201, "没有查到用户，请重新输入学号！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到改用户信息！");
 
-		return SGResult.build(200, "查询成功！", userList);
+		return SGResult.ok("查询成功！", userList);
 	}
 
 }

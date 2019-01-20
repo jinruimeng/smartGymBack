@@ -44,6 +44,10 @@
 		<commons-logging.version>1.1.1</commons-logging.version>
 		<ezmorph.version>1.0.6</ezmorph.version>
 		<json-lib.version>2.2.3</json-lib.version>
+		<json-simple.version>1.1</json-simple.version>
+		<javassist.version>3.3</javassist.version>
+		<fastjson.version>1.2.13</fastjson.version>
+		<gson.version>2.7</gson.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -104,6 +108,26 @@
 				<groupId>fastdfs_client</groupId>
 				<artifactId>fastdfs_client</artifactId>
 				<version>${fastdfs-client.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.googlecode.json-simple</groupId>
+				<artifactId>json-simple</artifactId>
+				<version>${json-simple.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>${javassist.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>${gson.version}</version>
 			</dependency>
 			<!-- Mybatis -->
 			<dependency>
@@ -221,13 +245,19 @@
 				<version>${json-lib.version}</version>
 				<classifier>jdk15</classifier><!-- 指定jdk版本 -->
 			</dependency>
-			 <!-- servlet依赖的jar包 -->
-	        <dependency>
-	            <groupId>javax.servlet</groupId>
-	            <artifactId>javax.servlet-api</artifactId>
-	            <version>${servlet-api.version}</version>
-	            <scope>provided</scope>
-	        </dependency>
+			<!-- servlet依赖的jar包 -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>${servlet-api.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<!-- reids的jar包 -->
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

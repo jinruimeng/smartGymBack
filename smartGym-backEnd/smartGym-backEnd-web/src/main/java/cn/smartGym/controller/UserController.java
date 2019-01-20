@@ -3,9 +3,7 @@ package cn.smartGym.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoCtr.SgUserCtr;
@@ -22,6 +18,8 @@ import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.UserService;
 import cn.smartGym.utils.ConversionUtils;
+import common.jedis.JedisClient;
+import common.utils.JsonUtils;
 import common.utils.SGResult;
 
 /**
@@ -43,8 +41,12 @@ public class UserController {
 	@Autowired
 	private CampusService campusService;
 
-	@Value("${SESSION_USER}")
-	private String SESSION_USER;
+	@Autowired
+	private JedisClient jedisClient;
+
+	@Value("${SESSION_EXPIRE}")
+	private Integer SESSION_EXPIRE;
+
 	/**
 	 * 登录时检测用户是否已注册
 	 * 
@@ -57,27 +59,30 @@ public class UserController {
 	public SGResult signIn(SgUserCtr userCtr) throws Exception {
 		// 解密用户敏感数据
 		SGResult sgResult = userCtr.decodeWxId();
-		
-		if (sgResult.getStatus() != 200)
+
+		if (!sgResult.isOK())
 			return sgResult;
 		else
 			userCtr.setWxId((String) sgResult.getData());
 
-
-		// 将用户存入session
-		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        // 获取session
-        HttpSession session = req.getSession();
-        session.setAttribute(SESSION_USER, userCtr);
-		
 		// 根据解析到的wxId查询用户是否注册
 		SgUser user = (SgUser) userService.getUserByDtail(ConversionUtils.userCtrToDao(userCtr)).getData();
 
+		// 如果用户已注册生成token。
 		if (user != null) {
-			return SGResult.build(200, "该用户已注册！", ConversionUtils.userDaoToCtr(user));
+			SgUserCtr userCtrResult = ConversionUtils.userDaoToCtr(user);
+
+			String token = UUID.randomUUID().toString();
+			userCtrResult.setSessionId(token);
+			// 把用户信息写入redis，key：token value：用户信息
+			jedisClient.set("SessionId:" + token, JsonUtils.objectToJson(userCtrResult));
+			// 设置Session的过期时间
+			jedisClient.expire("SessionId:" + token, SESSION_EXPIRE);
+			// 6、把token返回
+			return SGResult.ok("该用户已注册！", userCtrResult);
 		} else {
 			userCtr.setStatus(0);
-			return SGResult.build(200, "该用户未注册！", userCtr);
+			return SGResult.ok("该用户未注册！", userCtr);
 		}
 	}
 

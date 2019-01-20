@@ -14,10 +14,6 @@ public class SgUserCtr implements Serializable {
 
 	private static final long serialVersionUID = 2741694336785053911L;
 
-//	private CollegeService collegeService;
-//
-//	private CampusService campusService;
-
 	private Long id;
 
 	private String name;
@@ -43,6 +39,8 @@ public class SgUserCtr implements Serializable {
 	private Integer status;
 
 	private Integer authority;
+	
+	private String sessionId;
 	
 	public String getEncryptedData() {
 		return encryptedData;
@@ -152,35 +150,6 @@ public class SgUserCtr implements Serializable {
 		super();
 	}
 
-//	public SgUserCtr(SgUser user) {
-//		this.id = user.getId();
-//		this.name = user.getName();
-//		this.wxId = user.getWxId();
-//		this.studentNo = user.getStudentNo();
-//		this.gender = Gender.getName(user.getGender());
-//		this.campus = campusService.getCampus(user.getCampus());
-//		this.college = collegeService.getCollege(user.getCollege());
-//		this.phone = user.getPhone();
-//		this.status = user.getStatus();
-//		this.authority = user.getAuthority();
-//	}
-//
-//	public SgUser toDao() {
-//		SgUser user = new SgUser();
-//
-//		user.setId(this.getId());
-//		user.setName(this.getName());
-//		user.setWxId(this.getWxId());
-//		user.setStudentNo(this.getStudentNo());
-//		user.setGender(Gender.getIndex(this.getGender()));
-//		user.setCampus(campusService.getId(this.getCampus()));
-//		user.setCollege(collegeService.getId(this.getCollege()));
-//		user.setPhone(this.getPhone());
-//		user.setStatus(this.getStatus());
-//		user.setAuthority(this.getAuthority());
-//
-//		return user;
-//	}
 
 	/**
 	 * 解密用户敏感数据
@@ -254,11 +223,12 @@ public class SgUserCtr implements Serializable {
 		}
 	}
 
-//	public static List<SgUserCtr> daoListToCtrList(List<SgUser> users) {
-//		List<SgUserCtr> usersCtr = new ArrayList<>();
-//		for (SgUser user : users) {
-//			usersCtr.add(new SgUserCtr(user));
-//		}
-//		return usersCtr;
-//	}
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+
 }

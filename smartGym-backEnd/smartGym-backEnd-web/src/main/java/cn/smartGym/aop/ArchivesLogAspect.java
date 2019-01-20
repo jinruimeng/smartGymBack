@@ -1,15 +1,31 @@
 package cn.smartGym.aop;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.google.gson.Gson;
+
+import cn.smartGym.pojo.SgUser;
+import cn.smartGym.service.UserService;
+import common.utils.LogAopUtils;
 import common.utils.SGResult;
 
 /**
@@ -19,180 +35,143 @@ import common.utils.SGResult;
  *
  */
 
-@Aspect //该标签把LoggerAspect类声明为一个切面
-@Component //该标签把LoggerAspect类放到IOC容器中
+@Aspect // 该标签把LoggerAspect类声明为一个切面
+@Component // 该标签把LoggerAspect类放到IOC容器中
 public class ArchivesLogAspect {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArchivesLogAspect.class);
 
+	@Autowired
+	UserService userService;
+
+	private String userWxId = null; // 请求者微信号
+	private String userName = null; // 请求者
+	private String studentNo = null; // 请求者学号
+	private String requestPath = null; // 请求地址
+	private String requestMethod = null; // 请求方式
+	private Map<?, ?> inputParamMap = null; // 传入参数
+	private Map<String, Object> outputParamMap = null; // 存放输出结果
+	private long startTimeMillis = 0; // 开始时间
+	private long endTimeMillis = 0; // 结束时间
+	private long errorTimeMillis = 0; // 结束时间
+	private StringBuffer sb = null;
+	private String separator = System.getProperty("line.separator");//换行符
+
 	/**
-     * 定义一个方法，用于声明切入点表达式，方法中一般不需要添加其他代码
-     * 使用@Pointcut声明切入点表达式
-     * 后面的通知直接使用方法名来引用当前的切点表达式；如果是其他类使用，加上包名即可
-     */
+	 * 定义一个方法，用于声明切入点表达式，方法中一般不需要添加其他代码 使用@Pointcut声明切入点表达式
+	 * 后面的通知直接使用方法名来引用当前的切点表达式；如果是其他类使用，加上包名即可
+	 */
 	@Pointcut("execution(* cn.smartGym.controller..*.*(..))")
 	public void controllerAspect() {
-		
+
 	}
 
-	 /**
-     * 环绕通知(需要携带类型为ProceedingJoinPoint类型的参数)
-     * 环绕通知包含前置、后置、返回、异常通知；ProceedingJoinPoin 类型的参数可以决定是否执行目标方法
-     * 且环绕通知必须有返回值，返回值即目标方法的返回值
-     * @param joinPoint
-     */
+	/**
+	 * 
+	 * @Title：doBeforeInServiceLayer
+	 * @Description: 方法调用前触发 记录开始时间
+	 * @author shaojian.yu
+	 * @date 2014年11月2日 下午4:45:53
+	 * @param joinPoint
+	 * @throws Throwable
+	 */
+	@Before("controllerAspect()")
+	public void doBeforeInServiceLayer(JoinPoint joinPoint) throws Exception {
+		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+		ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+		HttpServletRequest request = sra.getRequest();
+		requestPath = request.getRequestURL().toString();
+		requestMethod = request.getMethod();
+		startTimeMillis = System.currentTimeMillis(); // 记录方法开始执行的时间
+		inputParamMap = request.getParameterMap();
+
+		if (inputParamMap.containsKey("wxId"))
+			userWxId = ((String[]) inputParamMap.get("wxId"))[0];
+		if (!StringUtils.isBlank(userWxId)) {
+			SgUser sgUser = new SgUser();
+			sgUser.setWxId(userWxId);
+			sgUser = (SgUser) userService.getUserByDtail(sgUser).getData();
+			if (sgUser != null) {
+				userName = sgUser.getName();
+				studentNo = sgUser.getStudentNo();
+			}
+		}
+		// 打印请求内容
+		logger.info("====================请求内容开始====================");
+		logger.info("请求者微信号:" + userWxId + separator);
+		logger.info("请求者姓名:" + userName + separator);
+		logger.info("请求者学号:" + studentNo + separator);
+		logger.info("请求地址:" + requestPath + separator);
+		logger.info("请求方式:" + requestMethod + separator);
+		logger.info("请求参数:" + new Gson().toJson(inputParamMap) + separator);
+		logger.info("请求类方法:" + joinPoint.getSignature() + separator);
+		logger.info("请求类方法参数:" + Arrays.toString(joinPoint.getArgs()) + separator);
+
+		Object[] args = joinPoint.getArgs();
+		String classType = joinPoint.getTarget().getClass().getName();
+		Class<?> clazz = Class.forName(classType);
+		String clazzName = clazz.getName();
+		String methodName = joinPoint.getSignature().getName(); // 获取方法名称
+		// 获取参数名称和值
+		sb = LogAopUtils.getNameAndArgs(this.getClass(), clazzName, methodName, args);
+		logger.info("请求类方法参数名称和值：" + sb + separator);
+		logger.info("====================请求内容结束====================" + separator);
+	}
+
+	/**
+	 * 环绕通知(需要携带类型为ProceedingJoinPoint类型的参数) 环绕通知包含前置、后置、返回、异常通知；ProceedingJoinPoin
+	 * 类型的参数可以决定是否执行目标方法 且环绕通知必须有返回值，返回值即目标方法的返回值
+	 * 
+	 * @param joinPoint
+	 */
 	@Around("controllerAspect()")
-	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-		Object result = null;
-		String MethodName = joinPoint.getSignature().getName();
+	public Object around(ProceedingJoinPoint joinPoint) throws Exception {
+		outputParamMap = new HashMap<String, Object>();
+		// 执行目标方法
 		try {
-			//执行目标方法
-			result = joinPoint.proceed();
+			Object result = joinPoint.proceed();
+			outputParamMap.put("result", result);
+			logger.info("====================返回内容开始====================");
+			logger.info("方法执行结果:" + new Gson().toJson(outputParamMap) + separator);
+			endTimeMillis = System.currentTimeMillis(); // 记录方法执行完成的时间
+			logger.info("方法执行所用时间:" + (endTimeMillis - startTimeMillis) + "ms" + separator);
+			logger.info("====================返回内容结束====================");
 			return result;
-		} catch (Exception e) {
-			System.out.println("控制台标准输出异常");
+		} catch (Throwable e) {
+			errorTimeMillis = System.currentTimeMillis(); // 记录方法发生异常的时间
+			logger.error("====================异常内容开始====================");
+			logger.error("方法开始执行时间:" + startTimeMillis + separator);
+			logger.error("请求者微信号:" + userWxId + separator);
+			logger.error("请求者姓名:" + userName + separator);
+			logger.error("请求者学号:" + studentNo + separator);
+			logger.error("请求地址:" + requestPath + separator);
+			logger.error("请求方式:" + requestMethod + separator);
+			logger.error("请求参数:" + new Gson().toJson(inputParamMap) + separator);
+			logger.error("请求类方法:" + joinPoint.getSignature() + separator);
+			logger.error("请求类方法参数:" + Arrays.toString(joinPoint.getArgs()) + separator);
+			logger.error("请求类方法参数名称和值：" + sb + separator);
+			logger.error("方法发生异常时间:" + errorTimeMillis + separator);
+			logger.error("方法发生的异常：" + e + separator);
+			// 输出异常到日志文件，具体异常信息
+			String errorMsg = "";
+			StackTraceElement[] trace = e.getStackTrace();
+			for (StackTraceElement s : trace) {
+				errorMsg += "\tat " + s + "\r\n";
+			}
+			logger.error(errorMsg + separator);
+			logger.error("====================异常内容结束====================" + separator);
+
+			System.out.println("====================标准异常输出开始====================");
 			e.printStackTrace();
-			
-			System.out.println("=============================================================================");
-			//自定义异常格式
-			String autoErrorMsg = "[调用方法：" + MethodName + "]，[接收参数：" + Arrays.toString(joinPoint.getArgs()) + "]，发生的异常：" + e;
-			System.out.println("控制台自定义输出异常");
+			System.out.println("====================标准异常输出结束====================");
+			// 自定义异常格式
+			String autoErrorMsg = "[调用方法：" + joinPoint.getSignature() + "]，[接收参数："
+					+ Arrays.toString(joinPoint.getArgs()) + "]，发生的异常：" + e;
+			System.out.println("====================自定义异常输出开始====================");
 			System.out.println(autoErrorMsg);
-			
-			//输出异常到日志文件，具体异常信息
-	        String errorMsg = "";
-	        StackTraceElement[] trace = e.getStackTrace();
-	        for (StackTraceElement s : trace) {
-	        	errorMsg += "\tat " + s + "\r\n";
-	        }
-	        logger.error("异常摘要：" + autoErrorMsg);
-	        logger.error(errorMsg);
-			
+			System.out.println("====================自定义异常输出结束====================");
+
 			return SGResult.build(500, "操作失败！", e);
 		}
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	/**
-//	 * 方法调用后触发 , 记录正常操作
-//	 * 
-//	 * @param joinPoint
-//	 * @throws ClassNotFoundException
-//	 */
-//	@AfterReturning(pointcut="within(cn.smartGym.controller..*) && @annotation(archivesLog)")
-//	public void after(JoinPoint joinPoint, ArchivesLog archivesLog) throws ClassNotFoundException {
-//		// 用户微信id
-//		String wxId = getUSerMsg().getWxId();
-//		// 控制器名
-//		String targetName = getMethodDesc(joinPoint).getController();
-//		// 方法名
-//		String methodName = getMethodDesc(joinPoint).getMethod();
-//		// 操作说明
-//		String operteContent = getMethodDesc(joinPoint).getOperateContent();
-//		
-//		LogInfo logInfo = new LogInfo();
-//		logInfo.setUserWxId(wxId);
-//		logInfo.setOperateContent(operteContent);
-//		logInfo.setMethod(methodName);
-//		logInfo.setController(targetName);
-//		loginfoService.insertLog(logInfo);
-//	}
-//
-//	/**
-//	 * 发生异常，走此方法
-//	 * 
-//	 * @param joinPoint
-//	 * @param e
-//	 */
-//	@AfterThrowing(pointcut="within(cn.smartGym.controller..*) && @annotation(archivesLog)", throwing = "e")
-//	public void AfterThrowing(JoinPoint joinPoint, ArchivesLog archivesLog, Throwable e) {
-//		try {
-//			// 用户微信id
-//			String wxId = getUSerMsg().getWxId();
-//			// 控制器名
-//			String targetName = this.getMethodDesc(joinPoint).getController();
-//			// 方法名
-//			String methodName = this.getMethodDesc(joinPoint).getMethod();
-//			// 操作说明
-//			String operteContent = getMethodDesc(joinPoint).getOperateContent();
-//			//异常消息
-//			String exMsg = e.getCause().toString();
-//			
-//			LogInfo logInfo = new LogInfo();
-//			if (exMsg != null) {
-//				int type = 2;
-//				logInfo.setUserWxId(wxId);
-//				logInfo.setOperateContent(operteContent);
-//				logInfo.setMethod(methodName);
-//				logInfo.setController(targetName);
-//				logInfo.setType(type);
-//				logInfo.setExceptionMessage(exMsg);
-//				loginfoService.insertLog(logInfo);
-//			}
-//		} catch (Exception e1) {
-//			logger.error(e1.getMessage());
-//		}
-//	}
-//
-//	/**
-//     * 获取 注解中对方法的描述
-//     * 
-//     * @return
-//     * @throws ClassNotFoundException
-//     */
-//    public LogInfo getMethodDesc(JoinPoint joinPoint) throws ClassNotFoundException {
-//        String targetName = joinPoint.getTarget().getClass().getName();
-//        String methodName = joinPoint.getSignature().getName();
-//        Object[] arguments = joinPoint.getArgs();
-//        Class targetClass = Class.forName(targetName);
-//        Method[] methods = targetClass.getMethods();
-//        String operteContent = "";
-//        for (Method method : methods) {
-//            if (method.getName().equals(methodName)) {
-//                Class[] clazzs = method.getParameterTypes();
-//                if (clazzs.length == arguments.length) {
-//                	// 操作说明
-//                    operteContent = method.getAnnotation(ArchivesLog.class).operateContent();
-//                    break;
-//                }
-//            }
-//        }
-//        LogInfo logInfo = new LogInfo();
-//        logInfo.setController(targetName);
-//        logInfo.setMethod(methodName);
-//        logInfo.setOperateContent(operteContent);
-//        return logInfo;
-//    }
-//
-//	/**
-//	 * 得到用户信息
-//	 * 
-//	 * @return
-//	 */
-//	public SgUserCtr getUSerMsg() {
-//		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-//		// 获取session
-//		HttpSession session = req.getSession();
-//		SgUserCtr userCtr = (SgUserCtr) session.getAttribute(SESSION_USER);
-//		return userCtr;
-//	}
-
 }

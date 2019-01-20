@@ -67,7 +67,7 @@ public class InformServiceImpl implements InformService {
 		information.setUpdated(new Date());
 		informationMapper.updateByExampleSelective(information, example);
 
-		return SGResult.build(200, "删除通知成功！");
+		return SGResult.ok("删除通知成功！");
 	}
 
 	/**
@@ -95,10 +95,8 @@ public class InformServiceImpl implements InformService {
 			criteria.andIdIn(Arrays.asList(ids));
 
 		List<Information> informationList = informationMapper.selectByExample(example);
-		if (informationList == null || informationList.size() == 0)
-			return SGResult.build(201, "未找到通知！");
 
-		return SGResult.build(200, "查询通知成功！", informationList);
+		return SGResult.ok("查询通知成功！", informationList);
 	}
 
 }

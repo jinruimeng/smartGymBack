@@ -28,6 +28,7 @@ import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoCtr.SgUserCtr;
 import cn.smartGym.service.UserService;
 import cn.smartGym.utils.ConversionUtils;
+import common.enums.ErrorCode;
 import common.jedis.JedisClient;
 import common.utils.JsonUtils;
 import common.utils.LogAopUtils;
@@ -195,7 +196,7 @@ public class ArchivesLogAspect {
 			System.out.println(autoErrorMsg);
 			System.out.println("====================自定义异常输出结束====================");
 
-			return SGResult.build(500, "操作失败！", e);
+			return SGResult.build(ErrorCode.SYSTEM_EXCEPTION.getErrorCode(), "操作失败！", e);
 		}
 	}
 }

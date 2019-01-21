@@ -268,7 +268,7 @@ public class UserServiceImpl implements UserService {
 
 		List<SgUser> userList = userMapper.selectByExample(example);
 		if (userList == null || userList.size() == 0)
-			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到改用户信息！");
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到该用户信息！");
 
 		return SGResult.ok("查询成功！", userList);
 	}

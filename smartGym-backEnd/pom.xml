@@ -27,8 +27,8 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
 					<path>/</path>
-					<port>8080</port>
-					<url>http://202.120.162.23:8080/manager/text</url>
+					<port>80</port>
+					<url>http://202.120.162.23:80/manager/text</url>
 					<update>true</update>
 					<username>jinruimeng</username>
 					<password>0012345678</password>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -65,7 +66,6 @@ public class ArchivesLogAspect {
 	private long endTimeMillis = 0; // 结束时间
 	private long errorTimeMillis = 0; // 结束时间
 	private StringBuffer sb = null;
-//	private String separator = System.getProperty("line.separator");// 换行符
 
 	/**
 	 * 定义一个方法，用于声明切入点表达式，方法中一般不需要添加其他代码 使用@Pointcut声明切入点表达式
@@ -80,8 +80,6 @@ public class ArchivesLogAspect {
 	 * 
 	 * @Title：doBeforeInServiceLayer
 	 * @Description: 方法调用前触发 记录开始时间
-	 * @author shaojian.yu
-	 * @date 2014年11月2日 下午4:45:53
 	 * @param joinPoint
 	 * @throws Throwable
 	 */
@@ -97,6 +95,8 @@ public class ArchivesLogAspect {
 
 		if (inputParamMap.containsKey("wxId"))
 			userWxId = ((String[]) inputParamMap.get("wxId"))[0];
+		else if(inputParamMap.containsKey("userWxId"))
+			userWxId = ((String[]) inputParamMap.get("userWxId"))[0];
 
 		// 先去redis中查看是否有用户的信息，如果没有，则去数据库中查看
 		if (!StringUtils.isBlank(userWxId)) {
@@ -110,8 +110,8 @@ public class ArchivesLogAspect {
 				SgUser sgUser = new SgUser();
 				sgUser.setWxId(userWxId);
 				sgUser = (SgUser) userService.getUserByDtail(sgUser).getData();
-				sgUserCtr = ConversionUtils.userDaoToCtr(sgUser);
-				if (sgUserCtr != null) {
+				if (sgUser != null) {
+					sgUserCtr = ConversionUtils.userDaoToCtr(sgUser);
 					userName = sgUserCtr.getName();
 					studentNo = sgUserCtr.getStudentNo();
 					// 把用户信息写入redis，key：wxId value：用户信息
@@ -198,5 +198,21 @@ public class ArchivesLogAspect {
 
 			return SGResult.build(ErrorCode.SYSTEM_EXCEPTION.getErrorCode(), "操作失败！", e);
 		}
+	}
+	
+	@After("controllerAspect()")
+	public void after(JoinPoint joinPoint) throws Exception {
+		//重置各参数
+		userWxId = null; // 请求者微信号
+		userName = null; // 请求者
+		studentNo = null; // 请求者学号
+		requestPath = null; // 请求地址
+		requestMethod = null; // 请求方式
+		inputParamMap = null; // 传入参数
+		outputParamMap = null; // 存放输出结果
+		startTimeMillis = 0; // 开始时间
+		endTimeMillis = 0; // 结束时间
+		errorTimeMillis = 0; // 结束时间
+		sb = null;
 	}
 }

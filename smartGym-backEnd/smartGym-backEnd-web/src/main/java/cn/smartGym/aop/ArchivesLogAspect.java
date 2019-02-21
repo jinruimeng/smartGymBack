@@ -26,9 +26,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.google.gson.Gson;
 
 import cn.smartGym.pojo.SgUser;
-import cn.smartGym.pojoCtr.SgUserCtr;
 import cn.smartGym.service.UserService;
-import cn.smartGym.utils.ConversionUtils;
 import common.enums.ErrorCode;
 import common.jedis.JedisClient;
 import common.utils.JsonUtils;
@@ -98,24 +96,23 @@ public class ArchivesLogAspect {
 		else if(inputParamMap.containsKey("userWxId"))
 			userWxId = ((String[]) inputParamMap.get("userWxId"))[0];
 
+		SgUser sgUser = new SgUser();
 		// 先去redis中查看是否有用户的信息，如果没有，则去数据库中查看
 		if (!StringUtils.isBlank(userWxId)) {
-			SgUserCtr sgUserCtr = new SgUserCtr();
-			String sgUserCtrSignInString = jedisClient.get(userWxId);
-			if (!StringUtils.isBlank(sgUserCtrSignInString)) {
-				sgUserCtr = JsonUtils.jsonToPojo(sgUserCtrSignInString, SgUserCtr.class);
-				userName = sgUserCtr.getName();
-				studentNo = sgUserCtr.getStudentNo();
+			String sgUserSignInString = jedisClient.get(userWxId);
+			if (!StringUtils.isBlank(sgUserSignInString)) {
+				sgUser = JsonUtils.jsonToPojo(sgUserSignInString, SgUser.class);
+				userName = sgUser.getName();
+				studentNo = sgUser.getStudentNo();
 			} else {
-				SgUser sgUser = new SgUser();
+				//如果缓存中无信息，去数据库中查找用户信息
 				sgUser.setWxId(userWxId);
 				sgUser = (SgUser) userService.getUserByDtail(sgUser).getData();
 				if (sgUser != null) {
-					sgUserCtr = ConversionUtils.userDaoToCtr(sgUser);
-					userName = sgUserCtr.getName();
-					studentNo = sgUserCtr.getStudentNo();
+					userName = sgUser.getName();
+					studentNo = sgUser.getStudentNo();
 					// 把用户信息写入redis，key：wxId value：用户信息
-					jedisClient.set("wxId:" + userWxId, JsonUtils.objectToJson(sgUserCtr));
+					jedisClient.set("wxId:" + userWxId, JsonUtils.objectToJson(sgUser));
 					// 设置Session的过期时间
 					jedisClient.expire("wxId:" + userWxId, SESSION_EXPIRE);
 				}

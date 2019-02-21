@@ -45,7 +45,7 @@ public class ItemController {
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");
 		}
 		Set<String> result = new HashSet<>();
-		// 0-已删除，1-正在报名，2-报名结束，3-比赛已结束
+		// 0-已删除，1-正在报名，2-报名结束，3-比赛结束
 		if (!StringUtils.isBlank(itemCtr.getItem()))
 			result = itemService.getPropertiesByItems(items, "gender");
 		else if (!StringUtils.isBlank(itemCtr.getCategory()))
@@ -69,7 +69,7 @@ public class ItemController {
 	@ResponseBody
 	public SGResult getInfoPage2(ItemCtr itemCtr) throws Exception {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 2);
-		// 0-已删除，1-正在报名，2-报名结束，3-比赛已结束
+		// 0-已删除，1-正在报名，2-报名结束，3-比赛结束
 		Set<String> result = new HashSet<>();
 		if (items == null || items.size() == 0) {
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");

@@ -295,7 +295,6 @@ public class ManagerController {
 	@RequestMapping(value = "/smartgym/manager/getPlayersListByItemDetailsAndCollege", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-//	@ArchivesLog(operateContent = "获取运动员列表")
 	public SGResult getPlayersListByItemDetailsAndCollege(ItemCtr itemCtr, String college) throws Exception {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
 		List<Long> itemIds = itemService.getItemIdsByItems(items);

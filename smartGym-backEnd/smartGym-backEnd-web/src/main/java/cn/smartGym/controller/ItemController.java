@@ -39,7 +39,7 @@ public class ItemController {
 	@RequestMapping(value = "/smartgym/item/getInfo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInfoPage(ItemCtr itemCtr) throws Exception {
+	public SGResult getInfoPage(ItemCtr itemCtr) {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 1);
 		if (items == null || items.size() == 0) {
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");
@@ -67,7 +67,7 @@ public class ItemController {
 	@RequestMapping(value = "/smartgym/item/getInfo2", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInfoPage2(ItemCtr itemCtr) throws Exception {
+	public SGResult getInfoPage2(ItemCtr itemCtr) {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 2);
 		// 0-已删除，1-正在报名，2-报名结束，3-比赛结束
 		Set<String> result = new HashSet<>();
@@ -95,7 +95,7 @@ public class ItemController {
 	@RequestMapping(value = "/smartgym/item/getInfo3", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInfoPage3(ItemCtr itemCtr) throws Exception {
+	public SGResult getInfoPage3(ItemCtr itemCtr) {
 		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 2, 3);
 		// 0-已删除，1-正在报名，2-报名结束，3-比赛结束
 		Set<String> result = new HashSet<>();
@@ -113,4 +113,5 @@ public class ItemController {
 		}
 		return SGResult.ok("获取项目信息成功!", result);
 	}
+
 }

@@ -45,7 +45,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		// 数据有效性检验
 		if (StringUtils.isBlank(application.getStudentNo()) || StringUtils.isBlank(application.getJob().toString())
 				|| StringUtils.isBlank(application.getItemId().toString())
-				|| StringUtils.isBlank(application.getName().toString()))
+				|| StringUtils.isBlank(application.getName()))
 			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "报名信息不完整，报名失败！");
 		SGResult result = checkData(application);
 		if (!result.isOK()) {

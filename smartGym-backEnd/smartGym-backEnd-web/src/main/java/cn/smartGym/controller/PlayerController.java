@@ -29,9 +29,9 @@ public class PlayerController {
 	private PlayerService playerService;
 
 	/**
-	 * 根据学号获取报名表信息
+	 * 根据学号获取参赛表信息
 	 * 
-	 * @param studentno
+	 * @param studentNo
 	 * @return
 	 */
 	@RequestMapping(value = "/smartgym/player/getPlayerListByStudentNo", method = { RequestMethod.POST,
@@ -48,7 +48,32 @@ public class PlayerController {
 
 		List<PlayerCtr> result = ConversionUtils.playerDaoListToCtrList(players);
 
-		return SGResult.ok( "查询成功！", result);
+		return SGResult.ok("查询成功！", result);
 
 	}
+
+	/**
+	 * 根据某一项目下的参赛表信息
+	 * 
+	 * @param itemId
+	 * @return
+	 */
+	@RequestMapping(value = "/smartgym/player/getPlayerListByItemId", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult getPlayerListByItemId(Long itemId) {
+		if (itemId == null)
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "项目不能为空！");
+
+		List<Player> players = playerService.getPlayersByCollegeAndItemIds("total", itemId);
+
+		if (players == null || players.size() == 0)
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");
+
+		List<PlayerCtr> result = ConversionUtils.playerDaoListToCtrList(players);
+
+		return SGResult.ok("查询成功！", result);
+
+	}
+
 }

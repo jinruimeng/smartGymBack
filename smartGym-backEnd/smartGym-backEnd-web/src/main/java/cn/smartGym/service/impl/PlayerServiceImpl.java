@@ -29,7 +29,7 @@ import common.utils.SGResult;
 public class PlayerServiceImpl implements PlayerService {
 
 	@Autowired
-	private PlayerMapper PlayerMapper;
+	private PlayerMapper playerMapper;
 
 	/**
 	 * 根据报名表信息生成参赛信息
@@ -64,9 +64,9 @@ public class PlayerServiceImpl implements PlayerService {
 			player.setStatus(1);
 			player.setCreated(new Date());
 			player.setUpdated(new Date());
-			PlayerMapper.insertSelective(player);
+			playerMapper.insertSelective(player);
 		}
-		return SGResult.ok( "校级管理员审核完成！");
+		return SGResult.ok("校级管理员审核完成！");
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class PlayerServiceImpl implements PlayerService {
 		PlayerExample example = new PlayerExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(0);
-		PlayerMapper.deleteByExample(example);
+		playerMapper.deleteByExample(example);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class PlayerServiceImpl implements PlayerService {
 			criteria.andItemIdEqualTo(itemId);
 			criteria.andStatusGreaterThanOrEqualTo(1);
 		}
-		List<Player> players = PlayerMapper.selectByExample(example);
+		List<Player> players = playerMapper.selectByExample(example);
 
 		String curSid = "0000000";
 		String curPid = "000000";
@@ -114,7 +114,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 			player.setPlayerNo(curPid);
 			player.setUpdated(new Date());
-			PlayerMapper.updateByPrimaryKeySelective(player);
+			playerMapper.updateByPrimaryKeySelective(player);
 		}
 	}
 
@@ -130,7 +130,7 @@ public class PlayerServiceImpl implements PlayerService {
 		Criteria criteria = example.createCriteria();
 		criteria.andItemIdEqualTo(itemId);
 		criteria.andStatusEqualTo(1);
-		List<Player> list = PlayerMapper.selectByExample(example);
+		List<Player> list = playerMapper.selectByExample(example);
 		if (list == null || list.size() <= 0)
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查询到相关项目的报名记录！");
 
@@ -149,9 +149,21 @@ public class PlayerServiceImpl implements PlayerService {
 			list.get(i).setPathNo(i % pathNum + 1);
 			// 更新到数据库
 			list.get(i).setUpdated(new Date());
-			PlayerMapper.updateByPrimaryKeySelective(list.get(i));
+			playerMapper.updateByPrimaryKeySelective(list.get(i));
 		}
-		return SGResult.ok( "设置参赛队员分组和赛道成功！");
+		return SGResult.ok("设置参赛队员分组和赛道成功！");
+	}
+
+	/**
+	 * 登记比赛成绩
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public SGResult updatePlayer(Player player) {
+		player.setUpdated(new Date());
+		playerMapper.updateByPrimaryKeySelective(player);
+		return SGResult.ok("更新运动员信息成功！");
 	}
 
 	/**
@@ -166,7 +178,7 @@ public class PlayerServiceImpl implements PlayerService {
 		if (!StringUtils.isBlank(studentNo))
 			criteria.andStudentNoEqualTo(studentNo);
 		criteria.andStatusNotEqualTo(0);
-		List<Player> playerList = PlayerMapper.selectByExample(example);
+		List<Player> playerList = playerMapper.selectByExample(example);
 
 		return playerList;
 	}
@@ -188,7 +200,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 		if (itemIds != null && itemIds.length != 0)
 			criteria.andItemIdIn(Arrays.asList(itemIds));
-		List<Player> playersList = PlayerMapper.selectByExample(example);
+		List<Player> playersList = playerMapper.selectByExample(example);
 
 		return playersList;
 	}

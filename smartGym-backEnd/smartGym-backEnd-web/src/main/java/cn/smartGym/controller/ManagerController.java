@@ -307,4 +307,20 @@ public class ManagerController {
 		List<PlayerCtr> playersCtr = ConversionUtils.playerDaoListToCtrList(players);
 		return SGResult.ok("查询成功！", playersCtr);
 	}
+
+	/**
+	 * 登记比赛成绩
+	 * 
+	 * @param studentno
+	 * @return
+	 */
+	@RequestMapping(value = "/smartgym/manager/registerGrades", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult registerGrades(PlayerCtr playerCtr) {
+		if (playerCtr == null || StringUtils.isBlank(playerCtr.getId().toString()))
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "未选择运动员！");
+		
+		return playerService.updatePlayer(ConversionUtils.playCtrToDao(playerCtr));
+	}
 }

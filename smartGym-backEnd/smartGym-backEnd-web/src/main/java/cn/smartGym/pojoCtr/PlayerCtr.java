@@ -9,12 +9,6 @@ public class PlayerCtr implements Serializable {
 
 	private static final long serialVersionUID = -1254682028835756571L;
 
-//	@Autowired
-//	private CollegeService collegeService;
-//
-//	@Autowired
-//	private ItemService itemService;
-
 	private Long id;
 
 	private String name;

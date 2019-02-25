@@ -55,7 +55,7 @@ public class ItemController {
 		else
 			result = itemService.getPropertiesByItems(items, "game");
 
-		return SGResult.ok( "获取项目信息成功!", result);
+		return SGResult.ok("获取项目信息成功!", result);
 	}
 
 	/**
@@ -83,7 +83,34 @@ public class ItemController {
 		else {
 			result = itemService.getPropertiesByItems(items, "game");
 		}
-		return SGResult.ok( "获取项目信息成功!", result);
+		return SGResult.ok("获取项目信息成功!", result);
 	}
 
+	/**
+	 * 登记成绩时，获取项目信息
+	 * 
+	 * @param itemsCtr
+	 * @return
+	 */
+	@RequestMapping(value = "/smartgym/item/getInfo3", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult getInfoPage3(ItemCtr itemCtr) throws Exception {
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 2, 3);
+		// 0-已删除，1-正在报名，2-报名结束，3-比赛结束
+		Set<String> result = new HashSet<>();
+		if (items == null || items.size() == 0) {
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");
+		}
+		if (!StringUtils.isBlank(itemCtr.getItem()))
+			result = itemService.getPropertiesByItems(items, "gender");
+		else if (!StringUtils.isBlank(itemCtr.getCategory()))
+			result = itemService.getPropertiesByItems(items, "item");
+		else if (!StringUtils.isBlank(itemCtr.getGame()))
+			result = itemService.getPropertiesByItems(items, "category");
+		else {
+			result = itemService.getPropertiesByItems(items, "game");
+		}
+		return SGResult.ok("获取项目信息成功!", result);
+	}
 }

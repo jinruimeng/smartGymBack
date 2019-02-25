@@ -219,6 +219,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		Criteria criteria = example.createCriteria();
 		criteria.andItemIdEqualTo(itemId);
 		criteria.andStatusGreaterThanOrEqualTo(1);
+		criteria.andJobEqualTo(0);
 		return ApplicationMapper.countByExample(example);
 	}
 
@@ -266,6 +267,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			Criteria criteriaReview = exampleReview.createCriteria();
 			criteriaReview.andItemIdEqualTo(item.getId());
 			criteriaReview.andStatusGreaterThanOrEqualTo(2);
+			criteriaReview.andJobEqualTo(0);
 			Long reviewNum = ApplicationMapper.countByExample(exampleReview);
 			totalReview += reviewNum;
 
@@ -324,6 +326,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			criteriaReview.andCollegeEqualTo(collegeId);
 			criteriaReview.andItemIdEqualTo(item.getId());
 			criteriaReview.andStatusGreaterThanOrEqualTo(2);
+			criteriaReview.andJobEqualTo(0);
 			Long collegeReview = ApplicationMapper.countByExample(exampleReview);
 
 			// 如果有人报名，加入到结果中
@@ -379,11 +382,13 @@ public class ApplicationServiceImpl implements ApplicationService {
 				criteriaApplication.andCollegeEqualTo(collegeId);
 				criteriaApplication.andItemIdEqualTo(item.getId());
 				criteriaApplication.andStatusGreaterThanOrEqualTo(1);
-
+				criteriaApplication.andJobEqualTo(0);
+				
 				Criteria criteriaReview = exampleReview.or();
 				criteriaReview.andCollegeEqualTo(collegeId);
 				criteriaReview.andItemIdEqualTo(item.getId());
 				criteriaReview.andStatusGreaterThanOrEqualTo(2);
+				criteriaReview.andJobEqualTo(0);
 			}
 
 			// 查询该学院已报名人数
@@ -439,9 +444,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 				// 查询该学院该项目报名人数
 				ApplicationExample exampleApplication = new ApplicationExample();
 				Criteria criteriaApplication = exampleApplication.createCriteria();
+				criteriaApplication.andStatusGreaterThanOrEqualTo(1);
+				criteriaApplication.andJobEqualTo(0);
 				criteriaApplication.andCollegeEqualTo(collegeId);
 				criteriaApplication.andItemIdEqualTo(item.getId());
-				criteriaApplication.andStatusNotEqualTo(1);
 				Long applicationNum = ApplicationMapper.countByExample(exampleApplication);
 				applicationInfo.setApplicationNumber(applicationNum);
 

@@ -121,7 +121,7 @@ public class ManagerController {
 	@ResponseBody
 	public SGResult maintenance() throws Exception {
 		itemService.maintenanceItem();
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(null, 0, 2);
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(null, 0, 2, 3);
 		List<Long> itemIds = itemService.getItemIdsByItems(items);
 		applicationService.maintenanceApplication(itemIds);
 		return SGResult.ok("维护成功！");

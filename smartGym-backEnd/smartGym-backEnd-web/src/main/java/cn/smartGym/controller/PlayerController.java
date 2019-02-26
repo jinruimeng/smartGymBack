@@ -77,7 +77,8 @@ public class PlayerController {
 		// 获取项目Id
 		List<Long> itemIds = itemService.getItemIdsByItems(items);
 		// 获取参赛表
-		List<Player> players = playerService.getPlayersByCollegeAndItemIds("total", (Long[]) itemIds.toArray());
+		List<Player> players = playerService.getPlayersByCollegeAndItemIds("total",
+				itemIds.toArray(new Long[itemIds.size()]));
 
 		if (players == null || players.size() == 0)
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");

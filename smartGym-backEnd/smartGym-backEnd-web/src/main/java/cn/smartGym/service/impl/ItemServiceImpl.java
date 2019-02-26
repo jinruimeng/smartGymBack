@@ -63,15 +63,39 @@ public class ItemServiceImpl implements ItemService {
 		// 生成比赛项目id
 		final long itemId = IDUtils.genId();
 		// 补全item其他属性
-		if (item.getStatus() == null)
+		if (item.getId() == null)
 			item.setId(itemId);
 		item.setStatus(1); // 0-已取消 1-正在报名 2-已结束
 		item.setCreated(new Date());
 		item.setUpdated(new Date());
 		// 插入数据库
 		itemMapper.insert(item);
+
 		// 返回成功
-		return SGResult.ok( "添加项目成功!");
+		return addItemExcludesPlayers(item);
+	}
+
+	/**
+	 * 增加非运动员的项目
+	 * 
+	 */
+	public SGResult addItemExcludesPlayers(Item item) {
+		item.setCategory("非运动员");
+		item.setItem("非运动员");
+		item.setGender(2);
+		List<Item> list = getItemsByDetailsAndStatuses(item, 1);
+		if (list == null || list.isEmpty()) {
+			long itemId = IDUtils.genId();
+			item.setId(itemId);
+			item.setStatus(1); // 0-已取消 1-正在报名 2-已结束
+			item.setCreated(new Date());
+			item.setUpdated(new Date());
+			// 插入数据库
+			itemMapper.insert(item);
+		}
+
+		// 返回成功
+		return SGResult.ok("添加项目成功!");
 	}
 
 	/**
@@ -105,7 +129,7 @@ public class ItemServiceImpl implements ItemService {
 			item.setUpdated(new Date());
 			itemMapper.updateByPrimaryKeySelective(item);
 		}
-		return SGResult.ok( "删除项目成功！");
+		return SGResult.ok("删除项目成功！");
 	}
 
 	/**

@@ -16,6 +16,8 @@ public interface ItemService {
 
 	SGResult addItem(Item item);
 
+	SGResult addItemExcludesPlayers(Item item);
+
 	void hardDeleteItem();
 
 	SGResult deleteItem(Item itemToBeDeleted);

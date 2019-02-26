@@ -93,7 +93,7 @@ public class ArchivesLogAspect {
 
 		if (inputParamMap.containsKey("wxId"))
 			userWxId = ((String[]) inputParamMap.get("wxId"))[0];
-		else if(inputParamMap.containsKey("userWxId"))
+		else if (inputParamMap.containsKey("userWxId"))
 			userWxId = ((String[]) inputParamMap.get("userWxId"))[0];
 
 		SgUser sgUser = new SgUser();
@@ -105,7 +105,7 @@ public class ArchivesLogAspect {
 				userName = sgUser.getName();
 				studentNo = sgUser.getStudentNo();
 			} else {
-				//如果缓存中无信息，去数据库中查找用户信息
+				// 如果缓存中无信息，去数据库中查找用户信息
 				sgUser.setWxId(userWxId);
 				sgUser = (SgUser) userService.getUserByDtail(sgUser).getData();
 				if (sgUser != null) {
@@ -148,10 +148,10 @@ public class ArchivesLogAspect {
 	 */
 	@Around("controllerAspect()")
 	public Object around(ProceedingJoinPoint joinPoint) throws Exception {
-		outputParamMap = new HashMap<String, Object>();
 		// 执行目标方法
 		try {
 			Object result = joinPoint.proceed();
+			outputParamMap = new HashMap<String, Object>();
 			outputParamMap.put("result", result);
 			logger.info("====================返回内容开始====================");
 			logger.info("方法执行结果:" + new Gson().toJson(outputParamMap));
@@ -196,16 +196,16 @@ public class ArchivesLogAspect {
 			return SGResult.build(ErrorCode.SYSTEM_EXCEPTION.getErrorCode(), "操作失败！", e);
 		}
 	}
-	
+
 	@After("controllerAspect()")
 	public void after(JoinPoint joinPoint) throws Exception {
-		//重置各参数
+		// 重置各参数
 		userWxId = null; // 请求者微信号
 		userName = null; // 请求者
 		studentNo = null; // 请求者学号
 		requestPath = null; // 请求地址
 		requestMethod = null; // 请求方式
-		inputParamMap = null; // 传入参数
+		inputParamMap = null;// 传入参数
 		outputParamMap = null; // 存放输出结果
 		startTimeMillis = 0; // 开始时间
 		endTimeMillis = 0; // 结束时间

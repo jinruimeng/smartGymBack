@@ -138,6 +138,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			criteria.andStudentNoIn(Arrays.asList(studentNos));
 		if (status != null)
 			criteria.andStatusEqualTo(status);
+		example.setOrderByClause("updated DESC");
 		List<Application> ApplicationList = ApplicationMapper.selectByExample(example);
 		return ApplicationList;
 	}
@@ -158,6 +159,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			if (!college.equals("total"))
 				criteria.andCollegeEqualTo(CollegeAndCampusUtils.getCollegeIndex(college));
 
+		example.setOrderByClause("updated DESC");
 		List<Application> applications = ApplicationMapper.selectByExample(example);
 
 		return applications;
@@ -384,7 +386,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 				criteriaApplication.andItemIdEqualTo(item.getId());
 				criteriaApplication.andStatusGreaterThanOrEqualTo(1);
 				criteriaApplication.andJobEqualTo(0);
-				
+
 				Criteria criteriaReview = exampleReview.or();
 				criteriaReview.andCollegeEqualTo(collegeId);
 				criteriaReview.andItemIdEqualTo(item.getId());

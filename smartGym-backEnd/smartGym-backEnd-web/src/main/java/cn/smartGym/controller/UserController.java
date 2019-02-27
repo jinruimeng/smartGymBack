@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,15 +47,22 @@ public class UserController {
 	@RequestMapping(value = "/smartgym/user/signIn", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult signIn(SgUserCtr userCtr) throws Exception {
-		// 解密用户敏感数据
-		SGResult sgResult = userCtr.decodeWxId();
-		String wxId = (String) sgResult.getData();
+	public SGResult signIn(SgUserCtr userCtr, String userWxId) throws Exception {
 
-		if (!sgResult.isOK())
-			return sgResult;
-		else
-			userCtr.setWxId(wxId);
+		// 检查是否需要解密用户数据
+		if ((StringUtils.isBlank(userWxId) || "undefined".equals(userWxId))
+				&& (StringUtils.isBlank(userCtr.getWxId()))) {
+			// 解密用户敏感数据
+			SGResult sgResult = userCtr.decodeWxId();
+			String wxId = (String) sgResult.getData();
+
+			if (!sgResult.isOK())
+				return sgResult;
+			else
+				userCtr.setWxId(wxId);
+		} else if (StringUtils.isBlank(userCtr.getWxId())) {
+			userCtr.setWxId(userWxId);
+		}
 
 		// 根据解析到的wxId查询用户是否注册
 		SgUser user = (SgUser) userService.getUserByDtail(ConversionUtils.userCtrToDao(userCtr)).getData();

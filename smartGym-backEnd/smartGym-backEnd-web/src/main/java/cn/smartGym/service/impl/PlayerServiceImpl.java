@@ -178,6 +178,7 @@ public class PlayerServiceImpl implements PlayerService {
 		if (!StringUtils.isBlank(studentNo))
 			criteria.andStudentNoEqualTo(studentNo);
 		criteria.andStatusNotEqualTo(0);
+		example.setOrderByClause("updated DESC");
 		List<Player> playerList = playerMapper.selectByExample(example);
 
 		return playerList;
@@ -200,6 +201,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 		if (itemIds != null && itemIds.length != 0)
 			criteria.andItemIdIn(Arrays.asList(itemIds));
+		example.setOrderByClause("updated DESC");
 		List<Player> playersList = playerMapper.selectByExample(example);
 
 		return playersList;

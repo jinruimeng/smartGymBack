@@ -94,6 +94,7 @@ public class InformServiceImpl implements InformService {
 		if (ids != null && ids.length != 0)
 			criteria.andIdIn(Arrays.asList(ids));
 
+		example.setOrderByClause("updated DESC");
 		List<Information> informationList = informationMapper.selectByExample(example);
 
 		return SGResult.ok("查询通知成功！", informationList);

@@ -27,6 +27,7 @@ import common.utils.SGResult;
 /**
  * 比赛报名管理Service
  *
+ * @author ikangkang
  */
 @Service
 public class ApplicationServiceImpl implements ApplicationService {

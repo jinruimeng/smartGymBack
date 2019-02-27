@@ -18,7 +18,7 @@ import common.utils.SGResult;
 /**
  * 通知/活动管理服务层
  * 
- * @author Ruimeng Jin
+ * @author ikangkang
  *
  */
 @Service
@@ -86,7 +86,6 @@ public class InformServiceImpl implements InformService {
 	public SGResult getInformListByTypeAndIds(Integer type, Long... ids) {
 		// 根据type查询inform表
 		InformationExample example = new InformationExample();
-
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(1);
 		if (type != 0)

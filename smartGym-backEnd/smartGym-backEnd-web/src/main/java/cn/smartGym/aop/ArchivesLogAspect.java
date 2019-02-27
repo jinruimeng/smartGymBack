@@ -17,7 +17,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -28,8 +27,6 @@ import com.google.gson.Gson;
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.service.UserService;
 import common.enums.ErrorCode;
-import common.jedis.JedisClient;
-import common.utils.JsonUtils;
 import common.utils.LogAopUtils;
 import common.utils.SGResult;
 
@@ -48,10 +45,10 @@ public class ArchivesLogAspect {
 
 	@Autowired
 	UserService userService;
-	@Autowired
-	private JedisClient jedisClient;
-	@Value("${SESSION_EXPIRE}")
-	private Integer SESSION_EXPIRE;
+//	@Autowired
+//	private JedisClient jedisClient;
+//	@Value("${SESSION_EXPIRE}")
+//	private Integer SESSION_EXPIRE;
 
 	private String userWxId = null; // 请求者微信号
 	private String userName = null; // 请求者
@@ -96,9 +93,18 @@ public class ArchivesLogAspect {
 		else if (inputParamMap.containsKey("userWxId"))
 			userWxId = ((String[]) inputParamMap.get("userWxId"))[0];
 
-		SgUser sgUser = new SgUser();
-		// 先去redis中查看是否有用户的信息，如果没有，则去数据库中查看
 		if (!StringUtils.isBlank(userWxId)) {
+			SgUser sgUser = new SgUser();
+			sgUser.setWxId(userWxId);
+			SGResult result = userService.getUserByDtail(sgUser);
+			if (result.isOK()) {
+				SgUser reUser = (SgUser) result.getData();
+				if (reUser != null) {
+					userName = reUser.getName();
+					studentNo = reUser.getStudentNo();
+				}
+			}
+/*			// 先去redis中查看是否有用户的信息，如果没有，则去数据库中查看
 			String sgUserSignInString = jedisClient.get(userWxId);
 			if (!StringUtils.isBlank(sgUserSignInString)) {
 				sgUser = JsonUtils.jsonToPojo(sgUserSignInString, SgUser.class);
@@ -116,7 +122,7 @@ public class ArchivesLogAspect {
 					// 设置Session的过期时间
 					jedisClient.expire("wxId:" + userWxId, SESSION_EXPIRE);
 				}
-			}
+			}*/
 		}
 		// 打印请求内容
 		logger.info("====================请求内容开始====================");

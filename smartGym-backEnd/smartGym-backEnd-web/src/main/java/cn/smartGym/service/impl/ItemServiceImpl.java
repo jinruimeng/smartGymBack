@@ -261,6 +261,12 @@ public class ItemServiceImpl implements ItemService {
 				itemProperties.add(item.getCategory());
 			}
 			break;
+		case "category1":
+			for (Item item : items) {
+				if (!"非运动员".equals(item.getCategory()))
+					itemProperties.add(item.getCategory());
+			}
+			break;
 		case "item":
 			for (Item item : items) {
 				itemProperties.add(item.getItem());

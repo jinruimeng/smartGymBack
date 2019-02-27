@@ -165,7 +165,7 @@ public class SgUserCtr implements Serializable {
 		String iv = this.getIv();
 		// 登录凭证不能为空
 		if (code == null || code.length() == 0) {
-			return SGResult.build(402, "code不能为空");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "code不能为空");
 		}
 		// 小程序唯一标识 (在微信小程序管理后台获取)
 		String wxspAppid = "wxb0c3c36ab6123dc5";
@@ -178,8 +178,8 @@ public class SgUserCtr implements Serializable {
 		 * 
 		 */
 		// 请求参数
-		String params = "appid=" + wxspAppid + "&secret=" + wxspSecret + "&js_code=" + code + "&grant_type="
-				+ grant_type;
+		String params = "appid=" + wxspAppid + "&secret=" + wxspSecret + "&js_code=" + code
+				+ "&grant_type=" + grant_type;
 		// 发送请求
 		String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
 

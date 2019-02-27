@@ -144,8 +144,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 设置用户权限
 	 * 
-	 * @param authority
-	 *            0-普通用户 1-院级管理员 2-校级管理员 3-开发者
+	 * @param authority 0-普通用户 1-院级管理员 2-校级管理员 3-开发者
 	 */
 	public SGResult setUserAuthority(Integer authority, String... studentNos) {
 		SgUserExample example = new SgUserExample();
@@ -259,6 +258,8 @@ public class UserServiceImpl implements UserService {
 			String userCtrSignInString = jedisClient.get(wxId);
 			if (!StringUtils.isBlank(userCtrSignInString)) {
 				result = JsonUtils.jsonToPojo(jedisClient.get(wxId), SgUser.class);
+				// 取到信息后，更新过期时间
+				jedisClient.expire("wxId:" + wxId, SESSION_EXPIRE);
 				return SGResult.ok("查询成功", result);
 			}
 		}
@@ -294,10 +295,8 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 管理员根据学号查找用户信息
 	 * 
-	 * @param managerUser
-	 *            管理员信息
-	 * @param studentNoSelected
-	 *            要查询的用户学号
+	 * @param managerUser       管理员信息
+	 * @param studentNoSelected 要查询的用户学号
 	 */
 	public SGResult getUserByManagerAndStudentNos(SgUser managerUser, String... studentNos) {
 		// 得到管理员的权限级别0-普通用户 1-院级管理员 2-校级管理员 3-开发者

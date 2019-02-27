@@ -31,7 +31,7 @@ public class ItemController {
 	private ItemService itemService;
 
 	/**
-	 * 获取正在报名的项目信息
+	 * 获取正在报名的项目信息（包括非运动员）
 	 * 
 	 * @param itemsCtr
 	 * @return
@@ -57,7 +57,35 @@ public class ItemController {
 
 		return SGResult.ok("获取项目信息成功!", result);
 	}
+	
+	/**
+	 * 获取正在报名的项目信息（排除非运动员）
+	 * 
+	 * @param itemsCtr
+	 * @return
+	 */
+	@RequestMapping(value = "/smartgym/item/getInfo1", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult getInfoPage1(ItemCtr itemCtr) {
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 1);
+		if (items == null || items.size() == 0) {
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");
+		}
+		Set<String> result = new HashSet<>();
+		// 0-已删除，1-正在报名，2-报名结束，3-比赛结束
+		if (!StringUtils.isBlank(itemCtr.getItem()))
+			result = itemService.getPropertiesByItems(items, "gender");
+		else if (!StringUtils.isBlank(itemCtr.getCategory()))
+			result = itemService.getPropertiesByItems(items, "item");
+		else if (!StringUtils.isBlank(itemCtr.getGame()))
+			result = itemService.getPropertiesByItems(items, "category1");
+		else
+			result = itemService.getPropertiesByItems(items, "game");
 
+		return SGResult.ok("获取项目信息成功!", result);
+	}
+	
 	/**
 	 * 获取报名结束的项目信息
 	 * 

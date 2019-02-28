@@ -54,12 +54,12 @@ public class UserController {
 				&& (StringUtils.isBlank(userCtr.getWxId()))) {
 			// 解密用户敏感数据
 			SGResult sgResult = userCtr.decodeWxId();
-			String wxId = (String) sgResult.getData();
 
-			if (!sgResult.isOK())
-				return sgResult;
+			if (sgResult.isOK())
+				userCtr.setWxId((String) sgResult.getData());
 			else
-				userCtr.setWxId(wxId);
+				return sgResult;
+			
 		} else if (StringUtils.isBlank(userCtr.getWxId())) {
 			userCtr.setWxId(userWxId);
 		}
@@ -67,7 +67,6 @@ public class UserController {
 		// 根据解析到的wxId查询用户是否注册
 		SgUser user = (SgUser) userService.getUserByDtail(ConversionUtils.userCtrToDao(userCtr)).getData();
 
-		// 如果用户已注册生成token。
 		if (user != null) {
 			SgUserCtr userCtrSignIn = ConversionUtils.userDaoToCtr(user);
 			return SGResult.ok("该用户已注册！", userCtrSignIn);

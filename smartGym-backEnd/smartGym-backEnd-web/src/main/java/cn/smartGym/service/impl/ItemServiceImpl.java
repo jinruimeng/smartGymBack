@@ -195,7 +195,8 @@ public class ItemServiceImpl implements ItemService {
 		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(itemId);
-		criteria.andStatusNotEqualTo(0);
+		if (statuses == null || statuses.length == 0 || !Arrays.asList(statuses).contains(0))
+			criteria.andStatusNotEqualTo(0);
 		if (statuses != null && statuses.length != 0)
 			// 0-已取消 1-正在报名 2-已结束
 			criteria.andStatusIn(Arrays.asList(statuses));
@@ -216,7 +217,8 @@ public class ItemServiceImpl implements ItemService {
 	public List<Item> getItemsByDetailsAndStatuses(Item item, Integer... statuses) {
 		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStatusNotEqualTo(0);
+		if (statuses == null || statuses.length == 0 || !Arrays.asList(statuses).contains(0))
+			criteria.andStatusNotEqualTo(0);
 		if (item != null) {
 			if (!StringUtils.isBlank(item.getGame()))
 				criteria.andGameEqualTo(item.getGame());

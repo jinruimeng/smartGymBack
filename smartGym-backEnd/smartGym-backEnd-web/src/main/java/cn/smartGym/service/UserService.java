@@ -1,5 +1,7 @@
 package cn.smartGym.service;
 
+import java.util.List;
+
 import cn.smartGym.pojo.SgUser;
 import common.utils.SGResult;
 
@@ -26,5 +28,9 @@ public interface UserService {
 	SGResult getUserByDtail(SgUser user);
 
 	SGResult getUserByManagerAndStudentNos(SgUser managerUser, String... studentNos);
+	
+	List<SgUser> getUsersByDetailsAndStatuses(SgUser user, Integer... statuses);
+
+	List<String> getStudentNosByUsers(List<SgUser> users);
 
 }

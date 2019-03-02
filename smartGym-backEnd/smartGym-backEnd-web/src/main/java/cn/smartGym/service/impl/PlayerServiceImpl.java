@@ -82,6 +82,33 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 
 	/**
+	 * 维护参赛表
+	 */
+	@Override
+	public void maintenancePlayer(List<Long> itemIds, List<String> studentNos) {
+		PlayerExample example = new PlayerExample();
+
+		Criteria criteriaItemIds = example.or();
+		if (itemIds != null && itemIds.size() != 0)
+			criteriaItemIds.andItemIdNotIn(itemIds);
+		criteriaItemIds.andStatusNotEqualTo(0);
+
+		Criteria criteriaStudentNos = example.or();
+		if (studentNos != null && studentNos.size() != 0)
+			criteriaStudentNos.andStudentNoNotIn(studentNos);
+		criteriaStudentNos.andStatusNotEqualTo(0);
+
+		List<Player> list = playerMapper.selectByExample(example);
+
+		for (Player player : list) {
+			player.setStatus(0);
+			// 0-已删除，1-正常
+			player.setUpdated(new Date());
+			playerMapper.updateByPrimaryKeySelective(player);
+		}
+	}
+
+	/**
 	 * 生成参赛号PlayerNo——根据itemIds
 	 * 
 	 * @param itemIds 项目的id列表

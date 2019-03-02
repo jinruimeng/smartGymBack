@@ -32,7 +32,7 @@ import common.utils.SGResult;
 public class ApplicationServiceImpl implements ApplicationService {
 
 	@Autowired
-	private ApplicationMapper ApplicationMapper;
+	private ApplicationMapper applicationMapper;
 
 	/**
 	 * 报名比赛
@@ -61,7 +61,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		application.setCreated(new Date());
 		application.setUpdated(new Date());
 		// 插入数据库
-		ApplicationMapper.insert(application);
+		applicationMapper.insert(application);
 		// 返回成功
 		return SGResult.ok("报名成功！");
 	}
@@ -81,7 +81,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		criteria.andStudentNoEqualTo(application.getStudentNo());
 		criteria.andItemIdEqualTo(application.getItemId());
 		// 执行查询
-		List<Application> list = ApplicationMapper.selectByExample(example);
+		List<Application> list = applicationMapper.selectByExample(example);
 		// 判断结果中是否包含数据
 		if (list != null && list.size() > 0) {
 			// 如果有数据返回false
@@ -99,27 +99,33 @@ public class ApplicationServiceImpl implements ApplicationService {
 		ApplicationExample example = new ApplicationExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusEqualTo(0);
-		ApplicationMapper.deleteByExample(example);
+		applicationMapper.deleteByExample(example);
 	}
 
 	/**
-	 * 维护报名表（将已结束或已删除项目报名数据的状态设置为“已删除”）
+	 * 维护报名表（软删除已结束或已删除项目、已删除用户的报名记录）
 	 */
 	@Override
-	public void maintenanceApplication(List<Long> itemIds) {
+	public void maintenanceApplication(List<Long> itemIds, List<String> studentNos) {
 		ApplicationExample example = new ApplicationExample();
 
-		Criteria criteria = example.createCriteria();
-		criteria.andItemIdIn(itemIds);
-		criteria.andStatusNotEqualTo(0);
+		Criteria criteriaItemIds = example.or();
+		if (itemIds != null && itemIds.size() != 0)
+			criteriaItemIds.andItemIdNotIn(itemIds);
+		criteriaItemIds.andStatusNotEqualTo(0);
 
-		List<Application> list = ApplicationMapper.selectByExample(example);
+		Criteria criteriaStudentNos = example.or();
+		if (studentNos != null && studentNos.size() != 0)
+			criteriaStudentNos.andStudentNoNotIn(studentNos);
+		criteriaStudentNos.andStatusNotEqualTo(0);
+
+		List<Application> list = applicationMapper.selectByExample(example);
 
 		for (Application application : list) {
 			application.setStatus(0);
 			// 0-已删除，1-正在审核，2-院级审核已通过，3-校级审核已通过
 			application.setUpdated(new Date());
-			ApplicationMapper.updateByPrimaryKeySelective(application);
+			applicationMapper.updateByPrimaryKeySelective(application);
 		}
 	}
 
@@ -138,7 +144,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		if (status != null)
 			criteria.andStatusEqualTo(status);
 		example.setOrderByClause("updated DESC");
-		List<Application> ApplicationList = ApplicationMapper.selectByExample(example);
+		List<Application> ApplicationList = applicationMapper.selectByExample(example);
 		return ApplicationList;
 	}
 
@@ -159,7 +165,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 				criteria.andCollegeEqualTo(CollegeAndCampusUtils.getCollegeIndex(college));
 
 		example.setOrderByClause("updated DESC");
-		List<Application> applications = ApplicationMapper.selectByExample(example);
+		List<Application> applications = applicationMapper.selectByExample(example);
 
 		return applications;
 	}
@@ -181,7 +187,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		criteria.andStatusEqualTo(1);
 		criteria.andIdIn(ids);
 
-		ApplicationMapper.updateByExampleSelective(applicationTemplate, example);
+		applicationMapper.updateByExampleSelective(applicationTemplate, example);
 
 		return SGResult.ok("院级管理员审核完成！");
 	}
@@ -206,8 +212,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 		criteria.andStatusEqualTo(2);
 		criteria.andIdIn(applicationIds);
 
-		List<Application> applicationsOfStatus2 = ApplicationMapper.selectByExample(example);
-		ApplicationMapper.updateByExampleSelective(applicationTemplate, example);
+		List<Application> applicationsOfStatus2 = applicationMapper.selectByExample(example);
+		applicationMapper.updateByExampleSelective(applicationTemplate, example);
 
 		return applicationsOfStatus2;
 	}
@@ -222,7 +228,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		criteria.andItemIdEqualTo(itemId);
 		criteria.andStatusGreaterThanOrEqualTo(1);
 		criteria.andJobEqualTo(0);
-		return ApplicationMapper.countByExample(example);
+		return applicationMapper.countByExample(example);
 	}
 
 	/**
@@ -261,7 +267,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			Criteria criteriaApplication = exampleApplication.createCriteria();
 			criteriaApplication.andItemIdEqualTo(item.getId());
 			criteriaApplication.andStatusNotEqualTo(0);
-			Long applicationNum = ApplicationMapper.countByExample(exampleApplication);
+			Long applicationNum = applicationMapper.countByExample(exampleApplication);
 			totalApplication += applicationNum;
 
 			// 获取已审核人数
@@ -270,7 +276,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			criteriaReview.andItemIdEqualTo(item.getId());
 			criteriaReview.andStatusGreaterThanOrEqualTo(2);
 			criteriaReview.andJobEqualTo(0);
-			Long reviewNum = ApplicationMapper.countByExample(exampleReview);
+			Long reviewNum = applicationMapper.countByExample(exampleReview);
 			totalReview += reviewNum;
 
 			// 将该项目的总报名人数加入到结果中
@@ -320,7 +326,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			criteriaApplication.andCollegeEqualTo(collegeId);
 			criteriaApplication.andItemIdEqualTo(item.getId());
 			criteriaApplication.andStatusNotEqualTo(0);
-			Long collegeApplication = ApplicationMapper.countByExample(exampleApplication);
+			Long collegeApplication = applicationMapper.countByExample(exampleApplication);
 
 			// 查询该学院该项目已审核人数
 			ApplicationExample exampleReview = new ApplicationExample();
@@ -329,7 +335,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			criteriaReview.andItemIdEqualTo(item.getId());
 			criteriaReview.andStatusGreaterThanOrEqualTo(2);
 			criteriaReview.andJobEqualTo(0);
-			Long collegeReview = ApplicationMapper.countByExample(exampleReview);
+			Long collegeReview = applicationMapper.countByExample(exampleReview);
 
 			// 如果有人报名，加入到结果中
 			if (collegeApplication != 0) {
@@ -394,10 +400,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 			}
 
 			// 查询该学院已报名人数
-			Long collegeApplicationNum = ApplicationMapper.countByExample(exampleApplication);
+			Long collegeApplicationNum = applicationMapper.countByExample(exampleApplication);
 
 			// 查询该学院已审核人数
-			Long collegeReviewNum = ApplicationMapper.countByExample(exampleReview);
+			Long collegeReviewNum = applicationMapper.countByExample(exampleReview);
 
 			// 将该学院的总报名人数加入到结果中
 			if (collegeApplicationNum != 0) {
@@ -450,7 +456,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 				criteriaApplication.andJobEqualTo(0);
 				criteriaApplication.andCollegeEqualTo(collegeId);
 				criteriaApplication.andItemIdEqualTo(item.getId());
-				Long applicationNum = ApplicationMapper.countByExample(exampleApplication);
+				Long applicationNum = applicationMapper.countByExample(exampleApplication);
 				applicationInfo.setApplicationNumber(applicationNum);
 
 				// 查询该学院该项目已审核人数
@@ -459,7 +465,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 				criteriaReview.andCollegeEqualTo(collegeId);
 				criteriaReview.andItemIdEqualTo(item.getId());
 				criteriaReview.andStatusGreaterThanOrEqualTo(2);
-				Long reviewNum = ApplicationMapper.countByExample(exampleReview);
+				Long reviewNum = applicationMapper.countByExample(exampleReview);
 				applicationInfo.setReviewNumber(reviewNum);
 
 				// 计算学院报名和已审核总人数

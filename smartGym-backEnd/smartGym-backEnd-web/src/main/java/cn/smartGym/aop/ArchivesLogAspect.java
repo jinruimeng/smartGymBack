@@ -45,10 +45,6 @@ public class ArchivesLogAspect {
 
 	@Autowired
 	UserService userService;
-//	@Autowired
-//	private JedisClient jedisClient;
-//	@Value("${SESSION_EXPIRE}")
-//	private Integer SESSION_EXPIRE;
 
 	private String userWxId = null; // 请求者微信号
 	private String userName = null; // 请求者
@@ -104,26 +100,8 @@ public class ArchivesLogAspect {
 					studentNo = reUser.getStudentNo();
 				}
 			}
-/*			// 先去redis中查看是否有用户的信息，如果没有，则去数据库中查看
-			String sgUserSignInString = jedisClient.get(userWxId);
-			if (!StringUtils.isBlank(sgUserSignInString)) {
-				sgUser = JsonUtils.jsonToPojo(sgUserSignInString, SgUser.class);
-				userName = sgUser.getName();
-				studentNo = sgUser.getStudentNo();
-			} else {
-				// 如果缓存中无信息，去数据库中查找用户信息
-				sgUser.setWxId(userWxId);
-				sgUser = (SgUser) userService.getUserByDtail(sgUser).getData();
-				if (sgUser != null) {
-					userName = sgUser.getName();
-					studentNo = sgUser.getStudentNo();
-					// 把用户信息写入redis，key：wxId value：用户信息
-					jedisClient.set("wxId:" + userWxId, JsonUtils.objectToJson(sgUser));
-					// 设置Session的过期时间
-					jedisClient.expire("wxId:" + userWxId, SESSION_EXPIRE);
-				}
-			}*/
 		}
+		
 		// 打印请求内容
 		logger.info("====================请求内容开始====================");
 		logger.info("请求者微信号:" + userWxId);

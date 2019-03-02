@@ -207,12 +207,6 @@
 				<artifactId>spring-aop</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			<!-- 文件上传组件 -->
-			<dependency>
-				<groupId>commons-fileupload</groupId>
-				<artifactId>commons-fileupload</artifactId>
-				<version>${commons-fileupload.version}</version>
-			</dependency>
 			<!-- json相关 -->
 			<dependency>
 				<groupId>commons-beanutils</groupId>
@@ -260,7 +254,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>

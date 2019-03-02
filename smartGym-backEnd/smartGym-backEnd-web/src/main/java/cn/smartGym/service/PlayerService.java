@@ -14,10 +14,12 @@ public interface PlayerService {
 
 	void hardDeletePlayer();
 
+	void maintenancePlayer(List<Long> itemIds, List<String> studentNos);
+
 	void genPlayerNo(List<Long> itemsId);
 
 	SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum);
-	
+
 	SGResult updatePlayer(Player player);
 
 	List<Player> getPlayersByStudentNo(String studentNo);

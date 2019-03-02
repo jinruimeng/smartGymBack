@@ -217,8 +217,12 @@ public class ItemServiceImpl implements ItemService {
 	public List<Item> getItemsByDetailsAndStatuses(Item item, Integer... statuses) {
 		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
-		if (statuses == null || statuses.length == 0 || !Arrays.asList(statuses).contains(0))
+		
+		if (statuses == null || statuses.length == 0)
 			criteria.andStatusNotEqualTo(0);
+		else
+			criteria.andStatusIn(Arrays.asList(statuses));
+
 		if (item != null) {
 			if (!StringUtils.isBlank(item.getGame()))
 				criteria.andGameEqualTo(item.getGame());
@@ -229,8 +233,7 @@ public class ItemServiceImpl implements ItemService {
 			if (item.getGender() != null && !StringUtils.isBlank(item.getGender().toString()))
 				criteria.andGenderEqualTo(item.getGender());
 		}
-		if (statuses != null && statuses.length != 0)
-			criteria.andStatusIn(Arrays.asList(statuses));
+
 		// 执行查询
 		List<Item> itemList = itemMapper.selectByExample(example);
 

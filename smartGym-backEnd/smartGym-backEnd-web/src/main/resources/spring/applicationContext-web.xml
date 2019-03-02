@@ -15,23 +15,6 @@
 	<context:component-scan
 		base-package="cn.smartGym.*" />
 	<mvc:annotation-driven />
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-	<!-- 配置资源映射 -->
-	<mvc:resources location="/css/" mapping="/css/**" />
-	<mvc:resources location="/js/" mapping="/js/**" />
-	<!-- 配置多媒体解析器 -->
-	<!-- 定义文件上传解析器 -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 设定默认编码 -->
-		<property name="defaultEncoding" value="UTF-8"></property>
-		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
-		<property name="maxUploadSize" value="5242880"></property>
-	</bean>
 
 	<!-- 启动AOP AspectJ注解自动代理 -->
 	<aop:aspectj-autoproxy /><!-- 用户扫描aop实现类上@Aspect标签 -->

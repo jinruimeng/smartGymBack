@@ -166,7 +166,7 @@ public class SgUserCtr implements Serializable {
 		String iv = this.getIv();
 		// 登录凭证不能为空
 		if (code == null || code.length() == 0) {
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "code不能为空");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "code不能为空！");
 		}
 
 		// 从配置文件中读取小程序唯一标识
@@ -189,13 +189,10 @@ public class SgUserCtr implements Serializable {
 		JSONObject json = JSONObject.fromObject(sr);
 
 		if (json == null || !json.containsKey("session_key"))
-			return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "用户信息解密失败！" + json);
+			return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "微信账号存在异常！");
 
 		// 获取会话密钥（session_key）
 		String session_key = json.get("session_key").toString();
-		// 用户的唯一标识（openId）
-		// String openId = (String) json.get("openid");
-		// System.out.println("openId: " + openId);
 
 		/*
 		 * 2、对encryptedData加密数据进行AES解密
@@ -220,9 +217,9 @@ public class SgUserCtr implements Serializable {
 			if (userInfoJSON.containsKey("unionId"))
 				return SGResult.ok(userInfoJSON.get("unionId"));
 			else
-				return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "用户信息解密失败！" + userInfoJSON);
+				return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "微信账号存在异常！！！");
 		} else
-			return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "用户信息解密失败！");
+			return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "微信账号存在异常！！");
 	}
 
 }

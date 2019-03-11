@@ -88,6 +88,8 @@ public class ItemServiceImpl implements ItemService {
 			long itemId = IDUtils.genId();
 			item.setId(itemId);
 			item.setStatus(1); // 0-已取消 1-正在报名 2-已结束
+			item.setParticipantNum(0);
+			item.setPathNum(1);
 			item.setCreated(new Date());
 			item.setUpdated(new Date());
 			// 插入数据库

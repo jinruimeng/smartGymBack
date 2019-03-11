@@ -248,8 +248,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 		Integer totalNeed = 0;
 
 		for (Item item : items) {
-			// 检查项目状态
-			if (item.getDate().before(new Date()) || item.getStatus() != 1)
+			// 检查项目状态、排除非运动员
+			if (item.getDate().before(new Date()) || item.getStatus() != 1 || "非运动员".equals(item.getCategory()))
 				continue;
 
 			// 得到项目信息
@@ -266,7 +266,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 			ApplicationExample exampleApplication = new ApplicationExample();
 			Criteria criteriaApplication = exampleApplication.createCriteria();
 			criteriaApplication.andItemIdEqualTo(item.getId());
-			criteriaApplication.andStatusNotEqualTo(0);
+			criteriaApplication.andStatusGreaterThanOrEqualTo(1);
+			// 排除非运动员
+			criteriaApplication.andJobEqualTo(0);
 			Long applicationNum = applicationMapper.countByExample(exampleApplication);
 			totalApplication += applicationNum;
 
@@ -275,6 +277,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 			Criteria criteriaReview = exampleReview.createCriteria();
 			criteriaReview.andItemIdEqualTo(item.getId());
 			criteriaReview.andStatusGreaterThanOrEqualTo(2);
+			// 排除非运动员
 			criteriaReview.andJobEqualTo(0);
 			Long reviewNum = applicationMapper.countByExample(exampleReview);
 			totalReview += reviewNum;
@@ -313,7 +316,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		Set<Integer> collegesId = allCollegesIdAndName.keySet();
 
 		// 检查项目状态
-		if (item.getDate().before(new Date()) || item.getStatus() != 1)
+		if (item.getDate().before(new Date()) || item.getStatus() != 1 || "非运动员".equals(item.getCategory()))
 			return result;
 
 		for (Integer collegeId : collegesId) {
@@ -325,7 +328,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 			Criteria criteriaApplication = exampleApplication.createCriteria();
 			criteriaApplication.andCollegeEqualTo(collegeId);
 			criteriaApplication.andItemIdEqualTo(item.getId());
-			criteriaApplication.andStatusNotEqualTo(0);
+			// 排除非运动员
+			criteriaApplication.andJobEqualTo(0);
+			criteriaApplication.andStatusGreaterThanOrEqualTo(1);
 			Long collegeApplication = applicationMapper.countByExample(exampleApplication);
 
 			// 查询该学院该项目已审核人数
@@ -333,8 +338,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 			Criteria criteriaReview = exampleReview.createCriteria();
 			criteriaReview.andCollegeEqualTo(collegeId);
 			criteriaReview.andItemIdEqualTo(item.getId());
-			criteriaReview.andStatusGreaterThanOrEqualTo(2);
+			// 排除非运动员
 			criteriaReview.andJobEqualTo(0);
+			criteriaReview.andStatusGreaterThanOrEqualTo(2);
 			Long collegeReview = applicationMapper.countByExample(exampleReview);
 
 			// 如果有人报名，加入到结果中
@@ -390,12 +396,14 @@ public class ApplicationServiceImpl implements ApplicationService {
 				criteriaApplication.andCollegeEqualTo(collegeId);
 				criteriaApplication.andItemIdEqualTo(item.getId());
 				criteriaApplication.andStatusGreaterThanOrEqualTo(1);
+				// 排除非运动员
 				criteriaApplication.andJobEqualTo(0);
 
 				Criteria criteriaReview = exampleReview.or();
 				criteriaReview.andCollegeEqualTo(collegeId);
 				criteriaReview.andItemIdEqualTo(item.getId());
 				criteriaReview.andStatusGreaterThanOrEqualTo(2);
+				// 排除非运动员
 				criteriaReview.andJobEqualTo(0);
 			}
 
@@ -456,15 +464,19 @@ public class ApplicationServiceImpl implements ApplicationService {
 				criteriaApplication.andJobEqualTo(0);
 				criteriaApplication.andCollegeEqualTo(collegeId);
 				criteriaApplication.andItemIdEqualTo(item.getId());
+				// 排除非运动员
+				criteriaApplication.andJobEqualTo(0);
 				Long applicationNum = applicationMapper.countByExample(exampleApplication);
 				applicationInfo.setApplicationNumber(applicationNum);
 
 				// 查询该学院该项目已审核人数
 				ApplicationExample exampleReview = new ApplicationExample();
 				Criteria criteriaReview = exampleReview.createCriteria();
+				criteriaReview.andStatusGreaterThanOrEqualTo(2);
 				criteriaReview.andCollegeEqualTo(collegeId);
 				criteriaReview.andItemIdEqualTo(item.getId());
-				criteriaReview.andStatusGreaterThanOrEqualTo(2);
+				// 排除非运动员
+				criteriaReview.andJobEqualTo(0);
 				Long reviewNum = applicationMapper.countByExample(exampleReview);
 				applicationInfo.setReviewNumber(reviewNum);
 

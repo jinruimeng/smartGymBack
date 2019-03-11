@@ -135,7 +135,7 @@ public class ItemController {
 		else if (!StringUtils.isBlank(itemCtr.getCategory()))
 			result = itemService.getPropertiesByItems(items, "item");
 		else if (!StringUtils.isBlank(itemCtr.getGame()))
-			result = itemService.getPropertiesByItems(items, "category");
+			result = itemService.getPropertiesByItems(items, "category1");
 		else {
 			result = itemService.getPropertiesByItems(items, "game");
 		}

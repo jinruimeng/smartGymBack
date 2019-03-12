@@ -189,6 +189,7 @@ public class PlayerServiceImpl implements PlayerService {
 	 */
 	public SGResult updatePlayer(Player player) {
 		player.setUpdated(new Date());
+		player.setStatus(1);
 		playerMapper.updateByPrimaryKeySelective(player);
 		return SGResult.ok("更新运动员信息成功！");
 	}

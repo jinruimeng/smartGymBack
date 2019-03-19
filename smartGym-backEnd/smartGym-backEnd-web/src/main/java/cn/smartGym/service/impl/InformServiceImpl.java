@@ -97,7 +97,7 @@ public class InformServiceImpl implements InformService {
 			inform.setDescription("");
 			inform.setRemark("");
 		}
-		return SGResult.build(200, "返回通知列表成功！", list);
+		return SGResult.ok("返回通知列表成功！", list);
 	}
 
 	@Override
@@ -108,6 +108,6 @@ public class InformServiceImpl implements InformService {
 		Information inform = informationMapper.selectByPrimaryKey(id);
 		if (inform == null)
 			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "没有找到您要找的通知！");
-		return SGResult.build(200, "查找通知成功！");
+		return SGResult.ok("查找通知成功！", inform);
 	}
 }

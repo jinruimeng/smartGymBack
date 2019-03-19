@@ -78,11 +78,6 @@
 			<artifactId>json-lib</artifactId>
 			<classifier>jdk15</classifier><!-- 指定jdk版本 -->
 		</dependency>
-		<!-- 文件上传组件 -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency>
 		<!-- 日志相关 -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>

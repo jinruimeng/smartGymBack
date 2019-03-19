@@ -88,6 +88,8 @@ public class ItemServiceImpl implements ItemService {
 			long itemId = IDUtils.genId();
 			item.setId(itemId);
 			item.setStatus(1); // 0-已取消 1-正在报名 2-已结束
+			item.setParticipantNum(0);
+			item.setPathNum(1);
 			item.setCreated(new Date());
 			item.setUpdated(new Date());
 			// 插入数据库
@@ -195,7 +197,8 @@ public class ItemServiceImpl implements ItemService {
 		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(itemId);
-		criteria.andStatusNotEqualTo(0);
+		if (statuses == null || statuses.length == 0 || !Arrays.asList(statuses).contains(0))
+			criteria.andStatusNotEqualTo(0);
 		if (statuses != null && statuses.length != 0)
 			// 0-已取消 1-正在报名 2-已结束
 			criteria.andStatusIn(Arrays.asList(statuses));
@@ -216,7 +219,12 @@ public class ItemServiceImpl implements ItemService {
 	public List<Item> getItemsByDetailsAndStatuses(Item item, Integer... statuses) {
 		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStatusNotEqualTo(0);
+		
+		if (statuses == null || statuses.length == 0)
+			criteria.andStatusNotEqualTo(0);
+		else
+			criteria.andStatusIn(Arrays.asList(statuses));
+
 		if (item != null) {
 			if (!StringUtils.isBlank(item.getGame()))
 				criteria.andGameEqualTo(item.getGame());
@@ -227,8 +235,7 @@ public class ItemServiceImpl implements ItemService {
 			if (item.getGender() != null && !StringUtils.isBlank(item.getGender().toString()))
 				criteria.andGenderEqualTo(item.getGender());
 		}
-		if (statuses != null && statuses.length != 0)
-			criteria.andStatusIn(Arrays.asList(statuses));
+
 		// 执行查询
 		List<Item> itemList = itemMapper.selectByExample(example);
 

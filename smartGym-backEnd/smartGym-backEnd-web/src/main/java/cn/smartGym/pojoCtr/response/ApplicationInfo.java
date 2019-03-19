@@ -2,9 +2,6 @@ package cn.smartGym.pojoCtr.response;
 
 import java.io.Serializable;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class ApplicationInfo implements Serializable{
 
 	private static final long serialVersionUID = 1863863478747099499L;

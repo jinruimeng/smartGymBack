@@ -1,5 +1,6 @@
 package cn.smartGym.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -250,6 +251,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public SGResult getUserByDtail(SgUser user) {
+		if (user == null)
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "请输入用户信息！");
+
 		SgUser result = new SgUser();
 
 		// 先去缓存中查找是否有用户信息
@@ -319,6 +323,42 @@ public class UserServiceImpl implements UserService {
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到用户信息！");
 
 		return SGResult.ok("查询成功！", userList);
+	}
+
+	/**
+	 * 查找用户列表——根据用户详细信息
+	 * 
+	 * @param 要查找的用户具体信息（微信号和学号）
+	 */
+	@Override
+	public List<SgUser> getUsersByDetailsAndStatuses(SgUser user, Integer... statuses) {
+		SgUserExample example = new SgUserExample();
+
+		Criteria criteria = example.createCriteria();
+		if (statuses == null || statuses.length == 0)
+			criteria.andStatusNotEqualTo(0);
+		else
+			criteria.andStatusIn(Arrays.asList(statuses));
+
+		if (user != null) {
+			if (!StringUtils.isBlank(user.getWxId()))
+				criteria.andWxIdEqualTo(user.getWxId());
+			if (!StringUtils.isBlank(user.getStudentNo()))
+				criteria.andStudentNoEqualTo(user.getStudentNo());
+		}
+
+		List<SgUser> userList = userMapper.selectByExample(example);
+
+		return userList;
+	}
+
+	@Override
+	public List<String> getStudentNosByUsers(List<SgUser> users) {
+		ArrayList<String> studentNos = new ArrayList<>();
+		for (SgUser user : users) {
+			studentNos.add(user.getStudentNo());
+		}
+		return studentNos;
 	}
 
 }

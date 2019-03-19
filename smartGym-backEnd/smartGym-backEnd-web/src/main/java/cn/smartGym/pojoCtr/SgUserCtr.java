@@ -1,8 +1,9 @@
 package cn.smartGym.pojoCtr;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
-import org.springframework.stereotype.Component;
+import org.apache.commons.lang3.StringUtils;
 
 import common.enums.ErrorCode;
 import common.utils.AesCbcUtil;
@@ -10,7 +11,6 @@ import common.utils.HttpRequest;
 import common.utils.SGResult;
 import net.sf.json.JSONObject;
 
-@Component
 public class SgUserCtr implements Serializable {
 
 	private static final long serialVersionUID = 2741694336785053911L;
@@ -158,67 +158,68 @@ public class SgUserCtr implements Serializable {
 	 *                      发送到开发者服务器后台，使用code 换取 session_key api，将 code 换成 openid 和
 	 *                      session_key
 	 * @return
+	 * @throws Exception
 	 */
-	public SGResult decodeWxId() {
+	public SGResult decodeWxId() throws Exception {
 		String encryptedData = this.getEncryptedData();
 		String code = this.getCode();
 		String iv = this.getIv();
 		// 登录凭证不能为空
 		if (code == null || code.length() == 0) {
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "code不能为空");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "code不能为空！");
 		}
-		// 小程序唯一标识 (在微信小程序管理后台获取)
-		String wxspAppid = "wxb0c3c36ab6123dc5";
-		// 小程序的 app secret (在微信小程序管理后台获取)
-		String wxspSecret = "5fae01890e20ad4439657813deaf4114";
-		// 授权（必填）
-		String grant_type = "authorization_code";
+
+		// 从配置文件中读取小程序唯一标识
+		ResourceBundle rs = ResourceBundle.getBundle("conf/resource");
+		String wxspAppid = rs.getString("wxspAppid");
+		String wxspSecret = rs.getString("wxspSecret");
+		String grant_type = rs.getString("grant_type");
+
 		/*
 		 * 1、向微信服务器 使用登录凭证 code 获取 session_key 和 openid
 		 * 
 		 */
 		// 请求参数
-		String params = "appid=" + wxspAppid + "&secret=" + wxspSecret + "&js_code=" + code
-				+ "&grant_type=" + grant_type;
+		String params = "appid=" + wxspAppid + "&secret=" + wxspSecret + "&js_code=" + code + "&grant_type="
+				+ grant_type;
 		// 发送请求
 		String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
 
 		// 解析相应内容（转换成json对象）
 		JSONObject json = JSONObject.fromObject(sr);
+
+		if (json == null || !json.containsKey("session_key"))
+			return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "微信账号存在异常！");
+
 		// 获取会话密钥（session_key）
 		String session_key = json.get("session_key").toString();
-		// 用户的唯一标识（openId）
-		// String openId = (String) json.get("openid");
-		// System.out.println("openId: " + openId);
 
 		/*
 		 * 2、对encryptedData加密数据进行AES解密
 		 * 
 		 */
-		try {
-			String result = AesCbcUtil.decrypt(encryptedData, session_key, iv, "UTF-8");
-			if (null != result && result.length() > 0) {
-				// 解密成功
-				JSONObject userInfoJSON = JSONObject.fromObject(result);
+		String result = AesCbcUtil.decrypt(encryptedData, session_key, iv, "UTF-8");
+		if (StringUtils.isNotBlank(result)) {
+			// 解密成功
+			JSONObject userInfoJSON = JSONObject.fromObject(result);
 
-				/*
-				 * Map userInfo = new HashMap(); userInfo.put("openId",
-				 * userInfoJSON.get("openId")); userInfo.put("nickName",
-				 * userInfoJSON.get("nickName")); userInfo.put("gender",
-				 * userInfoJSON.get("gender")); userInfo.put("city", userInfoJSON.get("city"));
-				 * userInfo.put("province", userInfoJSON.get("province"));
-				 * userInfo.put("country", userInfoJSON.get("country"));
-				 * userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
-				 * userInfo.put("unionId", userInfoJSON.get("unionId"));
-				 */
+			/*
+			 * Map userInfo = new HashMap(); userInfo.put("openId",
+			 * userInfoJSON.get("openId")); userInfo.put("nickName",
+			 * userInfoJSON.get("nickName")); userInfo.put("gender",
+			 * userInfoJSON.get("gender")); userInfo.put("city", userInfoJSON.get("city"));
+			 * userInfo.put("province", userInfoJSON.get("province"));
+			 * userInfo.put("country", userInfoJSON.get("country"));
+			 * userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
+			 * userInfo.put("unionId", userInfoJSON.get("unionId"));
+			 */
 
+			if (userInfoJSON.containsKey("unionId"))
 				return SGResult.ok(userInfoJSON.get("unionId"));
-			} else
-				return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "用户信息解密失败！");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "用户信息解密失败！");
-		}
+			else
+				return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "微信账号存在异常！！！");
+		} else
+			return SGResult.build(ErrorCode.BUSINESS_EXCEPTION.getErrorCode(), "微信账号存在异常！！");
 	}
 
 }

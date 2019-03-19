@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.Player;
+import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoCtr.ItemCtr;
 import cn.smartGym.pojoCtr.PlayerCtr;
 import cn.smartGym.pojoCtr.SgUserCtr;
@@ -121,9 +122,22 @@ public class ManagerController {
 	@ResponseBody
 	public SGResult maintenance() throws Exception {
 		itemService.maintenanceItem();
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(null, 0, 2, 3);
+
+		// 维护表名表
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(null, 1);
 		List<Long> itemIds = itemService.getItemIdsByItems(items);
-		applicationService.maintenanceApplication(itemIds);
+
+		List<SgUser> users = userService.getUsersByDetailsAndStatuses(null);
+		List<String> studentNos = userService.getStudentNosByUsers(users);
+
+		applicationService.maintenanceApplication(itemIds, studentNos);
+
+		// 维护参赛表
+		List<Item> items0 = itemService.getItemsByDetailsAndStatuses(null, 2, 3);
+		List<Long> itemIds0 = itemService.getItemIdsByItems(items0);
+
+		playerService.maintenancePlayer(itemIds0, studentNos);
+
 		return SGResult.ok("维护成功！");
 	}
 
@@ -136,6 +150,8 @@ public class ManagerController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult hardDelete() throws Exception {
+		maintenance();
+
 		itemService.hardDeleteItem();
 		applicationService.hardDeleteApplication();
 		playerService.hardDeletePlayer();
@@ -320,7 +336,7 @@ public class ManagerController {
 	public SGResult registerGrades(PlayerCtr playerCtr) {
 		if (playerCtr == null || StringUtils.isBlank(playerCtr.getId().toString()))
 			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "未选择运动员！");
-		
+
 		return playerService.updatePlayer(ConversionUtils.playCtrToDao(playerCtr));
 	}
 }

@@ -152,5 +152,4 @@ public class Player {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
-
 }

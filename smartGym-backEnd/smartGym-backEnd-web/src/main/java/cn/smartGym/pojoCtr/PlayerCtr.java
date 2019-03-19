@@ -2,9 +2,6 @@ package cn.smartGym.pojoCtr;
 
 import java.io.Serializable;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class PlayerCtr implements Serializable {
 
 	private static final long serialVersionUID = -1254682028835756571L;
@@ -174,66 +171,4 @@ public class PlayerCtr implements Serializable {
 		// TODO 自动生成的构造函数存根
 	}
 
-//	public PlayerCtr(Player player) {
-//		super();
-//
-//		Item item = itemService.getItemByItemIdAndStatuses(player.getItemId(), new Integer[0]);
-//		if (item == null)
-//			return;
-//		this.game = item.getGame();
-//		this.category = item.getCategory();
-//		this.item = item.getItem();
-//		this.itemId = player.getItemId();
-//		this.id = player.getId();
-//		this.name = player.getName();
-//		this.college = collegeService.getCollege(player.getCollege());
-//		this.studentNo = player.getStudentNo();
-//		this.job = Job.getName(player.getJob());
-//		this.playerNo = player.getPlayerNo();
-//		this.gender = GenderGroup.getName(player.getGender());
-//		this.groupNo = player.getGroupNo();
-//		this.pathNo = player.getPathNo();
-//		this.grades = player.getGrades();
-//		this.rankNo = player.getRankNo();
-//		this.status = player.getStatus();
-//	}
-//
-//	public Player toDao(PlayerCtr playerCtr) {
-//		Player player = new Player();
-//
-//		Item item = new Item();
-//		item.setGame(playerCtr.getGame());
-//		item.setCategory(playerCtr.getCategory());
-//		item.setItem(playerCtr.getItem());
-//		item.setGender(GenderGroup.getIndex(playerCtr.getGender()));
-//		List<Item> items = itemService.getItemsByDetailsAndStatuses(item, new Integer[0]);
-//		List<Long> itemIds = itemService.getItemIdsByItems(items);
-//		if (itemIds == null || itemIds.size() == 0)
-//			return player;
-//		playerCtr.setItemId(itemIds.get(0));
-//
-//		player.setId(playerCtr.getId());
-//		player.setName(playerCtr.getName());
-//		player.setCollege(collegeService.getId(playerCtr.getCollege()));
-//		player.setStudentNo(playerCtr.getStudentNo());
-//		player.setItemId(playerCtr.getItemId());
-//		player.setJob(Job.getIndex(playerCtr.getJob()));
-//		player.setGender(GenderGroup.getIndex(playerCtr.getGender()));
-//		player.setPlayerNo(playerCtr.getPlayerNo());
-//		player.setGroupNo(playerCtr.getGroupNo());
-//		player.setPathNo(playerCtr.getPathNo());
-//		player.setGrades(playerCtr.getGrades());
-//		player.setRankNo(playerCtr.getRankNo());
-//		player.setStatus(playerCtr.getStatus());
-//
-//		return player;
-//	}
-//
-//	public static List<PlayerCtr> daoListToCtrList(List<Player> players) {
-//		ArrayList<PlayerCtr> playersCtr = new ArrayList<>();
-//		for (Player player : players) {
-//			playersCtr.add(new PlayerCtr(player));
-//		}
-//		return playersCtr;
-//	}
 }

@@ -20,7 +20,7 @@ public interface ApplicationService {
 
 	void hardDeleteApplication();
 
-	void maintenanceApplication(List<Long> itemIds);
+	void maintenanceApplication(List<Long> itemIds, List<String> studentNos);
 
 	List<Application> getApplicationListByStatusAndStudentNo(Integer status, String... studentNos);
 

@@ -19,5 +19,7 @@ public interface InformService {
 
 	void updateInform(Information Information);
 
-	SGResult getInformListByTypeAndIds(Integer type, Long... ids);
+	SGResult getInformList(Integer type);
+	
+	SGResult getInformById(Long id);
 }

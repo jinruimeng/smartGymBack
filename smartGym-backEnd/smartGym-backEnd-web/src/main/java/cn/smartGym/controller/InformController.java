@@ -51,16 +51,25 @@ public class InformController {
 	@RequestMapping(value = "/inform/getInformList", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInformList(Integer type) throws Exception {
-		if (type == null)
+	public SGResult getInformList(Integer type){
+		try {
+			return informService.getInformList(type);
+		} catch (Exception e) {
+			e.printStackTrace();
 			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "通知的类型不能为空！");
-		return informService.getInformListByTypeAndIds(type, new Long[0]);
+		}
 	}
-
+	
 	@RequestMapping(value = "/inform/getInformById", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInformById(Long id) throws Exception {
-		return informService.getInformListByTypeAndIds(0, id);
+	public SGResult getInformById(Long id){
+		try {
+			return informService.getInformById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "查找通知信息失败！");
+		}
 	}
+	
 }

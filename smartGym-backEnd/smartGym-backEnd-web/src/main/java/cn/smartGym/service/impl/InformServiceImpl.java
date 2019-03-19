@@ -12,6 +12,7 @@ import cn.smartGym.pojo.Information;
 import cn.smartGym.pojo.InformationExample;
 import cn.smartGym.pojo.InformationExample.Criteria;
 import cn.smartGym.service.InformService;
+import common.enums.ErrorCode;
 import common.utils.IDUtils;
 import common.utils.SGResult;
 
@@ -79,24 +80,34 @@ public class InformServiceImpl implements InformService {
 		informationMapper.updateByPrimaryKeySelective(Information);
 	}
 
-	/**
-	 * 根据通知类型返回通知列表：0-通知+活动，1-通知，2-活动 注意：不把通知正文（description)和备注（remark）返回
-	 */
 	@Override
-	public SGResult getInformListByTypeAndIds(Integer type, Long... ids) {
-		// 根据type查询inform表
+	/**
+	 * 根据通知类型返回通知列表：0-通知+活动，1-通知，2-活动
+	 * 注意：不把通知正文（description)和备注（remark）返回
+	 */
+	public SGResult getInformList(Integer type) {
 		InformationExample example = new InformationExample();
 		Criteria criteria = example.createCriteria();
+		criteria.andTypeEqualTo(type);
 		criteria.andStatusEqualTo(1);
-		if (type != 0)
-			criteria.andTypeEqualTo(type);
-		if (ids != null && ids.length != 0)
-			criteria.andIdIn(Arrays.asList(ids));
-
-		example.setOrderByClause("updated DESC");
-		List<Information> informationList = informationMapper.selectByExample(example);
-
-		return SGResult.ok("查询通知成功！", informationList);
+		List<Information> list = informationMapper.selectByExample(example);
+		if(list == null || list.size() == 0)
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "返回通知列表失败！");
+		for (Information inform : list) {
+			inform.setDescription("");
+			inform.setRemark("");
+		}
+		return SGResult.build(200, "返回通知列表成功！", list);
 	}
 
+	@Override
+	/**
+	 * 根据通知id返回通知具体信息
+	 */
+	public SGResult getInformById(Long id) {
+		Information inform = informationMapper.selectByPrimaryKey(id);
+		if(inform == null)
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "没有找到您要找的通知！");
+		return SGResult.build(200, "查找通知成功！");
+	}
 }

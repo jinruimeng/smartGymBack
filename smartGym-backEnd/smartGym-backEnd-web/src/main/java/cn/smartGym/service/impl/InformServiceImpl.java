@@ -82,16 +82,16 @@ public class InformServiceImpl implements InformService {
 
 	@Override
 	/**
-	 * 根据通知类型返回通知列表：0-通知+活动，1-通知，2-活动
-	 * 注意：不把通知正文（description)和备注（remark）返回
+	 * 根据通知类型返回通知列表：0-通知+活动，1-通知，2-活动 注意：不把通知正文（description)和备注（remark）返回
 	 */
 	public SGResult getInformList(Integer type) {
 		InformationExample example = new InformationExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andTypeEqualTo(type);
+		if (type != 0)
+			criteria.andTypeEqualTo(type);
 		criteria.andStatusEqualTo(1);
 		List<Information> list = informationMapper.selectByExample(example);
-		if(list == null || list.size() == 0)
+		if (list == null || list.size() == 0)
 			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "返回通知列表失败！");
 		for (Information inform : list) {
 			inform.setDescription("");
@@ -106,7 +106,7 @@ public class InformServiceImpl implements InformService {
 	 */
 	public SGResult getInformById(Long id) {
 		Information inform = informationMapper.selectByPrimaryKey(id);
-		if(inform == null)
+		if (inform == null)
 			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "没有找到您要找的通知！");
 		return SGResult.build(200, "查找通知成功！");
 	}

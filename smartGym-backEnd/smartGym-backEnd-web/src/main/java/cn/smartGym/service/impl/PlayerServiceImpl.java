@@ -153,7 +153,7 @@ public class PlayerServiceImpl implements PlayerService {
 	public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
 
 		PlayerExample example = new PlayerExample();
-		example.setOrderByClause("id");
+		example.setOrderByClause("college");
 		Criteria criteria = example.createCriteria();
 		criteria.andItemIdEqualTo(itemId);
 		criteria.andStatusEqualTo(1);

@@ -92,7 +92,7 @@ public class InformServiceImpl implements InformService {
 		criteria.andStatusEqualTo(1);
 		List<Information> list = informationMapper.selectByExample(example);
 		if (list == null || list.size() == 0)
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "返回通知列表失败！");
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "暂时没有新通知！");
 		for (Information inform : list) {
 			inform.setDescription("");
 			inform.setRemark("");

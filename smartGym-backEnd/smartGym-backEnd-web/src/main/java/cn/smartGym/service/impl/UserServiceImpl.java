@@ -17,9 +17,11 @@ import cn.smartGym.pojo.SgUserExample.Criteria;
 import cn.smartGym.service.UserService;
 import common.enums.ErrorCode;
 import common.jedis.JedisClient;
+import common.utils.BloomFileter;
 import common.utils.IDUtils;
 import common.utils.JsonUtils;
 import common.utils.SGResult;
+import common.utils.BloomFileter.MisjudgmentRate;
 
 /**
  * 用户管理Service
@@ -38,6 +40,24 @@ public class UserServiceImpl implements UserService {
 
 	@Value("${SESSION_EXPIRE}")
 	private Integer SESSION_EXPIRE;
+
+	@Value("${BloomFileter_File}")
+	private String BloomFileter_File;
+
+	private BloomFileter fileter;
+
+	/**
+	 * 设置布隆过滤器
+	 */
+	public void setFileter() {
+		if (fileter == null) {
+			try {
+				fileter = BloomFileter.readFilterFromFile(BloomFileter_File);
+			} catch (RuntimeException e) {
+				fileter = new BloomFileter(MisjudgmentRate.MIDDLE, 50000, 0.8);
+			}
+		}
+	}
 
 	/**
 	 * 注册用户/新增用户
@@ -82,6 +102,11 @@ public class UserServiceImpl implements UserService {
 
 		// 把用户数据插入数据库
 		userMapper.insert(user);
+
+		// 把微信id写入布隆过滤器
+		setFileter();
+		fileter.add(user.getWxId());
+		fileter.saveFilterToFile(BloomFileter_File);
 
 		// 把用户信息写入redis，key：wxId value：用户信息
 		jedisClient.set("wxId:" + user.getWxId(), JsonUtils.objectToJson(user));
@@ -259,6 +284,10 @@ public class UserServiceImpl implements UserService {
 		// 先去缓存中查找是否有用户信息
 		String wxId = user.getWxId();
 		if (!StringUtils.isBlank(wxId)) {
+			// 去布隆过滤器中找
+			setFileter();
+			if (!fileter.check(wxId))
+				return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到该用户信息！");
 			String userCtrSignInString = jedisClient.get(wxId);
 			if (!StringUtils.isBlank(userCtrSignInString)) {
 				result = JsonUtils.jsonToPojo(jedisClient.get(wxId), SgUser.class);

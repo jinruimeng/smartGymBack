@@ -28,7 +28,7 @@ public class PictureServiceImpl implements PictureService {
 		if(list == null || list.size() == 0) {
 			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "返回图片地址列表失败！");
 		}
-		return SGResult.build(200, "返回图片地址列表成功！", list);
+		return SGResult.ok("返回图片地址列表成功！", list);
 	}
 
 }

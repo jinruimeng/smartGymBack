@@ -161,23 +161,50 @@ public class PlayerServiceImpl implements PlayerService {
 		if (list == null || list.size() <= 0)
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查询到相关项目的报名记录！");
 
-		// 打乱list中的item顺序
-		Collections.shuffle(list);
-
 		// 取出赛道数,如果赛道数为空或为0,默认为全部运动员分为一组
 		if (pathNum == null || pathNum == 0)
 			pathNum = list.size() + 1;
-
-		// 设置分组号和赛道号
-		for (int i = 0; i < list.size(); i++) {
-			// 设置分组号
-			list.get(i).setGroupNo(i / pathNum + 1);
-			// 设置赛道号
-			list.get(i).setPathNo(i % pathNum + 1);
-			// 更新到数据库
-			list.get(i).setUpdated(new Date());
-			playerMapper.updateByPrimaryKeySelective(list.get(i));
+		//计算一共需要分多少组
+		int totalGroupNum = list.size() / pathNum + 1; //20 / 6 + 1 = 4
+		//计算最后一组有几人
+		int numOfLastGroup = list.size() % pathNum; // 20 % 6 = 2;
+		
+		int i = 0;
+		for(int pathNo = 1; pathNo <= numOfLastGroup; pathNo++) {
+			for(int groupNo = 1; groupNo <= totalGroupNum; groupNo++) {
+				Player player = list.get(i);
+				player.setGroupNo(groupNo);
+				player.setPathNo(pathNo);
+				player.setUpdated(new Date());
+				playerMapper.updateByPrimaryKeySelective(player);
+				i++;
+			}
 		}
+		
+		for(int pathNo = numOfLastGroup + 1; pathNo <= pathNum; pathNo++) {
+			for(int groupNo = 1; groupNo < totalGroupNum; groupNo++) {
+				Player player = list.get(i);
+				player.setGroupNo(groupNo);
+				player.setPathNo(pathNo);
+				player.setUpdated(new Date());
+				playerMapper.updateByPrimaryKeySelective(player);
+				i++;
+			}
+		}
+
+//		// 打乱list中的item顺序
+//		Collections.shuffle(list);
+
+//		// 设置分组号和赛道号
+//		for (int i = 0; i < list.size(); i++) {
+//			// 设置分组号
+//			list.get(i).setGroupNo(i / pathNum + 1);
+//			// 设置赛道号
+//			list.get(i).setPathNo(i % pathNum + 1);
+//			// 更新到数据库
+//			list.get(i).setUpdated(new Date());
+//			playerMapper.updateByPrimaryKeySelective(list.get(i));
+//		}
 		return SGResult.ok("设置参赛队员分组和赛道成功！");
 	}
 

@@ -37,7 +37,7 @@ public class ApplicationController {
 	@RequestMapping(value = "/smartgym/application/addApplication", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded")
 	@ResponseBody
-	public SGResult addApplication(ApplicationCtr applicationCtr) throws Exception {
+	public SGResult addApplication(ApplicationCtr applicationCtr) {
 		// 插入数据库
 		return applicationService.addApplication(ConversionUtils.applicationCtrToDao(applicationCtr));
 
@@ -52,7 +52,7 @@ public class ApplicationController {
 	@RequestMapping(value = "/smartgym/application/getApplicationListByStudentNo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getApplicationListByStudentNo(String studentNo) throws Exception {
+	public SGResult getApplicationListByStudentNo(String studentNo) {
 		if (StringUtils.isBlank(studentNo))
 			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学号不能为空！");
 		List<Application> result = applicationService.getApplicationListByStatusAndStudentNo(null, studentNo);

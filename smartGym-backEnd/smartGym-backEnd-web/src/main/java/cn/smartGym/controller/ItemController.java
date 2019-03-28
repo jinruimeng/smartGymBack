@@ -30,6 +30,17 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	@RequestMapping(value = "/smartgym/item/getItemInfo", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult getItemInfo(ItemCtr itemCtr) {
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 1, 2, 3);
+		if (items == null || items.size() == 0) {
+			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "数据库中无相关信息！");
+		}
+		return SGResult.ok("获取项目信息成功!", ConversionUtils.itemDaoListToCtrList(items));
+	}
+
 	/**
 	 * 获取正在报名的项目信息（包括非运动员）
 	 * 
@@ -57,7 +68,7 @@ public class ItemController {
 
 		return SGResult.ok("获取项目信息成功!", result);
 	}
-	
+
 	/**
 	 * 获取正在报名的项目信息（排除非运动员）
 	 * 
@@ -85,7 +96,7 @@ public class ItemController {
 
 		return SGResult.ok("获取项目信息成功!", result);
 	}
-	
+
 	/**
 	 * 获取报名结束的项目信息
 	 * 

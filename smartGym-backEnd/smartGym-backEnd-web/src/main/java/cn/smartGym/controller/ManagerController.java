@@ -1,13 +1,13 @@
 package cn.smartGym.controller;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
-import cn.smartGym.pojoCtr.fileDownloadCtr;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,7 @@ import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoCtr.ItemCtr;
 import cn.smartGym.pojoCtr.PlayerCtr;
 import cn.smartGym.pojoCtr.SgUserCtr;
+import cn.smartGym.pojoCtr.fileDownloadCtr;
 import cn.smartGym.pojoCtr.response.ApplicationInfo;
 import cn.smartGym.service.ApplicationService;
 import cn.smartGym.service.InformService;
@@ -32,9 +33,6 @@ import cn.smartGym.service.UserService;
 import cn.smartGym.utils.ConversionUtils;
 import common.enums.ErrorCode;
 import common.utils.SGResult;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 管理人员Controller

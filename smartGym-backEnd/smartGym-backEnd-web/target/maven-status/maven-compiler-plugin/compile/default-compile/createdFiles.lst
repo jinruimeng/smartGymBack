@@ -18,7 +18,6 @@ cn\smartGym\service\impl\CampusServiceImpl.class
 cn\smartGym\utils\CollegeAndCampusUtils.class
 cn\smartGym\controller\InformController.class
 cn\smartGym\pojoCtr\fileDownloadCtr.class
-cn\smartGym\service\helper\ExcelHelper.class
 cn\smartGym\service\impl\ApplicationServiceImpl.class
 cn\smartGym\service\ApplicationService.class
 cn\smartGym\service\RemarkService.class

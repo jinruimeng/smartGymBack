@@ -76,9 +76,14 @@
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<!-- reids -->
-        <dependency>
+		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
+		</dependency>
+		<!-- 用于生成excel -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
 		</dependency>
 	</dependencies>
 </project>

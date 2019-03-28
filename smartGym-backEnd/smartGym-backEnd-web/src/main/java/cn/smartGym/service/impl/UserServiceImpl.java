@@ -41,8 +41,11 @@ public class UserServiceImpl implements UserService {
 	@Value("${SESSION_EXPIRE}")
 	private Integer SESSION_EXPIRE;
 
-	@Value("${BloomFileter_File}")
-	private String BloomFileter_File;
+	@Value("${BloomFileter_maxNum}")
+	private int BloomFileter_maxNum;
+
+	@Value("${BloomFileter_FPR}")
+	private double BloomFileter_FPR;
 
 	private BloomFileter fileter;
 
@@ -51,10 +54,10 @@ public class UserServiceImpl implements UserService {
 	 */
 	public void setFileter() {
 		if (fileter == null) {
-			try {
-				fileter = BloomFileter.readFilterFromFile(BloomFileter_File);
-			} catch (RuntimeException e) {
-				fileter = new BloomFileter(MisjudgmentRate.MIDDLE, 50000, 0.8);
+			fileter = new BloomFileter(MisjudgmentRate.MIDDLE, BloomFileter_maxNum, BloomFileter_FPR);
+			List<SgUser> userList = getUsersByDetailsAndStatuses(new SgUser(), 1);
+			for (SgUser sgUser : userList) {
+				fileter.add(sgUser.getWxId());
 			}
 		}
 	}
@@ -106,7 +109,6 @@ public class UserServiceImpl implements UserService {
 		// 把微信id写入布隆过滤器
 		setFileter();
 		fileter.add(user.getWxId());
-		fileter.saveFilterToFile(BloomFileter_File);
 
 		// 把用户信息写入redis，key：wxId value：用户信息
 		jedisClient.set("wxId:" + user.getWxId(), JsonUtils.objectToJson(user));
@@ -285,16 +287,17 @@ public class UserServiceImpl implements UserService {
 		String wxId = user.getWxId();
 		if (!StringUtils.isBlank(wxId)) {
 			// 去布隆过滤器中找
-//			setFileter();
-//			if (!fileter.check(wxId))
-//				return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到该用户信息！");
-/*			String userCtrSignInString = jedisClient.get(wxId);
+			setFileter();
+			if (!fileter.check(wxId))
+				return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到该用户信息！");
+
+			String userCtrSignInString = jedisClient.get(wxId);
 			if (!StringUtils.isBlank(userCtrSignInString)) {
-				result = JsonUtils.jsonToPojo(jedisClient.get(wxId), SgUser.class);
-				// 取到信息后，更新过期时间
+				result = JsonUtils.jsonToPojo(jedisClient.get(wxId), SgUser.class); // 取到信息后，更新过期时间
 				jedisClient.expire("wxId:" + wxId, SESSION_EXPIRE);
-				return SGResult.ok("查询成功", result);
-			}*/
+				return SGResult.ok("查询成功!", result);
+			}
+
 		}
 
 		// 缓存中查不到信息，从数据库中查找
@@ -316,11 +319,10 @@ public class UserServiceImpl implements UserService {
 
 		result = userList.get(0);
 
-/*		// 把用户信息写入redis，key：wxId value：用户信息
-		wxId = result.getWxId();
+		// 把用户信息写入redis，key：wxId value：用户信息 wxId = result.getWxId();
 		jedisClient.set("wxId:" + wxId, JsonUtils.objectToJson(result));
 		// 设置Session的过期时间
-		jedisClient.expire("wxId:" + wxId, SESSION_EXPIRE);*/
+		jedisClient.expire("wxId:" + wxId, SESSION_EXPIRE);
 
 		return SGResult.ok("查询成功！", result);
 	}

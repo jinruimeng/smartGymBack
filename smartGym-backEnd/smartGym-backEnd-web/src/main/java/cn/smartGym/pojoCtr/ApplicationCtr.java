@@ -6,12 +6,6 @@ public class ApplicationCtr implements Serializable {
 
 	private static final long serialVersionUID = 896372022414526179L;
 
-//	@Autowired
-//	private CollegeService collegeService;
-//
-//	@Autowired
-//	private ItemService itemService;
-
 	private Long id;
 
 	private String name;

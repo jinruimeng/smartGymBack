@@ -3,6 +3,8 @@ package cn.smartGym.pojoCtr;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ItemCtr implements Serializable {
 
 	private static final long serialVersionUID = 6605952592376124670L;
@@ -19,6 +21,7 @@ public class ItemCtr implements Serializable {
 
 	private Integer pathNum;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date date;
 
 	private String place;

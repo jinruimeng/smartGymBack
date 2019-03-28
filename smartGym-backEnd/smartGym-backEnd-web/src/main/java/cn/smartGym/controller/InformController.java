@@ -28,7 +28,7 @@ public class InformController {
 	@ResponseBody
 	public SGResult addInform(Information Information) {
 		informService.addInform(Information);
-		return SGResult.ok( "增加消息成功！");
+		return SGResult.ok("增加消息成功！");
 	}
 
 	@RequestMapping(value = "/inform/updateInform", method = { RequestMethod.POST,
@@ -36,7 +36,7 @@ public class InformController {
 	@ResponseBody
 	public SGResult updateInform(Information Information) {
 		informService.updateInform(Information);
-		return SGResult.ok( "修改消息成功！");
+		return SGResult.ok("修改消息成功！");
 	}
 
 	@RequestMapping(value = "/inform/deleteInformById", method = { RequestMethod.POST,
@@ -51,25 +51,15 @@ public class InformController {
 	@RequestMapping(value = "/inform/getInformList", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInformList(Integer type){
-		try {
-			return informService.getInformList(type);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "通知的类型不能为空！");
-		}
+	public SGResult getInformList(Integer type) {
+		return informService.getInformList(type);
 	}
-	
+
 	@RequestMapping(value = "/inform/getInformById", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult getInformById(Long id){
-		try {
-			return informService.getInformById(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "查找通知信息失败！");
-		}
+	public SGResult getInformById(Long id) {
+		return informService.getInformById(id);
 	}
-	
+
 }

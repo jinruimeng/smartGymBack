@@ -26,7 +26,7 @@ public class InformController {
 	@RequestMapping(value = "/inform/addInform", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult addInform(Information Information) throws Exception {
+	public SGResult addInform(Information Information) {
 		informService.addInform(Information);
 		return SGResult.ok( "增加消息成功！");
 	}
@@ -34,7 +34,7 @@ public class InformController {
 	@RequestMapping(value = "/inform/updateInform", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
-	public SGResult updateInform(Information Information) throws Exception {
+	public SGResult updateInform(Information Information) {
 		informService.updateInform(Information);
 		return SGResult.ok( "修改消息成功！");
 	}

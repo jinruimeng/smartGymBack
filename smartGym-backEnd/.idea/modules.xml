@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/smartGym-backEnd.iml" filepath="$PROJECT_DIR$/smartGym-backEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smartGym-backEnd-dao/smartGym-backEnd-dao.iml" filepath="$PROJECT_DIR$/smartGym-backEnd-dao/smartGym-backEnd-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smartGym-backEnd-web/smartGym-backEnd-web.iml" filepath="$PROJECT_DIR$/smartGym-backEnd-web/smartGym-backEnd-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../smartGym-base/smartGym-base.iml" filepath="$PROJECT_DIR$/../smartGym-base/smartGym-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../smartGym-parent/smartGym-parent.iml" filepath="$PROJECT_DIR$/../smartGym-parent/smartGym-parent.iml" />
+    </modules>
+  </component>
+</project>

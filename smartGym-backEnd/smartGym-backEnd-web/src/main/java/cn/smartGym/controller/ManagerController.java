@@ -1,10 +1,15 @@
 package cn.smartGym.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
+import cn.smartGym.pojoCtr.fileDownloadCtr;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,315 +33,357 @@ import cn.smartGym.utils.ConversionUtils;
 import common.enums.ErrorCode;
 import common.utils.SGResult;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 管理人员Controller
- * 
- * @author Ruimeng Jin
  *
+ * @author Ruimeng Jin
  */
 @Controller
 public class ManagerController {
 
-	@Autowired
-	private ItemService itemService;
+    @Autowired
+    private ItemService itemService;
 
-	@Autowired
-	private ApplicationService applicationService;
+    @Autowired
+    private ApplicationService applicationService;
 
-	@Autowired
-	private PlayerService playerService;
+    @Autowired
+    private PlayerService playerService;
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private InformService informService;
+    @Autowired
+    private InformService informService;
 
-	/**
-	 * 根据项目查询报名人数
-	 * 
-	 * @param itemCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/getInfoGroupByItem", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult getInfoGroupByItem(ItemCtr itemCtr) throws Exception {
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
-		List<ApplicationInfo> result = applicationService.getApplicationNumGroupByItem(items);
-		return SGResult.ok("查询成功！", result);
-	}
+    /**
+     * 根据项目查询报名人数
+     *
+     * @param itemCtr
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/getInfoGroupByItem", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult getInfoGroupByItem(ItemCtr itemCtr) throws Exception {
+        List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
+        List<ApplicationInfo> result = applicationService.getApplicationNumGroupByItem(items);
+        return SGResult.ok("查询成功！", result);
+    }
 
-	/**
-	 * 根据项目查询报名人数(详细)
-	 * 
-	 * @param itemCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/getInfoGroupByItemDetail", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult getInfoGroupByItemDetail(Long itemId) throws Exception {
-		Item item = itemService.getItemByItemIdAndStatuses(itemId);
-		List<ApplicationInfo> result = applicationService.getApplicationNumGroupByItemDetail(item);
-		return SGResult.ok("查询成功！", result);
-	}
+    /**
+     * 根据项目查询报名人数(详细)
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/getInfoGroupByItemDetail", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult getInfoGroupByItemDetail(Long itemId) throws Exception {
+        Item item = itemService.getItemByItemIdAndStatuses(itemId);
+        List<ApplicationInfo> result = applicationService.getApplicationNumGroupByItemDetail(item);
+        return SGResult.ok("查询成功！", result);
+    }
 
-	/**
-	 * 根据学院查询报名人数
-	 * 
-	 * @param itemCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/getInfoGroupByCollege", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult getInfoGroupByCollege(ItemCtr itemCtr) throws Exception {
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
-		List<ApplicationInfo> result = applicationService.getApplicationNumGroupByCollege(items);
-		return SGResult.ok("查询成功！", result);
-	}
+    /**
+     * 根据学院查询报名人数
+     *
+     * @param itemCtr
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/getInfoGroupByCollege", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult getInfoGroupByCollege(ItemCtr itemCtr) throws Exception {
+        List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
+        List<ApplicationInfo> result = applicationService.getApplicationNumGroupByCollege(items);
+        return SGResult.ok("查询成功！", result);
+    }
 
-	/**
-	 * 根据学院查询报名人数（详细）
-	 * 
-	 * @param itemCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/getInfoGroupByCollegeDetail", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult getInfoGroupByCollegeDetail(ItemCtr itemCtr, String college) throws Exception {
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
-		List<ApplicationInfo> result = applicationService.getApplicationNumGroupByCollegeDetail(items, college);
-		return SGResult.ok("查询成功！", result);
-	}
+    /**
+     * 根据学院查询报名人数（详细）
+     *
+     * @param itemCtr
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/getInfoGroupByCollegeDetail", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult getInfoGroupByCollegeDetail(ItemCtr itemCtr, String college) throws Exception {
+        List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
+        List<ApplicationInfo> result = applicationService.getApplicationNumGroupByCollegeDetail(items, college);
+        return SGResult.ok("查询成功！", result);
+    }
 
-	/**
-	 * 维护数据库
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/maintenance", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult maintenance() throws Exception {
-		itemService.maintenanceItem();
+    /**
+     * 维护数据库
+     *
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/maintenance", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult maintenance() throws Exception {
+        itemService.maintenanceItem();
 
-		// 维护表名表
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(null, 1);
-		List<Long> itemIds = itemService.getItemIdsByItems(items);
+        // 维护表名表
+        List<Item> items = itemService.getItemsByDetailsAndStatuses(null, 1);
+        List<Long> itemIds = itemService.getItemIdsByItems(items);
 
-		List<SgUser> users = userService.getUsersByDetailsAndStatuses(null);
-		List<String> studentNos = userService.getStudentNosByUsers(users);
+        List<SgUser> users = userService.getUsersByDetailsAndStatuses(null);
+        List<String> studentNos = userService.getStudentNosByUsers(users);
 
-		applicationService.maintenanceApplication(itemIds, studentNos);
+        applicationService.maintenanceApplication(itemIds, studentNos);
 
-		// 维护参赛表
-		List<Item> items0 = itemService.getItemsByDetailsAndStatuses(null, 2, 3);
-		List<Long> itemIds0 = itemService.getItemIdsByItems(items0);
+        // 维护参赛表
+        List<Item> items0 = itemService.getItemsByDetailsAndStatuses(null, 2, 3);
+        List<Long> itemIds0 = itemService.getItemIdsByItems(items0);
 
-		playerService.maintenancePlayer(itemIds0, studentNos);
+        playerService.maintenancePlayer(itemIds0, studentNos);
 
-		return SGResult.ok("维护成功！");
-	}
+        return SGResult.ok("维护成功！");
+    }
 
-	/**
-	 * 硬删除
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/hardDelete", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult hardDelete() throws Exception {
-		maintenance();
+    /**
+     * 硬删除
+     *
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/hardDelete", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult hardDelete() throws Exception {
+        maintenance();
 
-		itemService.hardDeleteItem();
-		applicationService.hardDeleteApplication();
-		playerService.hardDeletePlayer();
-		userService.hardDeleteUser();
-		informService.hardDeleteInformation();
-		return SGResult.ok("硬删除成功！");
-	}
+        itemService.hardDeleteItem();
+        applicationService.hardDeleteApplication();
+        playerService.hardDeletePlayer();
+        userService.hardDeleteUser();
+        informService.hardDeleteInformation();
+        return SGResult.ok("硬删除成功！");
+    }
 
-	/**
-	 * 院级管理员待审核名单显示
-	 * 
-	 * @param itemCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/viewByCollegeManager", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult viewByCollegeManager(ItemCtr itemCtr, String college) throws Exception {
-		if (StringUtils.isBlank(college))
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学院不能为空！");
+    /**
+     * 院级管理员待审核名单显示
+     *
+     * @param itemCtr
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/viewByCollegeManager", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult viewByCollegeManager(ItemCtr itemCtr, String college) throws Exception {
+        if (StringUtils.isBlank(college))
+            return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学院不能为空！");
 
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
-		List<Long> itemIds = itemService.getItemIdsByItems(items);
-		List<Application> applications = applicationService.getApplicationListByItemIdsAndCollegeAndStatus(itemIds,
-				college, 1, 2);
-		// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
+        List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
+        List<Long> itemIds = itemService.getItemIdsByItems(items);
+        List<Application> applications = applicationService.getApplicationListByItemIdsAndCollegeAndStatus(itemIds,
+                college, 1, 2);
+        // 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
 
-		return SGResult.ok("查询院级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
-	}
+        return SGResult.ok("查询院级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
+    }
 
-	/**
-	 * 院级管理员审核
-	 * 
-	 * @param ids
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/reviewByCollegeManager", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult reviewByCollegeManager(Long[] ids) throws Exception {
-		return applicationService.reviewByCollegeManager(Arrays.asList(ids));
-	}
+    /**
+     * 院级管理员审核
+     *
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/reviewByCollegeManager", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult reviewByCollegeManager(Long[] ids) throws Exception {
+        return applicationService.reviewByCollegeManager(Arrays.asList(ids));
+    }
 
-	/**
-	 * 校级管理员待审核名单显示
-	 * 
-	 * @param itemCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/viewByUniversityManager", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult viewByUniversityManager(ItemCtr itemCtr) throws Exception {
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
-		List<Long> itemIds = itemService.getItemIdsByItems(items);
-		List<Application> applications = applicationService.getApplicationListByItemIdsAndCollegeAndStatus(itemIds,
-				"total", 1, 2, 3);
-		// 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
-		return SGResult.ok("查询校级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
-	}
+    /**
+     * 校级管理员待审核名单显示
+     *
+     * @param itemCtr
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/viewByUniversityManager", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult viewByUniversityManager(ItemCtr itemCtr) throws Exception {
+        List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
+        List<Long> itemIds = itemService.getItemIdsByItems(items);
+        List<Application> applications = applicationService.getApplicationListByItemIdsAndCollegeAndStatus(itemIds,
+                "total", 1, 2, 3);
+        // 0-已删除，1-等待院级管理员审核，2-等待校级管理员审核
+        return SGResult.ok("查询校级管理员待审核名单成功！", ConversionUtils.applicationdaoListToCtrList(applications));
+    }
 
-	/**
-	 * 校级管理员审核
-	 * 
-	 * @param ids
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/reviewByUniversityManager", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult reviewByUniversityManager(ItemCtr itemCtr) throws Exception {
-		// 关闭比赛报名
-		List<Long> itemIds = itemService.reviewByUniversityManager(ConversionUtils.itemCtrtoDao(itemCtr));
-		// 生成参赛表
-		List<Application> applications = applicationService.reviewByUniversityManager(itemIds);
-		SGResult sGResult = playerService.reviewByUniversityManager(applications);
-		if (!sGResult.isOK())
-			return sGResult;
-		// 生成参赛编号
-		playerService.genPlayerNo(itemIds);
-		// 分组
-		for (Long itemId : itemIds) {
-			Integer pathNum = itemService.getPathNumberByItemId(itemId);
-			playerService.genGroupNoAndPathNo(itemId, pathNum);
-		}
-		return SGResult.ok("校级管理员审核成功！");
-	}
+    /**
+     * 校级管理员审核
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/reviewByUniversityManager", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult reviewByUniversityManager(ItemCtr itemCtr) throws Exception {
+        // 关闭比赛报名
+        List<Long> itemIds = itemService.reviewByUniversityManager(ConversionUtils.itemCtrtoDao(itemCtr));
+        // 生成参赛表
+        List<Application> applications = applicationService.reviewByUniversityManager(itemIds);
+        SGResult sGResult = playerService.reviewByUniversityManager(applications);
+        if (!sGResult.isOK())
+            return sGResult;
+        // 生成参赛编号
+        playerService.genPlayerNo(itemIds);
+        // 分组
+        for (Long itemId : itemIds) {
+            Integer pathNum = itemService.getPathNumberByItemId(itemId);
+            playerService.genGroupNoAndPathNo(itemId, pathNum);
+        }
+        //生成比赛秩序册
+        playerService.generatePlayersExcel(itemCtr.getGame());
+        return SGResult.ok("校级管理员审核成功！");
+    }
 
-	/**
-	 * 管理员根据学号查询用户信息
-	 * 
-	 * @param userCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/getUser", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult getUser(SgUserCtr managerUserCtr, String studentNoSelected) throws Exception {
-		return userService.getUserByManagerAndStudentNos(ConversionUtils.userCtrToDao(managerUserCtr),
-				studentNoSelected);
-	}
+    /**
+     * 管理员根据学号查询用户信息
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/getUser", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult getUser(SgUserCtr managerUserCtr, String studentNoSelected) throws Exception {
+        return userService.getUserByManagerAndStudentNos(ConversionUtils.userCtrToDao(managerUserCtr),
+                studentNoSelected);
+    }
 
-	/**
-	 * 设置用户权限
-	 * 
-	 * @param usersCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/setUserAuthority", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult setUserAuthority(Integer authority, String[] studentNos) throws Exception {
-		if (studentNos == null || studentNos.length == 0)
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学号不能为空！");
-		return userService.setUserAuthority(authority, studentNos);
-	}
+    /**
+     * 设置用户权限
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/setUserAuthority", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult setUserAuthority(Integer authority, String[] studentNos) throws Exception {
+        if (studentNos == null || studentNos.length == 0)
+            return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "学号不能为空！");
+        return userService.setUserAuthority(authority, studentNos);
+    }
 
-	/**
-	 * 添加比赛项目
-	 * 
-	 * @param itemCtr
-	 * @param dateString
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/smartgym/manager/addItem", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult addItem(ItemCtr itemCtr, String dateString) throws Exception {
-		// 字符串转换为日期格式
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		if (StringUtils.isBlank(dateString))
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "日期不能为空！");
-		itemCtr.setDate(sdf.parse(dateString));
-		return itemService.addItem(ConversionUtils.itemCtrtoDao(itemCtr));
-	}
+    /**
+     * 添加比赛项目
+     *
+     * @param itemCtr
+     * @param dateString
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/smartgym/manager/addItem", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult addItem(ItemCtr itemCtr, String dateString) throws Exception {
+        // 字符串转换为日期格式
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        if (StringUtils.isBlank(dateString))
+            return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "日期不能为空！");
+        itemCtr.setDate(sdf.parse(dateString));
+        return itemService.addItem(ConversionUtils.itemCtrtoDao(itemCtr));
+    }
 
-	/**
-	 * 删除比赛项目
-	 * 
-	 * @param itemCtr
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/deleteItem", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult deleteItem(ItemCtr itemCtr) {
-		return itemService.deleteItem(ConversionUtils.itemCtrtoDao(itemCtr));
-	}
+    /**
+     * 删除比赛项目
+     *
+     * @param itemCtr
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/deleteItem", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult deleteItem(ItemCtr itemCtr) {
+        return itemService.deleteItem(ConversionUtils.itemCtrtoDao(itemCtr));
+    }
 
-	/**
-	 * 根据项目详情和学院获取报名表信息
-	 * 
-	 * @param studentno
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/getPlayersListByItemDetailsAndCollege", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult getPlayersListByItemDetailsAndCollege(ItemCtr itemCtr, String college) throws Exception {
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
-		List<Long> itemIds = itemService.getItemIdsByItems(items);
-		List<Player> players = playerService.getPlayersByCollegeAndItemIds(college,
-				itemIds.toArray(new Long[itemIds.size()]));
+    /**
+     * 根据项目详情和学院获取报名表信息
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/getPlayersListByItemDetailsAndCollege", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult getPlayersListByItemDetailsAndCollege(ItemCtr itemCtr, String college) throws Exception {
+        List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr));
+        List<Long> itemIds = itemService.getItemIdsByItems(items);
+        List<Player> players = playerService.getPlayersByCollegeAndItemIds(college,
+                itemIds.toArray(new Long[itemIds.size()]));
 
-		if (players == null || players.size() == 0)
-			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到相关信息！");
+        if (players == null || players.size() == 0)
+            return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到相关信息！");
 
-		List<PlayerCtr> playersCtr = ConversionUtils.playerDaoListToCtrList(players);
-		return SGResult.ok("查询成功！", playersCtr);
-	}
+        List<PlayerCtr> playersCtr = ConversionUtils.playerDaoListToCtrList(players);
+        return SGResult.ok("查询成功！", playersCtr);
+    }
 
-	/**
-	 * 登记比赛成绩
-	 * 
-	 * @param studentno
-	 * @return
-	 */
-	@RequestMapping(value = "/smartgym/manager/registerGrades", method = { RequestMethod.POST,
-			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-	@ResponseBody
-	public SGResult registerGrades(PlayerCtr playerCtr) {
-		if (playerCtr == null || StringUtils.isBlank(playerCtr.getId().toString()))
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "未选择运动员！");
+    /**
+     * 登记比赛成绩
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/registerGrades", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult registerGrades(PlayerCtr playerCtr) {
+        if (playerCtr == null || StringUtils.isBlank(playerCtr.getId().toString()))
+            return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "未选择运动员！");
 
-		return playerService.updatePlayer(ConversionUtils.playCtrToDao(playerCtr));
-	}
+        return playerService.updatePlayer(ConversionUtils.playCtrToDao(playerCtr));
+    }
+
+    /**
+     * 获取比赛秩序册的文件名 by zh
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/getPlayersExcelFileName", method = {RequestMethod.POST,
+            RequestMethod.GET})
+    @ResponseBody
+    public SGResult getPlayersExcelFileName(ItemCtr itemCtr) {
+        if (itemCtr == null || itemCtr.getGame() == null)
+            return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "未选择比赛！");
+        String game = itemCtr.getGame();
+        String fileName = playerService.getPlayersExcelFileName(game);
+        return SGResult.ok("查询成功！", fileName);
+    }
+
+    /**
+     * 下载比赛秩序册(结束报名) by zh
+     *
+     * @param fileDownloadCtr
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/smartgym/manager/getPlayersExcel", method = {RequestMethod.POST,
+            RequestMethod.GET})
+    public void getPlayersExcel(fileDownloadCtr fileDownloadCtr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String fileName = fileDownloadCtr.getFileName();
+        HSSFWorkbook excel = playerService.getPlayersExcel(fileName);
+        response.setContentType("application/vnd.ms-excel;charset=ISO8859-1");
+        OutputStream os = response.getOutputStream();
+        excel.write(os);
+        os.flush();
+        os.close();
+    }
+
+
 }

@@ -9,11 +9,7 @@
 	</parent>
 	<artifactId>smartGym-backEnd-dao</artifactId>
 	<dependencies>
-		<dependency>
-			<groupId>cn.smartGym</groupId>
-			<artifactId>smartGym-backEnd-pojo</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 		<!-- Mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>

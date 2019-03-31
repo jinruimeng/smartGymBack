@@ -381,7 +381,10 @@ public class ManagerController {
         excel.write(os);
         os.flush();
         os.close();
+
     }
+
+
 
 
 }

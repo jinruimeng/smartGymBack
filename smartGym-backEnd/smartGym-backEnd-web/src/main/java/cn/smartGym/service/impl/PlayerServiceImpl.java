@@ -230,14 +230,26 @@ public class PlayerServiceImpl implements PlayerService {
 	 */
 	public SGResult registerGrades(Player player, Integer type) {
 		//重新拼装成绩，时间类成绩0|00:00:00:00，长度类成绩1|00.000
-		player.setGrades(type + "|" + player.getGrades());
+		String grades = player.getGrades().trim();
+		if(type == 0) {
+			if(!grades.matches("^[0-9]{2}:[0-9]{2}:[0-9]{2}:[0-9]{2}$"))
+				return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "输入成绩格式非法");
+		} else if(type == 1) {
+			if(!grades.matches("^[0-9]{2}\\.{1}[0-9]{3}$"))
+				return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "输入成绩格式非法");
+		} else {
+			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "输入成绩类型非法");
+		}
+		player.setGrades(type + "|" + grades);
 		player.setUpdated(new Date());
 		player.setStatus(1);
 		playerMapper.updateByPrimaryKeySelective(player);
 		return SGResult.ok("登记比赛成绩成功！");
 	}
 	
-	
+	/**
+	 * 生成排名
+	 */
 	public SGResult genRank(Long itemId) {
 		PlayerExample example = new PlayerExample();
 		Criteria criteria = example.createCriteria();
@@ -300,6 +312,9 @@ public class PlayerServiceImpl implements PlayerService {
 		return SGResult.ok("生成成绩排名成功！");
 	}
 	
+	/**
+	 * 取出排名topK
+	 */
 	public SGResult getTopK(Long itemId, Integer k) {
 		PlayerExample example = new PlayerExample();
 		example.setOrderByClause("rank_no");

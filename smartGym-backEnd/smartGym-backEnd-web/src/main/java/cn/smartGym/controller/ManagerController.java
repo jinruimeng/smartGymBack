@@ -246,6 +246,14 @@ public class ManagerController {
         playerService.generatePlayersExcel(itemCtr.getGame());
         return SGResult.ok("校级管理员审核成功！");
     }
+    
+//    @RequestMapping(value = "/smartgym/manager/genGroupNoAndPathNo", method = {RequestMethod.POST,
+//            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+//    @ResponseBody
+//    public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
+//          return playerService.genGroupNoAndPathNo(itemId, pathNum);
+//    }
+    
 
     /**
      * 管理员根据学号查询用户信息
@@ -340,12 +348,46 @@ public class ManagerController {
     @RequestMapping(value = "/smartgym/manager/registerGrades", method = {RequestMethod.POST,
             RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
     @ResponseBody
-    public SGResult registerGrades(PlayerCtr playerCtr) {
+    public SGResult registerGrades(PlayerCtr playerCtr, Integer type) {
         if (playerCtr == null || StringUtils.isBlank(playerCtr.getId().toString()))
             return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "未选择运动员！");
 
-        return playerService.updatePlayer(ConversionUtils.playCtrToDao(playerCtr));
+        return playerService.registerGrades(ConversionUtils.playCtrToDao(playerCtr), type);
     }
+    
+    /**
+     * 生成比赛排名
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/genRank", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult genRank(Long itemId) {
+    	return playerService.genRank(itemId);
+    }
+    
+    /**
+     * 取比赛前k名
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/smartgym/manager/getTopK", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult getTopK(Long itemId, Integer k) {
+    	return playerService.getTopK(itemId, k);
+    }
+    
+    
+//    public SGResult registerGrades(PlayerCtr playerCtr) {
+//    	if (playerCtr == null || StringUtils.isBlank(playerCtr.getId().toString()))
+//    		return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "未选择运动员！");
+//    	
+//    	return playerService.updatePlayer(ConversionUtils.playCtrToDao(playerCtr));
+//    }
 
     /**
      * 获取比赛秩序册的文件名 by zh

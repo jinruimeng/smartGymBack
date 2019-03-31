@@ -22,7 +22,11 @@ public interface PlayerService {
 
     SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum);
 
-    SGResult updatePlayer(Player player);
+    SGResult registerGrades(Player player, Integer type);
+    
+    SGResult genRank(Long itemId);
+    
+    SGResult getTopK(Long itemId, Integer k);
 
     List<Player> getPlayersByStudentNo(String studentNo);
 

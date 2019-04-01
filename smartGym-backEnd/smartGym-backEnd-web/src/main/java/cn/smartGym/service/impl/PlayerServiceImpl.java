@@ -250,7 +250,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 生成排名
 	 */
-	public SGResult genRank(Long itemId) {
+	public SGResult genRank(Long itemId, Integer type) {
 		PlayerExample example = new PlayerExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andItemIdEqualTo(itemId);
@@ -259,11 +259,12 @@ public class PlayerServiceImpl implements PlayerService {
 		if (tempList == null || tempList.size() <= 0)
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "相关项目无参赛人员！");
 		
-		//判断是哪种成绩类型
-		String type = tempList.get(0).getGrades().split("|")[0];
+		// 判断是哪种成绩类型
+		// String type = tempList.get(0).getGrades().split("|")[0];
+			
 		List<Player> list = new ArrayList<>();
 		//时间类型，升序排 
-		if(type.equals("0")) {
+		if(type == 0) {
 			PlayerExample example2 = new PlayerExample();
 			example2.setOrderByClause("grades");	
 			Criteria criteria2 = example2.createCriteria();
@@ -284,7 +285,7 @@ public class PlayerServiceImpl implements PlayerService {
 				player.setGrades("0|00:00:00:00");
 				list.add(player);
 			}
-		} else if(type.equals("1")) {
+		} else if(type == 1) {
 			//长度类型，降序排
 			PlayerExample example3 = new PlayerExample();
 			example3.setOrderByClause("grades DESC");	

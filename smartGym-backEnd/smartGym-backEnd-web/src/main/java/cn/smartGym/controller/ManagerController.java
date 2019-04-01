@@ -364,8 +364,8 @@ public class ManagerController {
     @RequestMapping(value = "/smartgym/manager/genRank", method = {RequestMethod.POST,
             RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
     @ResponseBody
-    public SGResult genRank(Long itemId) {
-    	return playerService.genRank(itemId);
+    public SGResult genRank(Long itemId, Integer type) {
+    	return playerService.genRank(itemId, type);
     }
     
     /**

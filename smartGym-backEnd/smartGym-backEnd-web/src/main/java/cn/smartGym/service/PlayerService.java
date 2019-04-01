@@ -24,7 +24,7 @@ public interface PlayerService {
 
     SGResult registerGrades(Player player, Integer type);
     
-    SGResult genRank(Long itemId);
+    SGResult genRank(Long itemId, Integer type);
     
     SGResult getTopK(Long itemId, Integer k);
 

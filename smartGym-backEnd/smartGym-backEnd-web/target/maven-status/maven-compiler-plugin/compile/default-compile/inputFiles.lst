@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 C:\Users\zhouhang\Desktop\wechat\back3.25\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\PictureController.java
 C:\Users\zhouhang\Desktop\wechat\back3.25\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\ItemService.java
 C:\Users\zhouhang\Desktop\wechat\back3.25\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\CampusService.java
@@ -34,40 +33,3 @@ C:\Users\zhouhang\Desktop\wechat\back3.25\smartGymBack\smartGym-backEnd\smartGym
 C:\Users\zhouhang\Desktop\wechat\back3.25\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\ItemController.java
 C:\Users\zhouhang\Desktop\wechat\back3.25\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\ApplicationController.java
 C:\Users\zhouhang\Desktop\wechat\back3.25\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\RemarkServiceImpl.java
-=======
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\pojoCtr\SgUserCtr.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\PlayerService.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\ItemController.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\CampusService.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\UserController.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\pojoCtr\response\ApplicationInfo.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\ItemService.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\InformController.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\ManagerController.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\pojoCtr\ItemCtr.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\pojoCtr\PlayerCtr.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\UserServiceImpl.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\PlayerServiceImpl.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\ApplicationController.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\UserService.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\aop\ArchivesLogAspect.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\CampusServiceImpl.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\RemarkController.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\PictureController.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\ApplicationServiceImpl.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\PictureServiceImpl.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\controller\PlayerController.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\CollegeServiceImpl.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\ItemServiceImpl.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\pojoCtr\fileDownloadCtr.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\ApplicationService.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\utils\CollegeAndCampusUtils.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\RemarkService.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\CollegeService.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\RemarkServiceImpl.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\impl\InformServiceImpl.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\utils\ConversionUtils.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\pojoCtr\ApplicationCtr.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\InformService.java
-D:\JavaWorkSpace\SmartGymBack\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\src\main\java\cn\smartGym\service\PictureService.java
->>>>>>> de348550c276d18f8bba7f17f8d1b311229c664a

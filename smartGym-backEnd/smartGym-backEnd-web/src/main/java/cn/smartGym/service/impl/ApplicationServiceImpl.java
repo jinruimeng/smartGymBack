@@ -11,6 +11,7 @@ import java.util.Set;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.ItemService;
 import common.enums.Gender;
+import common.enums.Job;
 import common.utils.ExcelHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -564,6 +565,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         data.add(item.getCategory());
         data.add(item.getItem());
         data.add(GenderGroup.getName(item.getGender()));
+        data.add(Job.getName(application.getJob()));
         data.add("已审核");
         return data;
     }

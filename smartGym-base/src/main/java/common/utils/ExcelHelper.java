@@ -1,8 +1,6 @@
 package common.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -15,7 +13,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 public class ExcelHelper {
 	public static String[] playersExcelTitleArray = new String[] { "参赛号", "学号", "姓名", "性别", "学院", "赛事", "类别", "项目",
 			"组别", "职责", "组号", "道次", "成绩", "小组排名", "总排名", "备注" };
-
+	public static String[] applicationsExcelTitleArray = new String[] { "学号", "姓名", "性别", "学院", "赛事", "类别", "项目",
+			"组别", "职责", "状态", "备注" };
 	/**
 	 * //将数据写入文件 by zh
 	 * 
@@ -47,7 +46,7 @@ public class ExcelHelper {
 	}
 
 	/**
-	 * 写行数据
+	 * 写行数据 by zh
 	 * 
 	 * @param row
 	 * @param data
@@ -56,6 +55,15 @@ public class ExcelHelper {
 		for (int i = 0; i < data.size(); i++) {
 			row.createCell(i).setCellValue(data.get(i));
 		}
+	}
+	/**
+	 * 根据文件路径得到EXCEL对象 by zh
+	 *
+	 */
+	public static HSSFWorkbook getExcel(String filePath) throws IOException {
+		FileInputStream excelStream = new FileInputStream(filePath);
+		HSSFWorkbook excel = new HSSFWorkbook(excelStream);
+		return excel;
 	}
 
 }

@@ -1,42 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="14ba1c0a-9af0-48d9-a0d4-4afb2f1afe1a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/aop/ArchivesLogAspect.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/aop/ArchivesLogAspect.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/ApplicationController.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/ApplicationController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/InformController.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/InformController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/ItemController.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/ItemController.class" />
+    <list default="true" id="14ba1c0a-9af0-48d9-a0d4-4afb2f1afe1a" name="Default" comment="Merge branch 'master' of github.com:jinruimeng/smartGymBack&#10;&#10;# Conflicts:&#10;#&#9;smartGym-backEnd/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java&#10;#&#9;smartGym-backEnd/smartGym-backEnd-web/src/main/java/cn/smartGym/service/PlayerService.java&#10;#&#9;smartGym-backEnd/smartGym-backEnd-web/target/classes/cn/smartGym/controller/ManagerController.class&#10;#&#9;smartGym-backEnd/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/fileDownloadCtr.class&#10;#&#9;smartGym-backEnd/smartGym-backEnd-web/target/classes/cn/smartGym/service/ApplicationService.class&#10;#&#9;smartGym-backEnd/smartGym-backEnd-web/target/classes/cn/smartGym/service/PlayerService.class&#10;#&#9;smartGym-backEnd/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/ApplicationServiceImpl.class&#10;#&#9;smartGym-backEnd/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/PlayerServiceImpl.class&#10;#&#9;smartGym-backEnd/smartGym-backEnd-web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst&#10;">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/maven-archiver/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/smartGym-backEnd-dao.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/ROOT.war" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/maven-archiver/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/aop/ArchivesLogAspect.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/controller/ApplicationController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/controller/InformController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/controller/ItemController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/controller/ManagerController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/controller/PictureController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/controller/PlayerController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/controller/RemarkController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/controller/UserController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/pojoCtr/ApplicationCtr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/pojoCtr/ItemCtr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/pojoCtr/PlayerCtr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/pojoCtr/SgUserCtr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/pojoCtr/fileDownloadCtr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/pojoCtr/response/ApplicationInfo.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/ApplicationService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/CampusService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/CollegeService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/InformService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/ItemService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/PictureService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/PlayerService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/RemarkService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/UserService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/impl/ApplicationServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/impl/CampusServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/impl/CollegeServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/impl/InformServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/impl/ItemServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/impl/PictureServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/impl/PlayerServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/impl/RemarkServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/service/impl/UserServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/utils/CollegeAndCampusUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/cn/smartGym/utils/ConversionUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/conf/db.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/conf/resource.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/log4j.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/mybatis/SqlMapConfig.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/spring/applicationContext-dao.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/spring/applicationContext-redis.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/spring/applicationContext-trans.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/classes/spring/applicationContext-web.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/aopalliance-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/aspectjweaver-1.8.7.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/bcprov-jdk16-1.46.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/commons-beanutils-1.9.3.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/commons-codec-1.6.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/commons-collections-3.2.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/commons-io-1.3.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/commons-lang-2.6.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/commons-lang3-3.3.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/commons-logging-1.1.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/commons-net-3.3.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/commons-pool2-2.3.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/druid-1.1.10.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/ezmorph-1.0.6.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/fastdfs_client-1.25.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/fastjson-1.2.31.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/gson-2.7.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/httpclient-4.3.6.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/httpcore-4.3.3.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/jackson-annotations-2.8.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/jackson-core-2.8.10.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/jackson-databind-2.8.11.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/javassist-3.3.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/jedis-2.7.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/joda-time-2.5.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/json-lib-2.2.3-jdk15.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/json-simple-1.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/jsqlparser-0.9.5.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/mybatis-3.4.6.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/mybatis-paginator-1.2.15.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/mybatis-spring-1.3.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/mysql-connector-java-8.0.12.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/pagehelper-5.0.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/poi-3.6.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/protobuf-java-2.6.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/slf4j-api-1.7.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/slf4j-log4j12-1.6.4.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/smartGym-backEnd-dao-0.0.1-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/smartGym-base-0.0.1-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-aop-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-aspects-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-beans-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-context-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-context-support-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-core-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-expression-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-jdbc-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-jms-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-messaging-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-tx-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-web-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/lib/spring-webmvc-4.2.4.RELEASE.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/smartGym-backEnd-web/WEB-INF/web.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/ApplicationMapper.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/ApplicationMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/CampusMapper.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/CampusMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/CollegeMapper.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/CollegeMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/InformationMapper.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/InformationMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/ItemMapper.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/ItemMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/PictureMapper.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/PictureMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/PlayerMapper.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/PlayerMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/RemarkMapper.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/RemarkMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/SgUserMapper.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/mapper/SgUserMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Application.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Application.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ApplicationExample$Criteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ApplicationExample$Criteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ApplicationExample$Criterion.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ApplicationExample$Criterion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ApplicationExample$GeneratedCriteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ApplicationExample$GeneratedCriteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ApplicationExample.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ApplicationExample.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Campus.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Campus.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CampusExample$Criteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CampusExample$Criteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CampusExample$Criterion.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CampusExample$Criterion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CampusExample$GeneratedCriteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CampusExample$GeneratedCriteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CampusExample.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CampusExample.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/College.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/College.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CollegeExample$Criteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CollegeExample$Criteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CollegeExample$Criterion.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CollegeExample$Criterion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CollegeExample$GeneratedCriteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CollegeExample$GeneratedCriteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CollegeExample.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/CollegeExample.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Information.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Information.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/InformationExample$Criteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/InformationExample$Criteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/InformationExample$Criterion.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/InformationExample$Criterion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/InformationExample$GeneratedCriteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/InformationExample$GeneratedCriteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/InformationExample.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/InformationExample.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Item.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Item.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ItemExample$Criteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ItemExample$Criteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ItemExample$Criterion.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ItemExample$Criterion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ItemExample$GeneratedCriteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ItemExample$GeneratedCriteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ItemExample.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/ItemExample.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Picture.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Picture.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PictureExample$Criteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PictureExample$Criteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PictureExample$Criterion.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PictureExample$Criterion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PictureExample$GeneratedCriteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PictureExample$GeneratedCriteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PictureExample.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PictureExample.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Player.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Player.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PlayerExample$Criteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PlayerExample$Criteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PlayerExample$Criterion.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PlayerExample$Criterion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PlayerExample$GeneratedCriteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PlayerExample$GeneratedCriteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PlayerExample.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/PlayerExample.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Remark.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/Remark.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/RemarkExample$Criteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/RemarkExample$Criteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/RemarkExample$Criterion.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/RemarkExample$Criterion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/RemarkExample$GeneratedCriteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/RemarkExample$GeneratedCriteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/RemarkExample.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/RemarkExample.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUser.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUser.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUserExample$Criteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUserExample$Criteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUserExample$Criterion.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUserExample$Criterion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUserExample$GeneratedCriteria.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUserExample$GeneratedCriteria.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUserExample.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/classes/cn/smartGym/pojo/SgUserExample.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/ManagerController.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/ManagerController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/PictureController.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/PictureController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/PlayerController.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/PlayerController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/RemarkController.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/RemarkController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/UserController.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/controller/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/ApplicationCtr.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/ApplicationCtr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/ItemCtr.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/ItemCtr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/PlayerCtr.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/PlayerCtr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/SgUserCtr.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/SgUserCtr.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/fileDownloadCtr.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/fileDownloadCtr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/response/ApplicationInfo.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/pojoCtr/response/ApplicationInfo.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/ApplicationService.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/ApplicationService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/CampusService.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/CampusService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/CollegeService.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/CollegeService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/InformService.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/InformService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/ItemService.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/ItemService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/PictureService.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/PictureService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/PlayerService.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/PlayerService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/RemarkService.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/RemarkService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/UserService.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/UserService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/ApplicationServiceImpl.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/ApplicationServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/CampusServiceImpl.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/CampusServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/CollegeServiceImpl.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/CollegeServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/InformServiceImpl.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/InformServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/ItemServiceImpl.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/ItemServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/PictureServiceImpl.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/PictureServiceImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/PlayerServiceImpl.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/PlayerServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/RemarkServiceImpl.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/RemarkServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/service/impl/UserServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/utils/CollegeAndCampusUtils.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/utils/CollegeAndCampusUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/utils/ConversionUtils.class" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/classes/cn/smartGym/utils/ConversionUtils.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../smartGym-base/target/classes/common/enums/ErrorCode.class" afterPath="$PROJECT_DIR$/../smartGym-base/target/classes/common/enums/ErrorCode.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../smartGym-base/target/classes/common/enums/Gender.class" afterPath="$PROJECT_DIR$/../smartGym-base/target/classes/common/enums/Gender.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../smartGym-base/target/classes/common/enums/GenderGroup.class" afterPath="$PROJECT_DIR$/../smartGym-base/target/classes/common/enums/GenderGroup.class" />
@@ -59,16 +184,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../smartGym-base/target/classes/common/utils/LogAopUtils.class" afterPath="$PROJECT_DIR$/../smartGym-base/target/classes/common/utils/LogAopUtils.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../smartGym-base/target/classes/common/utils/SGResult.class" afterPath="$PROJECT_DIR$/../smartGym-base/target/classes/common/utils/SGResult.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../smartGym-base/target/smartGym-base.jar" afterPath="$PROJECT_DIR$/../smartGym-base/target/smartGym-base.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/myLogs/error.log" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/myLogs/error.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/myLogs/info.log" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/myLogs/info.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-dao/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/smartGym-backEnd-dao/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/pojoCtr/fileDownloadCtr.java" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/pojoCtr/fileDownloadCtr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/ApplicationService.java" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/ApplicationService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/PlayerService.java" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/PlayerService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/ApplicationServiceImpl.java" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/ApplicationServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/PlayerServiceImpl.java" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/PlayerServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../smartGym-base/src/main/java/common/utils/ExcelHelper.java" afterPath="$PROJECT_DIR$/../smartGym-base/src/main/java/common/utils/ExcelHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartGym-backEnd-web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/smartGym-backEnd-web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/smartGym-backEnd-web/target/" />
@@ -99,23 +220,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ManagerController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ManagerController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6536">
-              <caret line="378" column="0" lean-forward="false" selection-start-line="378" selection-start-column="0" selection-end-line="378" selection-end-column="0" />
+            <state relative-caret-position="-233">
+              <caret line="422" column="39" lean-forward="false" selection-start-line="422" selection-start-column="39" selection-end-line="422" selection-end-column="39" />
               <folding>
-                <marker date="1554102099903" expanded="true" signature="68:1350" ph="..." />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ArchivesLogAspect.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PlayerService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/PlayerService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-513">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArchivesLogAspect.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/aop/ArchivesLogAspect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="64" column="61" lean-forward="false" selection-start-line="64" selection-start-column="61" selection-end-line="64" selection-end-column="61" />
+            <state relative-caret-position="228">
+              <caret line="75" column="7" lean-forward="true" selection-start-line="75" selection-start-column="7" selection-end-line="75" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -126,17 +259,12 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="38">
               <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractAspectJAdvice.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/4.2.4.RELEASE/spring-aop-4.2.4.RELEASE.jar!/org/springframework/aop/aspectj/AbstractAspectJAdvice.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6840">
-              <caret line="418" column="0" lean-forward="false" selection-start-line="418" selection-start-column="0" selection-end-line="418" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="e#468#469#0" expanded="false" />
+                <element signature="e#496#497#0" expanded="false" />
+                <element signature="e#532#533#0" expanded="false" />
+                <element signature="e#563#564#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -164,8 +292,20 @@
       <file leaf-file-name="PlayerServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/PlayerServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4256">
+            <state relative-caret-position="4275">
               <caret line="252" column="18" lean-forward="false" selection-start-line="252" selection-start-column="18" selection-end-line="252" selection-end-column="18" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExcelHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../smartGym-base/src/main/java/common/utils/ExcelHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -174,18 +314,8 @@
       <file leaf-file-name="ApplicationServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/ApplicationServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2736">
-              <caret line="171" column="58" lean-forward="false" selection-start-line="171" selection-start-column="58" selection-end-line="171" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExcelHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../smartGym-base/src/main/java/common/utils/ExcelHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1159">
-              <caret line="66" column="48" lean-forward="false" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="48" />
+            <state relative-caret-position="299">
+              <caret line="531" column="8" lean-forward="false" selection-start-line="531" selection-start-column="8" selection-end-line="531" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -194,8 +324,8 @@
       <file leaf-file-name="ApplicationService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/ApplicationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="836">
-              <caret line="50" column="43" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="43" />
+            <state relative-caret-position="408">
+              <caret line="56" column="14" lean-forward="true" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -239,14 +369,14 @@
         <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/ItemServiceImpl.java" />
         <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/ItemService.java" />
         <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/helper/ExcelHelper.java" />
-        <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/PlayerService.java" />
         <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/pojoCtr/fileDownloadCtr.java" />
         <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/PlayerServiceImpl.java" />
         <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/ApplicationService.java" />
         <option value="$PROJECT_DIR$/../smartGym-base/src/main/java/common/utils/ExcelHelper.java" />
-        <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java" />
         <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/ApplicationServiceImpl.java" />
+        <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/PlayerService.java" />
+        <option value="$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java" />
       </list>
     </option>
   </component>
@@ -518,6 +648,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -814,8 +946,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -1280,11 +1410,12 @@
       <workItem from="1554082924164" duration="6805000" />
       <workItem from="1554101263092" duration="998000" />
       <workItem from="1554167514287" duration="272000" />
+      <workItem from="1554168187001" duration="615000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82374000" />
+    <option name="totallyTimeSpent" value="82989000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1297,7 +1428,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1319,8 +1450,8 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32678983" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21028744" sideWeight="0.4902439" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20655738" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21331316" sideWeight="0.4902439" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25189108" sideWeight="0.5097561" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25189108" sideWeight="0.5097561" order="2" side_tool="true" content_ui="tabs" />
@@ -1344,51 +1475,14 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java</url>
-          <line>345</line>
           <properties />
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java</url>
-          <line>346</line>
-          <properties />
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java</url>
-          <line>348</line>
-          <properties />
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java</url>
-          <line>323</line>
-          <properties />
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java</url>
-          <line>233</line>
-          <properties />
-          <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/PlayerServiceImpl.java</url>
           <line>277</line>
           <properties />
           <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java</url>
-          <line>394</line>
-          <properties />
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java</url>
-          <line>378</line>
-          <properties />
-          <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/ApplicationServiceImpl.java</url>
@@ -1696,24 +1790,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/PlayerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="36" column="17" lean-forward="false" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../smartGym-base/src/main/java/common/utils/ExcelHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1159">
-          <caret line="66" column="48" lean-forward="false" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/4.2.4.RELEASE/spring-aop-4.2.4.RELEASE.jar!/org/springframework/aop/aspectj/AbstractAspectJAdvice.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6840">
@@ -1724,17 +1800,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/PlayerServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4256">
+        <state relative-caret-position="4275">
           <caret line="252" column="18" lean-forward="false" selection-start-line="252" selection-start-column="18" selection-end-line="252" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/ApplicationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="836">
-          <caret line="50" column="43" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1754,37 +1824,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6536">
-          <caret line="378" column="0" lean-forward="false" selection-start-line="378" selection-start-column="0" selection-end-line="378" selection-end-column="0" />
-          <folding>
-            <marker date="1554102099903" expanded="true" signature="68:1350" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/ApplicationServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2736">
-          <caret line="171" column="58" lean-forward="false" selection-start-line="171" selection-start-column="58" selection-end-line="171" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../smartGym-base/src/main/java/common/enums/ErrorCode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
+          <folding>
+            <element signature="e#468#469#0" expanded="false" />
+            <element signature="e#496#497#0" expanded="false" />
+            <element signature="e#532#533#0" expanded="false" />
+            <element signature="e#563#564#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/aop/ArchivesLogAspect.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="64" column="61" lean-forward="false" selection-start-line="64" selection-start-column="61" selection-end-line="64" selection-end-column="61" />
+        <state relative-caret-position="228">
+          <caret line="75" column="7" lean-forward="true" selection-start-line="75" selection-start-column="7" selection-end-line="75" selection-end-column="7" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/PlayerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-513">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/ApplicationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="56" column="14" lean-forward="true" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/service/impl/ApplicationServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="531" column="8" lean-forward="false" selection-start-line="531" selection-start-column="8" selection-end-line="531" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../smartGym-base/src/main/java/common/utils/ExcelHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartGym-backEnd-web/src/main/java/cn/smartGym/controller/ManagerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-233">
+          <caret line="422" column="39" lean-forward="false" selection-start-line="422" selection-start-column="39" selection-end-line="422" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

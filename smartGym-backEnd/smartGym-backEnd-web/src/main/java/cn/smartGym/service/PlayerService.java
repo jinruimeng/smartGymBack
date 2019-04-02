@@ -1,3 +1,4 @@
+
 package cn.smartGym.service;
 
 import java.io.IOException;
@@ -6,7 +7,6 @@ import java.util.List;
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Player;
 import common.utils.SGResult;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 public interface PlayerService {
 
@@ -22,7 +22,11 @@ public interface PlayerService {
 
     SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum);
 
-    SGResult updatePlayer(Player player);
+    SGResult registerGrades(Player player, Integer type);
+
+    SGResult genRank(Long itemId, Integer type);
+
+    SGResult getTopK(Long itemId, Integer k);
 
     List<Player> getPlayersByStudentNo(String studentNo);
 
@@ -30,6 +34,7 @@ public interface PlayerService {
 
     /**
      * 根据赛事名获取秩序册文件路径 by zh
+     *
      * @param game
      * @return
      */
@@ -37,8 +42,10 @@ public interface PlayerService {
 
     /**
      * 根据赛事名生成比赛秩序册 by zh
+     *
      * @param game
      */
     void generatePlayersExcel(String game) throws IOException;
 
 }
+

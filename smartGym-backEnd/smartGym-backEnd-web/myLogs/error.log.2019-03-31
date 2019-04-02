@@ -1,18 +1,34 @@
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549520 ] - [ ERROR ]  ====================异常内容开始====================
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549526 ] - [ ERROR ]  方法开始执行时间:1554092146786
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549527 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549527 ] - [ ERROR ]  请求者姓名:周航
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549527 ] - [ ERROR ]  请求者学号:1631517
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549527 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/manager/downLoadExcel.action
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549528 ] - [ ERROR ]  请求方式:GET
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549529 ] - [ ERROR ]  请求参数:{"filePath":["downloadFiles/-425616891.xls"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549530 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.downLoadExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549530 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@32212f43, org.apache.catalina.connector.RequestFacade@f19bddc, org.apache.catalina.connector.ResponseFacade@440718e0]
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549530 ] - [ ERROR ]  请求类方法参数名称和值：{"filePath":"downloadFiles/-425616891.xls"}
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549531 ] - [ ERROR ]  方法发生异常时间:1554092146913
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549531 ] - [ ERROR ]  方法发生的异常：java.lang.NoSuchMethodError: common.utils.ExcelHelper.getExcel(Ljava/lang/String;)Lorg/apache/poi/hssf/usermodel/HSSFWorkbook;
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549532 ] - [ ERROR ]  	at cn.smartGym.controller.ManagerController.downLoadExcel(ManagerController.java:379)
-	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69093 ] - [ ERROR ]  ====================异常内容开始====================
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69103 ] - [ ERROR ]  方法开始执行时间:0
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69104 ] - [ ERROR ]  请求者微信号:null
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69104 ] - [ ERROR ]  请求者姓名:null
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69104 ] - [ ERROR ]  请求者学号:null
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69104 ] - [ ERROR ]  请求地址:null
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69105 ] - [ ERROR ]  请求方式:null
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69105 ] - [ ERROR ]  请求参数:null
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69108 ] - [ ERROR ]  请求类方法:SGResult cn.smartGym.controller.UserController.signIn(SgUserCtr,String)
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69108 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@5f61801e, undefined]
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69108 ] - [ ERROR ]  请求类方法参数名称和值：null
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69109 ] - [ ERROR ]  方法发生异常时间:1554021521726
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69110 ] - [ ERROR ]  方法发生的异常：redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69111 ] - [ ERROR ]  	at redis.clients.util.Pool.getResource(Pool.java:50)
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:86)
+	at common.jedis.JedisClientPool.get(JedisClientPool.java:30)
+	at cn.smartGym.service.impl.UserServiceImpl.getUserByDtail(UserServiceImpl.java:294)
+	at cn.smartGym.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$48ce354e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$28c7793.getUserByDtail(<generated>)
+	at cn.smartGym.controller.UserController.signIn(UserController.java:68)
+	at cn.smartGym.controller.UserController$$FastClassBySpringCGLIB$$c7762f20.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
@@ -20,7 +36,8 @@
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
 	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
-	at sun.reflect.GeneratedMethodAccessor110.invoke(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
@@ -32,7 +49,7 @@
 	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
-	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$73bde7e5.downLoadExcel(<generated>)
+	at cn.smartGym.controller.UserController$$EnhancerBySpringCGLIB$$b074dafc.signIn(<generated>)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -46,418 +63,8 @@
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:860)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
-	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
-	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
-	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
-	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-
-2019-04-01 12:15:46  [ http-bio-8080-exec-5:549534 ] - [ ERROR ]  ====================异常内容结束====================
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644231 ] - [ ERROR ]  ====================异常内容开始====================
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644232 ] - [ ERROR ]  方法开始执行时间:1554092902548
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644233 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644233 ] - [ ERROR ]  请求者姓名:周航
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644233 ] - [ ERROR ]  请求者学号:1631517
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644233 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/manager/downLoadExcel.action
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644234 ] - [ ERROR ]  请求方式:GET
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644234 ] - [ ERROR ]  请求参数:{"filePath":["downloadFiles/-1229553488.xls"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644234 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.downLoadExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644235 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@40790659, org.apache.catalina.connector.RequestFacade@6b69777f, org.apache.catalina.connector.ResponseFacade@3c0a8719]
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644235 ] - [ ERROR ]  请求类方法参数名称和值：{"filePath":"downloadFiles/-1229553488.xls"}
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644235 ] - [ ERROR ]  方法发生异常时间:1554092902566
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644236 ] - [ ERROR ]  方法发生的异常：java.io.FileNotFoundException: downloadFiles\-1229553488.xls (系统找不到指定的文件。)
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644241 ] - [ ERROR ]  	at java.io.FileInputStream.open0(Native Method)
-	at java.io.FileInputStream.open(FileInputStream.java:195)
-	at java.io.FileInputStream.<init>(FileInputStream.java:138)
-	at java.io.FileInputStream.<init>(FileInputStream.java:93)
-	at common.utils.ExcelHelper.getExcel(ExcelHelper.java:67)
-	at cn.smartGym.controller.ManagerController.downLoadExcel(ManagerController.java:379)
-	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
-	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
-	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
-	at sun.reflect.GeneratedMethodAccessor99.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
-	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$129afbac.downLoadExcel(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:860)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
-	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
-	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
-	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
-	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-
-2019-04-01 12:28:22  [ http-bio-8080-exec-9:644245 ] - [ ERROR ]  ====================异常内容结束====================
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736865 ] - [ ERROR ]  ====================异常内容开始====================
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736866 ] - [ ERROR ]  方法开始执行时间:1554092977587
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736867 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736868 ] - [ ERROR ]  请求者姓名:周航
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736868 ] - [ ERROR ]  请求者学号:1631517
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736869 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/manager/downLoadExcel.action
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736869 ] - [ ERROR ]  请求方式:GET
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736870 ] - [ ERROR ]  请求参数:{"filePath":["downloadFiles/-1229553488.xls"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736870 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.downLoadExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736871 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@50c3f6c9, org.apache.catalina.connector.RequestFacade@6b69777f, org.apache.catalina.connector.ResponseFacade@3c0a8719]
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736871 ] - [ ERROR ]  请求类方法参数名称和值：{"filePath":"downloadFiles/-1229553488.xls"}
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736871 ] - [ ERROR ]  方法发生异常时间:1554092995200
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736871 ] - [ ERROR ]  方法发生的异常：java.io.FileNotFoundException: downloadFiles\-1229553488.xls (系统找不到指定的文件。)
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736879 ] - [ ERROR ]  	at java.io.FileInputStream.open0(Native Method)
-	at java.io.FileInputStream.open(FileInputStream.java:195)
-	at java.io.FileInputStream.<init>(FileInputStream.java:138)
-	at java.io.FileInputStream.<init>(FileInputStream.java:93)
-	at common.utils.ExcelHelper.getExcel(ExcelHelper.java:67)
-	at cn.smartGym.controller.ManagerController.downLoadExcel(ManagerController.java:379)
-	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
-	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
-	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
-	at sun.reflect.GeneratedMethodAccessor99.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
-	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$129afbac.downLoadExcel(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:860)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
-	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
-	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
-	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
-	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-
-2019-04-01 12:29:55  [ http-bio-8080-exec-10:736882 ] - [ ERROR ]  ====================异常内容结束====================
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906537 ] - [ ERROR ]  ====================异常内容开始====================
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906538 ] - [ ERROR ]  方法开始执行时间:1554093149822
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906538 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906538 ] - [ ERROR ]  请求者姓名:周航
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906539 ] - [ ERROR ]  请求者学号:1631517
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906539 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/manager/downLoadExcel.action
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906539 ] - [ ERROR ]  请求方式:GET
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906540 ] - [ ERROR ]  请求参数:{"filePath":["downloadFiles/-1229553488.xls"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906540 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.downLoadExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906540 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@23ded48f, org.apache.catalina.connector.RequestFacade@38089cf7, org.apache.catalina.connector.ResponseFacade@4134d34e]
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906540 ] - [ ERROR ]  请求类方法参数名称和值：{"filePath":"downloadFiles/-1229553488.xls"}
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906540 ] - [ ERROR ]  方法发生异常时间:1554093164872
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906541 ] - [ ERROR ]  方法发生的异常：java.io.FileNotFoundException: downloadFiles\-1229553488.xls (系统找不到指定的文件。)
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906549 ] - [ ERROR ]  	at java.io.FileInputStream.open0(Native Method)
-	at java.io.FileInputStream.open(FileInputStream.java:195)
-	at java.io.FileInputStream.<init>(FileInputStream.java:138)
-	at java.io.FileInputStream.<init>(FileInputStream.java:93)
-	at common.utils.ExcelHelper.getExcel(ExcelHelper.java:67)
-	at cn.smartGym.controller.ManagerController.downLoadExcel(ManagerController.java:379)
-	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
-	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
-	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
-	at sun.reflect.GeneratedMethodAccessor99.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
-	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$129afbac.downLoadExcel(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:860)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
-	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
-	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
-	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
-	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-
-2019-04-01 12:32:44  [ http-bio-8080-exec-3:906556 ] - [ ERROR ]  ====================异常内容结束====================
-2019-04-01 12:33:32  [ http-bio-8080-exec-10:954299 ] - [ ERROR ]  ====================异常内容开始====================
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955545 ] - [ ERROR ]  方法开始执行时间:1554093182395
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955546 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955546 ] - [ ERROR ]  请求者姓名:周航
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955546 ] - [ ERROR ]  请求者学号:1631517
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955547 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/manager/downLoadExcel.action
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955548 ] - [ ERROR ]  请求方式:GET
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955549 ] - [ ERROR ]  请求参数:{"filePath":["downloadFiles/-1229553488.xls"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955549 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.downLoadExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955549 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@68c9742f, org.apache.catalina.connector.RequestFacade@6b69777f, org.apache.catalina.connector.ResponseFacade@3c0a8719]
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955550 ] - [ ERROR ]  请求类方法参数名称和值：{"filePath":"downloadFiles/-1229553488.xls"}
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955550 ] - [ ERROR ]  方法发生异常时间:1554093212220
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955550 ] - [ ERROR ]  方法发生的异常：java.io.FileNotFoundException: downloadFiles\-1229553488.xls (系统找不到指定的文件。)
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955558 ] - [ ERROR ]  	at java.io.FileInputStream.open0(Native Method)
-	at java.io.FileInputStream.open(FileInputStream.java:195)
-	at java.io.FileInputStream.<init>(FileInputStream.java:138)
-	at java.io.FileInputStream.<init>(FileInputStream.java:93)
-	at common.utils.ExcelHelper.getExcel(ExcelHelper.java:67)
-	at cn.smartGym.controller.ManagerController.downLoadExcel(ManagerController.java:379)
-	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
-	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
-	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
-	at sun.reflect.GeneratedMethodAccessor99.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
-	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$129afbac.downLoadExcel(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:860)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
-	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
-	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
-	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
-	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-
-2019-04-01 12:33:33  [ http-bio-8080-exec-10:955566 ] - [ ERROR ]  ====================异常内容结束====================
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066102 ] - [ ERROR ]  ====================异常内容开始====================
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066105 ] - [ ERROR ]  方法开始执行时间:1554093309149
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066105 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066106 ] - [ ERROR ]  请求者姓名:周航
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066106 ] - [ ERROR ]  请求者学号:1631517
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066106 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/manager/downLoadExcel.action
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066106 ] - [ ERROR ]  请求方式:GET
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066107 ] - [ ERROR ]  请求参数:{"filePath":["downloadFiles/-1229553488.xls"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066107 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.downLoadExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066107 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@1e01418e, org.apache.catalina.connector.RequestFacade@38089cf7, org.apache.catalina.connector.ResponseFacade@4134d34e]
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066108 ] - [ ERROR ]  请求类方法参数名称和值：{"filePath":"downloadFiles/-1229553488.xls"}
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066108 ] - [ ERROR ]  方法发生异常时间:1554093324437
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066109 ] - [ ERROR ]  方法发生的异常：java.io.FileNotFoundException: downloadFiles\-1229553488.xls (系统找不到指定的文件。)
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066118 ] - [ ERROR ]  	at java.io.FileInputStream.open0(Native Method)
-	at java.io.FileInputStream.open(FileInputStream.java:195)
-	at java.io.FileInputStream.<init>(FileInputStream.java:138)
-	at java.io.FileInputStream.<init>(FileInputStream.java:93)
-	at common.utils.ExcelHelper.getExcel(ExcelHelper.java:67)
-	at cn.smartGym.controller.ManagerController.downLoadExcel(ManagerController.java:379)
-	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
-	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
-	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
-	at sun.reflect.GeneratedMethodAccessor99.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
-	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$129afbac.downLoadExcel(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:860)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:871)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
@@ -484,27 +91,38 @@
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
 
-2019-04-01 12:35:24  [ http-bio-8080-exec-7:1066119 ] - [ ERROR ]  ====================异常内容结束====================
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124072 ] - [ ERROR ]  ====================异常内容开始====================
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124073 ] - [ ERROR ]  方法开始执行时间:1554093370974
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124074 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124074 ] - [ ERROR ]  请求者姓名:周航
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124074 ] - [ ERROR ]  请求者学号:1631517
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124074 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/manager/downLoadExcel.action
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124075 ] - [ ERROR ]  请求方式:GET
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124075 ] - [ ERROR ]  请求参数:{"filePath":["âdownloadFiles/-1229553488.xlsâ"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124076 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.downLoadExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124076 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@2e021b8c, org.apache.catalina.connector.RequestFacade@6b69777f, org.apache.catalina.connector.ResponseFacade@3c0a8719]
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124076 ] - [ ERROR ]  请求类方法参数名称和值：{"filePath":"â\u0080\u0098downloadFiles/-1229553488.xlsâ\u0080\u0099"}
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124076 ] - [ ERROR ]  方法发生异常时间:1554093382407
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124076 ] - [ ERROR ]  方法发生的异常：java.io.FileNotFoundException: âdownloadFiles\-1229553488.xlsâ (系统找不到指定的路径。)
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124085 ] - [ ERROR ]  	at java.io.FileInputStream.open0(Native Method)
-	at java.io.FileInputStream.open(FileInputStream.java:195)
-	at java.io.FileInputStream.<init>(FileInputStream.java:138)
-	at java.io.FileInputStream.<init>(FileInputStream.java:93)
-	at common.utils.ExcelHelper.getExcel(ExcelHelper.java:67)
-	at cn.smartGym.controller.ManagerController.downLoadExcel(ManagerController.java:379)
-	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
+2019-03-31 16:38:41  [ http-bio-8080-exec-1:69119 ] - [ ERROR ]  ====================异常内容结束====================
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116781 ] - [ ERROR ]  ====================异常内容开始====================
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116782 ] - [ ERROR ]  方法开始执行时间:0
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116787 ] - [ ERROR ]  请求者微信号:null
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116789 ] - [ ERROR ]  请求者姓名:null
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116790 ] - [ ERROR ]  请求者学号:null
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116790 ] - [ ERROR ]  请求地址:null
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116791 ] - [ ERROR ]  请求方式:null
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116792 ] - [ ERROR ]  请求参数:null
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116793 ] - [ ERROR ]  请求类方法:SGResult cn.smartGym.controller.UserController.signIn(SgUserCtr,String)
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116794 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@66b6676d, undefined]
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116796 ] - [ ERROR ]  请求类方法参数名称和值：null
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116797 ] - [ ERROR ]  方法发生异常时间:1554021569414
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116797 ] - [ ERROR ]  方法发生的异常：redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116798 ] - [ ERROR ]  	at redis.clients.util.Pool.getResource(Pool.java:50)
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:86)
+	at common.jedis.JedisClientPool.get(JedisClientPool.java:30)
+	at cn.smartGym.service.impl.UserServiceImpl.getUserByDtail(UserServiceImpl.java:294)
+	at cn.smartGym.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$48ce354e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$28c7793.getUserByDtail(<generated>)
+	at cn.smartGym.controller.UserController.signIn(UserController.java:68)
+	at cn.smartGym.controller.UserController$$FastClassBySpringCGLIB$$c7762f20.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
@@ -512,7 +130,8 @@
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
 	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
-	at sun.reflect.GeneratedMethodAccessor99.invoke(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
@@ -524,7 +143,288 @@
 	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
-	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$129afbac.downLoadExcel(<generated>)
+	at cn.smartGym.controller.UserController$$EnhancerBySpringCGLIB$$b074dafc.signIn(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:871)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2019-03-31 16:39:29  [ http-bio-8080-exec-1:116814 ] - [ ERROR ]  ====================异常内容结束====================
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123245 ] - [ ERROR ]  ====================异常内容开始====================
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123246 ] - [ ERROR ]  方法开始执行时间:1554021573761
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123247 ] - [ ERROR ]  请求者微信号:undefined
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123247 ] - [ ERROR ]  请求者姓名:null
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123248 ] - [ ERROR ]  请求者学号:null
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123248 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/user/signIn.action
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123249 ] - [ ERROR ]  请求方式:POST
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123250 ] - [ ERROR ]  请求参数:{"encryptedData":["BQNK62vkW0r5EiETK0J4TrfGfxS+wLhDMJj6dAcHHtspFs4VgN8G/NrsFOnFgd9BX0+BaFUvVbSx6J3NoTrQQ5svawIpafereSm+41Rza68nT7f2wT3hSnyOEhgk1lomUvxuxIfGpDjXL9J9x3JYXTYmCmdkpCHplLmB/khgo7k+EN3/QtGYwUHVGPI1xlIP25dW7W8KpDkJyIJhZlcMSjO0CwJ/aySk0Ij6ttNrV9/0FugGaGyWknETeo88dBZa5B1cuUyuc+s3jlXfIefYMCW9qHH7s4ubQXRGjznwAAz1YszLS+jRtPsxVSDTsXx7a6audX06VBfhBGHSwnHhc/4nv4cBjAVWncwQBGp2F/M516HRfS8T4HF+U/WNCrF851T4QFEKwbgkVZ7bcu8lINWfhiSK354+BEBAzPcMf6V6Pv9FNl6vMK3BZcGHNrSgNZyQsJSpPqagsWqKULzIivCC38My0H5j/gtCcCxYWm0Xxnq3qUq0PZw9zd7M1Ch6"],"iv":["xrl+ZnVkWji47RJ1rQ/wpA\u003d\u003d"],"code":["001q0IpK1tfMn40R9umK1Hc7qK1q0IpF"],"userWxId":["undefined"]}
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123250 ] - [ ERROR ]  请求类方法:SGResult cn.smartGym.controller.UserController.signIn(SgUserCtr,String)
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123251 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@75edbd33, undefined]
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123251 ] - [ ERROR ]  请求类方法参数名称和值：{"userCtrSignIn":{"code":"001q0IpK1tfMn40R9umK1Hc7qK1q0IpF","encryptedData":"BQNK62vkW0r5EiETK0J4TrfGfxS+wLhDMJj6dAcHHtspFs4VgN8G/NrsFOnFgd9BX0+BaFUvVbSx6J3NoTrQQ5svawIpafereSm+41Rza68nT7f2wT3hSnyOEhgk1lomUvxuxIfGpDjXL9J9x3JYXTYmCmdkpCHplLmB/khgo7k+EN3/QtGYwUHVGPI1xlIP25dW7W8KpDkJyIJhZlcMSjO0CwJ/aySk0Ij6ttNrV9/0FugGaGyWknETeo88dBZa5B1cuUyuc+s3jlXfIefYMCW9qHH7s4ubQXRGjznwAAz1YszLS+jRtPsxVSDTsXx7a6audX06VBfhBGHSwnHhc/4nv4cBjAVWncwQBGp2F/M516HRfS8T4HF+U/WNCrF851T4QFEKwbgkVZ7bcu8lINWfhiSK354+BEBAzPcMf6V6Pv9FNl6vMK3BZcGHNrSgNZyQsJSpPqagsWqKULzIivCC38My0H5j/gtCcCxYWm0Xxnq3qUq0PZw9zd7M1Ch6","iv":"xrl+ZnVkWji47RJ1rQ/wpA=="},"this":"undefined"}
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123251 ] - [ ERROR ]  方法发生异常时间:1554021575878
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123252 ] - [ ERROR ]  方法发生的异常：redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123253 ] - [ ERROR ]  	at redis.clients.util.Pool.getResource(Pool.java:50)
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:86)
+	at common.jedis.JedisClientPool.get(JedisClientPool.java:30)
+	at cn.smartGym.service.impl.UserServiceImpl.getUserByDtail(UserServiceImpl.java:294)
+	at cn.smartGym.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$48ce354e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$28c7793.getUserByDtail(<generated>)
+	at cn.smartGym.controller.UserController.signIn(UserController.java:68)
+	at cn.smartGym.controller.UserController$$FastClassBySpringCGLIB$$c7762f20.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
+	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.controller.UserController$$EnhancerBySpringCGLIB$$b074dafc.signIn(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:871)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2019-03-31 16:39:35  [ http-bio-8080-exec-6:123257 ] - [ ERROR ]  ====================异常内容结束====================
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113039 ] - [ ERROR ]  ====================异常内容开始====================
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113041 ] - [ ERROR ]  方法开始执行时间:1554021956587
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113042 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113042 ] - [ ERROR ]  请求者姓名:周航
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113042 ] - [ ERROR ]  请求者学号:1631517
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113042 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080//smartgym/manager/reviewByUniversityManager.action
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113043 ] - [ ERROR ]  请求方式:POST
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113043 ] - [ ERROR ]  请求参数:{"game":["游泳比赛(测试用，请勿报名)"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113044 ] - [ ERROR ]  请求类方法:SGResult cn.smartGym.controller.ManagerController.reviewByUniversityManager(ItemCtr)
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113044 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.ItemCtr@16a99c6f]
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113044 ] - [ ERROR ]  请求类方法参数名称和值：{"game":"游泳比赛(测试用，请勿报名)"}
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113044 ] - [ ERROR ]  方法发生异常时间:1554021958612
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113044 ] - [ ERROR ]  方法发生的异常：java.io.FileNotFoundException: \downloadFiles\-425616891.xls (系统找不到指定的路径。)
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113045 ] - [ ERROR ]  	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at common.utils.ExcelHelper.writeExcel(ExcelHelper.java:44)
+	at cn.smartGym.service.impl.PlayerServiceImpl.generatePlayersExcel(PlayerServiceImpl.java:281)
+	at cn.smartGym.service.impl.PlayerServiceImpl$$FastClassBySpringCGLIB$$29a70378.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.PlayerServiceImpl$$EnhancerBySpringCGLIB$$1286b6bd.generatePlayersExcel(<generated>)
+	at cn.smartGym.controller.ManagerController.reviewByUniversityManager(ManagerController.java:246)
+	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
+	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
+	at sun.reflect.GeneratedMethodAccessor112.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$cddbc3f4.reviewByUniversityManager(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:871)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2019-03-31 16:45:58  [ http-bio-8080-exec-1:113046 ] - [ ERROR ]  ====================异常内容结束====================
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313242 ] - [ ERROR ]  ====================异常内容开始====================
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313243 ] - [ ERROR ]  方法开始执行时间:1554022397946
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313244 ] - [ ERROR ]  请求者微信号:null
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313244 ] - [ ERROR ]  请求者姓名:null
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313244 ] - [ ERROR ]  请求者学号:null
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313244 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080//smartgym/manager/getPlayersExcel.action
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313244 ] - [ ERROR ]  请求方式:GET
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313245 ] - [ ERROR ]  请求参数:{"pathName":["downloadFiles/-425616891.xls"]}
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313245 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.getPlayersExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313245 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@18745716, org.apache.catalina.connector.RequestFacade@3dbdfb15, org.apache.catalina.connector.ResponseFacade@7c72e734]
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313246 ] - [ ERROR ]  请求类方法参数名称和值：{}
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313246 ] - [ ERROR ]  方法发生异常时间:1554022397953
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313246 ] - [ ERROR ]  方法发生的异常：java.lang.NullPointerException
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313251 ] - [ ERROR ]  	at java.io.FileInputStream.<init>(FileInputStream.java:130)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at cn.smartGym.service.impl.PlayerServiceImpl.getPlayersExcel(PlayerServiceImpl.java:253)
+	at cn.smartGym.service.impl.PlayerServiceImpl$$FastClassBySpringCGLIB$$29a70378.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.PlayerServiceImpl$$EnhancerBySpringCGLIB$$b29a1a7f.getPlayersExcel(<generated>)
+	at cn.smartGym.controller.ManagerController.getPlayersExcel(ManagerController.java:378)
+	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
+	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
+	at sun.reflect.GeneratedMethodAccessor110.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$12c99e34.getPlayersExcel(<generated>)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -566,26 +466,36 @@
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
 
-2019-04-01 12:36:22  [ http-bio-8080-exec-7:1124090 ] - [ ERROR ]  ====================异常内容结束====================
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153848 ] - [ ERROR ]  ====================异常内容开始====================
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153851 ] - [ ERROR ]  方法开始执行时间:1554093398584
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153853 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153854 ] - [ ERROR ]  请求者姓名:周航
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153856 ] - [ ERROR ]  请求者学号:1631517
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153857 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/manager/downLoadExcel.action
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153858 ] - [ ERROR ]  请求方式:GET
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153861 ] - [ ERROR ]  请求参数:{"filePath":["âdownloadFiles/-1229553488.xlsâ"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153863 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.downLoadExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153865 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@117c2d2e, org.apache.catalina.connector.RequestFacade@5b84cfe1, org.apache.catalina.connector.ResponseFacade@2af8a8b1]
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153866 ] - [ ERROR ]  请求类方法参数名称和值：{"filePath":"â\u0080\u0098downloadFiles/-1229553488.xlsâ\u0080\u0099"}
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153869 ] - [ ERROR ]  方法发生异常时间:1554093412183
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153870 ] - [ ERROR ]  方法发生的异常：java.io.FileNotFoundException: âdownloadFiles\-1229553488.xlsâ (系统找不到指定的路径。)
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153881 ] - [ ERROR ]  	at java.io.FileInputStream.open0(Native Method)
-	at java.io.FileInputStream.open(FileInputStream.java:195)
-	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+2019-03-31 16:53:17  [ http-bio-8080-exec-2:313256 ] - [ ERROR ]  ====================异常内容结束====================
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372703 ] - [ ERROR ]  ====================异常内容开始====================
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372703 ] - [ ERROR ]  方法开始执行时间:1554022457410
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372703 ] - [ ERROR ]  请求者微信号:null
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372704 ] - [ ERROR ]  请求者姓名:null
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372704 ] - [ ERROR ]  请求者学号:null
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372704 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080//smartgym/manager/getPlayersExcel.action
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372704 ] - [ ERROR ]  请求方式:GET
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372705 ] - [ ERROR ]  请求参数:{"pathName":["downloadFiles/-425616891.xls"]}
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372705 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.getPlayersExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372705 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@60b04286, org.apache.catalina.connector.RequestFacade@3dbdfb15, org.apache.catalina.connector.ResponseFacade@7c72e734]
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372705 ] - [ ERROR ]  请求类方法参数名称和值：{}
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372706 ] - [ ERROR ]  方法发生异常时间:1554022457414
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372706 ] - [ ERROR ]  方法发生的异常：java.lang.NullPointerException
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372712 ] - [ ERROR ]  	at java.io.FileInputStream.<init>(FileInputStream.java:130)
 	at java.io.FileInputStream.<init>(FileInputStream.java:93)
-	at common.utils.ExcelHelper.getExcel(ExcelHelper.java:67)
-	at cn.smartGym.controller.ManagerController.downLoadExcel(ManagerController.java:379)
+	at cn.smartGym.service.impl.PlayerServiceImpl.getPlayersExcel(PlayerServiceImpl.java:253)
+	at cn.smartGym.service.impl.PlayerServiceImpl$$FastClassBySpringCGLIB$$29a70378.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.PlayerServiceImpl$$EnhancerBySpringCGLIB$$b29a1a7f.getPlayersExcel(<generated>)
+	at cn.smartGym.controller.ManagerController.getPlayersExcel(ManagerController.java:378)
 	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
@@ -594,7 +504,7 @@
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
 	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
-	at sun.reflect.GeneratedMethodAccessor99.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor110.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
@@ -606,7 +516,7 @@
 	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
-	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$129afbac.downLoadExcel(<generated>)
+	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$12c99e34.getPlayersExcel(<generated>)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -648,26 +558,34 @@
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
 
-2019-04-01 12:36:52  [ http-bio-8080-exec-7:1153898 ] - [ ERROR ]  ====================异常内容结束====================
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233127 ] - [ ERROR ]  ====================异常内容开始====================
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233128 ] - [ ERROR ]  方法开始执行时间:1554093485478
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233128 ] - [ ERROR ]  请求者微信号:o9WLq5iUk3-xwWAST_qNCkCqnGM0
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233128 ] - [ ERROR ]  请求者姓名:周航
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233129 ] - [ ERROR ]  请求者学号:1631517
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233129 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080/smartgym/manager/downLoadExcel.action
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233129 ] - [ ERROR ]  请求方式:GET
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233130 ] - [ ERROR ]  请求参数:{"filePath":["downloadFiles/1126048381.xls"],"userWxId":["o9WLq5iUk3-xwWAST_qNCkCqnGM0"]}
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233130 ] - [ ERROR ]  请求类方法:void cn.smartGym.controller.ManagerController.downLoadExcel(fileDownloadCtr,HttpServletRequest,HttpServletResponse)
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233130 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.fileDownloadCtr@73bdbc80, org.apache.catalina.connector.RequestFacade@5b84cfe1, org.apache.catalina.connector.ResponseFacade@2af8a8b1]
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233131 ] - [ ERROR ]  请求类方法参数名称和值：{"filePath":"downloadFiles/1126048381.xls"}
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233131 ] - [ ERROR ]  方法发生异常时间:1554093491462
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233131 ] - [ ERROR ]  方法发生的异常：java.io.FileNotFoundException: downloadFiles\1126048381.xls (系统找不到指定的文件。)
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233141 ] - [ ERROR ]  	at java.io.FileInputStream.open0(Native Method)
-	at java.io.FileInputStream.open(FileInputStream.java:195)
-	at java.io.FileInputStream.<init>(FileInputStream.java:138)
-	at java.io.FileInputStream.<init>(FileInputStream.java:93)
-	at common.utils.ExcelHelper.getExcel(ExcelHelper.java:67)
-	at cn.smartGym.controller.ManagerController.downLoadExcel(ManagerController.java:379)
+2019-03-31 16:54:17  [ http-bio-8080-exec-3:372715 ] - [ ERROR ]  ====================异常内容结束====================
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58819 ] - [ ERROR ]  ====================异常内容开始====================
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58827 ] - [ ERROR ]  方法开始执行时间:1554033562568
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58828 ] - [ ERROR ]  请求者微信号:null
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58843 ] - [ ERROR ]  请求者姓名:null
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58845 ] - [ ERROR ]  请求者学号:null
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58845 ] - [ ERROR ]  请求地址:http://192.168.1.120:8080//smartgym/manager/generateApplicationsExcelByCollege.action
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58846 ] - [ ERROR ]  请求方式:POST
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58846 ] - [ ERROR ]  请求参数:{"game":["游泳比赛(测试用，请勿报名)"],"college":["土木工程学院"]}
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58847 ] - [ ERROR ]  请求类方法:SGResult cn.smartGym.controller.ManagerController.generateApplicationsExcelByCollege(ItemCtr,String)
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58849 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.ItemCtr@60dea1da, 土木工程学院]
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58851 ] - [ ERROR ]  请求类方法参数名称和值：{"college":"土木工程学院","itemCtr":{"game":"游泳比赛(测试用，请勿报名)"}}
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58851 ] - [ ERROR ]  方法发生异常时间:1554033589277
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58854 ] - [ ERROR ]  方法发生的异常：java.lang.NoSuchFieldError: applicationsExcelTitleArray
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58856 ] - [ ERROR ]  	at cn.smartGym.service.impl.ApplicationServiceImpl.generateApplicationsExcelByCollege(ApplicationServiceImpl.java:532)
+	at cn.smartGym.service.impl.ApplicationServiceImpl$$FastClassBySpringCGLIB$$614acee1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.ApplicationServiceImpl$$EnhancerBySpringCGLIB$$f3715275.generateApplicationsExcelByCollege(<generated>)
+	at cn.smartGym.controller.ManagerController.generateApplicationsExcelByCollege(ManagerController.java:397)
 	at cn.smartGym.controller.ManagerController$$FastClassBySpringCGLIB$$b5eeab30.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
@@ -676,7 +594,8 @@
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
 	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
-	at sun.reflect.GeneratedMethodAccessor99.invoke(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
@@ -688,7 +607,7 @@
 	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
-	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$129afbac.downLoadExcel(<generated>)
+	at cn.smartGym.controller.ManagerController$$EnhancerBySpringCGLIB$$530667c7.generateApplicationsExcelByCollege(<generated>)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -702,8 +621,8 @@
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:860)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:871)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
@@ -730,4 +649,4 @@
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
 
-2019-04-01 12:38:11  [ http-bio-8080-exec-6:1233145 ] - [ ERROR ]  ====================异常内容结束====================
+2019-03-31 19:59:49  [ http-bio-8080-exec-2:58862 ] - [ ERROR ]  ====================异常内容结束====================

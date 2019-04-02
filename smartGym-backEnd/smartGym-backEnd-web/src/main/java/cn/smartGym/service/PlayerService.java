@@ -29,19 +29,11 @@ public interface PlayerService {
     List<Player> getPlayersByCollegeAndItemIds(String college, Long... itemIds);
 
     /**
-     * 根据文件名下载赛事秩序册表格 by zh
-     * @param fileName
-     * @return
-     * @throws Exception
-     */
-    HSSFWorkbook getPlayersExcel(String fileName) throws Exception;
-
-    /**
-     * 根据赛事名获取秩序册文件名 by zh
+     * 根据赛事名获取秩序册文件路径 by zh
      * @param game
      * @return
      */
-    String getPlayersExcelFileName(String game);
+    String getPlayersExcelFilePath(String game);
 
     /**
      * 根据赛事名生成比赛秩序册 by zh

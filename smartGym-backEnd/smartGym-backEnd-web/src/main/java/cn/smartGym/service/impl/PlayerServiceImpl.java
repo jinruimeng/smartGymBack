@@ -248,25 +248,18 @@ public class PlayerServiceImpl implements PlayerService {
 		return playersList;
 	}
 
-	@Override
-	public HSSFWorkbook getPlayersExcel(String fileName) throws Exception {
-		String filePath = fileName + ".xls";
-		FileInputStream excelStream = new FileInputStream(filePath);
-		HSSFWorkbook excel = new HSSFWorkbook(excelStream);
-		return excel;
-	}
 
 	@Override
-	public String getPlayersExcelFileName(String game) {
-
-		return String.valueOf(game.hashCode());
+	public String getPlayersExcelFilePath(String game) {
+		String fileName=String.valueOf(game.hashCode());
+		String filePath="downloadFiles/"+fileName + ".xls";
+		return filePath;
 	}
 
 	@Override
 	public void generatePlayersExcel(String game) throws IOException {
 		// 构建Excel文件路径
-		String fileName = String.valueOf(game.hashCode());
-		String filePath = fileName + ".xls";
+		String filePath = getPlayersExcelFilePath(game);
 		// 获取Excel标题行数据
 		List<String> title = Arrays.asList(ExcelHelper.playersExcelTitleArray);
 		// 获取playersData

@@ -1,5 +1,6 @@
 package cn.smartGym.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import cn.smartGym.pojo.Application;
@@ -43,4 +44,17 @@ public interface ApplicationService {
 
 	List<Long> getIdsByApplications(List<Application> applications);
 
+	/**
+	 * 根据学院生成比赛报名Excel
+	 * @param college
+	 */
+	void generateApplicationsExcelByCollege(String game,String college) throws IOException;
+
+	/**
+	 * 获取报名Excel的文件路径
+	 * @param game
+	 * @param college
+	 * @return
+	 */
+	String getApplicationsExcelFilePath(String game,String college);
 }

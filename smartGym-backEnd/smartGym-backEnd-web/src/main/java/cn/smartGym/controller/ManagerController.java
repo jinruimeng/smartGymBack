@@ -1,5 +1,6 @@
 package cn.smartGym.controller;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.utils.ExcelHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -353,38 +355,53 @@ public class ManagerController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/smartgym/manager/getPlayersExcelFileName", method = {RequestMethod.POST,
+    @RequestMapping(value = "/smartgym/manager/getPlayersExcelFilePath", method = {RequestMethod.POST,
             RequestMethod.GET})
     @ResponseBody
-    public SGResult getPlayersExcelFileName(ItemCtr itemCtr) {
+    public SGResult getPlayersExcelFilePath(ItemCtr itemCtr) {
         if (itemCtr == null || itemCtr.getGame() == null)
             return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "未选择比赛！");
         String game = itemCtr.getGame();
-        String fileName = playerService.getPlayersExcelFileName(game);
-        return SGResult.ok("查询成功！", fileName);
+        String filePath = playerService.getPlayersExcelFilePath(game);
+        return SGResult.ok("查询成功！", filePath);
     }
 
     /**
-     * 下载比赛秩序册(结束报名) by zh
+     * 下载Excel文件 by zh
      *
      * @param fileDownloadCtr
      * @param request
      * @param response
      */
-    @RequestMapping(value = "/smartgym/manager/getPlayersExcel", method = {RequestMethod.POST,
+    @RequestMapping(value = "/smartgym/manager/downLoadExcel", method = {RequestMethod.POST,
             RequestMethod.GET})
-    public void getPlayersExcel(fileDownloadCtr fileDownloadCtr, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String fileName = fileDownloadCtr.getFileName();
-        HSSFWorkbook excel = playerService.getPlayersExcel(fileName);
+    public void downLoadExcel(fileDownloadCtr fileDownloadCtr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String filePath = fileDownloadCtr.getFilePath();
+        HSSFWorkbook excel = ExcelHelper.getExcel(filePath);
         response.setContentType("application/vnd.ms-excel;charset=ISO8859-1");
         OutputStream os = response.getOutputStream();
         excel.write(os);
         os.flush();
         os.close();
-
     }
 
-
-
+    /**
+     * 按学院生成比赛报名表(结束报名) by zh
+     */
+    @RequestMapping(value = "/smartgym/manager/generateApplicationsExcelByCollege", method = {RequestMethod.POST,
+            RequestMethod.GET})
+    @ResponseBody
+    public SGResult generateApplicationsExcelByCollege(ItemCtr itemCtr, String college){
+        String game = itemCtr.getGame();
+        if (StringUtils.isBlank(college) || StringUtils.isBlank(game))
+            return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "比赛名和学院名不能为空！");
+        try {
+            applicationService.generateApplicationsExcelByCollege(game, college);
+        } catch (IOException e) {
+            return SGResult.build(ErrorCode.SYSTEM_EXCEPTION.getErrorCode(), "操作失败！", e);
+        }
+        String filePath = applicationService.getApplicationsExcelFilePath(game, college);
+        return SGResult.ok("表格生成成功！", filePath);
+    }
 
 }

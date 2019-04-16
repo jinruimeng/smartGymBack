@@ -6,9 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface RemarkMapper {
-    int countByExample(RemarkExample example);
+    long countByExample(RemarkExample example);
 
     int deleteByExample(RemarkExample example);
+
+    int deleteByPrimaryKey(Long id);
 
     int insert(Remark record);
 
@@ -16,7 +18,13 @@ public interface RemarkMapper {
 
     List<Remark> selectByExample(RemarkExample example);
 
+    Remark selectByPrimaryKey(Long id);
+
     int updateByExampleSelective(@Param("record") Remark record, @Param("example") RemarkExample example);
 
     int updateByExample(@Param("record") Remark record, @Param("example") RemarkExample example);
+
+    int updateByPrimaryKeySelective(Remark record);
+
+    int updateByPrimaryKey(Remark record);
 }

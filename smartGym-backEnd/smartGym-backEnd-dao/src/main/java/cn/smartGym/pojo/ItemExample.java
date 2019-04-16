@@ -934,6 +934,186 @@ public class ItemExample {
             addCriterion("description not between", value1, value2, "description");
             return (Criteria) this;
         }
+
+        public Criteria andTypeIsNull() {
+            addCriterion("type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIsNotNull() {
+            addCriterion("type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeEqualTo(Integer value) {
+            addCriterion("type =", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotEqualTo(Integer value) {
+            addCriterion("type <>", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThan(Integer value) {
+            addCriterion("type >", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("type >=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThan(Integer value) {
+            addCriterion("type <", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("type <=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIn(List<Integer> values) {
+            addCriterion("type in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotIn(List<Integer> values) {
+            addCriterion("type not in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeBetween(Integer value1, Integer value2) {
+            addCriterion("type between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("type not between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdIsNull() {
+            addCriterion("type_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdIsNotNull() {
+            addCriterion("type_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdEqualTo(Long value) {
+            addCriterion("type_id =", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdNotEqualTo(Long value) {
+            addCriterion("type_id <>", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdGreaterThan(Long value) {
+            addCriterion("type_id >", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("type_id >=", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdLessThan(Long value) {
+            addCriterion("type_id <", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdLessThanOrEqualTo(Long value) {
+            addCriterion("type_id <=", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdIn(List<Long> values) {
+            addCriterion("type_id in", values, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdNotIn(List<Long> values) {
+            addCriterion("type_id not in", values, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdBetween(Long value1, Long value2) {
+            addCriterion("type_id between", value1, value2, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdNotBetween(Long value1, Long value2) {
+            addCriterion("type_id not between", value1, value2, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionIsNull() {
+            addCriterion("rank_criterion is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionIsNotNull() {
+            addCriterion("rank_criterion is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionEqualTo(Integer value) {
+            addCriterion("rank_criterion =", value, "rankCriterion");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionNotEqualTo(Integer value) {
+            addCriterion("rank_criterion <>", value, "rankCriterion");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionGreaterThan(Integer value) {
+            addCriterion("rank_criterion >", value, "rankCriterion");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionGreaterThanOrEqualTo(Integer value) {
+            addCriterion("rank_criterion >=", value, "rankCriterion");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionLessThan(Integer value) {
+            addCriterion("rank_criterion <", value, "rankCriterion");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionLessThanOrEqualTo(Integer value) {
+            addCriterion("rank_criterion <=", value, "rankCriterion");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionIn(List<Integer> values) {
+            addCriterion("rank_criterion in", values, "rankCriterion");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionNotIn(List<Integer> values) {
+            addCriterion("rank_criterion not in", values, "rankCriterion");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionBetween(Integer value1, Integer value2) {
+            addCriterion("rank_criterion between", value1, value2, "rankCriterion");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankCriterionNotBetween(Integer value1, Integer value2) {
+            addCriterion("rank_criterion not between", value1, value2, "rankCriterion");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

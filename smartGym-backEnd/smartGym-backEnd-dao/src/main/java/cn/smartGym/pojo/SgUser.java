@@ -3,129 +3,143 @@ package cn.smartGym.pojo;
 import java.util.Date;
 
 public class SgUser {
-	private Long id;
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private String wxId;
+    private String wxId;
 
-	private String studentNo;
+    private String studentNo;
 
-	private Integer gender;
+    private Integer gender;
 
-	private Integer campus;
+    private Integer campus;
 
-	private Integer college;
+    private Integer college;
 
-	private String phone;
+    private String phone;
 
-	private Integer status;
+    private Integer status;
 
-	private Integer authority;
+    private Integer authority;
 
-	private Date created;
+    private Date created;
 
-	private Date updated;
+    private Date updated;
 
-	public Long getId() {
-		return id;
-	}
+    private Integer type;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String email;
 
-	public String getName() {
-		return name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getWxId() {
-		return wxId;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setWxId(String wxId) {
-		this.wxId = wxId == null ? null : wxId.trim();
-	}
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-	public String getStudentNo() {
-		return studentNo;
-	}
+    public String getWxId() {
+        return wxId;
+    }
 
-	public void setStudentNo(String studentNo) {
-		this.studentNo = studentNo == null ? null : studentNo.trim();
-	}
+    public void setWxId(String wxId) {
+        this.wxId = wxId == null ? null : wxId.trim();
+    }
 
-	public Integer getGender() {
-		return gender;
-	}
+    public String getStudentNo() {
+        return studentNo;
+    }
 
-	public void setGender(Integer gender) {
-		this.gender = gender;
-	}
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo == null ? null : studentNo.trim();
+    }
 
-	public Integer getCampus() {
-		return campus;
-	}
+    public Integer getGender() {
+        return gender;
+    }
 
-	public void setCampus(Integer campus) {
-		this.campus = campus;
-	}
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
 
-	public Integer getCollege() {
-		return college;
-	}
+    public Integer getCampus() {
+        return campus;
+    }
 
-	public void setCollege(Integer college) {
-		this.college = college;
-	}
+    public void setCampus(Integer campus) {
+        this.campus = campus;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public Integer getCollege() {
+        return college;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone == null ? null : phone.trim();
-	}
+    public void setCollege(Integer college) {
+        this.college = college;
+    }
 
-	public Integer getStatus() {
-		return status;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
 
-	public Integer getAuthority() {
-		return authority;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public void setAuthority(Integer authority) {
-		this.authority = authority;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public Date getCreated() {
-		return created;
-	}
+    public Integer getAuthority() {
+        return authority;
+    }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+    public void setAuthority(Integer authority) {
+        this.authority = authority;
+    }
 
-	public Date getUpdated() {
-		return updated;
-	}
+    public Date getCreated() {
+        return created;
+    }
 
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
-	public SgUser() {
-		super();
-		// TODO 自动生成的构造函数存根
-	}
+    public Date getUpdated() {
+        return updated;
+    }
 
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
 }

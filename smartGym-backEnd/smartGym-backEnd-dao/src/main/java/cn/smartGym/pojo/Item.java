@@ -29,6 +29,12 @@ public class Item {
 
     private String description;
 
+    private Integer type;
+
+    private Long typeId;
+
+    private Integer rankCriterion;
+
     public Long getId() {
         return id;
     }
@@ -131,5 +137,29 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Long getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
+    }
+
+    public Integer getRankCriterion() {
+        return rankCriterion;
+    }
+
+    public void setRankCriterion(Integer rankCriterion) {
+        this.rankCriterion = rankCriterion;
     }
 }

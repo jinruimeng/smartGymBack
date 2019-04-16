@@ -113,6 +113,8 @@ public class ConversionUtils {
 		itemCtr.setParticipantNum(item.getParticipantNum());
 		itemCtr.setStatus(item.getStatus());
 		itemCtr.setDescription(item.getDescription());
+		itemCtr.setType(item.getType());
+		itemCtr.setTypeId(item.getTypeId());
 
 		return itemCtr;
 	}
@@ -130,6 +132,10 @@ public class ConversionUtils {
 		item.setParticipantNum(itemCtr.getParticipantNum());
 		item.setDescription(itemCtr.getDescription());
 		item.setStatus(itemCtr.getStatus());
+		item.setType(itemCtr.getType());
+		item.setTypeId(itemCtr.getTypeId());
+		item.setRankCriterion(itemCtr.getRankCriterion());
+		
 		return item;
 	}
 
@@ -223,6 +229,8 @@ public class ConversionUtils {
 		userCtr.setPhone(user.getPhone());
 		userCtr.setStatus(user.getStatus());
 		userCtr.setAuthority(user.getAuthority());
+		userCtr.setType(user.getType());
+		userCtr.setEmail(user.getEmail());
 		return userCtr;
 	}
 
@@ -239,7 +247,8 @@ public class ConversionUtils {
 		user.setPhone(userCtr.getPhone());
 		user.setStatus(userCtr.getStatus());
 		user.setAuthority(userCtr.getAuthority());
-
+		user.setType(userCtr.getType());
+		user.setEmail(userCtr.getEmail());
 		return user;
 	}
 

@@ -41,6 +41,26 @@ public class SgUserCtr implements Serializable {
 
 	private Integer authority;
 
+	private Integer type;
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	private String email;
+
 	public String getEncryptedData() {
 		return encryptedData;
 	}

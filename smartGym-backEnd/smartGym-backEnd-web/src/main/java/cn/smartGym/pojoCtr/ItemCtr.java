@@ -31,6 +31,36 @@ public class ItemCtr implements Serializable {
 	private Integer status;
 
 	private String description;
+	
+	private Integer type;
+	
+	private Long typeId;
+	
+	private Integer rankCriterion;
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+
+	public Integer getRankCriterion() {
+		return rankCriterion;
+	}
+
+	public void setRankCriterion(Integer rankCriterion) {
+		this.rankCriterion = rankCriterion;
+	}
 
 	public String getGame() {
 		return game;

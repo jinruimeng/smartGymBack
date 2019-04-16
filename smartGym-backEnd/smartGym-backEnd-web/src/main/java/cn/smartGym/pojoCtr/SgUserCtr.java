@@ -41,16 +41,16 @@ public class SgUserCtr implements Serializable {
 
 	private Integer authority;
 
-	private Integer type;
+	private String type;
 
 	private String email;
 
 
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

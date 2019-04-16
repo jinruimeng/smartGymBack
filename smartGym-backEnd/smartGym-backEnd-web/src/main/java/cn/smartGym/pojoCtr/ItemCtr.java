@@ -32,17 +32,17 @@ public class ItemCtr implements Serializable {
 
 	private String description;
 	
-	private Integer type;
+	private String type;
 	
 	private Long typeId;
 	
 	private Integer rankCriterion;
 
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

@@ -43,11 +43,14 @@ public class SgUserCtr implements Serializable {
 
 	private Integer type;
 
-	public int getType() {
+	private String email;
+
+
+	public Integer getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 
@@ -58,8 +61,6 @@ public class SgUserCtr implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	private String email;
 
 	public String getEncryptedData() {
 		return encryptedData;

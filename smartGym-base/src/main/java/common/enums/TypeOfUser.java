@@ -28,7 +28,7 @@ public enum TypeOfUser {
 
 	public static Integer getType(String typeName) {
 		for (TypeOfUser i : TypeOfUser.values())
-			if (i.getTypeName() == typeName)
+			if (i.getTypeName().equals(typeName))
 				return i.type;
 		return null;
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Player;
+import cn.smartGym.pojo.SgUser;
 import common.utils.SGResult;
 
 public interface PlayerService {
@@ -17,6 +18,8 @@ public interface PlayerService {
     void hardDeletePlayer();
 
     void maintenancePlayer(List<Long> itemIds, List<String> studentNos);
+    
+    SGResult updateUser(SgUser userUpdate);
 
     void genPlayerNo(List<Long> itemsId);
 

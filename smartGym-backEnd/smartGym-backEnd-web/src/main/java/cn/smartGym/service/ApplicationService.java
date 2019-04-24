@@ -5,6 +5,7 @@ import java.util.List;
 
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Item;
+import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoCtr.response.ApplicationInfo;
 import common.utils.SGResult;
 
@@ -20,7 +21,11 @@ public interface ApplicationService {
 	SGResult checkData(Application application);
 
 	void hardDeleteApplication();
-
+	
+	SGResult deleteApplication(Application application);
+	
+	SGResult updateUser(SgUser userUpdate);
+	
 	void maintenanceApplication(List<Long> itemIds, List<String> studentNos);
 
 	List<Application> getApplicationListByStatusAndStudentNo(Integer status, String... studentNos);

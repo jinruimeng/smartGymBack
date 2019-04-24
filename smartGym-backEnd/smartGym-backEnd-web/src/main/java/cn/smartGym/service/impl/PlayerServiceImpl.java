@@ -16,6 +16,7 @@ import cn.smartGym.pojo.Item;
 import cn.smartGym.pojo.Player;
 import cn.smartGym.pojo.PlayerExample;
 import cn.smartGym.pojo.PlayerExample.Criteria;
+import cn.smartGym.pojo.SgUser;
 import cn.smartGym.service.CollegeService;
 import cn.smartGym.service.ItemService;
 import cn.smartGym.service.PlayerService;
@@ -116,6 +117,22 @@ public class PlayerServiceImpl implements PlayerService {
 			player.setUpdated(new Date());
 			playerMapper.updateByPrimaryKeySelective(player);
 		}
+	}
+	
+	public SGResult updateUser(SgUser userUpdate) {
+		PlayerExample example = new PlayerExample();
+		Criteria criteria = example.createCriteria();
+
+		if (StringUtils.isNotBlank(userUpdate.getStudentNo()))
+			criteria.andStudentNoEqualTo(userUpdate.getStudentNo());
+
+		Player playerExample = new Player();
+		playerExample.setName(userUpdate.getName());
+		playerExample.setCollege(userUpdate.getCollege());
+		playerExample.setUpdated(new Date());
+		playerMapper.updateByExampleSelective(playerExample, example);
+
+		return SGResult.ok();
 	}
 
 	/**

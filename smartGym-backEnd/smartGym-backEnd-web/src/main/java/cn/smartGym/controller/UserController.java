@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoCtr.SgUserCtr;
+import cn.smartGym.service.ApplicationService;
 import cn.smartGym.service.CampusService;
 import cn.smartGym.service.CollegeService;
+import cn.smartGym.service.PlayerService;
 import cn.smartGym.service.UserService;
 import cn.smartGym.utils.ConversionUtils;
 import common.utils.SGResult;
@@ -37,6 +39,12 @@ public class UserController {
 
 	@Autowired
 	private CampusService campusService;
+	
+	@Autowired
+	private ApplicationService applicationService;
+	
+	@Autowired
+	private PlayerService playerService;
 
 	/**
 	 * 登录时检测用户是否已注册
@@ -144,7 +152,10 @@ public class UserController {
 	public SGResult updateUser(SgUserCtr userCtr) throws Exception {
 		SGResult sGResult = userService.update(ConversionUtils.userCtrToDao(userCtr));
 		if (sGResult.isOK()) {
-			SgUserCtr userCtrUpdate = ConversionUtils.userDaoToCtr((SgUser) sGResult.getData());
+			SgUser userUpdate = (SgUser) sGResult.getData();
+			applicationService.updateUser(userUpdate);
+			playerService.updateUser(userUpdate);
+			SgUserCtr userCtrUpdate = ConversionUtils.userDaoToCtr(userUpdate);
 			// 把结果返回
 			return SGResult.ok("修改资料成功！", userCtrUpdate);
 		} else

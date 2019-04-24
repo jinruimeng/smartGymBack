@@ -58,4 +58,18 @@ public class ApplicationController {
 		List<Application> result = applicationService.getApplicationListByStatusAndStudentNo(null, studentNo);
 		return SGResult.ok("查询成功！", ConversionUtils.applicationdaoListToCtrList(result));
 	}
+	
+	/**
+	 * 删除比赛报名记录
+	 * 
+	 * @param studentno
+	 * @return
+	 */
+	@RequestMapping(value = "/smartgym/application/deleteApplication", method = { RequestMethod.POST,
+			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+	@ResponseBody
+	public SGResult deleteApplication(ApplicationCtr applicationCtr) {
+		// 删除报名记录
+		return applicationService.deleteApplication(ConversionUtils.applicationCtrToDao(applicationCtr));
+	}
 }

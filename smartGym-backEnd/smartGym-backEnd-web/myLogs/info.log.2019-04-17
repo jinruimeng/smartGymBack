@@ -1,0 +1,595 @@
+2019-04-17 08:56:29  [ localhost-startStop-1:164 ] - [ INFO ]  FrameworkServlet 'smartGym-backEnd-web': initialization started
+2019-04-17 08:56:29  [ localhost-startStop-1:327 ] - [ INFO ]  Refreshing WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 08:56:29 CST 2019]; root of context hierarchy
+2019-04-17 08:56:30  [ localhost-startStop-1:441 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-dao.xml]
+2019-04-17 08:56:30  [ localhost-startStop-1:840 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-redis.xml]
+2019-04-17 08:56:30  [ localhost-startStop-1:877 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-trans.xml]
+2019-04-17 08:56:30  [ localhost-startStop-1:1001 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-web.xml]
+2019-04-17 08:56:31  [ localhost-startStop-1:2009 ] - [ INFO ]  Loading properties file from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\conf\db.properties]
+2019-04-17 08:56:31  [ localhost-startStop-1:2010 ] - [ INFO ]  Loading properties file from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\conf\resource.properties]
+2019-04-17 08:56:31  [ localhost-startStop-1:2039 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-04-17 08:56:35  [ localhost-startStop-1:5799 ] - [ INFO ]  Mapped "{[/smartgym/application/getApplicationListByStudentNo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ApplicationController.getApplicationListByStudentNo(java.lang.String)
+2019-04-17 08:56:35  [ localhost-startStop-1:5802 ] - [ INFO ]  Mapped "{[/smartgym/application/addApplication],methods=[POST || GET],consumes=[application/x-www-form-urlencoded]}" onto public common.utils.SGResult cn.smartGym.controller.ApplicationController.addApplication(cn.smartGym.pojoCtr.ApplicationCtr)
+2019-04-17 08:56:35  [ localhost-startStop-1:5805 ] - [ INFO ]  Mapped "{[/inform/getInformById],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.getInformById(java.lang.Long)
+2019-04-17 08:56:35  [ localhost-startStop-1:5806 ] - [ INFO ]  Mapped "{[/inform/addInform],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.addInform(cn.smartGym.pojo.Information)
+2019-04-17 08:56:35  [ localhost-startStop-1:5809 ] - [ INFO ]  Mapped "{[/inform/getInformList],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.getInformList(java.lang.Integer)
+2019-04-17 08:56:35  [ localhost-startStop-1:5811 ] - [ INFO ]  Mapped "{[/inform/deleteInformById],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.deleteInformById(java.lang.Long) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5812 ] - [ INFO ]  Mapped "{[/inform/updateInform],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.updateInform(cn.smartGym.pojo.Information)
+2019-04-17 08:56:35  [ localhost-startStop-1:5817 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo2],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage2(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 08:56:35  [ localhost-startStop-1:5818 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 08:56:35  [ localhost-startStop-1:5819 ] - [ INFO ]  Mapped "{[/smartgym/item/getItemInfo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getItemInfo(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 08:56:35  [ localhost-startStop-1:5821 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo3],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage3(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 08:56:35  [ localhost-startStop-1:5823 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo1],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage1(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 08:56:35  [ localhost-startStop-1:5839 ] - [ INFO ]  Mapped "{[/smartgym/manager/viewByCollegeManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.viewByCollegeManager(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5840 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByCollegeDetail],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByCollegeDetail(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5841 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByItem(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5842 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByCollege],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByCollege(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5843 ] - [ INFO ]  Mapped "{[/smartgym/manager/viewByUniversityManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.viewByUniversityManager(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5844 ] - [ INFO ]  Mapped "{[/smartgym/manager/reviewByUniversityManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.reviewByUniversityManager(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5845 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByItemDetail],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByItemDetail(java.lang.Long) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5845 ] - [ INFO ]  Mapped "{[/smartgym/manager/getPlayersExcelFilePath],methods=[POST || GET]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getPlayersExcelFilePath(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 08:56:35  [ localhost-startStop-1:5847 ] - [ INFO ]  Mapped "{[/smartgym/manager/reviewByCollegeManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.reviewByCollegeManager(java.lang.Long[]) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5848 ] - [ INFO ]  Mapped "{[/smartgym/manager/generateApplicationsExcelByCollege],methods=[POST || GET]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.generateApplicationsExcelByCollege(cn.smartGym.pojoCtr.ItemCtr,java.lang.String)
+2019-04-17 08:56:35  [ localhost-startStop-1:5849 ] - [ INFO ]  Mapped "{[/smartgym/manager/getPlayersListByItemDetailsAndCollege],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getPlayersListByItemDetailsAndCollege(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5849 ] - [ INFO ]  Mapped "{[/smartgym/manager/maintenance],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.maintenance() throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5850 ] - [ INFO ]  Mapped "{[/smartgym/manager/getTopK],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getTopK(java.lang.Long,java.lang.Integer)
+2019-04-17 08:56:35  [ localhost-startStop-1:5852 ] - [ INFO ]  Mapped "{[/smartgym/manager/deleteItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.deleteItem(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 08:56:35  [ localhost-startStop-1:5865 ] - [ INFO ]  Mapped "{[/smartgym/manager/getUser],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getUser(cn.smartGym.pojoCtr.SgUserCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5874 ] - [ INFO ]  Mapped "{[/smartgym/manager/setUserAuthority],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.setUserAuthority(java.lang.Integer,java.lang.String[]) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5875 ] - [ INFO ]  Mapped "{[/smartgym/manager/hardDelete],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.hardDelete() throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5877 ] - [ INFO ]  Mapped "{[/smartgym/manager/registerGrades],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.registerGrades(cn.smartGym.pojoCtr.PlayerCtr,java.lang.Integer)
+2019-04-17 08:56:35  [ localhost-startStop-1:5881 ] - [ INFO ]  Mapped "{[/smartgym/manager/genRank],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.genRank(java.lang.Long,java.lang.Integer)
+2019-04-17 08:56:35  [ localhost-startStop-1:5882 ] - [ INFO ]  Mapped "{[/smartgym/manager/downLoadExcel],methods=[POST || GET]}" onto public void cn.smartGym.controller.ManagerController.downLoadExcel(cn.smartGym.pojoCtr.fileDownloadCtr,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5884 ] - [ INFO ]  Mapped "{[/smartgym/manager/addItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.addItem(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5886 ] - [ INFO ]  Mapped "{[/smartgym/pirture/getPictureUrl],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PictureController.getPictureUrl(java.lang.Integer)
+2019-04-17 08:56:35  [ localhost-startStop-1:5888 ] - [ INFO ]  Mapped "{[/smartgym/player/getPlayerListByStudentNo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PlayerController.getPlayerListByStudentNo(java.lang.String) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5889 ] - [ INFO ]  Mapped "{[/smartgym/player/getPlayerListByItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PlayerController.getPlayerListByItem(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 08:56:35  [ localhost-startStop-1:5892 ] - [ INFO ]  Mapped "{[/smartgym/remark/addRemark],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto common.utils.SGResult cn.smartGym.controller.RemarkController.addRemark(cn.smartGym.pojo.Remark)
+2019-04-17 08:56:35  [ localhost-startStop-1:5895 ] - [ INFO ]  Mapped "{[/smartgym/user/register],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.register(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5897 ] - [ INFO ]  Mapped "{[/smartgym/user/getAllCollegesAndCampus],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.getAllCollegesAndCampus() throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5898 ] - [ INFO ]  Mapped "{[/smartgym/user/delete],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.deleteUser(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5899 ] - [ INFO ]  Mapped "{[/smartgym/user/update],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.updateUser(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 08:56:35  [ localhost-startStop-1:5899 ] - [ INFO ]  Mapped "{[/smartgym/user/signIn],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.signIn(cn.smartGym.pojoCtr.SgUserCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 08:56:36  [ localhost-startStop-1:7157 ] - [ INFO ]  Looking for @ControllerAdvice: WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 08:56:29 CST 2019]; root of context hierarchy
+2019-04-17 08:56:36  [ localhost-startStop-1:7299 ] - [ INFO ]  Looking for @ControllerAdvice: WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 08:56:29 CST 2019]; root of context hierarchy
+2019-04-17 08:56:37  [ localhost-startStop-1:7576 ] - [ INFO ]  FrameworkServlet 'smartGym-backEnd-web': initialization completed in 7408 ms
+2019-04-17 08:59:37  [ http-bio-8080-exec-6:187637 ] - [ INFO ]  {dataSource-1} inited
+2019-04-17 08:59:37  [ http-bio-8080-exec-6:188303 ] - [ INFO ]  ====================请求内容开始====================
+2019-04-17 08:59:37  [ http-bio-8080-exec-6:188304 ] - [ INFO ]  请求者微信号:112233
+2019-04-17 08:59:37  [ http-bio-8080-exec-6:188304 ] - [ INFO ]  请求者姓名:null
+2019-04-17 08:59:37  [ http-bio-8080-exec-6:188305 ] - [ INFO ]  请求者学号:null
+2019-04-17 08:59:37  [ http-bio-8080-exec-6:188305 ] - [ INFO ]  请求地址:http://192.168.1.111:8080/smartgym/user/register.action
+2019-04-17 08:59:37  [ http-bio-8080-exec-6:188308 ] - [ INFO ]  请求方式:POST
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188425 ] - [ INFO ]  请求参数:{"name":["金test"],"wxId":["112233"],"studentNo":["1400000"],"gender":["男"],"campus":["嘉定校区"],"college":["电子与信息工程学院"],"phone":["18302185152"],"type":["学生"],"email":["jinruimeng@163.com"]}
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188428 ] - [ INFO ]  请求类方法:SGResult cn.smartGym.controller.UserController.register(SgUserCtr)
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188429 ] - [ INFO ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@6f3bb659]
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188655 ] - [ INFO ]  请求类方法参数名称和值：{"campus":"嘉定校区","college":"电子与信息工程学院","email":"jinruimeng@163.com","gender":"男","name":"金test","phone":"18302185152","studentNo":"1400000","type":"学生","wxId":"112233"}
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188656 ] - [ INFO ]  ====================请求内容结束====================
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188784 ] - [ INFO ]  Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188862 ] - [ INFO ]  SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188876 ] - [ ERROR ]  ====================异常内容开始====================
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188878 ] - [ ERROR ]  方法开始执行时间:1555462776722
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188878 ] - [ ERROR ]  请求者微信号:112233
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188879 ] - [ ERROR ]  请求者姓名:null
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188879 ] - [ ERROR ]  请求者学号:null
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188879 ] - [ ERROR ]  请求地址:http://192.168.1.111:8080/smartgym/user/register.action
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188880 ] - [ ERROR ]  请求方式:POST
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188881 ] - [ ERROR ]  请求参数:{"name":["金test"],"wxId":["112233"],"studentNo":["1400000"],"gender":["男"],"campus":["嘉定校区"],"college":["电子与信息工程学院"],"phone":["18302185152"],"type":["学生"],"email":["jinruimeng@163.com"]}
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188882 ] - [ ERROR ]  请求类方法:SGResult cn.smartGym.controller.UserController.register(SgUserCtr)
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188882 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@6f3bb659]
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188883 ] - [ ERROR ]  请求类方法参数名称和值：{"campus":"嘉定校区","college":"电子与信息工程学院","email":"jinruimeng@163.com","gender":"男","name":"金test","phone":"18302185152","studentNo":"1400000","type":"学生","wxId":"112233"}
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188883 ] - [ ERROR ]  方法发生异常时间:1555462778515
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188884 ] - [ ERROR ]  方法发生的异常：org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'type' cannot be null
+### The error may involve cn.smartGym.mapper.SgUserMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: insert into sg_user (id, name, wx_id,        student_no, gender, campus,        college, phone, status,        authority, created, updated,        type, email)     values (?, ?, ?,        ?, ?, ?,        ?, ?, ?,        ?, ?, ?,        ?, ?)
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'type' cannot be null
+; SQL []; Column 'type' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column 'type' cannot be null
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188886 ] - [ ERROR ]  	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:85)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:73)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:81)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy41.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:58)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59)
+	at com.sun.proxy.$Proxy42.insert(Unknown Source)
+	at cn.smartGym.service.impl.UserServiceImpl.register(UserServiceImpl.java:107)
+	at cn.smartGym.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$48ce354e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$bbd32c18.register(<generated>)
+	at cn.smartGym.controller.UserController.register(UserController.java:89)
+	at cn.smartGym.controller.UserController$$FastClassBySpringCGLIB$$c7762f20.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
+	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.controller.UserController$$EnhancerBySpringCGLIB$$69c8cc16.register(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:871)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+2019-04-17 08:59:38  [ http-bio-8080-exec-6:188889 ] - [ ERROR ]  ====================异常内容结束====================
+2019-04-17 09:03:46  [ localhost-startStop-1:124 ] - [ INFO ]  FrameworkServlet 'smartGym-backEnd-web': initialization started
+2019-04-17 09:03:46  [ localhost-startStop-1:192 ] - [ INFO ]  Refreshing WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 09:03:46 CST 2019]; root of context hierarchy
+2019-04-17 09:03:46  [ localhost-startStop-1:249 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-dao.xml]
+2019-04-17 09:03:46  [ localhost-startStop-1:480 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-redis.xml]
+2019-04-17 09:03:46  [ localhost-startStop-1:518 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-trans.xml]
+2019-04-17 09:03:46  [ localhost-startStop-1:631 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-web.xml]
+2019-04-17 09:03:47  [ localhost-startStop-1:1279 ] - [ INFO ]  Loading properties file from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\conf\db.properties]
+2019-04-17 09:03:47  [ localhost-startStop-1:1280 ] - [ INFO ]  Loading properties file from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\conf\resource.properties]
+2019-04-17 09:03:47  [ localhost-startStop-1:1308 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-04-17 09:03:50  [ localhost-startStop-1:4544 ] - [ INFO ]  Mapped "{[/smartgym/application/addApplication],methods=[POST || GET],consumes=[application/x-www-form-urlencoded]}" onto public common.utils.SGResult cn.smartGym.controller.ApplicationController.addApplication(cn.smartGym.pojoCtr.ApplicationCtr)
+2019-04-17 09:03:50  [ localhost-startStop-1:4547 ] - [ INFO ]  Mapped "{[/smartgym/application/getApplicationListByStudentNo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ApplicationController.getApplicationListByStudentNo(java.lang.String)
+2019-04-17 09:03:50  [ localhost-startStop-1:4552 ] - [ INFO ]  Mapped "{[/inform/addInform],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.addInform(cn.smartGym.pojo.Information)
+2019-04-17 09:03:50  [ localhost-startStop-1:4553 ] - [ INFO ]  Mapped "{[/inform/deleteInformById],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.deleteInformById(java.lang.Long) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4554 ] - [ INFO ]  Mapped "{[/inform/getInformById],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.getInformById(java.lang.Long)
+2019-04-17 09:03:50  [ localhost-startStop-1:4555 ] - [ INFO ]  Mapped "{[/inform/getInformList],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.getInformList(java.lang.Integer)
+2019-04-17 09:03:50  [ localhost-startStop-1:4557 ] - [ INFO ]  Mapped "{[/inform/updateInform],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.updateInform(cn.smartGym.pojo.Information)
+2019-04-17 09:03:50  [ localhost-startStop-1:4562 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:03:50  [ localhost-startStop-1:4563 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo2],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage2(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:03:50  [ localhost-startStop-1:4564 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo3],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage3(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:03:50  [ localhost-startStop-1:4564 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo1],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage1(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:03:50  [ localhost-startStop-1:4568 ] - [ INFO ]  Mapped "{[/smartgym/item/getItemInfo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getItemInfo(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:03:50  [ localhost-startStop-1:4579 ] - [ INFO ]  Mapped "{[/smartgym/manager/addItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.addItem(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4580 ] - [ INFO ]  Mapped "{[/smartgym/manager/generateApplicationsExcelByCollege],methods=[POST || GET]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.generateApplicationsExcelByCollege(cn.smartGym.pojoCtr.ItemCtr,java.lang.String)
+2019-04-17 09:03:50  [ localhost-startStop-1:4584 ] - [ INFO ]  Mapped "{[/smartgym/manager/getPlayersListByItemDetailsAndCollege],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getPlayersListByItemDetailsAndCollege(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4585 ] - [ INFO ]  Mapped "{[/smartgym/manager/maintenance],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.maintenance() throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4586 ] - [ INFO ]  Mapped "{[/smartgym/manager/getUser],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getUser(cn.smartGym.pojoCtr.SgUserCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4586 ] - [ INFO ]  Mapped "{[/smartgym/manager/setUserAuthority],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.setUserAuthority(java.lang.Integer,java.lang.String[]) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4587 ] - [ INFO ]  Mapped "{[/smartgym/manager/getTopK],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getTopK(java.lang.Long,java.lang.Integer)
+2019-04-17 09:03:50  [ localhost-startStop-1:4588 ] - [ INFO ]  Mapped "{[/smartgym/manager/deleteItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.deleteItem(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:03:50  [ localhost-startStop-1:4589 ] - [ INFO ]  Mapped "{[/smartgym/manager/genRank],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.genRank(java.lang.Long,java.lang.Integer)
+2019-04-17 09:03:50  [ localhost-startStop-1:4590 ] - [ INFO ]  Mapped "{[/smartgym/manager/downLoadExcel],methods=[POST || GET]}" onto public void cn.smartGym.controller.ManagerController.downLoadExcel(cn.smartGym.pojoCtr.fileDownloadCtr,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4591 ] - [ INFO ]  Mapped "{[/smartgym/manager/hardDelete],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.hardDelete() throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4591 ] - [ INFO ]  Mapped "{[/smartgym/manager/registerGrades],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.registerGrades(cn.smartGym.pojoCtr.PlayerCtr,java.lang.Integer)
+2019-04-17 09:03:50  [ localhost-startStop-1:4592 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByCollege],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByCollege(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4593 ] - [ INFO ]  Mapped "{[/smartgym/manager/reviewByCollegeManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.reviewByCollegeManager(java.lang.Long[]) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4594 ] - [ INFO ]  Mapped "{[/smartgym/manager/reviewByUniversityManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.reviewByUniversityManager(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4594 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByItem(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4595 ] - [ INFO ]  Mapped "{[/smartgym/manager/viewByUniversityManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.viewByUniversityManager(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4597 ] - [ INFO ]  Mapped "{[/smartgym/manager/getPlayersExcelFilePath],methods=[POST || GET]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getPlayersExcelFilePath(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:03:50  [ localhost-startStop-1:4598 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByCollegeDetail],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByCollegeDetail(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4608 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByItemDetail],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByItemDetail(java.lang.Long) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4609 ] - [ INFO ]  Mapped "{[/smartgym/manager/viewByCollegeManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.viewByCollegeManager(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4612 ] - [ INFO ]  Mapped "{[/smartgym/pirture/getPictureUrl],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PictureController.getPictureUrl(java.lang.Integer)
+2019-04-17 09:03:50  [ localhost-startStop-1:4614 ] - [ INFO ]  Mapped "{[/smartgym/player/getPlayerListByStudentNo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PlayerController.getPlayerListByStudentNo(java.lang.String) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4614 ] - [ INFO ]  Mapped "{[/smartgym/player/getPlayerListByItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PlayerController.getPlayerListByItem(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:03:50  [ localhost-startStop-1:4615 ] - [ INFO ]  Mapped "{[/smartgym/remark/addRemark],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto common.utils.SGResult cn.smartGym.controller.RemarkController.addRemark(cn.smartGym.pojo.Remark)
+2019-04-17 09:03:50  [ localhost-startStop-1:4618 ] - [ INFO ]  Mapped "{[/smartgym/user/register],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.register(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4619 ] - [ INFO ]  Mapped "{[/smartgym/user/signIn],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.signIn(cn.smartGym.pojoCtr.SgUserCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4621 ] - [ INFO ]  Mapped "{[/smartgym/user/delete],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.deleteUser(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4622 ] - [ INFO ]  Mapped "{[/smartgym/user/update],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.updateUser(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 09:03:50  [ localhost-startStop-1:4622 ] - [ INFO ]  Mapped "{[/smartgym/user/getAllCollegesAndCampus],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.getAllCollegesAndCampus() throws java.lang.Exception
+2019-04-17 09:03:51  [ localhost-startStop-1:5680 ] - [ INFO ]  Looking for @ControllerAdvice: WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 09:03:46 CST 2019]; root of context hierarchy
+2019-04-17 09:03:51  [ localhost-startStop-1:5781 ] - [ INFO ]  Looking for @ControllerAdvice: WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 09:03:46 CST 2019]; root of context hierarchy
+2019-04-17 09:03:52  [ localhost-startStop-1:6042 ] - [ INFO ]  FrameworkServlet 'smartGym-backEnd-web': initialization completed in 5912 ms
+2019-04-17 09:04:12  [ http-bio-8080-exec-1:26539 ] - [ INFO ]  {dataSource-1} inited
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27070 ] - [ INFO ]  ====================请求内容开始====================
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27071 ] - [ INFO ]  请求者微信号:112233
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27071 ] - [ INFO ]  请求者姓名:null
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27072 ] - [ INFO ]  请求者学号:null
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27072 ] - [ INFO ]  请求地址:http://192.168.1.111:8080/smartgym/user/register.action
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27073 ] - [ INFO ]  请求方式:POST
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27161 ] - [ INFO ]  请求参数:{"name":["金test"],"wxId":["112233"],"studentNo":["1400000"],"gender":["男"],"campus":["嘉定校区"],"college":["电子与信息工程学院"],"phone":["18302185152"],"type":["学生"],"email":["jinruimeng@163.com"]}
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27164 ] - [ INFO ]  请求类方法:SGResult cn.smartGym.controller.UserController.register(SgUserCtr)
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27165 ] - [ INFO ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@5d9020d3]
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27430 ] - [ INFO ]  请求类方法参数名称和值：{"campus":"嘉定校区","college":"电子与信息工程学院","email":"jinruimeng@163.com","gender":"男","name":"金test","phone":"18302185152","studentNo":"1400000","type":"学生","wxId":"112233"}
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27430 ] - [ INFO ]  ====================请求内容结束====================
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27604 ] - [ INFO ]  Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27647 ] - [ INFO ]  SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27654 ] - [ ERROR ]  ====================异常内容开始====================
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27655 ] - [ ERROR ]  方法开始执行时间:1555463052220
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27657 ] - [ ERROR ]  请求者微信号:112233
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27658 ] - [ ERROR ]  请求者姓名:null
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27658 ] - [ ERROR ]  请求者学号:null
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27658 ] - [ ERROR ]  请求地址:http://192.168.1.111:8080/smartgym/user/register.action
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27658 ] - [ ERROR ]  请求方式:POST
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27660 ] - [ ERROR ]  请求参数:{"name":["金test"],"wxId":["112233"],"studentNo":["1400000"],"gender":["男"],"campus":["嘉定校区"],"college":["电子与信息工程学院"],"phone":["18302185152"],"type":["学生"],"email":["jinruimeng@163.com"]}
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27661 ] - [ ERROR ]  请求类方法:SGResult cn.smartGym.controller.UserController.register(SgUserCtr)
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27662 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@5d9020d3]
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27662 ] - [ ERROR ]  请求类方法参数名称和值：{"campus":"嘉定校区","college":"电子与信息工程学院","email":"jinruimeng@163.com","gender":"男","name":"金test","phone":"18302185152","studentNo":"1400000","type":"学生","wxId":"112233"}
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27663 ] - [ ERROR ]  方法发生异常时间:1555463053644
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27663 ] - [ ERROR ]  方法发生的异常：org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'type' cannot be null
+### The error may involve cn.smartGym.mapper.SgUserMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: insert into sg_user (id, name, wx_id,        student_no, gender, campus,        college, phone, status,        authority, created, updated,        type, email)     values (?, ?, ?,        ?, ?, ?,        ?, ?, ?,        ?, ?, ?,        ?, ?)
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'type' cannot be null
+; SQL []; Column 'type' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column 'type' cannot be null
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27667 ] - [ ERROR ]  	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:85)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:73)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:81)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy41.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:58)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59)
+	at com.sun.proxy.$Proxy42.insert(Unknown Source)
+	at cn.smartGym.service.impl.UserServiceImpl.register(UserServiceImpl.java:108)
+	at cn.smartGym.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$48ce354e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$d7dce6d5.register(<generated>)
+	at cn.smartGym.controller.UserController.register(UserController.java:91)
+	at cn.smartGym.controller.UserController$$FastClassBySpringCGLIB$$c7762f20.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
+	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.controller.UserController$$EnhancerBySpringCGLIB$$37bd04a4.register(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:871)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+2019-04-17 09:04:13  [ http-bio-8080-exec-1:27670 ] - [ ERROR ]  ====================异常内容结束====================
+2019-04-17 09:06:48  [ localhost-startStop-1:97 ] - [ INFO ]  FrameworkServlet 'smartGym-backEnd-web': initialization started
+2019-04-17 09:06:48  [ localhost-startStop-1:122 ] - [ INFO ]  Refreshing WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 09:06:48 CST 2019]; root of context hierarchy
+2019-04-17 09:06:48  [ localhost-startStop-1:175 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-dao.xml]
+2019-04-17 09:06:48  [ localhost-startStop-1:377 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-redis.xml]
+2019-04-17 09:06:48  [ localhost-startStop-1:405 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-trans.xml]
+2019-04-17 09:06:48  [ localhost-startStop-1:494 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-web.xml]
+2019-04-17 09:06:49  [ localhost-startStop-1:1092 ] - [ INFO ]  Loading properties file from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\conf\db.properties]
+2019-04-17 09:06:49  [ localhost-startStop-1:1093 ] - [ INFO ]  Loading properties file from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\conf\resource.properties]
+2019-04-17 09:06:49  [ localhost-startStop-1:1111 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-04-17 09:06:52  [ localhost-startStop-1:4016 ] - [ INFO ]  Mapped "{[/smartgym/application/addApplication],methods=[POST || GET],consumes=[application/x-www-form-urlencoded]}" onto public common.utils.SGResult cn.smartGym.controller.ApplicationController.addApplication(cn.smartGym.pojoCtr.ApplicationCtr)
+2019-04-17 09:06:52  [ localhost-startStop-1:4018 ] - [ INFO ]  Mapped "{[/smartgym/application/getApplicationListByStudentNo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ApplicationController.getApplicationListByStudentNo(java.lang.String)
+2019-04-17 09:06:52  [ localhost-startStop-1:4021 ] - [ INFO ]  Mapped "{[/inform/getInformList],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.getInformList(java.lang.Integer)
+2019-04-17 09:06:52  [ localhost-startStop-1:4022 ] - [ INFO ]  Mapped "{[/inform/deleteInformById],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.deleteInformById(java.lang.Long) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4023 ] - [ INFO ]  Mapped "{[/inform/getInformById],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.getInformById(java.lang.Long)
+2019-04-17 09:06:52  [ localhost-startStop-1:4024 ] - [ INFO ]  Mapped "{[/inform/addInform],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.addInform(cn.smartGym.pojo.Information)
+2019-04-17 09:06:52  [ localhost-startStop-1:4025 ] - [ INFO ]  Mapped "{[/inform/updateInform],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.updateInform(cn.smartGym.pojo.Information)
+2019-04-17 09:06:52  [ localhost-startStop-1:4029 ] - [ INFO ]  Mapped "{[/smartgym/item/getItemInfo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getItemInfo(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:06:52  [ localhost-startStop-1:4031 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:06:52  [ localhost-startStop-1:4032 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo1],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage1(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:06:52  [ localhost-startStop-1:4033 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo2],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage2(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:06:52  [ localhost-startStop-1:4034 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo3],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage3(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:06:52  [ localhost-startStop-1:4047 ] - [ INFO ]  Mapped "{[/smartgym/manager/genRank],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.genRank(java.lang.Long,java.lang.Integer)
+2019-04-17 09:06:52  [ localhost-startStop-1:4048 ] - [ INFO ]  Mapped "{[/smartgym/manager/deleteItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.deleteItem(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:06:52  [ localhost-startStop-1:4049 ] - [ INFO ]  Mapped "{[/smartgym/manager/hardDelete],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.hardDelete() throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4050 ] - [ INFO ]  Mapped "{[/smartgym/manager/getUser],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getUser(cn.smartGym.pojoCtr.SgUserCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4051 ] - [ INFO ]  Mapped "{[/smartgym/manager/registerGrades],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.registerGrades(cn.smartGym.pojoCtr.PlayerCtr,java.lang.Integer)
+2019-04-17 09:06:52  [ localhost-startStop-1:4052 ] - [ INFO ]  Mapped "{[/smartgym/manager/downLoadExcel],methods=[POST || GET]}" onto public void cn.smartGym.controller.ManagerController.downLoadExcel(cn.smartGym.pojoCtr.fileDownloadCtr,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4053 ] - [ INFO ]  Mapped "{[/smartgym/manager/getTopK],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getTopK(java.lang.Long,java.lang.Integer)
+2019-04-17 09:06:52  [ localhost-startStop-1:4054 ] - [ INFO ]  Mapped "{[/smartgym/manager/maintenance],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.maintenance() throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4055 ] - [ INFO ]  Mapped "{[/smartgym/manager/setUserAuthority],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.setUserAuthority(java.lang.Integer,java.lang.String[]) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4055 ] - [ INFO ]  Mapped "{[/smartgym/manager/getPlayersListByItemDetailsAndCollege],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getPlayersListByItemDetailsAndCollege(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4056 ] - [ INFO ]  Mapped "{[/smartgym/manager/generateApplicationsExcelByCollege],methods=[POST || GET]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.generateApplicationsExcelByCollege(cn.smartGym.pojoCtr.ItemCtr,java.lang.String)
+2019-04-17 09:06:52  [ localhost-startStop-1:4057 ] - [ INFO ]  Mapped "{[/smartgym/manager/addItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.addItem(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4058 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByItem(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4058 ] - [ INFO ]  Mapped "{[/smartgym/manager/reviewByCollegeManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.reviewByCollegeManager(java.lang.Long[]) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4059 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByCollege],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByCollege(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4060 ] - [ INFO ]  Mapped "{[/smartgym/manager/reviewByUniversityManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.reviewByUniversityManager(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4062 ] - [ INFO ]  Mapped "{[/smartgym/manager/getPlayersExcelFilePath],methods=[POST || GET]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getPlayersExcelFilePath(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:06:52  [ localhost-startStop-1:4062 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByCollegeDetail],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByCollegeDetail(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4063 ] - [ INFO ]  Mapped "{[/smartgym/manager/viewByCollegeManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.viewByCollegeManager(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4064 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByItemDetail],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByItemDetail(java.lang.Long) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4065 ] - [ INFO ]  Mapped "{[/smartgym/manager/viewByUniversityManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.viewByUniversityManager(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4066 ] - [ INFO ]  Mapped "{[/smartgym/pirture/getPictureUrl],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PictureController.getPictureUrl(java.lang.Integer)
+2019-04-17 09:06:52  [ localhost-startStop-1:4077 ] - [ INFO ]  Mapped "{[/smartgym/player/getPlayerListByItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PlayerController.getPlayerListByItem(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:06:52  [ localhost-startStop-1:4079 ] - [ INFO ]  Mapped "{[/smartgym/player/getPlayerListByStudentNo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PlayerController.getPlayerListByStudentNo(java.lang.String) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4091 ] - [ INFO ]  Mapped "{[/smartgym/remark/addRemark],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto common.utils.SGResult cn.smartGym.controller.RemarkController.addRemark(cn.smartGym.pojo.Remark)
+2019-04-17 09:06:52  [ localhost-startStop-1:4096 ] - [ INFO ]  Mapped "{[/smartgym/user/register],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.register(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4097 ] - [ INFO ]  Mapped "{[/smartgym/user/signIn],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.signIn(cn.smartGym.pojoCtr.SgUserCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4098 ] - [ INFO ]  Mapped "{[/smartgym/user/delete],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.deleteUser(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4100 ] - [ INFO ]  Mapped "{[/smartgym/user/update],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.updateUser(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 09:06:52  [ localhost-startStop-1:4101 ] - [ INFO ]  Mapped "{[/smartgym/user/getAllCollegesAndCampus],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.getAllCollegesAndCampus() throws java.lang.Exception
+2019-04-17 09:06:53  [ localhost-startStop-1:5017 ] - [ INFO ]  Looking for @ControllerAdvice: WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 09:06:48 CST 2019]; root of context hierarchy
+2019-04-17 09:06:53  [ localhost-startStop-1:5134 ] - [ INFO ]  Looking for @ControllerAdvice: WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 09:06:48 CST 2019]; root of context hierarchy
+2019-04-17 09:06:53  [ localhost-startStop-1:5408 ] - [ INFO ]  FrameworkServlet 'smartGym-backEnd-web': initialization completed in 5307 ms
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14036 ] - [ INFO ]  {dataSource-1} inited
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14523 ] - [ INFO ]  ====================请求内容开始====================
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14523 ] - [ INFO ]  请求者微信号:112233
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14524 ] - [ INFO ]  请求者姓名:null
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14524 ] - [ INFO ]  请求者学号:null
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14525 ] - [ INFO ]  请求地址:http://192.168.1.111:8080/smartgym/user/register.action
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14525 ] - [ INFO ]  请求方式:POST
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14597 ] - [ INFO ]  请求参数:{"name":["金test"],"wxId":["112233"],"studentNo":["1400000"],"gender":["男"],"campus":["嘉定校区"],"college":["电子与信息工程学院"],"phone":["18302185152"],"type":["学生"],"email":["jinruimeng@163.com"]}
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14598 ] - [ INFO ]  请求类方法:SGResult cn.smartGym.controller.UserController.register(SgUserCtr)
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14599 ] - [ INFO ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@748fb4ae]
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14787 ] - [ INFO ]  请求类方法参数名称和值：{"campus":"嘉定校区","college":"电子与信息工程学院","email":"jinruimeng@163.com","gender":"男","name":"金test","phone":"18302185152","studentNo":"1400000","type":"学生","wxId":"112233"}
+2019-04-17 09:07:02  [ http-bio-8080-exec-1:14788 ] - [ INFO ]  ====================请求内容结束====================
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14923 ] - [ INFO ]  Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14978 ] - [ INFO ]  SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14987 ] - [ ERROR ]  ====================异常内容开始====================
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14991 ] - [ ERROR ]  方法开始执行时间:1555463221760
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14991 ] - [ ERROR ]  请求者微信号:112233
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14992 ] - [ ERROR ]  请求者姓名:null
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14992 ] - [ ERROR ]  请求者学号:null
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14992 ] - [ ERROR ]  请求地址:http://192.168.1.111:8080/smartgym/user/register.action
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14993 ] - [ ERROR ]  请求方式:POST
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14996 ] - [ ERROR ]  请求参数:{"name":["金test"],"wxId":["112233"],"studentNo":["1400000"],"gender":["男"],"campus":["嘉定校区"],"college":["电子与信息工程学院"],"phone":["18302185152"],"type":["学生"],"email":["jinruimeng@163.com"]}
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14998 ] - [ ERROR ]  请求类方法:SGResult cn.smartGym.controller.UserController.register(SgUserCtr)
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14999 ] - [ ERROR ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@748fb4ae]
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:14999 ] - [ ERROR ]  请求类方法参数名称和值：{"campus":"嘉定校区","college":"电子与信息工程学院","email":"jinruimeng@163.com","gender":"男","name":"金test","phone":"18302185152","studentNo":"1400000","type":"学生","wxId":"112233"}
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:15000 ] - [ ERROR ]  方法发生异常时间:1555463223112
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:15000 ] - [ ERROR ]  方法发生的异常：org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'type' cannot be null
+### The error may involve cn.smartGym.mapper.SgUserMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: insert into sg_user (id, name, wx_id,        student_no, gender, campus,        college, phone, status,        authority, created, updated,        type, email)     values (?, ?, ?,        ?, ?, ?,        ?, ?, ?,        ?, ?, ?,        ?, ?)
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'type' cannot be null
+; SQL []; Column 'type' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column 'type' cannot be null
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:15002 ] - [ ERROR ]  	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:85)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:73)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:81)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy41.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:58)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59)
+	at com.sun.proxy.$Proxy42.insert(Unknown Source)
+	at cn.smartGym.service.impl.UserServiceImpl.register(UserServiceImpl.java:108)
+	at cn.smartGym.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$48ce354e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$52a880d5.register(<generated>)
+	at cn.smartGym.controller.UserController.register(UserController.java:91)
+	at cn.smartGym.controller.UserController$$FastClassBySpringCGLIB$$c7762f20.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:720)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:52)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85)
+	at cn.smartGym.aop.ArchivesLogAspect.around(ArchivesLogAspect.java:137)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:610)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:68)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:43)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at cn.smartGym.controller.UserController$$EnhancerBySpringCGLIB$$3b271815.register(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:969)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:871)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:845)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+2019-04-17 09:07:03  [ http-bio-8080-exec-1:15007 ] - [ ERROR ]  ====================异常内容结束====================
+2019-04-17 09:10:35  [ localhost-startStop-1:108 ] - [ INFO ]  FrameworkServlet 'smartGym-backEnd-web': initialization started
+2019-04-17 09:10:35  [ localhost-startStop-1:144 ] - [ INFO ]  Refreshing WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 09:10:35 CST 2019]; root of context hierarchy
+2019-04-17 09:10:35  [ localhost-startStop-1:195 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-dao.xml]
+2019-04-17 09:10:35  [ localhost-startStop-1:424 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-redis.xml]
+2019-04-17 09:10:35  [ localhost-startStop-1:455 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-trans.xml]
+2019-04-17 09:10:35  [ localhost-startStop-1:549 ] - [ INFO ]  Loading XML bean definitions from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\spring\applicationContext-web.xml]
+2019-04-17 09:10:36  [ localhost-startStop-1:1180 ] - [ INFO ]  Loading properties file from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\conf\db.properties]
+2019-04-17 09:10:36  [ localhost-startStop-1:1182 ] - [ INFO ]  Loading properties file from file [E:\workspace\git-repository\smartGymBack\smartGym-backEnd\smartGym-backEnd-web\target\classes\conf\resource.properties]
+2019-04-17 09:10:36  [ localhost-startStop-1:1196 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-04-17 09:10:39  [ localhost-startStop-1:4082 ] - [ INFO ]  Mapped "{[/smartgym/application/addApplication],methods=[POST || GET],consumes=[application/x-www-form-urlencoded]}" onto public common.utils.SGResult cn.smartGym.controller.ApplicationController.addApplication(cn.smartGym.pojoCtr.ApplicationCtr)
+2019-04-17 09:10:39  [ localhost-startStop-1:4088 ] - [ INFO ]  Mapped "{[/smartgym/application/getApplicationListByStudentNo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ApplicationController.getApplicationListByStudentNo(java.lang.String)
+2019-04-17 09:10:39  [ localhost-startStop-1:4102 ] - [ INFO ]  Mapped "{[/inform/deleteInformById],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.deleteInformById(java.lang.Long) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4103 ] - [ INFO ]  Mapped "{[/inform/addInform],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.addInform(cn.smartGym.pojo.Information)
+2019-04-17 09:10:39  [ localhost-startStop-1:4106 ] - [ INFO ]  Mapped "{[/inform/getInformList],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.getInformList(java.lang.Integer)
+2019-04-17 09:10:39  [ localhost-startStop-1:4108 ] - [ INFO ]  Mapped "{[/inform/updateInform],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.updateInform(cn.smartGym.pojo.Information)
+2019-04-17 09:10:39  [ localhost-startStop-1:4110 ] - [ INFO ]  Mapped "{[/inform/getInformById],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.InformController.getInformById(java.lang.Long)
+2019-04-17 09:10:39  [ localhost-startStop-1:4127 ] - [ INFO ]  Mapped "{[/smartgym/item/getItemInfo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getItemInfo(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:10:39  [ localhost-startStop-1:4128 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:10:39  [ localhost-startStop-1:4131 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo1],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage1(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:10:39  [ localhost-startStop-1:4135 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo2],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage2(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:10:39  [ localhost-startStop-1:4143 ] - [ INFO ]  Mapped "{[/smartgym/item/getInfo3],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ItemController.getInfoPage3(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:10:39  [ localhost-startStop-1:4174 ] - [ INFO ]  Mapped "{[/smartgym/manager/addItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.addItem(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4221 ] - [ INFO ]  Mapped "{[/smartgym/manager/downLoadExcel],methods=[POST || GET]}" onto public void cn.smartGym.controller.ManagerController.downLoadExcel(cn.smartGym.pojoCtr.fileDownloadCtr,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4222 ] - [ INFO ]  Mapped "{[/smartgym/manager/hardDelete],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.hardDelete() throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4222 ] - [ INFO ]  Mapped "{[/smartgym/manager/maintenance],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.maintenance() throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4223 ] - [ INFO ]  Mapped "{[/smartgym/manager/getUser],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getUser(cn.smartGym.pojoCtr.SgUserCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4224 ] - [ INFO ]  Mapped "{[/smartgym/manager/setUserAuthority],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.setUserAuthority(java.lang.Integer,java.lang.String[]) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4226 ] - [ INFO ]  Mapped "{[/smartgym/manager/deleteItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.deleteItem(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:10:39  [ localhost-startStop-1:4227 ] - [ INFO ]  Mapped "{[/smartgym/manager/registerGrades],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.registerGrades(cn.smartGym.pojoCtr.PlayerCtr,java.lang.Integer)
+2019-04-17 09:10:39  [ localhost-startStop-1:4228 ] - [ INFO ]  Mapped "{[/smartgym/manager/genRank],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.genRank(java.lang.Long,java.lang.Integer)
+2019-04-17 09:10:39  [ localhost-startStop-1:4231 ] - [ INFO ]  Mapped "{[/smartgym/manager/getTopK],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getTopK(java.lang.Long,java.lang.Integer)
+2019-04-17 09:10:39  [ localhost-startStop-1:4232 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByItem(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4232 ] - [ INFO ]  Mapped "{[/smartgym/manager/viewByCollegeManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.viewByCollegeManager(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4234 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByCollege],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByCollege(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4235 ] - [ INFO ]  Mapped "{[/smartgym/manager/viewByUniversityManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.viewByUniversityManager(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4236 ] - [ INFO ]  Mapped "{[/smartgym/manager/reviewByCollegeManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.reviewByCollegeManager(java.lang.Long[]) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4237 ] - [ INFO ]  Mapped "{[/smartgym/manager/reviewByUniversityManager],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.reviewByUniversityManager(cn.smartGym.pojoCtr.ItemCtr) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4237 ] - [ INFO ]  Mapped "{[/smartgym/manager/getPlayersExcelFilePath],methods=[POST || GET]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getPlayersExcelFilePath(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:10:39  [ localhost-startStop-1:4238 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByCollegeDetail],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByCollegeDetail(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4239 ] - [ INFO ]  Mapped "{[/smartgym/manager/getInfoGroupByItemDetail],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getInfoGroupByItemDetail(java.lang.Long) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4240 ] - [ INFO ]  Mapped "{[/smartgym/manager/generateApplicationsExcelByCollege],methods=[POST || GET]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.generateApplicationsExcelByCollege(cn.smartGym.pojoCtr.ItemCtr,java.lang.String)
+2019-04-17 09:10:39  [ localhost-startStop-1:4240 ] - [ INFO ]  Mapped "{[/smartgym/manager/getPlayersListByItemDetailsAndCollege],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.ManagerController.getPlayersListByItemDetailsAndCollege(cn.smartGym.pojoCtr.ItemCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4243 ] - [ INFO ]  Mapped "{[/smartgym/pirture/getPictureUrl],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PictureController.getPictureUrl(java.lang.Integer)
+2019-04-17 09:10:39  [ localhost-startStop-1:4253 ] - [ INFO ]  Mapped "{[/smartgym/player/getPlayerListByItem],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PlayerController.getPlayerListByItem(cn.smartGym.pojoCtr.ItemCtr)
+2019-04-17 09:10:39  [ localhost-startStop-1:4254 ] - [ INFO ]  Mapped "{[/smartgym/player/getPlayerListByStudentNo],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.PlayerController.getPlayerListByStudentNo(java.lang.String) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4286 ] - [ INFO ]  Mapped "{[/smartgym/remark/addRemark],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto common.utils.SGResult cn.smartGym.controller.RemarkController.addRemark(cn.smartGym.pojo.Remark)
+2019-04-17 09:10:39  [ localhost-startStop-1:4291 ] - [ INFO ]  Mapped "{[/smartgym/user/register],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.register(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4292 ] - [ INFO ]  Mapped "{[/smartgym/user/signIn],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.signIn(cn.smartGym.pojoCtr.SgUserCtr,java.lang.String) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4292 ] - [ INFO ]  Mapped "{[/smartgym/user/delete],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.deleteUser(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4293 ] - [ INFO ]  Mapped "{[/smartgym/user/update],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.updateUser(cn.smartGym.pojoCtr.SgUserCtr) throws java.lang.Exception
+2019-04-17 09:10:39  [ localhost-startStop-1:4293 ] - [ INFO ]  Mapped "{[/smartgym/user/getAllCollegesAndCampus],methods=[POST || GET],consumes=[application/x-www-form-urlencoded;charset=utf-8]}" onto public common.utils.SGResult cn.smartGym.controller.UserController.getAllCollegesAndCampus() throws java.lang.Exception
+2019-04-17 09:10:40  [ localhost-startStop-1:5872 ] - [ INFO ]  Looking for @ControllerAdvice: WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 09:10:35 CST 2019]; root of context hierarchy
+2019-04-17 09:10:40  [ localhost-startStop-1:6005 ] - [ INFO ]  Looking for @ControllerAdvice: WebApplicationContext for namespace 'smartGym-backEnd-web-servlet': startup date [Wed Apr 17 09:10:35 CST 2019]; root of context hierarchy
+2019-04-17 09:10:41  [ localhost-startStop-1:6236 ] - [ INFO ]  FrameworkServlet 'smartGym-backEnd-web': initialization completed in 6124 ms
+2019-04-17 09:10:48  [ http-bio-8080-exec-1:13970 ] - [ INFO ]  {dataSource-1} inited
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14428 ] - [ INFO ]  ====================请求内容开始====================
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14429 ] - [ INFO ]  请求者微信号:112233
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14429 ] - [ INFO ]  请求者姓名:null
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14430 ] - [ INFO ]  请求者学号:null
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14430 ] - [ INFO ]  请求地址:http://192.168.1.111:8080/smartgym/user/register.action
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14431 ] - [ INFO ]  请求方式:POST
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14497 ] - [ INFO ]  请求参数:{"name":["金test"],"wxId":["112233"],"studentNo":["1400000"],"gender":["男"],"campus":["嘉定校区"],"college":["电子与信息工程学院"],"phone":["18302185152"],"type":["学生"],"email":["jinruimeng@163.com"]}
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14500 ] - [ INFO ]  请求类方法:SGResult cn.smartGym.controller.UserController.register(SgUserCtr)
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14501 ] - [ INFO ]  请求类方法参数:[cn.smartGym.pojoCtr.SgUserCtr@615365ec]
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14678 ] - [ INFO ]  请求类方法参数名称和值：{"campus":"嘉定校区","college":"电子与信息工程学院","email":"jinruimeng@163.com","gender":"男","name":"金test","phone":"18302185152","studentNo":"1400000","type":"学生","wxId":"112233"}
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14678 ] - [ INFO ]  ====================请求内容结束====================
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14826 ] - [ INFO ]  ====================返回内容开始====================
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14830 ] - [ INFO ]  方法执行结果:{"result":{"status":200,"msg":"注册成功！","data":{"id":155546344970176,"name":"金test","wxId":"112233","studentNo":"1400000","gender":"男","campus":"嘉定校区","college":"电子与信息工程学院","phone":"18302185152","status":1,"authority":0,"type":"学生","email":"jinruimeng@163.com"}}}
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14831 ] - [ INFO ]  方法执行所用时间:1212ms
+2019-04-17 09:10:49  [ http-bio-8080-exec-1:14831 ] - [ INFO ]  ====================返回内容结束====================

@@ -92,6 +92,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		criteria.andJobEqualTo(application.getJob());
 		criteria.andStudentNoEqualTo(application.getStudentNo());
 		criteria.andItemIdEqualTo(application.getItemId());
+		criteria.andStatusNotEqualTo(0);
 		// 执行查询
 		List<Application> list = applicationMapper.selectByExample(example);
 		// 判断结果中是否包含数据

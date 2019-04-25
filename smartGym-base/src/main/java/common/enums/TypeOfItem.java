@@ -28,7 +28,7 @@ public enum TypeOfItem {
 
 	public static Integer getType(String typeName) {
 		for (TypeOfItem i : TypeOfItem.values())
-			if (i.getTypeName() == typeName)
+			if (i.getTypeName().equals(typeName))
 				return i.type;
 		return null;
 	}

@@ -250,12 +250,13 @@ public class ManagerController {
         return SGResult.ok("校级管理员审核成功！");
     }
     
-//    @RequestMapping(value = "/smartgym/manager/genGroupNoAndPathNo", method = {RequestMethod.POST,
-//            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
-//    @ResponseBody
-//    public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
-//          return playerService.genGroupNoAndPathNo(itemId, pathNum);
-//    }
+    @RequestMapping(value = "/smartgym/manager/generatePlayersDetailedExcel", method = {RequestMethod.POST,
+            RequestMethod.GET}, consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    @ResponseBody
+    public SGResult generatePlayersDetailedExcel(ItemCtr itemCtr) throws IOException {
+    	playerService.generatePlayersDetailedExcel(itemCtr.getGame());
+        return SGResult.ok("生成运动员详情表成功");
+    }
     
 
     /**

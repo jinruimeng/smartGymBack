@@ -454,5 +454,52 @@ public class PlayerServiceImpl implements PlayerService {
 		data.add(String.valueOf(player.getPathNo()));
 		return data;
 	}
+//////////////备用////////////////	
+	@Override
+	public void generatePlayersDetailedExcel(String game) throws IOException {
+		// 构建Excel文件路径
+		String filePath = getPlayersExcelFilePath(game);
+		// 获取Excel标题行数据
+		List<String> title = Arrays.asList(ExcelHelper.playersDetailedExcelTitleArray);
+		// 获取playersData
+		Item item = new Item();
+		item.setGame(game);
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(item, 2, 3);
+		List<Long> ids = itemService.getItemIdsByItems(items);
+		List<Player> players = getPlayersByCollegeAndItemIds("total", ids.toArray(new Long[ids.size()]));
+		List<List<String>> playersData = new ArrayList<>();
+		for (Player player : players) {
+			playersData.add(convertPlayerDetailedToRowData(player));
+		}
+		ExcelHelper.writeExcel(title, playersData, filePath);
+
+	}
+
+	/**
+	 * 将player对象转化为秩序册EXCEL行数据 by zh
+	 *
+	 * @param player
+	 * @return
+	 */
+	private List<String> convertPlayerDetailedToRowData(Player player) {
+		List<String> data = new ArrayList<>();
+		data.add(player.getPlayerNo());
+		data.add(player.getStudentNo());
+		data.add(player.getName());
+		data.add(Gender.getName(player.getGender()));
+		data.add(collegeService.getCollege(player.getCollege()));
+		Item item = itemService.getItemByItemIdAndStatuses(player.getItemId());
+		data.add(item.getGame());
+		data.add(item.getCategory());
+		data.add(item.getItem());
+		data.add(GenderGroup.getName(item.getGender()));
+		data.add(Job.getName(player.getJob()));
+		data.add(String.valueOf(player.getGroupNo()));
+		data.add(String.valueOf(player.getPathNo()));
+		data.add(String.valueOf(player.getGrades()));
+		data.add(String.valueOf(player.getRankNo()));
+//		data.add(String.valueOf(player.getDescription()));
+		return data;
+	}
 
 }

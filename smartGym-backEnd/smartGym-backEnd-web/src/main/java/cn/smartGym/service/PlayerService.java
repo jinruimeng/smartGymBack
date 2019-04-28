@@ -48,7 +48,9 @@ public interface PlayerService {
      *
      * @param game
      */
-    void generatePlayersExcel(String game) throws IOException;
 
+    void generatePlayersExcel(String game) throws IOException;
+    
+    void generatePlayersDetailedExcel(String game) throws IOException;
 }
 

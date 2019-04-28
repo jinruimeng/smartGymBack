@@ -12,7 +12,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  */
 public class ExcelHelper {
 	public static String[] playersExcelTitleArray = new String[] { "参赛号", "学号", "姓名", "性别", "学院", "赛事", "类别", "项目",
-			"组别", "职责", "组号", "道次", "成绩", "小组排名", "总排名", "备注" };
+			"组别", "职责", "组号", "道次", "备注" };
+	public static String[] playersDetailedExcelTitleArray = new String[] { "参赛号", "学号", "姓名", "性别", "学院", "赛事", "类别", "项目",
+			"组别", "职责", "组号", "道次", "成绩", "排名", "备注" };
 	public static String[] applicationsExcelTitleArray = new String[] { "学号", "姓名", "性别", "学院", "赛事", "类别", "项目",
 			"组别", "职责", "状态", "备注" };
 	/**

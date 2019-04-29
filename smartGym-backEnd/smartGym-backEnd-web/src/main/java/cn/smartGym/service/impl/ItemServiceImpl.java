@@ -87,7 +87,7 @@ public class ItemServiceImpl implements ItemService {
 			item.setId(itemId);
 			item.setStatus(1); // 0-已取消 1-正在报名 2-已结束
 			item.setParticipantNum(0);
-			item.setPathNum(1);
+			item.setPathNum(0);
 			item.setCreated(new Date());
 			item.setUpdated(new Date());
 			// 插入数据库

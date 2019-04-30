@@ -143,7 +143,7 @@ public class PlayerServiceImpl implements PlayerService {
 	@Override
 	public void genPlayerNo(List<Long> itemIds) {
 		PlayerExample example = new PlayerExample();
-		example.setOrderByClause("student_no");
+		example.setOrderByClause("college,student_no");
 		for (Long itemId : itemIds) {
 			Criteria criteria = example.or();
 			criteria.andItemIdEqualTo(itemId);

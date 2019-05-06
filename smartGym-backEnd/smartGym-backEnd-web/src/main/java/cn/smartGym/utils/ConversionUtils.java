@@ -11,10 +11,12 @@ import org.springframework.stereotype.Component;
 
 import cn.smartGym.pojo.Application;
 import cn.smartGym.pojo.Item;
+import cn.smartGym.pojo.Medal;
 import cn.smartGym.pojo.Player;
 import cn.smartGym.pojo.SgUser;
 import cn.smartGym.pojoCtr.ApplicationCtr;
 import cn.smartGym.pojoCtr.ItemCtr;
+import cn.smartGym.pojoCtr.MedalCtr;
 import cn.smartGym.pojoCtr.PlayerCtr;
 import cn.smartGym.pojoCtr.SgUserCtr;
 import cn.smartGym.service.CampusService;
@@ -260,6 +262,52 @@ public class ConversionUtils {
 			usersCtr.add(userDaoToCtr(user));
 		}
 		return usersCtr;
+	}
+	
+	public static MedalCtr medalDaoToCtr(Medal medal) {
+		MedalCtr medalCtr = new MedalCtr();
+		
+		medalCtr.setId(medal.getId());
+		medalCtr.setCollege(conversionUtils.collegeService.getCollege(medal.getCollege()));
+		medalCtr.setStatus(medal.getStatus());
+		medalCtr.setFirst(medal.getFirst());
+		medalCtr.setSecond(medal.getSecond());
+		medalCtr.setThird(medal.getThird());
+		medalCtr.setFourth(medal.getFourth());
+		medalCtr.setFifth(medal.getFifth());
+		medalCtr.setSixth(medal.getSixth());
+		medalCtr.setSeventh(medal.getSeventh());
+		medalCtr.setEighth(medal.getEighth());
+		medalCtr.setCreated(medal.getCreated());
+		medalCtr.setUpdated(medal.getUpdated());
+		return medalCtr;
+	}
+
+	public static Medal medalCtrToDao(MedalCtr medalCtr) {
+		Medal medal = new Medal();
+
+		medal.setId(medalCtr.getId());
+		medal.setCollege(conversionUtils.collegeService.getId(medalCtr.getCollege()));
+		medal.setStatus(medalCtr.getStatus());
+		medal.setFirst(medalCtr.getFirst());
+		medal.setSecond(medalCtr.getSecond());
+		medal.setThird(medalCtr.getThird());
+		medal.setFourth(medalCtr.getFourth());
+		medal.setFifth(medalCtr.getFifth());
+		medal.setSixth(medalCtr.getSixth());
+		medal.setSeventh(medalCtr.getSeventh());
+		medal.setEighth(medalCtr.getEighth());
+		medal.setCreated(medalCtr.getCreated());
+		medal.setUpdated(medalCtr.getUpdated());
+		return medal;
+	}
+
+	public static List<MedalCtr> medalDaoListToCtrList(List<Medal> medals) {
+		List<MedalCtr> medalCtrs = new ArrayList<>();
+		for (Medal medal : medals) {
+			medalCtrs.add(medalDaoToCtr(medal));
+		}
+		return medalCtrs;
 	}
 
 }

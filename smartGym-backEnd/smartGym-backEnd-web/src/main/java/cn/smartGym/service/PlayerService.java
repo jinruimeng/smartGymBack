@@ -26,6 +26,8 @@ public interface PlayerService {
     SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum);
 
     SGResult registerGrades(Player player, Integer type);
+    
+    Player getPlayerByPlayerIdAndStatuses(Long playerId, Integer... statuses);
 
     SGResult genRank(Long itemId, Integer type);
 

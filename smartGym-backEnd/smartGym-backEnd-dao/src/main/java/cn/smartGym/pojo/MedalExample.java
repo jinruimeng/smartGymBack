@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ApplicationExample {
+public class MedalExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ApplicationExample() {
+    public MedalExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,73 +165,73 @@ public class ApplicationExample {
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNull() {
-            addCriterion("name is null");
+        public Criteria andGameIsNull() {
+            addCriterion("game is null");
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+        public Criteria andGameIsNotNull() {
+            addCriterion("game is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+        public Criteria andGameEqualTo(String value) {
+            addCriterion("game =", value, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+        public Criteria andGameNotEqualTo(String value) {
+            addCriterion("game <>", value, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+        public Criteria andGameGreaterThan(String value) {
+            addCriterion("game >", value, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+        public Criteria andGameGreaterThanOrEqualTo(String value) {
+            addCriterion("game >=", value, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+        public Criteria andGameLessThan(String value) {
+            addCriterion("game <", value, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+        public Criteria andGameLessThanOrEqualTo(String value) {
+            addCriterion("game <=", value, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+        public Criteria andGameLike(String value) {
+            addCriterion("game like", value, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+        public Criteria andGameNotLike(String value) {
+            addCriterion("game not like", value, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+        public Criteria andGameIn(List<String> values) {
+            addCriterion("game in", values, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+        public Criteria andGameNotIn(List<String> values) {
+            addCriterion("game not in", values, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+        public Criteria andGameBetween(String value1, String value2) {
+            addCriterion("game between", value1, value2, "game");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+        public Criteria andGameNotBetween(String value1, String value2) {
+            addCriterion("game not between", value1, value2, "game");
             return (Criteria) this;
         }
 
@@ -295,253 +295,483 @@ public class ApplicationExample {
             return (Criteria) this;
         }
 
-        public Criteria andJobIsNull() {
-            addCriterion("job is null");
+        public Criteria andFirstIsNull() {
+            addCriterion("first is null");
             return (Criteria) this;
         }
 
-        public Criteria andJobIsNotNull() {
-            addCriterion("job is not null");
+        public Criteria andFirstIsNotNull() {
+            addCriterion("first is not null");
             return (Criteria) this;
         }
 
-        public Criteria andJobEqualTo(Integer value) {
-            addCriterion("job =", value, "job");
+        public Criteria andFirstEqualTo(Integer value) {
+            addCriterion("first =", value, "first");
             return (Criteria) this;
         }
 
-        public Criteria andJobNotEqualTo(Integer value) {
-            addCriterion("job <>", value, "job");
+        public Criteria andFirstNotEqualTo(Integer value) {
+            addCriterion("first <>", value, "first");
             return (Criteria) this;
         }
 
-        public Criteria andJobGreaterThan(Integer value) {
-            addCriterion("job >", value, "job");
+        public Criteria andFirstGreaterThan(Integer value) {
+            addCriterion("first >", value, "first");
             return (Criteria) this;
         }
 
-        public Criteria andJobGreaterThanOrEqualTo(Integer value) {
-            addCriterion("job >=", value, "job");
+        public Criteria andFirstGreaterThanOrEqualTo(Integer value) {
+            addCriterion("first >=", value, "first");
             return (Criteria) this;
         }
 
-        public Criteria andJobLessThan(Integer value) {
-            addCriterion("job <", value, "job");
+        public Criteria andFirstLessThan(Integer value) {
+            addCriterion("first <", value, "first");
             return (Criteria) this;
         }
 
-        public Criteria andJobLessThanOrEqualTo(Integer value) {
-            addCriterion("job <=", value, "job");
+        public Criteria andFirstLessThanOrEqualTo(Integer value) {
+            addCriterion("first <=", value, "first");
             return (Criteria) this;
         }
 
-        public Criteria andJobIn(List<Integer> values) {
-            addCriterion("job in", values, "job");
+        public Criteria andFirstIn(List<Integer> values) {
+            addCriterion("first in", values, "first");
             return (Criteria) this;
         }
 
-        public Criteria andJobNotIn(List<Integer> values) {
-            addCriterion("job not in", values, "job");
+        public Criteria andFirstNotIn(List<Integer> values) {
+            addCriterion("first not in", values, "first");
             return (Criteria) this;
         }
 
-        public Criteria andJobBetween(Integer value1, Integer value2) {
-            addCriterion("job between", value1, value2, "job");
+        public Criteria andFirstBetween(Integer value1, Integer value2) {
+            addCriterion("first between", value1, value2, "first");
             return (Criteria) this;
         }
 
-        public Criteria andJobNotBetween(Integer value1, Integer value2) {
-            addCriterion("job not between", value1, value2, "job");
+        public Criteria andFirstNotBetween(Integer value1, Integer value2) {
+            addCriterion("first not between", value1, value2, "first");
             return (Criteria) this;
         }
 
-        public Criteria andGenderIsNull() {
-            addCriterion("gender is null");
+        public Criteria andSecondIsNull() {
+            addCriterion("second is null");
             return (Criteria) this;
         }
 
-        public Criteria andGenderIsNotNull() {
-            addCriterion("gender is not null");
+        public Criteria andSecondIsNotNull() {
+            addCriterion("second is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGenderEqualTo(Integer value) {
-            addCriterion("gender =", value, "gender");
+        public Criteria andSecondEqualTo(Integer value) {
+            addCriterion("second =", value, "second");
             return (Criteria) this;
         }
 
-        public Criteria andGenderNotEqualTo(Integer value) {
-            addCriterion("gender <>", value, "gender");
+        public Criteria andSecondNotEqualTo(Integer value) {
+            addCriterion("second <>", value, "second");
             return (Criteria) this;
         }
 
-        public Criteria andGenderGreaterThan(Integer value) {
-            addCriterion("gender >", value, "gender");
+        public Criteria andSecondGreaterThan(Integer value) {
+            addCriterion("second >", value, "second");
             return (Criteria) this;
         }
 
-        public Criteria andGenderGreaterThanOrEqualTo(Integer value) {
-            addCriterion("gender >=", value, "gender");
+        public Criteria andSecondGreaterThanOrEqualTo(Integer value) {
+            addCriterion("second >=", value, "second");
             return (Criteria) this;
         }
 
-        public Criteria andGenderLessThan(Integer value) {
-            addCriterion("gender <", value, "gender");
+        public Criteria andSecondLessThan(Integer value) {
+            addCriterion("second <", value, "second");
             return (Criteria) this;
         }
 
-        public Criteria andGenderLessThanOrEqualTo(Integer value) {
-            addCriterion("gender <=", value, "gender");
+        public Criteria andSecondLessThanOrEqualTo(Integer value) {
+            addCriterion("second <=", value, "second");
             return (Criteria) this;
         }
 
-        public Criteria andGenderIn(List<Integer> values) {
-            addCriterion("gender in", values, "gender");
+        public Criteria andSecondIn(List<Integer> values) {
+            addCriterion("second in", values, "second");
             return (Criteria) this;
         }
 
-        public Criteria andGenderNotIn(List<Integer> values) {
-            addCriterion("gender not in", values, "gender");
+        public Criteria andSecondNotIn(List<Integer> values) {
+            addCriterion("second not in", values, "second");
             return (Criteria) this;
         }
 
-        public Criteria andGenderBetween(Integer value1, Integer value2) {
-            addCriterion("gender between", value1, value2, "gender");
+        public Criteria andSecondBetween(Integer value1, Integer value2) {
+            addCriterion("second between", value1, value2, "second");
             return (Criteria) this;
         }
 
-        public Criteria andGenderNotBetween(Integer value1, Integer value2) {
-            addCriterion("gender not between", value1, value2, "gender");
+        public Criteria andSecondNotBetween(Integer value1, Integer value2) {
+            addCriterion("second not between", value1, value2, "second");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoIsNull() {
-            addCriterion("student_no is null");
+        public Criteria andThirdIsNull() {
+            addCriterion("third is null");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoIsNotNull() {
-            addCriterion("student_no is not null");
+        public Criteria andThirdIsNotNull() {
+            addCriterion("third is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoEqualTo(String value) {
-            addCriterion("student_no =", value, "studentNo");
+        public Criteria andThirdEqualTo(Integer value) {
+            addCriterion("third =", value, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoNotEqualTo(String value) {
-            addCriterion("student_no <>", value, "studentNo");
+        public Criteria andThirdNotEqualTo(Integer value) {
+            addCriterion("third <>", value, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoGreaterThan(String value) {
-            addCriterion("student_no >", value, "studentNo");
+        public Criteria andThirdGreaterThan(Integer value) {
+            addCriterion("third >", value, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoGreaterThanOrEqualTo(String value) {
-            addCriterion("student_no >=", value, "studentNo");
+        public Criteria andThirdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("third >=", value, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoLessThan(String value) {
-            addCriterion("student_no <", value, "studentNo");
+        public Criteria andThirdLessThan(Integer value) {
+            addCriterion("third <", value, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoLessThanOrEqualTo(String value) {
-            addCriterion("student_no <=", value, "studentNo");
+        public Criteria andThirdLessThanOrEqualTo(Integer value) {
+            addCriterion("third <=", value, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoLike(String value) {
-            addCriterion("student_no like", value, "studentNo");
+        public Criteria andThirdIn(List<Integer> values) {
+            addCriterion("third in", values, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoNotLike(String value) {
-            addCriterion("student_no not like", value, "studentNo");
+        public Criteria andThirdNotIn(List<Integer> values) {
+            addCriterion("third not in", values, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoIn(List<String> values) {
-            addCriterion("student_no in", values, "studentNo");
+        public Criteria andThirdBetween(Integer value1, Integer value2) {
+            addCriterion("third between", value1, value2, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoNotIn(List<String> values) {
-            addCriterion("student_no not in", values, "studentNo");
+        public Criteria andThirdNotBetween(Integer value1, Integer value2) {
+            addCriterion("third not between", value1, value2, "third");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoBetween(String value1, String value2) {
-            addCriterion("student_no between", value1, value2, "studentNo");
+        public Criteria andFourthIsNull() {
+            addCriterion("fourth is null");
             return (Criteria) this;
         }
 
-        public Criteria andStudentNoNotBetween(String value1, String value2) {
-            addCriterion("student_no not between", value1, value2, "studentNo");
+        public Criteria andFourthIsNotNull() {
+            addCriterion("fourth is not null");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdIsNull() {
-            addCriterion("item_id is null");
+        public Criteria andFourthEqualTo(Integer value) {
+            addCriterion("fourth =", value, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdIsNotNull() {
-            addCriterion("item_id is not null");
+        public Criteria andFourthNotEqualTo(Integer value) {
+            addCriterion("fourth <>", value, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdEqualTo(Long value) {
-            addCriterion("item_id =", value, "itemId");
+        public Criteria andFourthGreaterThan(Integer value) {
+            addCriterion("fourth >", value, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdNotEqualTo(Long value) {
-            addCriterion("item_id <>", value, "itemId");
+        public Criteria andFourthGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fourth >=", value, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdGreaterThan(Long value) {
-            addCriterion("item_id >", value, "itemId");
+        public Criteria andFourthLessThan(Integer value) {
+            addCriterion("fourth <", value, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("item_id >=", value, "itemId");
+        public Criteria andFourthLessThanOrEqualTo(Integer value) {
+            addCriterion("fourth <=", value, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdLessThan(Long value) {
-            addCriterion("item_id <", value, "itemId");
+        public Criteria andFourthIn(List<Integer> values) {
+            addCriterion("fourth in", values, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdLessThanOrEqualTo(Long value) {
-            addCriterion("item_id <=", value, "itemId");
+        public Criteria andFourthNotIn(List<Integer> values) {
+            addCriterion("fourth not in", values, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdIn(List<Long> values) {
-            addCriterion("item_id in", values, "itemId");
+        public Criteria andFourthBetween(Integer value1, Integer value2) {
+            addCriterion("fourth between", value1, value2, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdNotIn(List<Long> values) {
-            addCriterion("item_id not in", values, "itemId");
+        public Criteria andFourthNotBetween(Integer value1, Integer value2) {
+            addCriterion("fourth not between", value1, value2, "fourth");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdBetween(Long value1, Long value2) {
-            addCriterion("item_id between", value1, value2, "itemId");
+        public Criteria andFifthIsNull() {
+            addCriterion("fifth is null");
             return (Criteria) this;
         }
 
-        public Criteria andItemIdNotBetween(Long value1, Long value2) {
-            addCriterion("item_id not between", value1, value2, "itemId");
+        public Criteria andFifthIsNotNull() {
+            addCriterion("fifth is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthEqualTo(Integer value) {
+            addCriterion("fifth =", value, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthNotEqualTo(Integer value) {
+            addCriterion("fifth <>", value, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthGreaterThan(Integer value) {
+            addCriterion("fifth >", value, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fifth >=", value, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthLessThan(Integer value) {
+            addCriterion("fifth <", value, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthLessThanOrEqualTo(Integer value) {
+            addCriterion("fifth <=", value, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthIn(List<Integer> values) {
+            addCriterion("fifth in", values, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthNotIn(List<Integer> values) {
+            addCriterion("fifth not in", values, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthBetween(Integer value1, Integer value2) {
+            addCriterion("fifth between", value1, value2, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andFifthNotBetween(Integer value1, Integer value2) {
+            addCriterion("fifth not between", value1, value2, "fifth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthIsNull() {
+            addCriterion("sixth is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthIsNotNull() {
+            addCriterion("sixth is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthEqualTo(Integer value) {
+            addCriterion("sixth =", value, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthNotEqualTo(Integer value) {
+            addCriterion("sixth <>", value, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthGreaterThan(Integer value) {
+            addCriterion("sixth >", value, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthGreaterThanOrEqualTo(Integer value) {
+            addCriterion("sixth >=", value, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthLessThan(Integer value) {
+            addCriterion("sixth <", value, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthLessThanOrEqualTo(Integer value) {
+            addCriterion("sixth <=", value, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthIn(List<Integer> values) {
+            addCriterion("sixth in", values, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthNotIn(List<Integer> values) {
+            addCriterion("sixth not in", values, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthBetween(Integer value1, Integer value2) {
+            addCriterion("sixth between", value1, value2, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSixthNotBetween(Integer value1, Integer value2) {
+            addCriterion("sixth not between", value1, value2, "sixth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhIsNull() {
+            addCriterion("seventh is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhIsNotNull() {
+            addCriterion("seventh is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhEqualTo(Integer value) {
+            addCriterion("seventh =", value, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhNotEqualTo(Integer value) {
+            addCriterion("seventh <>", value, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhGreaterThan(Integer value) {
+            addCriterion("seventh >", value, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhGreaterThanOrEqualTo(Integer value) {
+            addCriterion("seventh >=", value, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhLessThan(Integer value) {
+            addCriterion("seventh <", value, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhLessThanOrEqualTo(Integer value) {
+            addCriterion("seventh <=", value, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhIn(List<Integer> values) {
+            addCriterion("seventh in", values, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhNotIn(List<Integer> values) {
+            addCriterion("seventh not in", values, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhBetween(Integer value1, Integer value2) {
+            addCriterion("seventh between", value1, value2, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeventhNotBetween(Integer value1, Integer value2) {
+            addCriterion("seventh not between", value1, value2, "seventh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthIsNull() {
+            addCriterion("eighth is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthIsNotNull() {
+            addCriterion("eighth is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthEqualTo(Integer value) {
+            addCriterion("eighth =", value, "eighth");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthNotEqualTo(Integer value) {
+            addCriterion("eighth <>", value, "eighth");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthGreaterThan(Integer value) {
+            addCriterion("eighth >", value, "eighth");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthGreaterThanOrEqualTo(Integer value) {
+            addCriterion("eighth >=", value, "eighth");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthLessThan(Integer value) {
+            addCriterion("eighth <", value, "eighth");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthLessThanOrEqualTo(Integer value) {
+            addCriterion("eighth <=", value, "eighth");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthIn(List<Integer> values) {
+            addCriterion("eighth in", values, "eighth");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthNotIn(List<Integer> values) {
+            addCriterion("eighth not in", values, "eighth");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthBetween(Integer value1, Integer value2) {
+            addCriterion("eighth between", value1, value2, "eighth");
+            return (Criteria) this;
+        }
+
+        public Criteria andEighthNotBetween(Integer value1, Integer value2) {
+            addCriterion("eighth not between", value1, value2, "eighth");
             return (Criteria) this;
         }
 

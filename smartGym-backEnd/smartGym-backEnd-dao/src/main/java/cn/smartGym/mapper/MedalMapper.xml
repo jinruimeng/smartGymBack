@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.smartGym.mapper.SgUserMapper">
-  <resultMap id="BaseResultMap" type="cn.smartGym.pojo.SgUser">
+<mapper namespace="cn.smartGym.mapper.MedalMapper">
+  <resultMap id="BaseResultMap" type="cn.smartGym.pojo.Medal">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="wx_id" jdbcType="VARCHAR" property="wxId" />
-    <result column="student_no" jdbcType="VARCHAR" property="studentNo" />
-    <result column="gender" jdbcType="INTEGER" property="gender" />
-    <result column="campus" jdbcType="INTEGER" property="campus" />
+    <result column="game" jdbcType="VARCHAR" property="game" />
     <result column="college" jdbcType="INTEGER" property="college" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="first" jdbcType="INTEGER" property="first" />
+    <result column="second" jdbcType="INTEGER" property="second" />
+    <result column="third" jdbcType="INTEGER" property="third" />
+    <result column="fourth" jdbcType="INTEGER" property="fourth" />
+    <result column="fifth" jdbcType="INTEGER" property="fifth" />
+    <result column="sixth" jdbcType="INTEGER" property="sixth" />
+    <result column="seventh" jdbcType="INTEGER" property="seventh" />
+    <result column="eighth" jdbcType="INTEGER" property="eighth" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="authority" jdbcType="INTEGER" property="authority" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,16 +76,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, wx_id, student_no, gender, campus, college, phone, status, authority, created, 
-    updated, type, email
+    id, game, college, first, second, third, fourth, fifth, sixth, seventh, eighth, status, 
+    created, updated
   </sql>
-  <select id="selectByExample" parameterType="cn.smartGym.pojo.SgUserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.smartGym.pojo.MedalExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from sg_user
+    from medal
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -96,63 +96,69 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from sg_user
+    from medal
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sg_user
+    delete from medal
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.smartGym.pojo.SgUserExample">
-    delete from sg_user
+  <delete id="deleteByExample" parameterType="cn.smartGym.pojo.MedalExample">
+    delete from medal
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.smartGym.pojo.SgUser">
-    insert into sg_user (id, name, wx_id, 
-      student_no, gender, campus, 
-      college, phone, status, 
-      authority, created, updated, 
-      type, email)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, 
-      #{studentNo,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{campus,jdbcType=INTEGER}, 
-      #{college,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{authority,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
-      #{type,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="cn.smartGym.pojo.Medal">
+    insert into medal (id, game, college, 
+      first, second, third, 
+      fourth, fifth, sixth, 
+      seventh, eighth, status, 
+      created, updated)
+    values (#{id,jdbcType=BIGINT}, #{game,jdbcType=VARCHAR}, #{college,jdbcType=INTEGER}, 
+      #{first,jdbcType=INTEGER}, #{second,jdbcType=INTEGER}, #{third,jdbcType=INTEGER}, 
+      #{fourth,jdbcType=INTEGER}, #{fifth,jdbcType=INTEGER}, #{sixth,jdbcType=INTEGER}, 
+      #{seventh,jdbcType=INTEGER}, #{eighth,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="cn.smartGym.pojo.SgUser">
-    insert into sg_user
+  <insert id="insertSelective" parameterType="cn.smartGym.pojo.Medal">
+    insert into medal
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="wxId != null">
-        wx_id,
-      </if>
-      <if test="studentNo != null">
-        student_no,
-      </if>
-      <if test="gender != null">
-        gender,
-      </if>
-      <if test="campus != null">
-        campus,
+      <if test="game != null">
+        game,
       </if>
       <if test="college != null">
         college,
       </if>
-      <if test="phone != null">
-        phone,
+      <if test="first != null">
+        first,
+      </if>
+      <if test="second != null">
+        second,
+      </if>
+      <if test="third != null">
+        third,
+      </if>
+      <if test="fourth != null">
+        fourth,
+      </if>
+      <if test="fifth != null">
+        fifth,
+      </if>
+      <if test="sixth != null">
+        sixth,
+      </if>
+      <if test="seventh != null">
+        seventh,
+      </if>
+      <if test="eighth != null">
+        eighth,
       </if>
       <if test="status != null">
         status,
-      </if>
-      <if test="authority != null">
-        authority,
       </if>
       <if test="created != null">
         created,
@@ -160,43 +166,43 @@
       <if test="updated != null">
         updated,
       </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="wxId != null">
-        #{wxId,jdbcType=VARCHAR},
-      </if>
-      <if test="studentNo != null">
-        #{studentNo,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null">
-        #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="campus != null">
-        #{campus,jdbcType=INTEGER},
+      <if test="game != null">
+        #{game,jdbcType=VARCHAR},
       </if>
       <if test="college != null">
         #{college,jdbcType=INTEGER},
       </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
+      <if test="first != null">
+        #{first,jdbcType=INTEGER},
+      </if>
+      <if test="second != null">
+        #{second,jdbcType=INTEGER},
+      </if>
+      <if test="third != null">
+        #{third,jdbcType=INTEGER},
+      </if>
+      <if test="fourth != null">
+        #{fourth,jdbcType=INTEGER},
+      </if>
+      <if test="fifth != null">
+        #{fifth,jdbcType=INTEGER},
+      </if>
+      <if test="sixth != null">
+        #{sixth,jdbcType=INTEGER},
+      </if>
+      <if test="seventh != null">
+        #{seventh,jdbcType=INTEGER},
+      </if>
+      <if test="eighth != null">
+        #{eighth,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
-      </if>
-      <if test="authority != null">
-        #{authority,jdbcType=INTEGER},
       </if>
       <if test="created != null">
         #{created,jdbcType=TIMESTAMP},
@@ -204,52 +210,52 @@
       <if test="updated != null">
         #{updated,jdbcType=TIMESTAMP},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.smartGym.pojo.SgUserExample" resultType="java.lang.Long">
-    select count(*) from sg_user
+  <select id="countByExample" parameterType="cn.smartGym.pojo.MedalExample" resultType="java.lang.Long">
+    select count(*) from medal
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update sg_user
+    update medal
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.wxId != null">
-        wx_id = #{record.wxId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.studentNo != null">
-        student_no = #{record.studentNo,jdbcType=VARCHAR},
-      </if>
-      <if test="record.gender != null">
-        gender = #{record.gender,jdbcType=INTEGER},
-      </if>
-      <if test="record.campus != null">
-        campus = #{record.campus,jdbcType=INTEGER},
+      <if test="record.game != null">
+        game = #{record.game,jdbcType=VARCHAR},
       </if>
       <if test="record.college != null">
         college = #{record.college,jdbcType=INTEGER},
       </if>
-      <if test="record.phone != null">
-        phone = #{record.phone,jdbcType=VARCHAR},
+      <if test="record.first != null">
+        first = #{record.first,jdbcType=INTEGER},
+      </if>
+      <if test="record.second != null">
+        second = #{record.second,jdbcType=INTEGER},
+      </if>
+      <if test="record.third != null">
+        third = #{record.third,jdbcType=INTEGER},
+      </if>
+      <if test="record.fourth != null">
+        fourth = #{record.fourth,jdbcType=INTEGER},
+      </if>
+      <if test="record.fifth != null">
+        fifth = #{record.fifth,jdbcType=INTEGER},
+      </if>
+      <if test="record.sixth != null">
+        sixth = #{record.sixth,jdbcType=INTEGER},
+      </if>
+      <if test="record.seventh != null">
+        seventh = #{record.seventh,jdbcType=INTEGER},
+      </if>
+      <if test="record.eighth != null">
+        eighth = #{record.eighth,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.authority != null">
-        authority = #{record.authority,jdbcType=INTEGER},
       </if>
       <if test="record.created != null">
         created = #{record.created,jdbcType=TIMESTAMP},
@@ -257,66 +263,66 @@
       <if test="record.updated != null">
         updated = #{record.updated,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.type != null">
-        type = #{record.type,jdbcType=INTEGER},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update sg_user
+    update medal
     set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      wx_id = #{record.wxId,jdbcType=VARCHAR},
-      student_no = #{record.studentNo,jdbcType=VARCHAR},
-      gender = #{record.gender,jdbcType=INTEGER},
-      campus = #{record.campus,jdbcType=INTEGER},
+      game = #{record.game,jdbcType=VARCHAR},
       college = #{record.college,jdbcType=INTEGER},
-      phone = #{record.phone,jdbcType=VARCHAR},
+      first = #{record.first,jdbcType=INTEGER},
+      second = #{record.second,jdbcType=INTEGER},
+      third = #{record.third,jdbcType=INTEGER},
+      fourth = #{record.fourth,jdbcType=INTEGER},
+      fifth = #{record.fifth,jdbcType=INTEGER},
+      sixth = #{record.sixth,jdbcType=INTEGER},
+      seventh = #{record.seventh,jdbcType=INTEGER},
+      eighth = #{record.eighth,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
-      authority = #{record.authority,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
-      updated = #{record.updated,jdbcType=TIMESTAMP},
-      type = #{record.type,jdbcType=INTEGER},
-      email = #{record.email,jdbcType=VARCHAR}
+      updated = #{record.updated,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.smartGym.pojo.SgUser">
-    update sg_user
+  <update id="updateByPrimaryKeySelective" parameterType="cn.smartGym.pojo.Medal">
+    update medal
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="wxId != null">
-        wx_id = #{wxId,jdbcType=VARCHAR},
-      </if>
-      <if test="studentNo != null">
-        student_no = #{studentNo,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null">
-        gender = #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="campus != null">
-        campus = #{campus,jdbcType=INTEGER},
+      <if test="game != null">
+        game = #{game,jdbcType=VARCHAR},
       </if>
       <if test="college != null">
         college = #{college,jdbcType=INTEGER},
       </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
+      <if test="first != null">
+        first = #{first,jdbcType=INTEGER},
+      </if>
+      <if test="second != null">
+        second = #{second,jdbcType=INTEGER},
+      </if>
+      <if test="third != null">
+        third = #{third,jdbcType=INTEGER},
+      </if>
+      <if test="fourth != null">
+        fourth = #{fourth,jdbcType=INTEGER},
+      </if>
+      <if test="fifth != null">
+        fifth = #{fifth,jdbcType=INTEGER},
+      </if>
+      <if test="sixth != null">
+        sixth = #{sixth,jdbcType=INTEGER},
+      </if>
+      <if test="seventh != null">
+        seventh = #{seventh,jdbcType=INTEGER},
+      </if>
+      <if test="eighth != null">
+        eighth = #{eighth,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="authority != null">
-        authority = #{authority,jdbcType=INTEGER},
       </if>
       <if test="created != null">
         created = #{created,jdbcType=TIMESTAMP},
@@ -324,30 +330,24 @@
       <if test="updated != null">
         updated = #{updated,jdbcType=TIMESTAMP},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.smartGym.pojo.SgUser">
-    update sg_user
-    set name = #{name,jdbcType=VARCHAR},
-      wx_id = #{wxId,jdbcType=VARCHAR},
-      student_no = #{studentNo,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=INTEGER},
-      campus = #{campus,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="cn.smartGym.pojo.Medal">
+    update medal
+    set game = #{game,jdbcType=VARCHAR},
       college = #{college,jdbcType=INTEGER},
-      phone = #{phone,jdbcType=VARCHAR},
+      first = #{first,jdbcType=INTEGER},
+      second = #{second,jdbcType=INTEGER},
+      third = #{third,jdbcType=INTEGER},
+      fourth = #{fourth,jdbcType=INTEGER},
+      fifth = #{fifth,jdbcType=INTEGER},
+      sixth = #{sixth,jdbcType=INTEGER},
+      seventh = #{seventh,jdbcType=INTEGER},
+      eighth = #{eighth,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
-      authority = #{authority,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
-      updated = #{updated,jdbcType=TIMESTAMP},
-      type = #{type,jdbcType=INTEGER},
-      email = #{email,jdbcType=VARCHAR}
+      updated = #{updated,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

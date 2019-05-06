@@ -46,7 +46,8 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据报名表信息生成参赛信息
 	 *
-	 * @param apply 报名表信息
+	 * @param apply
+	 *            报名表信息
 	 */
 	@Override
 	public Player applicationDaoToPlayerDao(Application apply) {
@@ -118,7 +119,7 @@ public class PlayerServiceImpl implements PlayerService {
 			playerMapper.updateByPrimaryKeySelective(player);
 		}
 	}
-	
+
 	public SGResult updateUser(SgUser userUpdate) {
 		PlayerExample example = new PlayerExample();
 		Criteria criteria = example.createCriteria();
@@ -138,7 +139,8 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 生成参赛号PlayerNo——根据itemIds
 	 *
-	 * @param itemIds 项目的id列表
+	 * @param itemIds
+	 *            项目的id列表
 	 */
 	@Override
 	public void genPlayerNo(List<Long> itemIds) {
@@ -175,7 +177,8 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 生成组号GroupNo和赛道号PathNo——根据单个项目id
 	 *
-	 * @param itemId 项目id
+	 * @param itemId
+	 *            项目id
 	 */
 	public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
 
@@ -256,6 +259,10 @@ public class PlayerServiceImpl implements PlayerService {
 		player.setUpdated(new Date());
 		player.setStatus(1);
 		playerMapper.updateByPrimaryKeySelective(player);
+
+		genRank(playerMapper.selectByPrimaryKey(player.getId()).getItemId(), type);
+		
+		
 		return SGResult.ok("登记比赛成绩成功！");
 	}
 
@@ -384,7 +391,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据学院college和项目id获取参赛记录
 	 *
-	 * @param         college(为"total"时，查询所有学院的参赛记录)
+	 * @param college(为"total"时，查询所有学院的参赛记录)
 	 * @param itemIds
 	 * @return
 	 */
@@ -454,7 +461,8 @@ public class PlayerServiceImpl implements PlayerService {
 		data.add(String.valueOf(player.getPathNo()));
 		return data;
 	}
-//////////////备用////////////////	
+
+	////////////// 备用////////////////
 	@Override
 	public void generatePlayersDetailedExcel(String game) throws IOException {
 		// 构建Excel文件路径
@@ -498,8 +506,26 @@ public class PlayerServiceImpl implements PlayerService {
 		data.add(String.valueOf(player.getPathNo()));
 		data.add(String.valueOf(player.getGrades()));
 		data.add(String.valueOf(player.getRankNo()));
-//		data.add(String.valueOf(player.getDescription()));
+		// data.add(String.valueOf(player.getDescription()));
 		return data;
+	}
+
+	@Override
+	public Player getPlayerByPlayerIdAndStatuses(Long playerId, Integer... statuses) {
+		// 根据项目id和状态status查询比赛项目信息
+		PlayerExample example = new PlayerExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(playerId);
+		if (statuses == null || statuses.length == 0 || !Arrays.asList(statuses).contains(0))
+			criteria.andStatusNotEqualTo(0);
+		if (statuses != null && statuses.length != 0)
+			criteria.andStatusIn(Arrays.asList(statuses));
+
+		List<Player> playerList = playerMapper.selectByExample(example);
+		if (playerList == null || playerList.size() <= 0)
+			return null;
+		else
+			return playerList.get(0);
 	}
 
 }

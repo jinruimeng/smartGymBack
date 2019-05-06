@@ -1,4 +1,3 @@
-
 package cn.smartGym.controller;
 
 import java.io.IOException;
@@ -31,6 +30,7 @@ import cn.smartGym.pojoCtr.response.ApplicationInfo;
 import cn.smartGym.service.ApplicationService;
 import cn.smartGym.service.InformService;
 import cn.smartGym.service.ItemService;
+import cn.smartGym.service.MedalService;
 import cn.smartGym.service.PlayerService;
 import cn.smartGym.service.UserService;
 import cn.smartGym.utils.ConversionUtils;
@@ -59,6 +59,9 @@ public class ManagerController {
 
     @Autowired
     private InformService informService;
+    
+    @Autowired
+    private MedalService medalService;
 
     /**
      * 根据项目查询报名人数
@@ -247,6 +250,8 @@ public class ManagerController {
         }
         //生成比赛秩序册
         playerService.generatePlayersExcel(itemCtr.getGame());
+        //生成奖牌榜
+        medalService.updateByGame(itemCtr.getGame());
         return SGResult.ok("校级管理员审核成功！");
     }
     
@@ -356,7 +361,13 @@ public class ManagerController {
         if (playerCtr == null || StringUtils.isBlank(playerCtr.getId().toString()))
             return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "未选择运动员！");
 
-        return playerService.registerGrades(ConversionUtils.playCtrToDao(playerCtr), type);
+        SGResult sgResult = playerService.registerGrades(ConversionUtils.playCtrToDao(playerCtr), type);
+        if(sgResult.isOK()) {
+        	Player player = playerService.getPlayerByPlayerIdAndStatuses(playerCtr.getId());
+        	Item item = itemService.getItemByItemIdAndStatuses(player.getItemId());
+        	return medalService.updateByGame(item.getGame());
+        }else
+        	return sgResult;
     }
     
     /**

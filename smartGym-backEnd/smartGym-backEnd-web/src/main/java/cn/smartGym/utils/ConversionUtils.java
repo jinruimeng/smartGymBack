@@ -119,6 +119,7 @@ public class ConversionUtils {
 		itemCtr.setDescription(item.getDescription());
 		itemCtr.setType(TypeOfItem.getTypeName(item.getType()));
 		itemCtr.setTypeId(item.getTypeId());
+		itemCtr.setRankCriterion(item.getRankCriterion());
 
 		return itemCtr;
 	}

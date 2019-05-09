@@ -264,11 +264,12 @@ public class ConversionUtils {
 		}
 		return usersCtr;
 	}
-	
+
 	public static MedalCtr medalDaoToCtr(Medal medal) {
 		MedalCtr medalCtr = new MedalCtr();
-		
+
 		medalCtr.setId(medal.getId());
+		medalCtr.setGame(medal.getGame());
 		medalCtr.setCollege(conversionUtils.collegeService.getCollege(medal.getCollege()));
 		medalCtr.setStatus(medal.getStatus());
 		medalCtr.setFirst(medal.getFirst());
@@ -279,6 +280,7 @@ public class ConversionUtils {
 		medalCtr.setSixth(medal.getSixth());
 		medalCtr.setSeventh(medal.getSeventh());
 		medalCtr.setEighth(medal.getEighth());
+		medalCtr.setScore(medal.getScore());
 		medalCtr.setCreated(medal.getCreated());
 		medalCtr.setUpdated(medal.getUpdated());
 		return medalCtr;
@@ -288,6 +290,7 @@ public class ConversionUtils {
 		Medal medal = new Medal();
 
 		medal.setId(medalCtr.getId());
+		medal.setGame(medalCtr.getGame());
 		medal.setCollege(conversionUtils.collegeService.getId(medalCtr.getCollege()));
 		medal.setStatus(medalCtr.getStatus());
 		medal.setFirst(medalCtr.getFirst());
@@ -298,6 +301,7 @@ public class ConversionUtils {
 		medal.setSixth(medalCtr.getSixth());
 		medal.setSeventh(medalCtr.getSeventh());
 		medal.setEighth(medalCtr.getEighth());
+		medal.setScore(medalCtr.getScore());
 		medal.setCreated(medalCtr.getCreated());
 		medal.setUpdated(medalCtr.getUpdated());
 		return medal;

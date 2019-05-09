@@ -25,6 +25,8 @@ public class Medal {
 
     private Integer eighth;
 
+    private Integer score;
+
     private Integer status;
 
     private Date created;
@@ -117,6 +119,14 @@ public class Medal {
 
     public void setEighth(Integer eighth) {
         this.eighth = eighth;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Integer getStatus() {

@@ -187,13 +187,14 @@ public class MedalServiceImpl implements MedalService {
 	public List<Medal> getMedalsByDetails(Medal medal) {
 		MedalExample medalExample = new MedalExample();
 		cn.smartGym.pojo.MedalExample.Criteria medalCriteria = medalExample.createCriteria();
-		if(medal != null) {
-			if (medal.getCollege() != null)
-				medalCriteria.andCollegeEqualTo(medal.getCollege());
-			if(StringUtils.isNotBlank(medal.getGame()))
-				medalCriteria.andGameEqualTo(medal.getGame());
-		}		
+		if (medal.getCollege() != null)
+			medalCriteria.andCollegeEqualTo(medal.getCollege());
+		else
+			medalCriteria.andEighthGreaterThan(0);
+		if (StringUtils.isNotBlank(medal.getGame()))
+			medalCriteria.andGameEqualTo(medal.getGame());
 		medalCriteria.andStatusNotEqualTo(0);
+		medalExample.setOrderByClause("first DESC,second DESC,third DESC,fourth DESC,fifth DESC,sixth DESC,seventh DESC,eighth DESC,score DESC,college ASC");
 		List<Medal> medals = medalMapper.selectByExample(medalExample);
 		return medals;
 	}

@@ -13,6 +13,7 @@
     <result column="sixth" jdbcType="INTEGER" property="sixth" />
     <result column="seventh" jdbcType="INTEGER" property="seventh" />
     <result column="eighth" jdbcType="INTEGER" property="eighth" />
+    <result column="score" jdbcType="INTEGER" property="score" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
@@ -76,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, game, college, first, second, third, fourth, fifth, sixth, seventh, eighth, status, 
-    created, updated
+    id, game, college, first, second, third, fourth, fifth, sixth, seventh, eighth, score, 
+    status, created, updated
   </sql>
   <select id="selectByExample" parameterType="cn.smartGym.pojo.MedalExample" resultMap="BaseResultMap">
     select
@@ -113,13 +114,15 @@
     insert into medal (id, game, college, 
       first, second, third, 
       fourth, fifth, sixth, 
-      seventh, eighth, status, 
-      created, updated)
+      seventh, eighth, score, 
+      status, created, updated
+      )
     values (#{id,jdbcType=BIGINT}, #{game,jdbcType=VARCHAR}, #{college,jdbcType=INTEGER}, 
       #{first,jdbcType=INTEGER}, #{second,jdbcType=INTEGER}, #{third,jdbcType=INTEGER}, 
       #{fourth,jdbcType=INTEGER}, #{fifth,jdbcType=INTEGER}, #{sixth,jdbcType=INTEGER}, 
-      #{seventh,jdbcType=INTEGER}, #{eighth,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+      #{seventh,jdbcType=INTEGER}, #{eighth,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.smartGym.pojo.Medal">
     insert into medal
@@ -156,6 +159,9 @@
       </if>
       <if test="eighth != null">
         eighth,
+      </if>
+      <if test="score != null">
+        score,
       </if>
       <if test="status != null">
         status,
@@ -200,6 +206,9 @@
       </if>
       <if test="eighth != null">
         #{eighth,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -254,6 +263,9 @@
       <if test="record.eighth != null">
         eighth = #{record.eighth,jdbcType=INTEGER},
       </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
@@ -281,6 +293,7 @@
       sixth = #{record.sixth,jdbcType=INTEGER},
       seventh = #{record.seventh,jdbcType=INTEGER},
       eighth = #{record.eighth,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
       updated = #{record.updated,jdbcType=TIMESTAMP}
@@ -321,6 +334,9 @@
       <if test="eighth != null">
         eighth = #{eighth,jdbcType=INTEGER},
       </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -345,6 +361,7 @@
       sixth = #{sixth,jdbcType=INTEGER},
       seventh = #{seventh,jdbcType=INTEGER},
       eighth = #{eighth,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP}

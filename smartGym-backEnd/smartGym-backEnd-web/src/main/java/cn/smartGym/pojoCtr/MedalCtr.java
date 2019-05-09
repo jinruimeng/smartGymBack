@@ -24,6 +24,8 @@ public class MedalCtr {
     private Integer seventh;
 
     private Integer eighth;
+    
+    private Integer score;
 
     private Integer status;
 
@@ -142,4 +144,12 @@ public class MedalCtr {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
 }

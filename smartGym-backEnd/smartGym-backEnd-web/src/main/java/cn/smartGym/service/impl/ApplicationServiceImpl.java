@@ -162,6 +162,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 		return SGResult.ok();
 	}
+
 	/**
 	 * 维护报名表（软删除已结束或已删除项目、已删除用户的报名记录）
 	 */
@@ -221,7 +222,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		if (statuses != null & statuses.length != 0)
 			criteria.andStatusIn(Arrays.asList(statuses));
 		if (!StringUtils.isBlank(college))
-			if (!college.equals("total"))
+			if (college != null && !college.equals("total"))
 				criteria.andCollegeEqualTo(CollegeAndCampusUtils.getCollegeIndex(college));
 
 		example.setOrderByClause("updated DESC");

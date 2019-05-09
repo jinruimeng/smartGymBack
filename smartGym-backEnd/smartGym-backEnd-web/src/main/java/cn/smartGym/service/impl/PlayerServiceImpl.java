@@ -46,8 +46,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据报名表信息生成参赛信息
 	 *
-	 * @param apply
-	 *            报名表信息
+	 * @param apply 报名表信息
 	 */
 	@Override
 	public Player applicationDaoToPlayerDao(Application apply) {
@@ -139,8 +138,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 生成参赛号PlayerNo——根据itemIds
 	 *
-	 * @param itemIds
-	 *            项目的id列表
+	 * @param itemIds 项目的id列表
 	 */
 	@Override
 	public void genPlayerNo(List<Long> itemIds) {
@@ -177,8 +175,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 生成组号GroupNo和赛道号PathNo——根据单个项目id
 	 *
-	 * @param itemId
-	 *            项目id
+	 * @param itemId 项目id
 	 */
 	public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
 
@@ -261,8 +258,7 @@ public class PlayerServiceImpl implements PlayerService {
 		playerMapper.updateByPrimaryKeySelective(player);
 
 		genRank(playerMapper.selectByPrimaryKey(player.getId()).getItemId(), type);
-		
-		
+
 		return SGResult.ok("登记比赛成绩成功！");
 	}
 
@@ -391,7 +387,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据学院college和项目id获取参赛记录
 	 *
-	 * @param college(为"total"时，查询所有学院的参赛记录)
+	 * @param         college(为"total"时，查询所有学院的参赛记录)
 	 * @param itemIds
 	 * @return
 	 */
@@ -399,7 +395,7 @@ public class PlayerServiceImpl implements PlayerService {
 		PlayerExample example = new PlayerExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStatusNotEqualTo(0);
-		if (!college.equals("total")) {
+		if (college != null && !college.equals("total")) {
 			criteria.andCollegeEqualTo(CollegeAndCampusUtils.getCollegeIndex(college));
 		}
 

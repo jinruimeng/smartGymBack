@@ -46,7 +46,8 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据报名表信息生成参赛信息
 	 *
-	 * @param apply 报名表信息
+	 * @param apply
+	 *            报名表信息
 	 */
 	@Override
 	public Player applicationDaoToPlayerDao(Application apply) {
@@ -138,7 +139,8 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 生成参赛号PlayerNo——根据itemIds
 	 *
-	 * @param itemIds 项目的id列表
+	 * @param itemIds
+	 *            项目的id列表
 	 */
 	@Override
 	public void genPlayerNo(List<Long> itemIds) {
@@ -175,7 +177,8 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 生成组号GroupNo和赛道号PathNo——根据单个项目id
 	 *
-	 * @param itemId 项目id
+	 * @param itemId
+	 *            项目id
 	 */
 	public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
 
@@ -387,7 +390,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据学院college和项目id获取参赛记录
 	 *
-	 * @param         college(为"total"时，查询所有学院的参赛记录)
+	 * @param college(为"total"时，查询所有学院的参赛记录)
 	 * @param itemIds
 	 * @return
 	 */
@@ -401,7 +404,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 		if (itemIds != null && itemIds.length != 0)
 			criteria.andItemIdIn(Arrays.asList(itemIds));
-		example.setOrderByClause("updated DESC");
+		example.setOrderByClause("group_no,path_no,student_no,updated DESC");
 		List<Player> playersList = playerMapper.selectByExample(example);
 
 		return playersList;

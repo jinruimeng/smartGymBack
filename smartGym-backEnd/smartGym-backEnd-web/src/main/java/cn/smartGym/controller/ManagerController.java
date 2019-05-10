@@ -327,7 +327,7 @@ public class ManagerController {
     }
 
     /**
-     * 根据项目详情和学院获取报名表信息
+     * 根据项目详情和学院获取参赛信息
      *
      * @param
      * @return

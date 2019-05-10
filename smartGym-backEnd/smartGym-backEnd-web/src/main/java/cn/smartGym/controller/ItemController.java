@@ -30,6 +30,12 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	/**
+	 * 查询全部比赛（状态1、2、3）
+	 * 
+	 * @param itemCtr
+	 * @return
+	 */
 	@RequestMapping(value = "/smartgym/item/getItemInfo", method = { RequestMethod.POST,
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
@@ -42,7 +48,7 @@ public class ItemController {
 	}
 
 	/**
-	 * 获取正在报名的项目信息（包括非运动员）
+	 * 获取正在报名的项目信息（项目状态为1）（包括非运动员）
 	 * 
 	 * @param itemsCtr
 	 * @return
@@ -70,7 +76,7 @@ public class ItemController {
 	}
 
 	/**
-	 * 获取正在报名的项目信息（排除非运动员）
+	 * 获取正在报名的项目信息（项目状态为1）（排除非运动员）
 	 * 
 	 * @param itemsCtr
 	 * @return
@@ -98,7 +104,7 @@ public class ItemController {
 	}
 
 	/**
-	 * 获取报名结束的项目信息
+	 * 获取报名结束的项目信息（项目状态2和3）（包括非运动员）
 	 * 
 	 * @param itemsCtr
 	 * @return
@@ -126,7 +132,7 @@ public class ItemController {
 	}
 
 	/**
-	 * 登记成绩时，获取项目信息
+	 * 登记成绩时，获取项目信息（项目状态2和3）（排除非运动员）
 	 * 
 	 * @param itemsCtr
 	 * @return

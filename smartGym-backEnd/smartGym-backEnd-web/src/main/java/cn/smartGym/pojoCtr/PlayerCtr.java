@@ -34,6 +34,8 @@ public class PlayerCtr implements Serializable {
 
 	private String grades;
 
+	private String finalGrades;
+
 	private Integer rankNo;
 
 	private Integer status;
@@ -169,6 +171,14 @@ public class PlayerCtr implements Serializable {
 	public PlayerCtr() {
 		super();
 		// TODO 自动生成的构造函数存根
+	}
+
+	public String getFinalGrades() {
+		return finalGrades;
+	}
+
+	public void setFinalGrades(String finalGrades) {
+		this.finalGrades = finalGrades;
 	}
 
 }

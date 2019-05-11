@@ -805,6 +805,76 @@ public class PlayerExample {
             return (Criteria) this;
         }
 
+        public Criteria andFinalGradesIsNull() {
+            addCriterion("final_grades is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesIsNotNull() {
+            addCriterion("final_grades is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesEqualTo(String value) {
+            addCriterion("final_grades =", value, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesNotEqualTo(String value) {
+            addCriterion("final_grades <>", value, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesGreaterThan(String value) {
+            addCriterion("final_grades >", value, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesGreaterThanOrEqualTo(String value) {
+            addCriterion("final_grades >=", value, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesLessThan(String value) {
+            addCriterion("final_grades <", value, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesLessThanOrEqualTo(String value) {
+            addCriterion("final_grades <=", value, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesLike(String value) {
+            addCriterion("final_grades like", value, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesNotLike(String value) {
+            addCriterion("final_grades not like", value, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesIn(List<String> values) {
+            addCriterion("final_grades in", values, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesNotIn(List<String> values) {
+            addCriterion("final_grades not in", values, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesBetween(String value1, String value2) {
+            addCriterion("final_grades between", value1, value2, "finalGrades");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinalGradesNotBetween(String value1, String value2) {
+            addCriterion("final_grades not between", value1, value2, "finalGrades");
+            return (Criteria) this;
+        }
+
         public Criteria andRankNoIsNull() {
             addCriterion("rank_no is null");
             return (Criteria) this;

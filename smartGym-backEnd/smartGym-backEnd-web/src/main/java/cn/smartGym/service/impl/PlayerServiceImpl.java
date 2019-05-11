@@ -46,8 +46,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据报名表信息生成参赛信息
 	 *
-	 * @param apply
-	 *            报名表信息
+	 * @param apply 报名表信息
 	 */
 	@Override
 	public Player applicationDaoToPlayerDao(Application apply) {
@@ -139,8 +138,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 生成参赛号PlayerNo——根据itemIds
 	 *
-	 * @param itemIds
-	 *            项目的id列表
+	 * @param itemIds 项目的id列表
 	 */
 	@Override
 	public void genPlayerNo(List<Long> itemIds) {
@@ -177,8 +175,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 生成组号GroupNo和赛道号PathNo——根据单个项目id
 	 *
-	 * @param itemId
-	 *            项目id
+	 * @param itemId 项目id
 	 */
 	public SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum) {
 
@@ -243,7 +240,7 @@ public class PlayerServiceImpl implements PlayerService {
 	 * @param player
 	 * @return
 	 */
-	public SGResult registerGrades(Player player, Integer type) {
+	public SGResult registerGrades(Player player, Integer type, Integer type2) {
 		// 重新拼装成绩，时间类成绩0|00:00:00:00，长度类成绩1|00.000
 		String grades = player.getGrades().trim();
 		if (type == 0) {
@@ -255,7 +252,10 @@ public class PlayerServiceImpl implements PlayerService {
 		} else {
 			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "输入成绩类型非法");
 		}
-		player.setGrades(type + "|" + grades);
+		if (type == null || type == 0)
+			player.setGrades(type + "|" + grades);
+		else
+			player.setFinalGrades(type + "|" + grades);
 		player.setUpdated(new Date());
 		player.setStatus(1);
 		playerMapper.updateByPrimaryKeySelective(player);
@@ -269,67 +269,89 @@ public class PlayerServiceImpl implements PlayerService {
 	 * 生成排名
 	 */
 	public SGResult genRank(Long itemId, Integer type) {
-		PlayerExample example = new PlayerExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andItemIdEqualTo(itemId);
-		criteria.andStatusEqualTo(1);
-		List<Player> tempList = playerMapper.selectByExample(example);
-		if (tempList == null || tempList.size() <= 0)
+		PlayerExample example0 = new PlayerExample();
+		if (playerMapper.countByExample(example0) == 0)
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "相关项目无参赛人员！");
 
-		// 判断是哪种成绩类型
-		// String type = tempList.get(0).getGrades().split("|")[0];
+		// 先取出决赛成绩不为空的
+		PlayerExample example1 = new PlayerExample();
+		Criteria criteria1 = example1.createCriteria();
+		criteria1.andItemIdEqualTo(itemId);
+		criteria1.andStatusEqualTo(1);
+		criteria1.andFinalGradesIsNotNull();
+		criteria1.andFinalGradesNotEqualTo("0|00:00:00:00");
+		criteria1.andFinalGradesNotEqualTo("1|00.000");
 
-		List<Player> list = new ArrayList<>();
-		// 时间类型，升序排
 		if (type == 0) {
-			PlayerExample example2 = new PlayerExample();
-			example2.setOrderByClause("grades");
-			Criteria criteria2 = example2.createCriteria();
-			criteria2.andItemIdEqualTo(itemId);
-			criteria2.andStatusEqualTo(1);
-			list = playerMapper.selectByExample(example2);
-			// 无效参赛成绩移到最后——0|00:00:00:00
-			int count = 0;
-			for (int i = 0, size = list.size(); i < size; i++) {
-				if (list.get(i) != null && list.get(i).getGrades() == null)
-					count++;
-				if (list.get(i) != null && list.get(i).getGrades() != null
-						&& (list.get(i).getGrades().equals("0|00:00:00:00") || list.get(i).getGrades().equals("0")
-								|| list.get(i).getGrades().equals("")))
-					count++;
-			}
-			for (int i = 0; i < count; i++) {
-				Player player = list.remove(0);
-				player.setGrades("0|00:00:00:00");
-				list.add(player);
-			}
+			example1.setOrderByClause("final_grades,grades");
 		} else if (type == 1) {
-			// 长度类型，降序排
-			PlayerExample example3 = new PlayerExample();
-			example3.setOrderByClause("grades DESC");
-			Criteria criteria3 = example3.createCriteria();
-			criteria3.andItemIdEqualTo(itemId);
-			criteria3.andStatusEqualTo(1);
-			list = playerMapper.selectByExample(example3);
+			example1.setOrderByClause("final_grades DESC,grades DESC");
 		}
+		List<Player> playerList1 = playerMapper.selectByExample(example1);
 
-		// 将参赛队员进行排名
-		if (list == null || list.size() == 0)
-			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "成绩类型传递有误！");
-		int size = list.size();
-		int index = 0;
-		while (index < size) {
-			int preIndex = index - 1;
-			Player player = list.get(index);
-			player.setRankNo(index + 1);
-			if (preIndex >= 0 && player.getGrades() != null && list.get(preIndex) != null
-					&& player.getGrades().equals(list.get(preIndex).getGrades()))
-				player.setRankNo(list.get(preIndex).getRankNo());
+		// 取出决赛为空，但预赛成绩不为空的
+		PlayerExample example2 = new PlayerExample();
+		Criteria criteria21 = example2.or();
+		criteria21.andItemIdEqualTo(itemId);
+		criteria21.andStatusEqualTo(1);
+		criteria21.andFinalGradesIsNull();
+		criteria21.andGradesIsNotNull();
+		criteria21.andGradesNotEqualTo("0|00:00:00:00");
+		criteria21.andGradesNotEqualTo("1|00.000");
+
+		Criteria criteria22 = example2.or();
+		criteria22.andItemIdEqualTo(itemId);
+		criteria22.andStatusEqualTo(1);
+		criteria22.andFinalGradesEqualTo("0|00:00:00:00");
+		criteria22.andGradesIsNotNull();
+		criteria22.andGradesNotEqualTo("0|00:00:00:00");
+		criteria22.andGradesNotEqualTo("1|00.000");
+
+		Criteria criteria23 = example2.or();
+		criteria23.andItemIdEqualTo(itemId);
+		criteria23.andStatusEqualTo(1);
+		criteria23.andFinalGradesEqualTo("1|00.000");
+		criteria23.andGradesIsNotNull();
+		criteria23.andGradesNotEqualTo("0|00:00:00:00");
+		criteria23.andGradesNotEqualTo("1|00.000");
+
+		if (type == 0) {
+			example2.setOrderByClause("grades");
+		} else if (type == 1) {
+			example2.setOrderByClause("grades DESC");
+		}
+		List<Player> playerList2 = playerMapper.selectByExample(example2);
+
+		Integer index = 1;
+		Integer tmpRank = 1;
+		String grades = null;
+		for (Player player : playerList1) {
+			if (player.getFinalGrades().equals(grades))
+				player.setRankNo(tmpRank);
+			else {
+				player.setRankNo(index);
+				tmpRank = index;
+			}
+			grades = player.getFinalGrades();
 			index++;
+			player.setUpdated(new Date());
 			playerMapper.updateByPrimaryKeySelective(player);
 		}
-		return SGResult.ok("生成成绩排名成功！");
+		grades = null;
+
+		for (Player player : playerList2) {
+			if (player.getGrades().equals(grades))
+				player.setRankNo(tmpRank);
+			else {
+				player.setRankNo(index);
+				tmpRank = index;
+			}
+			grades = player.getGrades();
+			index++;
+			player.setUpdated(new Date());
+			playerMapper.updateByPrimaryKeySelective(player);
+		}
+		return SGResult.ok("生成排名成功！");
 	}
 
 	/**
@@ -341,32 +363,35 @@ public class PlayerServiceImpl implements PlayerService {
 		Criteria criteria = example.createCriteria();
 		criteria.andItemIdEqualTo(itemId);
 		criteria.andStatusEqualTo(1);
+		criteria.andRankNoIsNotNull();
+		criteria.andRankNoLessThanOrEqualTo(k);
 		List<Player> list = playerMapper.selectByExample(example);
 		if (list == null || list.size() <= 0)
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "相关项目无参赛人员！");
+		return SGResult.ok(list);
 
-		// 对总记录list取前八（可能同时有多个第八）
-		// list长度不足8,k=8
-		if (list == null || list.size() <= k) {
-			return SGResult.ok(list);
-		}
-		// list长度大于8
-		else {
-			List<Player> res = new ArrayList<>();
-			// 设置前8
-			for (int i = 0; i < k; i++)
-				res.add(list.get(i));
-			// 如果从第8名开始成绩相同
-			int j = 8;
-			while (j < list.size()) {
-				if (list.get(j).getRankNo() == list.get(j - 1).getRankNo())
-					res.add(list.get(j));
-				else
-					break;
-				j++;
-			}
-			return SGResult.ok(res);
-		}
+//		// 对总记录list取前八（可能同时有多个第八）
+//		// list长度不足8,k=8
+//		if (list.size() <= k) {
+//			return SGResult.ok(list);
+//		}
+//		// list长度大于8
+//		else {
+//			List<Player> res = new ArrayList<>();
+//			// 设置前8
+//			for (int i = 0; i < k; i++)
+//				res.add(list.get(i));
+//			// 如果从第8名开始成绩相同
+//			int j = 8;
+//			while (j < list.size()) {
+//				if (list.get(j).getRankNo() == list.get(j - 1).getRankNo())
+//					res.add(list.get(j));
+//				else
+//					break;
+//				j++;
+//			}
+//			return SGResult.ok(res);
+//		}
 	}
 
 	/**
@@ -390,7 +415,7 @@ public class PlayerServiceImpl implements PlayerService {
 	/**
 	 * 根据学院college和项目id获取参赛记录
 	 *
-	 * @param college(为"total"时，查询所有学院的参赛记录)
+	 * @param         college(为"total"时，查询所有学院的参赛记录)
 	 * @param itemIds
 	 * @return
 	 */
@@ -504,6 +529,7 @@ public class PlayerServiceImpl implements PlayerService {
 		data.add(String.valueOf(player.getGroupNo()));
 		data.add(String.valueOf(player.getPathNo()));
 		data.add(String.valueOf(player.getGrades()));
+		data.add(String.valueOf(player.getFinalGrades()));
 		data.add(String.valueOf(player.getRankNo()));
 		// data.add(String.valueOf(player.getDescription()));
 		return data;

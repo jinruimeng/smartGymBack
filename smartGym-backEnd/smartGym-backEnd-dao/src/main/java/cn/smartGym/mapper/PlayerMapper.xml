@@ -13,6 +13,7 @@
     <result column="group_no" jdbcType="INTEGER" property="groupNo" />
     <result column="path_no" jdbcType="INTEGER" property="pathNo" />
     <result column="grades" jdbcType="VARCHAR" property="grades" />
+    <result column="final_grades" jdbcType="VARCHAR" property="finalGrades" />
     <result column="rank_no" jdbcType="INTEGER" property="rankNo" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
@@ -78,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, name, college, student_no, item_id, job, player_no, gender, group_no, path_no, 
-    grades, rank_no, status, created, updated
+    grades, final_grades, rank_no, status, created, updated
   </sql>
   <select id="selectByExample" parameterType="cn.smartGym.pojo.PlayerExample" resultMap="BaseResultMap">
     select
@@ -114,15 +115,15 @@
     insert into player (id, name, college, 
       student_no, item_id, job, 
       player_no, gender, group_no, 
-      path_no, grades, rank_no, 
-      status, created, updated
-      )
+      path_no, grades, final_grades, 
+      rank_no, status, created, 
+      updated)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{college,jdbcType=INTEGER}, 
       #{studentNo,jdbcType=VARCHAR}, #{itemId,jdbcType=BIGINT}, #{job,jdbcType=INTEGER}, 
       #{playerNo,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{groupNo,jdbcType=INTEGER}, 
-      #{pathNo,jdbcType=INTEGER}, #{grades,jdbcType=VARCHAR}, #{rankNo,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}
-      )
+      #{pathNo,jdbcType=INTEGER}, #{grades,jdbcType=VARCHAR}, #{finalGrades,jdbcType=VARCHAR}, 
+      #{rankNo,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.smartGym.pojo.Player">
     insert into player
@@ -159,6 +160,9 @@
       </if>
       <if test="grades != null">
         grades,
+      </if>
+      <if test="finalGrades != null">
+        final_grades,
       </if>
       <if test="rankNo != null">
         rank_no,
@@ -206,6 +210,9 @@
       </if>
       <if test="grades != null">
         #{grades,jdbcType=VARCHAR},
+      </if>
+      <if test="finalGrades != null">
+        #{finalGrades,jdbcType=VARCHAR},
       </if>
       <if test="rankNo != null">
         #{rankNo,jdbcType=INTEGER},
@@ -263,6 +270,9 @@
       <if test="record.grades != null">
         grades = #{record.grades,jdbcType=VARCHAR},
       </if>
+      <if test="record.finalGrades != null">
+        final_grades = #{record.finalGrades,jdbcType=VARCHAR},
+      </if>
       <if test="record.rankNo != null">
         rank_no = #{record.rankNo,jdbcType=INTEGER},
       </if>
@@ -293,6 +303,7 @@
       group_no = #{record.groupNo,jdbcType=INTEGER},
       path_no = #{record.pathNo,jdbcType=INTEGER},
       grades = #{record.grades,jdbcType=VARCHAR},
+      final_grades = #{record.finalGrades,jdbcType=VARCHAR},
       rank_no = #{record.rankNo,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
@@ -334,6 +345,9 @@
       <if test="grades != null">
         grades = #{grades,jdbcType=VARCHAR},
       </if>
+      <if test="finalGrades != null">
+        final_grades = #{finalGrades,jdbcType=VARCHAR},
+      </if>
       <if test="rankNo != null">
         rank_no = #{rankNo,jdbcType=INTEGER},
       </if>
@@ -361,6 +375,7 @@
       group_no = #{groupNo,jdbcType=INTEGER},
       path_no = #{pathNo,jdbcType=INTEGER},
       grades = #{grades,jdbcType=VARCHAR},
+      final_grades = #{finalGrades,jdbcType=VARCHAR},
       rank_no = #{rankNo,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},

@@ -25,6 +25,8 @@ public class Player {
 
     private String grades;
 
+    private String finalGrades;
+
     private Integer rankNo;
 
     private Integer status;
@@ -119,6 +121,14 @@ public class Player {
 
     public void setGrades(String grades) {
         this.grades = grades == null ? null : grades.trim();
+    }
+
+    public String getFinalGrades() {
+        return finalGrades;
+    }
+
+    public void setFinalGrades(String finalGrades) {
+        this.finalGrades = finalGrades == null ? null : finalGrades.trim();
     }
 
     public Integer getRankNo() {

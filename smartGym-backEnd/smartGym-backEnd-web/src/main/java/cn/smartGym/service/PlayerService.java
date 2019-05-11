@@ -11,48 +11,47 @@ import common.utils.SGResult;
 
 public interface PlayerService {
 
-    Player applicationDaoToPlayerDao(Application apply);
+	Player applicationDaoToPlayerDao(Application apply);
 
-    SGResult reviewByUniversityManager(List<Application> applications);
+	SGResult reviewByUniversityManager(List<Application> applications);
 
-    void hardDeletePlayer();
+	void hardDeletePlayer();
 
-    void maintenancePlayer(List<Long> itemIds, List<String> studentNos);
-    
-    SGResult updateUser(SgUser userUpdate);
+	void maintenancePlayer(List<Long> itemIds, List<String> studentNos);
 
-    void genPlayerNo(List<Long> itemsId);
+	SGResult updateUser(SgUser userUpdate);
 
-    SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum);
+	void genPlayerNo(List<Long> itemsId);
 
-    SGResult registerGrades(Player player, Integer type);
-    
-    Player getPlayerByPlayerIdAndStatuses(Long playerId, Integer... statuses);
+	SGResult genGroupNoAndPathNo(Long itemId, Integer pathNum);
 
-    SGResult genRank(Long itemId, Integer type);
+	SGResult registerGrades(Player player, Integer type, Integer type2);
 
-    SGResult getTopK(Long itemId, Integer k);
+	Player getPlayerByPlayerIdAndStatuses(Long playerId, Integer... statuses);
 
-    List<Player> getPlayersByStudentNo(String studentNo);
+	SGResult genRank(Long itemId, Integer type);
 
-    List<Player> getPlayersByCollegeAndItemIds(String college, Long... itemIds);
+	SGResult getTopK(Long itemId, Integer k);
 
-    /**
-     * 根据赛事名获取秩序册文件路径 by zh
-     *
-     * @param game
-     * @return
-     */
-    String getPlayersExcelFilePath(String game);
+	List<Player> getPlayersByStudentNo(String studentNo);
 
-    /**
-     * 根据赛事名生成比赛秩序册 by zh
-     *
-     * @param game
-     */
+	List<Player> getPlayersByCollegeAndItemIds(String college, Long... itemIds);
 
-    void generatePlayersExcel(String game) throws IOException;
-    
-    void generatePlayersDetailedExcel(String game) throws IOException;
+	/**
+	 * 根据赛事名获取秩序册文件路径 by zh
+	 *
+	 * @param game
+	 * @return
+	 */
+	String getPlayersExcelFilePath(String game);
+
+	/**
+	 * 根据赛事名生成比赛秩序册 by zh
+	 *
+	 * @param game
+	 */
+
+	void generatePlayersExcel(String game) throws IOException;
+
+	void generatePlayersDetailedExcel(String game) throws IOException;
 }
-

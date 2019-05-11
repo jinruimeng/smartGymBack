@@ -173,6 +173,7 @@ public class ConversionUtils {
 		playCtr.setGroupNo(player.getGroupNo());
 		playCtr.setPathNo(player.getPathNo());
 		playCtr.setGrades(player.getGrades());
+		playCtr.setFinalGrades(player.getFinalGrades());
 		playCtr.setRankNo(player.getRankNo());
 		playCtr.setStatus(player.getStatus());
 
@@ -192,6 +193,7 @@ public class ConversionUtils {
 		player.setGroupNo(playerCtr.getGroupNo());
 		player.setPathNo(playerCtr.getPathNo());
 		player.setGrades(playerCtr.getGrades());
+		player.setFinalGrades(playerCtr.getFinalGrades());
 		player.setRankNo(playerCtr.getRankNo());
 		player.setStatus(playerCtr.getStatus());
 

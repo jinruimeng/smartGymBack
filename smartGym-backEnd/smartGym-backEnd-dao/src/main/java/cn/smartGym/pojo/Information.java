@@ -2,6 +2,8 @@ package cn.smartGym.pojo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Information {
     private Long id;
 
@@ -16,9 +18,11 @@ public class Information {
     private Integer type;
 
     private Integer status;
-
+    
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date created;
-
+    
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updated;
 
     public Long getId() {

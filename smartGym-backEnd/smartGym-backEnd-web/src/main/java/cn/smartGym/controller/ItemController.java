@@ -113,7 +113,7 @@ public class ItemController {
 			RequestMethod.GET }, consumes = "application/x-www-form-urlencoded;charset=utf-8")
 	@ResponseBody
 	public SGResult getInfoPage2(ItemCtr itemCtr) {
-		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 2);
+		List<Item> items = itemService.getItemsByDetailsAndStatuses(ConversionUtils.itemCtrtoDao(itemCtr), 2, 3);
 		// 0-已删除，1-正在报名，2-报名结束，3-比赛结束
 		Set<String> result = new HashSet<>();
 		if (items == null || items.size() == 0) {

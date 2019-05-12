@@ -35,7 +35,8 @@ public class ItemServiceImpl implements ItemService {
 	/**
 	 * 添加比赛项目功能
 	 *
-	 * @param item 添加的项目
+	 * @param item
+	 *            添加的项目
 	 * @return 返回给前端的信息
 	 */
 	public SGResult addItem(Item item) {
@@ -115,7 +116,8 @@ public class ItemServiceImpl implements ItemService {
 	/**
 	 * 删除项目——根据项目的具体信息
 	 *
-	 * @param itemToBeDeleted 要删除的项目
+	 * @param itemToBeDeleted
+	 *            要删除的项目
 	 */
 	@Override
 	public SGResult deleteItem(Item itemToBeDeleted) {
@@ -174,7 +176,8 @@ public class ItemServiceImpl implements ItemService {
 	/**
 	 * 根据itemId获得赛道数
 	 *
-	 * @param itemId 要查找的项目id
+	 * @param itemId
+	 *            要查找的项目id
 	 */
 	@Override
 	public Integer getPathNumberByItemId(Long itemId) {
@@ -185,8 +188,10 @@ public class ItemServiceImpl implements ItemService {
 	/**
 	 * 查找item——根据itemId和状态status
 	 *
-	 * @param itemId 要找的项目id
-	 * @param status 状态
+	 * @param itemId
+	 *            要找的项目id
+	 * @param status
+	 *            状态
 	 */
 	public Item getItemByItemIdAndStatuses(Long itemId, Integer... statuses) {
 		// 根据项目id和状态status查询比赛项目信息
@@ -232,6 +237,8 @@ public class ItemServiceImpl implements ItemService {
 				criteria.andGenderEqualTo(item.getGender());
 			if (item.getType() != null)
 				criteria.andTypeEqualTo(item.getType());
+			if (item.getTypeId() != null)
+				criteria.andTypeIdEqualTo(item.getTypeId());
 		}
 
 		// 执行查询

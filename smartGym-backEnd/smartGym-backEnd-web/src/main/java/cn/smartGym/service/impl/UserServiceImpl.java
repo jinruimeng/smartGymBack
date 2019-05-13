@@ -172,7 +172,8 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 设置用户权限
 	 * 
-	 * @param authority 0-普通用户 1-院级管理员 2-校级管理员 3-开发者
+	 * @param authority
+	 *            0-普通用户 1-院级管理员 2-校级管理员 3-开发者
 	 */
 	public SGResult setUserAuthority(Integer authority, String... studentNos) {
 		SgUserExample example = new SgUserExample();
@@ -285,7 +286,7 @@ public class UserServiceImpl implements UserService {
 
 		// 先去缓存中查找是否有用户信息
 		String wxId = user.getWxId();
-		if (!StringUtils.isBlank(wxId)) {
+		if (!StringUtils.isBlank(wxId) && !"undefined".equals(wxId)) {
 			// 去布隆过滤器中找
 			setFileter();
 			if (!fileter.check(wxId))
@@ -298,40 +299,42 @@ public class UserServiceImpl implements UserService {
 				return SGResult.ok("查询成功!", result);
 			}
 
-		}
+			// 缓存中查不到信息，从数据库中查找
+			SgUserExample example = new SgUserExample();
+			if (StringUtils.isBlank(user.getWxId()) && StringUtils.isBlank(user.getStudentNo()))
+				return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "微信号和学号不能都为空！");
 
-		// 缓存中查不到信息，从数据库中查找
-		SgUserExample example = new SgUserExample();
-		if (StringUtils.isBlank(user.getWxId()) && StringUtils.isBlank(user.getStudentNo()))
-			return SGResult.build(ErrorCode.BAD_REQUEST.getErrorCode(), "微信号和学号不能都为空！");
+			Criteria criteria = example.createCriteria();
+			criteria.andStatusEqualTo(1);
 
-		Criteria criteria = example.createCriteria();
-		criteria.andStatusEqualTo(1);
+			if (!StringUtils.isBlank(user.getWxId()))
+				criteria.andWxIdEqualTo(user.getWxId());
+			if (!StringUtils.isBlank(user.getStudentNo()))
+				criteria.andStudentNoEqualTo(user.getStudentNo());
 
-		if (!StringUtils.isBlank(user.getWxId()))
-			criteria.andWxIdEqualTo(user.getWxId());
-		if (!StringUtils.isBlank(user.getStudentNo()))
-			criteria.andStudentNoEqualTo(user.getStudentNo());
+			List<SgUser> userList = userMapper.selectByExample(example);
+			if (userList == null || userList.size() <= 0)
+				return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到该用户信息！");
 
-		List<SgUser> userList = userMapper.selectByExample(example);
-		if (userList == null || userList.size() <= 0)
+			result = userList.get(0);
+
+			// 把用户信息写入redis，key：wxId value：用户信息 wxId = result.getWxId();
+			jedisClient.set("wxId:" + wxId, JsonUtils.objectToJson(result));
+			// 设置Session的过期时间
+			jedisClient.expire("wxId:" + wxId, SESSION_EXPIRE);
+
+			return SGResult.ok("查询成功！", result);
+		}else
 			return SGResult.build(ErrorCode.NO_CONTENT.getErrorCode(), "未查到该用户信息！");
-
-		result = userList.get(0);
-
-		// 把用户信息写入redis，key：wxId value：用户信息 wxId = result.getWxId();
-		jedisClient.set("wxId:" + wxId, JsonUtils.objectToJson(result));
-		// 设置Session的过期时间
-		jedisClient.expire("wxId:" + wxId, SESSION_EXPIRE);
-
-		return SGResult.ok("查询成功！", result);
 	}
 
 	/**
 	 * 管理员根据学号查找用户信息
 	 * 
-	 * @param managerUser       管理员信息
-	 * @param studentNoSelected 要查询的用户学号
+	 * @param managerUser
+	 *            管理员信息
+	 * @param studentNoSelected
+	 *            要查询的用户学号
 	 */
 	public SGResult getUserByManagerAndStudentNos(SgUser managerUser, String... studentNos) {
 		// 得到管理员的权限级别0-普通用户 1-院级管理员 2-校级管理员 3-开发者
